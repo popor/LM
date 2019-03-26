@@ -1,0 +1,1 @@
+../../../PoporUI/PoporUI/Classes/UINavigationController/UINavigationController+remove.h

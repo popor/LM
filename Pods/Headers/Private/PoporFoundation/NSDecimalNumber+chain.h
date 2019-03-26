@@ -1,0 +1,1 @@
+../../../PoporFoundation/PoporFoundation/Classes/NSDecimalNumber/NSDecimalNumber+chain.h
