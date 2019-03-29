@@ -8,6 +8,8 @@
 
 #import <XCTest/XCTest.h>
 
+#import <PoporFoundation/PoporFoundation.h>
+
 @interface LMTests : XCTestCase
 
 @end
@@ -32,6 +34,16 @@
     [self measureBlock:^{
         // Put the code you want to measure the time of here.
     }];
+}
+
+- (void)testUrl {
+//    NSString *path = [[NSBundle mainBundle] pathForResource:@"杨凯莉 - 让我做你的眼睛" ofType:@"mp3"];
+//    
+//    AssetModel * model = [AssetModel AssetModelWithURL:[NSURL fileURLWithPath:path]];
+//    
+//    [NSAssistant NSLogEntity:model];
+//    
+//    NSLog(@"model: %@", model);
 }
 
 @end

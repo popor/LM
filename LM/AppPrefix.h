@@ -11,5 +11,7 @@
 
 #import <PoporFoundation/PoporFoundation.h>
 #import <PoporUI/PoporUI.h>
+#import <Masonry/Masonry.h>
+#import <ReactiveObjC/ReactiveObjC.h>
 
 #endif /* AppPrefix_h */

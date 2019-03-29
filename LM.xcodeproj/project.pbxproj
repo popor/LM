@@ -3,10 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		180E33BA224DE806008C176D /* LocalMusicVCPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 180E33AE224DE806008C176D /* LocalMusicVCPresenter.m */; };
+		180E33BB224DE806008C176D /* LocalMusicVCInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 180E33B1224DE806008C176D /* LocalMusicVCInteractor.m */; };
+		180E33BC224DE806008C176D /* LocalMusicVCRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 180E33B4224DE806008C176D /* LocalMusicVCRouter.m */; };
+		180E33BD224DE806008C176D /* LocalMusicVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 180E33B8224DE806008C176D /* LocalMusicVC.m */; };
 		183BF3DB224A1DBB004DE115 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 183BF3DA224A1DBB004DE115 /* AppDelegate.m */; };
 		183BF3E1224A1DBB004DE115 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 183BF3DF224A1DBB004DE115 /* Main.storyboard */; };
 		183BF3E3224A1DBD004DE115 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 183BF3E2224A1DBD004DE115 /* Assets.xcassets */; };
@@ -19,14 +23,16 @@
 		183BF427224A22EC004DE115 /* RootVCInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 183BF420224A22EC004DE115 /* RootVCInteractor.m */; };
 		183BF428224A22EC004DE115 /* RootVCPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 183BF423224A22EC004DE115 /* RootVCPresenter.m */; };
 		183BF42F224A263A004DE115 /* UINavigationController+Jch.m in Sources */ = {isa = PBXBuildFile; fileRef = 183BF42E224A263A004DE115 /* UINavigationController+Jch.m */; };
-		183BF445224A2747004DE115 /* ListVCInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 183BF43A224A2747004DE115 /* ListVCInteractor.m */; };
-		183BF446224A2747004DE115 /* ListVCRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 183BF43D224A2747004DE115 /* ListVCRouter.m */; };
-		183BF447224A2747004DE115 /* ListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 183BF43F224A2747004DE115 /* ListVC.m */; };
-		183BF448224A2747004DE115 /* ListVCPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 183BF444224A2747004DE115 /* ListVCPresenter.m */; };
-		183BF45E224A275D004DE115 /* MineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 183BF452224A275C004DE115 /* MineVC.m */; };
-		183BF45F224A275D004DE115 /* MineVCInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 183BF456224A275C004DE115 /* MineVCInteractor.m */; };
-		183BF460224A275D004DE115 /* MineVCPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 183BF45A224A275C004DE115 /* MineVCPresenter.m */; };
-		183BF461224A275D004DE115 /* MineVCRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 183BF45D224A275D004DE115 /* MineVCRouter.m */; };
+		184CD1CB224CA66800241B9C /* MusicPlayboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 184CD1CA224CA66800241B9C /* MusicPlayboard.m */; };
+		184CD1CF224CB9AC00241B9C /* MusicPlayTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 184CD1CE224CB9AC00241B9C /* MusicPlayTool.m */; };
+		184F3702224B25AD00FEB57B /* 杨凯莉 - 让我做你的眼睛.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 184F3701224B25AD00FEB57B /* 杨凯莉 - 让我做你的眼睛.mp3 */; };
+		1856158E224DBF0E004BE073 /* MusicPalyList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1856158D224DBF0E004BE073 /* MusicPalyList.m */; };
+		18561591224DBFBC004BE073 /* MusicPlayEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 18561590224DBFBC004BE073 /* MusicPlayEntity.m */; };
+		18561595224DC089004BE073 /* MusicConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 18561594224DC089004BE073 /* MusicConfig.m */; };
+		185615AC224DC23A004BE073 /* WifiAddFileVCRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 185615A0224DC239004BE073 /* WifiAddFileVCRouter.m */; };
+		185615AD224DC23A004BE073 /* WifiAddFileVCPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 185615A3224DC239004BE073 /* WifiAddFileVCPresenter.m */; };
+		185615AE224DC23A004BE073 /* WifiAddFileVCInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 185615A6224DC239004BE073 /* WifiAddFileVCInteractor.m */; };
+		185615AF224DC23A004BE073 /* WifiAddFileVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 185615A9224DC239004BE073 /* WifiAddFileVC.m */; };
 		934D4095D2B75CB56DE82906 /* libPods-LMTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 29BA81301DB9758FD1B2E469 /* libPods-LMTests.a */; };
 		D4807A288BE4B56179FA77D5 /* libPods-LM.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7B2B70D60E892B2A452617D /* libPods-LM.a */; };
 		E8CD01315A4805BCD8D53BE4 /* libPods-LMUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9733473842C796E3D6C9304 /* libPods-LMUITests.a */; };
@@ -52,6 +58,15 @@
 /* Begin PBXFileReference section */
 		078253BCBD17386773F1E16B /* Pods-LMTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMTests.release.xcconfig"; path = "Target Support Files/Pods-LMTests/Pods-LMTests.release.xcconfig"; sourceTree = "<group>"; };
 		10C5C4B7FE0029CD46C0C165 /* Pods-LM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LM.debug.xcconfig"; path = "Target Support Files/Pods-LM/Pods-LM.debug.xcconfig"; sourceTree = "<group>"; };
+		180E33AE224DE806008C176D /* LocalMusicVCPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalMusicVCPresenter.m; sourceTree = "<group>"; };
+		180E33AF224DE806008C176D /* LocalMusicVCPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalMusicVCPresenter.h; sourceTree = "<group>"; };
+		180E33B1224DE806008C176D /* LocalMusicVCInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalMusicVCInteractor.m; sourceTree = "<group>"; };
+		180E33B2224DE806008C176D /* LocalMusicVCInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalMusicVCInteractor.h; sourceTree = "<group>"; };
+		180E33B4224DE806008C176D /* LocalMusicVCRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalMusicVCRouter.m; sourceTree = "<group>"; };
+		180E33B5224DE806008C176D /* LocalMusicVCRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalMusicVCRouter.h; sourceTree = "<group>"; };
+		180E33B7224DE806008C176D /* LocalMusicVCProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalMusicVCProtocol.h; sourceTree = "<group>"; };
+		180E33B8224DE806008C176D /* LocalMusicVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalMusicVC.m; sourceTree = "<group>"; };
+		180E33B9224DE806008C176D /* LocalMusicVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalMusicVC.h; sourceTree = "<group>"; };
 		183BF3D6224A1DBB004DE115 /* LM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		183BF3D9224A1DBB004DE115 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		183BF3DA224A1DBB004DE115 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -78,24 +93,26 @@
 		183BF424224A22EC004DE115 /* RootVCPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootVCPresenter.h; sourceTree = "<group>"; };
 		183BF42D224A263A004DE115 /* UINavigationController+Jch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Jch.h"; sourceTree = "<group>"; };
 		183BF42E224A263A004DE115 /* UINavigationController+Jch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Jch.m"; sourceTree = "<group>"; };
-		183BF439224A2747004DE115 /* ListVCInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListVCInteractor.h; sourceTree = "<group>"; };
-		183BF43A224A2747004DE115 /* ListVCInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListVCInteractor.m; sourceTree = "<group>"; };
-		183BF43C224A2747004DE115 /* ListVCRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListVCRouter.h; sourceTree = "<group>"; };
-		183BF43D224A2747004DE115 /* ListVCRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListVCRouter.m; sourceTree = "<group>"; };
-		183BF43F224A2747004DE115 /* ListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListVC.m; sourceTree = "<group>"; };
-		183BF440224A2747004DE115 /* ListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListVC.h; sourceTree = "<group>"; };
-		183BF441224A2747004DE115 /* ListVCProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListVCProtocol.h; sourceTree = "<group>"; };
-		183BF443224A2747004DE115 /* ListVCPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListVCPresenter.h; sourceTree = "<group>"; };
-		183BF444224A2747004DE115 /* ListVCPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListVCPresenter.m; sourceTree = "<group>"; };
-		183BF452224A275C004DE115 /* MineVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineVC.m; sourceTree = "<group>"; };
-		183BF453224A275C004DE115 /* MineVCProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineVCProtocol.h; sourceTree = "<group>"; };
-		183BF454224A275C004DE115 /* MineVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineVC.h; sourceTree = "<group>"; };
-		183BF456224A275C004DE115 /* MineVCInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineVCInteractor.m; sourceTree = "<group>"; };
-		183BF457224A275C004DE115 /* MineVCInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineVCInteractor.h; sourceTree = "<group>"; };
-		183BF459224A275C004DE115 /* MineVCPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineVCPresenter.h; sourceTree = "<group>"; };
-		183BF45A224A275C004DE115 /* MineVCPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineVCPresenter.m; sourceTree = "<group>"; };
-		183BF45C224A275D004DE115 /* MineVCRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineVCRouter.h; sourceTree = "<group>"; };
-		183BF45D224A275D004DE115 /* MineVCRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineVCRouter.m; sourceTree = "<group>"; };
+		184CD1C9224CA66800241B9C /* MusicPlayboard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicPlayboard.h; sourceTree = "<group>"; };
+		184CD1CA224CA66800241B9C /* MusicPlayboard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicPlayboard.m; sourceTree = "<group>"; };
+		184CD1CD224CB9AC00241B9C /* MusicPlayTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicPlayTool.h; sourceTree = "<group>"; };
+		184CD1CE224CB9AC00241B9C /* MusicPlayTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicPlayTool.m; sourceTree = "<group>"; };
+		184F3701224B25AD00FEB57B /* 杨凯莉 - 让我做你的眼睛.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "杨凯莉 - 让我做你的眼睛.mp3"; sourceTree = "<group>"; };
+		1856158C224DBF0E004BE073 /* MusicPalyList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicPalyList.h; sourceTree = "<group>"; };
+		1856158D224DBF0E004BE073 /* MusicPalyList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicPalyList.m; sourceTree = "<group>"; };
+		1856158F224DBFBC004BE073 /* MusicPlayEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicPlayEntity.h; sourceTree = "<group>"; };
+		18561590224DBFBC004BE073 /* MusicPlayEntity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicPlayEntity.m; sourceTree = "<group>"; };
+		18561593224DC089004BE073 /* MusicConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicConfig.h; sourceTree = "<group>"; };
+		18561594224DC089004BE073 /* MusicConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicConfig.m; sourceTree = "<group>"; };
+		185615A0224DC239004BE073 /* WifiAddFileVCRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WifiAddFileVCRouter.m; sourceTree = "<group>"; };
+		185615A1224DC239004BE073 /* WifiAddFileVCRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WifiAddFileVCRouter.h; sourceTree = "<group>"; };
+		185615A3224DC239004BE073 /* WifiAddFileVCPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WifiAddFileVCPresenter.m; sourceTree = "<group>"; };
+		185615A4224DC239004BE073 /* WifiAddFileVCPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WifiAddFileVCPresenter.h; sourceTree = "<group>"; };
+		185615A6224DC239004BE073 /* WifiAddFileVCInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WifiAddFileVCInteractor.m; sourceTree = "<group>"; };
+		185615A7224DC239004BE073 /* WifiAddFileVCInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WifiAddFileVCInteractor.h; sourceTree = "<group>"; };
+		185615A9224DC239004BE073 /* WifiAddFileVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WifiAddFileVC.m; sourceTree = "<group>"; };
+		185615AA224DC239004BE073 /* WifiAddFileVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WifiAddFileVC.h; sourceTree = "<group>"; };
+		185615AB224DC239004BE073 /* WifiAddFileVCProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WifiAddFileVCProtocol.h; sourceTree = "<group>"; };
 		29BA81301DB9758FD1B2E469 /* libPods-LMTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LMTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BD68A1A6DDCAC558466342A /* Pods-LMTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMTests.debug.xcconfig"; path = "Target Support Files/Pods-LMTests/Pods-LMTests.debug.xcconfig"; sourceTree = "<group>"; };
 		767D491D9049577971B2EEE5 /* Pods-LMUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMUITests.debug.xcconfig"; path = "Target Support Files/Pods-LMUITests/Pods-LMUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -143,9 +160,58 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		180E33A4224DE7E5008C176D /* LocalMusicVC */ = {
+			isa = PBXGroup;
+			children = (
+				180E33B6224DE806008C176D /* View */,
+				180E33AD224DE806008C176D /* Presenter */,
+				180E33B0224DE806008C176D /* Interactor */,
+				180E33B3224DE806008C176D /* Router */,
+			);
+			path = LocalMusicVC;
+			sourceTree = "<group>";
+		};
+		180E33AD224DE806008C176D /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				180E33AF224DE806008C176D /* LocalMusicVCPresenter.h */,
+				180E33AE224DE806008C176D /* LocalMusicVCPresenter.m */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		180E33B0224DE806008C176D /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				180E33B2224DE806008C176D /* LocalMusicVCInteractor.h */,
+				180E33B1224DE806008C176D /* LocalMusicVCInteractor.m */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		180E33B3224DE806008C176D /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				180E33B5224DE806008C176D /* LocalMusicVCRouter.h */,
+				180E33B4224DE806008C176D /* LocalMusicVCRouter.m */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		180E33B6224DE806008C176D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				180E33B9224DE806008C176D /* LocalMusicVC.h */,
+				180E33B8224DE806008C176D /* LocalMusicVC.m */,
+				180E33B7224DE806008C176D /* LocalMusicVCProtocol.h */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		183BF3CD224A1DBB004DE115 = {
 			isa = PBXGroup;
 			children = (
+				18FFE8DD224B0E41002F031F /* Resource */,
 				183BF3D8224A1DBB004DE115 /* LM */,
 				183BF3F1224A1DBD004DE115 /* LMTests */,
 				183BF3FC224A1DBE004DE115 /* LMUITests */,
@@ -171,9 +237,8 @@
 				183BF40B224A1EF1004DE115 /* other */,
 				183BF42B224A25B0004DE115 /* Public */,
 				183BF429224A24EF004DE115 /* App */,
-				183BF40C224A2064004DE115 /* RootVC */,
-				183BF40D224A206F004DE115 /* ListVC */,
-				183BF40E224A2084004DE115 /* MineVC */,
+				184F3703224B25D000FEB57B /* Root */,
+				184F370E224B26A100FEB57B /* Fun */,
 			);
 			path = LM;
 			sourceTree = "<group>";
@@ -218,28 +283,6 @@
 				183BF418224A22EC004DE115 /* Router */,
 			);
 			path = RootVC;
-			sourceTree = "<group>";
-		};
-		183BF40D224A206F004DE115 /* ListVC */ = {
-			isa = PBXGroup;
-			children = (
-				183BF43E224A2747004DE115 /* View */,
-				183BF442224A2747004DE115 /* Presenter */,
-				183BF438224A2747004DE115 /* Interactor */,
-				183BF43B224A2747004DE115 /* Router */,
-			);
-			path = ListVC;
-			sourceTree = "<group>";
-		};
-		183BF40E224A2084004DE115 /* MineVC */ = {
-			isa = PBXGroup;
-			children = (
-				183BF451224A275C004DE115 /* View */,
-				183BF458224A275C004DE115 /* Presenter */,
-				183BF455224A275C004DE115 /* Interactor */,
-				183BF45B224A275D004DE115 /* Router */,
-			);
-			path = MineVC;
 			sourceTree = "<group>";
 		};
 		183BF418224A22EC004DE115 /* Router */ = {
@@ -299,6 +342,10 @@
 		183BF42B224A25B0004DE115 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				18561592224DC077004BE073 /* MusicConfig */,
+				1856158B224DBEF7004BE073 /* MusicPalyList */,
+				184CD1CC224CB99400241B9C /* MusicPlayTool */,
+				184CD1C8224CA60600241B9C /* MusicPlayboard */,
 				183BF42C224A263A004DE115 /* NC */,
 			);
 			path = Public;
@@ -313,78 +360,115 @@
 			path = NC;
 			sourceTree = "<group>";
 		};
-		183BF438224A2747004DE115 /* Interactor */ = {
+		184CD1C8224CA60600241B9C /* MusicPlayboard */ = {
 			isa = PBXGroup;
 			children = (
-				183BF439224A2747004DE115 /* ListVCInteractor.h */,
-				183BF43A224A2747004DE115 /* ListVCInteractor.m */,
+				184CD1C9224CA66800241B9C /* MusicPlayboard.h */,
+				184CD1CA224CA66800241B9C /* MusicPlayboard.m */,
 			);
-			path = Interactor;
+			path = MusicPlayboard;
 			sourceTree = "<group>";
 		};
-		183BF43B224A2747004DE115 /* Router */ = {
+		184CD1CC224CB99400241B9C /* MusicPlayTool */ = {
 			isa = PBXGroup;
 			children = (
-				183BF43C224A2747004DE115 /* ListVCRouter.h */,
-				183BF43D224A2747004DE115 /* ListVCRouter.m */,
+				184CD1CD224CB9AC00241B9C /* MusicPlayTool.h */,
+				184CD1CE224CB9AC00241B9C /* MusicPlayTool.m */,
+			);
+			path = MusicPlayTool;
+			sourceTree = "<group>";
+		};
+		184F3703224B25D000FEB57B /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				183BF40C224A2064004DE115 /* RootVC */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		184F370E224B26A100FEB57B /* Fun */ = {
+			isa = PBXGroup;
+			children = (
+				18561596224DC1D0004BE073 /* WifiAddFileVC */,
+				180E33A4224DE7E5008C176D /* LocalMusicVC */,
+			);
+			path = Fun;
+			sourceTree = "<group>";
+		};
+		1856158B224DBEF7004BE073 /* MusicPalyList */ = {
+			isa = PBXGroup;
+			children = (
+				1856158C224DBF0E004BE073 /* MusicPalyList.h */,
+				1856158D224DBF0E004BE073 /* MusicPalyList.m */,
+				1856158F224DBFBC004BE073 /* MusicPlayEntity.h */,
+				18561590224DBFBC004BE073 /* MusicPlayEntity.m */,
+			);
+			path = MusicPalyList;
+			sourceTree = "<group>";
+		};
+		18561592224DC077004BE073 /* MusicConfig */ = {
+			isa = PBXGroup;
+			children = (
+				18561593224DC089004BE073 /* MusicConfig.h */,
+				18561594224DC089004BE073 /* MusicConfig.m */,
+			);
+			path = MusicConfig;
+			sourceTree = "<group>";
+		};
+		18561596224DC1D0004BE073 /* WifiAddFileVC */ = {
+			isa = PBXGroup;
+			children = (
+				185615A8224DC239004BE073 /* View */,
+				185615A2224DC239004BE073 /* Presenter */,
+				185615A5224DC239004BE073 /* Interactor */,
+				1856159F224DC239004BE073 /* Router */,
+			);
+			path = WifiAddFileVC;
+			sourceTree = "<group>";
+		};
+		1856159F224DC239004BE073 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				185615A1224DC239004BE073 /* WifiAddFileVCRouter.h */,
+				185615A0224DC239004BE073 /* WifiAddFileVCRouter.m */,
 			);
 			path = Router;
 			sourceTree = "<group>";
 		};
-		183BF43E224A2747004DE115 /* View */ = {
+		185615A2224DC239004BE073 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				183BF440224A2747004DE115 /* ListVC.h */,
-				183BF43F224A2747004DE115 /* ListVC.m */,
-				183BF441224A2747004DE115 /* ListVCProtocol.h */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		183BF442224A2747004DE115 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				183BF443224A2747004DE115 /* ListVCPresenter.h */,
-				183BF444224A2747004DE115 /* ListVCPresenter.m */,
+				185615A4224DC239004BE073 /* WifiAddFileVCPresenter.h */,
+				185615A3224DC239004BE073 /* WifiAddFileVCPresenter.m */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
 		};
-		183BF451224A275C004DE115 /* View */ = {
+		185615A5224DC239004BE073 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
-				183BF454224A275C004DE115 /* MineVC.h */,
-				183BF452224A275C004DE115 /* MineVC.m */,
-				183BF453224A275C004DE115 /* MineVCProtocol.h */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		183BF455224A275C004DE115 /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				183BF457224A275C004DE115 /* MineVCInteractor.h */,
-				183BF456224A275C004DE115 /* MineVCInteractor.m */,
+				185615A7224DC239004BE073 /* WifiAddFileVCInteractor.h */,
+				185615A6224DC239004BE073 /* WifiAddFileVCInteractor.m */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
 		};
-		183BF458224A275C004DE115 /* Presenter */ = {
+		185615A8224DC239004BE073 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				183BF459224A275C004DE115 /* MineVCPresenter.h */,
-				183BF45A224A275C004DE115 /* MineVCPresenter.m */,
+				185615AA224DC239004BE073 /* WifiAddFileVC.h */,
+				185615A9224DC239004BE073 /* WifiAddFileVC.m */,
+				185615AB224DC239004BE073 /* WifiAddFileVCProtocol.h */,
 			);
-			path = Presenter;
+			path = View;
 			sourceTree = "<group>";
 		};
-		183BF45B224A275D004DE115 /* Router */ = {
+		18FFE8DD224B0E41002F031F /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				183BF45C224A275D004DE115 /* MineVCRouter.h */,
-				183BF45D224A275D004DE115 /* MineVCRouter.m */,
+				184F3701224B25AD00FEB57B /* 杨凯莉 - 让我做你的眼睛.mp3 */,
 			);
-			path = Router;
+			path = Resource;
 			sourceTree = "<group>";
 		};
 		87C314330D17CE51241C552F /* Pods */ = {
@@ -411,6 +495,7 @@
 				183BF3D2224A1DBB004DE115 /* Sources */,
 				183BF3D3224A1DBB004DE115 /* Frameworks */,
 				183BF3D4224A1DBB004DE115 /* Resources */,
+				EAD493DC8779B4AE55FC3BBA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -509,6 +594,7 @@
 				183BF3E6224A1DBD004DE115 /* LaunchScreen.storyboard in Resources */,
 				183BF3E3224A1DBD004DE115 /* Assets.xcassets in Resources */,
 				183BF3E1224A1DBB004DE115 /* Main.storyboard in Resources */,
+				184F3702224B25AD00FEB57B /* 杨凯莉 - 让我做你的眼睛.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -595,6 +681,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		EAD493DC8779B4AE55FC3BBA /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LM/Pods-LM-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LM/Pods-LM-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LM/Pods-LM-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -603,20 +706,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				183BF3E9224A1DBD004DE115 /* main.m in Sources */,
-				183BF448224A2747004DE115 /* ListVCPresenter.m in Sources */,
-				183BF460224A275D004DE115 /* MineVCPresenter.m in Sources */,
 				183BF3DB224A1DBB004DE115 /* AppDelegate.m in Sources */,
+				185615AE224DC23A004BE073 /* WifiAddFileVCInteractor.m in Sources */,
+				184CD1CB224CA66800241B9C /* MusicPlayboard.m in Sources */,
+				1856158E224DBF0E004BE073 /* MusicPalyList.m in Sources */,
 				183BF426224A22EC004DE115 /* RootVC.m in Sources */,
+				180E33BD224DE806008C176D /* LocalMusicVC.m in Sources */,
+				184CD1CF224CB9AC00241B9C /* MusicPlayTool.m in Sources */,
+				180E33BC224DE806008C176D /* LocalMusicVCRouter.m in Sources */,
+				185615AD224DC23A004BE073 /* WifiAddFileVCPresenter.m in Sources */,
+				180E33BA224DE806008C176D /* LocalMusicVCPresenter.m in Sources */,
 				183BF425224A22EC004DE115 /* RootVCRouter.m in Sources */,
-				183BF461224A275D004DE115 /* MineVCRouter.m in Sources */,
-				183BF446224A2747004DE115 /* ListVCRouter.m in Sources */,
-				183BF45F224A275D004DE115 /* MineVCInteractor.m in Sources */,
 				183BF428224A22EC004DE115 /* RootVCPresenter.m in Sources */,
-				183BF445224A2747004DE115 /* ListVCInteractor.m in Sources */,
+				180E33BB224DE806008C176D /* LocalMusicVCInteractor.m in Sources */,
+				185615AC224DC23A004BE073 /* WifiAddFileVCRouter.m in Sources */,
+				185615AF224DC23A004BE073 /* WifiAddFileVC.m in Sources */,
+				18561591224DBFBC004BE073 /* MusicPlayEntity.m in Sources */,
 				183BF42F224A263A004DE115 /* UINavigationController+Jch.m in Sources */,
-				183BF45E224A275D004DE115 /* MineVC.m in Sources */,
-				183BF447224A2747004DE115 /* ListVC.m in Sources */,
 				183BF427224A22EC004DE115 /* RootVCInteractor.m in Sources */,
+				18561595224DC089004BE073 /* MusicConfig.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -789,8 +897,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6SK6RQ8S8Q;
 				GCC_PREFIX_HEADER = LM/AppPrefix.h;
 				INFOPLIST_FILE = LM/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -807,8 +917,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6SK6RQ8S8Q;
 				GCC_PREFIX_HEADER = LM/AppPrefix.h;
 				INFOPLIST_FILE = LM/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

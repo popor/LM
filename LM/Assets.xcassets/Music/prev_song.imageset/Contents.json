@@ -6,11 +6,12 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "prev_song.png",
+      "filename" : "houtui.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "houtui-1.png",
       "scale" : "3x"
     }
   ],
