@@ -7,7 +7,14 @@
 
 #import <Foundation/Foundation.h>
 
+#import "FileTool.h"
+
 // 处理Entity事件
 @interface LocalMusicVCInteractor : NSObject
+
+@property (nonatomic, weak  ) NSMutableArray * infoArray;
+
+- (void)initData;
+
 
 @end

@@ -9,7 +9,7 @@
 #import "LocalMusicVCProtocol.h"
 
 // 处理和View事件
-@interface LocalMusicVCPresenter : NSObject <LocalMusicVCEventHandler, LocalMusicVCDataSource>
+@interface LocalMusicVCPresenter : NSObject <LocalMusicVCEventHandler, LocalMusicVCDataSource, UITableViewDelegate, UITableViewDataSource>
 
 - (void)setMyView:(id)view;
 - (void)initInteractors;

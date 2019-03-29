@@ -16,12 +16,13 @@
 @end
 
 @implementation LocalMusicVC
+@synthesize infoTV;
+@synthesize musicPlayboard;
+@synthesize itemArray;
 
 - (instancetype)initWithDic:(NSDictionary *)dic {
     if (self = [super init]) {
-        if (dic) {
-            self.title = dic[@"title"];
-        }
+        [NSAssistant setVC:self dic:dic];
     }
     return self;
 }
@@ -59,8 +60,30 @@
 
 #pragma mark - views
 - (void)addViews {
+    self.infoTV = [self addTVs];
     
+}
+
+- (UITableView *)addTVs {
+    UITableView * oneTV = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     
+    oneTV.delegate   = self.present;
+    oneTV.dataSource = self.present;
+    
+    oneTV.allowsMultipleSelectionDuringEditing = YES;
+    oneTV.directionalLockEnabled = YES;
+    
+    oneTV.estimatedRowHeight           = 0;
+    oneTV.estimatedSectionHeaderHeight = 0;
+    oneTV.estimatedSectionFooterHeight = 0;
+    
+    [self.view addSubview:oneTV];
+    
+    [oneTV mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, 0, 0));
+    }];
+    
+    return oneTV;
 }
 
 @end

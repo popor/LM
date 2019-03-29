@@ -11,6 +11,8 @@
 		180E33BB224DE806008C176D /* LocalMusicVCInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 180E33B1224DE806008C176D /* LocalMusicVCInteractor.m */; };
 		180E33BC224DE806008C176D /* LocalMusicVCRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 180E33B4224DE806008C176D /* LocalMusicVCRouter.m */; };
 		180E33BD224DE806008C176D /* LocalMusicVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 180E33B8224DE806008C176D /* LocalMusicVC.m */; };
+		180E33C1224E11AF008C176D /* FileTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 180E33C0224E11AF008C176D /* FileTool.m */; };
+		180E33C4224E11F7008C176D /* FileEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 180E33C3224E11F7008C176D /* FileEntity.m */; };
 		183BF3DB224A1DBB004DE115 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 183BF3DA224A1DBB004DE115 /* AppDelegate.m */; };
 		183BF3E1224A1DBB004DE115 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 183BF3DF224A1DBB004DE115 /* Main.storyboard */; };
 		183BF3E3224A1DBD004DE115 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 183BF3E2224A1DBD004DE115 /* Assets.xcassets */; };
@@ -67,6 +69,10 @@
 		180E33B7224DE806008C176D /* LocalMusicVCProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalMusicVCProtocol.h; sourceTree = "<group>"; };
 		180E33B8224DE806008C176D /* LocalMusicVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalMusicVC.m; sourceTree = "<group>"; };
 		180E33B9224DE806008C176D /* LocalMusicVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalMusicVC.h; sourceTree = "<group>"; };
+		180E33BF224E11AF008C176D /* FileTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileTool.h; sourceTree = "<group>"; };
+		180E33C0224E11AF008C176D /* FileTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FileTool.m; sourceTree = "<group>"; };
+		180E33C2224E11F7008C176D /* FileEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileEntity.h; sourceTree = "<group>"; };
+		180E33C3224E11F7008C176D /* FileEntity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FileEntity.m; sourceTree = "<group>"; };
 		183BF3D6224A1DBB004DE115 /* LM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		183BF3D9224A1DBB004DE115 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		183BF3DA224A1DBB004DE115 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -208,6 +214,17 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		180E33BE224E1194008C176D /* FileTool */ = {
+			isa = PBXGroup;
+			children = (
+				180E33BF224E11AF008C176D /* FileTool.h */,
+				180E33C0224E11AF008C176D /* FileTool.m */,
+				180E33C2224E11F7008C176D /* FileEntity.h */,
+				180E33C3224E11F7008C176D /* FileEntity.m */,
+			);
+			path = FileTool;
+			sourceTree = "<group>";
+		};
 		183BF3CD224A1DBB004DE115 = {
 			isa = PBXGroup;
 			children = (
@@ -342,6 +359,7 @@
 		183BF42B224A25B0004DE115 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				180E33BE224E1194008C176D /* FileTool */,
 				18561592224DC077004BE073 /* MusicConfig */,
 				1856158B224DBEF7004BE073 /* MusicPalyList */,
 				184CD1CC224CB99400241B9C /* MusicPlayTool */,
@@ -721,7 +739,9 @@
 				180E33BB224DE806008C176D /* LocalMusicVCInteractor.m in Sources */,
 				185615AC224DC23A004BE073 /* WifiAddFileVCRouter.m in Sources */,
 				185615AF224DC23A004BE073 /* WifiAddFileVC.m in Sources */,
+				180E33C1224E11AF008C176D /* FileTool.m in Sources */,
 				18561591224DBFBC004BE073 /* MusicPlayEntity.m in Sources */,
+				180E33C4224E11F7008C176D /* FileEntity.m in Sources */,
 				183BF42F224A263A004DE115 /* UINavigationController+Jch.m in Sources */,
 				183BF427224A22EC004DE115 /* RootVCInteractor.m in Sources */,
 				18561595224DC089004BE073 /* MusicConfig.m in Sources */,

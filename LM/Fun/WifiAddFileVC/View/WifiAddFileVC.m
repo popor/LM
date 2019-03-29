@@ -101,7 +101,7 @@
         [att addString:self.webUploader.serverURL.absoluteString font:font1 color:[UIColor redColor]];
     }
     [att addString:@"\n2.通过itunes将文件放置到Document文件目录下。" font:font1 color:[UIColor blackColor]];
-    [att addString:@"\n3.只支持1层文件夹，暂不支持多层。" font:font1 color:[UIColor blackColor]];
+    [att addString:@"\n3.只支持1层文件夹，暂不支持多层。\n 根目录只支持文件夹，一级目录只支持mp3文件。" font:font1 color:[UIColor redColor]];
     [att addString:@"\n4.上传文件过程中，请勿关闭本页面、误锁屏。" font:font1 color:[UIColor redColor]];
     
     self.infoL.attributedText = att;
