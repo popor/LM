@@ -9,14 +9,12 @@
 #import <UIKit/UIKit.h>
 
 #import <StepSlider/StepSlider.h>
+#import "MusicPlayListTool.h"
+#import "MusicPlayTool.h"
+
+#define MpbShare [MusicPlayBar share]
 
 NS_ASSUME_NONNULL_BEGIN
-
-//- (void)playBTEvent;
-//- (void)previousBTEvent;
-//- (void)nextBTEvent;
-//- (void)rewindBTEvent;
-//- (void)forwardBTEvent;
 
 @interface MusicPlayBar : UIView
 
@@ -34,6 +32,23 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIButton * rewindBT;
 @property (nonatomic, strong) UIButton * forwardBT;
 
+@property (nonatomic, weak  ) MusicPlayTool       * mpt;
+@property (nonatomic, weak  ) MusicPlayListTool   * mplt;
+
+@property (nonatomic, weak  ) MusicPlayItemEntity * currentItem;
+
+
+- (void)playArray:(NSArray *)itemArray;
+
+- (void)playBTEvent;
+
+- (void)playEvent;
+- (void)pauseEvent;
+
+- (void)previousBTEvent;
+- (void)nextBTEvent;
+- (void)rewindBTEvent;
+- (void)forwardBTEvent;
 
 @end
 

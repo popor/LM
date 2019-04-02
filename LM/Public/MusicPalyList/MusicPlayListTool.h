@@ -20,7 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (MusicPlayListTool *)share;
 
 @property (nonatomic, strong) MusicPlayList * list;
-
+@property (nonatomic, strong, readonly) NSMutableArray * currentList;
+@property (nonatomic, strong) NSString * docPath;
 - (void)addListName:(NSString *)name;
 
 - (void)update;

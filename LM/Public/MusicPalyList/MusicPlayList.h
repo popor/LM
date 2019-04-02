@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MusicPlayItemEntity : NSObject
 
-@property (nonatomic, strong) NSString * path;
+@property (nonatomic, strong) NSString * docPath; // 在APP doc 下面的路径
 @property (nonatomic, strong) NSString * author;// 作者
 @property (nonatomic, strong) NSString * title;// 歌名
 @property (nonatomic        ) int      duration;

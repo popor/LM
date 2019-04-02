@@ -13,11 +13,18 @@
 + (NSMutableArray *)getArrayAtPath:(NSString * _Nullable)path type:(FileType)type {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     //下面是指定沙盒的路径。我要读取pc上的，所以就用自己pc上的路径
-    if (!path) {
+    NSString * folderName;
+    NSString * docPath;
+    {
         NSArray * pathArray = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        if (pathArray.count > 0) {
-            path = pathArray[0]; //获得Document系统文件目录路径
-        }
+        docPath = pathArray[0]; //获得Document系统文件目录路径
+    }
+    if (!path) {
+        path       = docPath;
+        folderName = @"";
+    }else{
+        folderName = [path lastPathComponent];
+        path       = [NSString stringWithFormat:@"%@/%@", docPath, path];
     }
     //NSLog(@"filePath: %@", path);
     
@@ -34,7 +41,7 @@
         BOOL folderFlag;
         [fileManager fileExistsAtPath:[NSString stringWithFormat:@"%@/%@", path, fileName] isDirectory:&folderFlag];
         FileEntity * entity = [FileEntity new];
-        entity.folderPath = path;
+        entity.folderName = folderName;
         entity.fileName   = fileName;
         if(folderFlag){
             [direnum skipDescendants];

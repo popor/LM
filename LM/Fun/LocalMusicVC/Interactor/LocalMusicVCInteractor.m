@@ -26,7 +26,7 @@
 - (void)initData {
     self.folderArray = [FileTool getArrayAtPath:nil type:FileTypeFolder];
     for (FileEntity * folderEntity in self.folderArray) {
-        folderEntity.itemArray = [FileTool getArrayAtPath:[NSString stringWithFormat:@"%@/%@", folderEntity.folderPath, folderEntity.fileName] type:FileTypeItem];
+        folderEntity.itemArray = [FileTool getArrayAtPath:[NSString stringWithFormat:@"%@/%@", folderEntity.folderName, folderEntity.fileName] type:FileTypeItem];
     }
     self.infoArray = self.folderArray;
 }

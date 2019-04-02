@@ -14,7 +14,7 @@ static NSString * WFIgnoreFile = @".DS_Store";
 
 @interface FileEntity : NSObject
 
-@property (nonatomic, strong) NSString *folderPath;
+@property (nonatomic, strong) NSString *folderName;
 @property (nonatomic, strong) NSString *fileName;
 @property (nonatomic, getter=isFolder) BOOL folder;
 

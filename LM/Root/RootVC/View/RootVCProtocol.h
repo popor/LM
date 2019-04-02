@@ -12,7 +12,9 @@
 
 #import "MusicPlayBar.h"
 
-#define RootMoreArray   @[@"新增歌单", @"Wifi添加歌曲", @"查看本地歌曲"]
+#define RootMoreArray   @[@"新增歌单", @"Wifi添加歌曲", @"查看本地歌曲", @"编辑歌单"]
+//#define RootMoreArray   @[@"新增歌单", @"Wifi添加歌曲", @"查看本地歌曲"]
+
 #define RootMoreTvCellH 44
 
 // MARK: 对外接口
@@ -28,6 +30,7 @@
 @property (nonatomic, strong) UITableView     * alertBubbleTV;
 @property (nonatomic, strong) UIColor         * alertBubbleTVColor;
 
+
 // MARK: 外部注入的
 
 @end
@@ -42,11 +45,5 @@
 
 - (void)showTVAlertAction:(UIBarButtonItem *)sender event:(UIEvent *)event;
 - (void)showWifiVC;
-
-- (void)playBTEvent;
-- (void)previousBTEvent;
-- (void)nextBTEvent;
-- (void)rewindBTEvent;
-- (void)forwardBTEvent;
 
 @end

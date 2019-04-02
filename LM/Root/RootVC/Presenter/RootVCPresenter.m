@@ -15,6 +15,7 @@
 #import "LocalMusicVCRouter.h"
 #import "SongListDetailVCRouter.h"
 
+#import "MusicListCell.h"
 
 @interface RootVCPresenter ()
 
@@ -100,13 +101,22 @@
         return cell;
     }else{
         static NSString * CellID = @"CellID";
-        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellID];
+        MusicListCell * cell = [tableView dequeueReusableCellWithIdentifier:CellID];
         if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
+            cell = [[MusicListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            [[cell.playBt rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+                //x 就是被点击的按钮
+                MusicListCell * scell = (MusicListCell *)x.superview;
+                MusicPlayListEntity * list = (MusicPlayListEntity *)scell.cellData;
+                
+                [MpbShare playArray:list.array];
+            }];
         }
         MusicPlayListEntity * list = MpltShare.list.array[indexPath.row];
-        cell.textLabel.text = [NSString stringWithFormat:@"%@ (%li)", list.name, list.array.count];
+        cell.cellData = list;
+        cell.titelL.text = [NSString stringWithFormat:@"%@ (%li)", list.name, list.array.count];
         
         return cell;
     }
@@ -130,11 +140,18 @@
                 [self showLocalMusicVC];
                 break;
             }
+            case 3:{
+                [self startEditAction];
+                break;
+            }
             default:
                 break;
         }
         
     }else{
+        if (self.view.infoTV.isEditing) {
+            return;
+        }
         MusicPlayListEntity * list = MpltShare.list.array[indexPath.row];
         NSDictionary * dic = @{@"title":list.name,
                                @"listArray":list.array,
@@ -145,39 +162,104 @@
     
 }
 
+#pragma mark - 编辑tv
+// 这个回调决定了在当前indexPath的Cell是否可以编辑。
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (BOOL)tableView:(UITableView *)tableview shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleNone;
+}
+
+#pragma mark - tv 移动
+// 这个回调实现了以后，就会出现更换位置的按钮，回调本身用来处理更换位置后的数据交换。
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    if (tableView == self.view.infoTV) {
+        [MpltShare.list.array exchangeObjectAtIndex:sourceIndexPath.row withObjectAtIndex:destinationIndexPath.row];
+        [MpltShare update];
+    }else{
+        
+    }
+    
+}
+
+// 这个回调决定了在当前indexPath的Cell是否可以移动。
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == self.view.infoTV) {
+        return YES;
+    }else{
+        return NO;
+    }
+}
+
+
+#pragma mark - tv 删除
+// 只要实现了这个方法，左滑出现按钮的功能就有了
+// (一旦左滑出现了N个按钮，tableView就进入了编辑模式, tableView.editing = YES)
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (tableView == self.view.infoTV) {
+        @weakify(self);
+        UITableViewRowAction *action0 = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"重命名" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+            @strongify(self);
+            [self reListNameActionIndex:indexPath];
+        }];
+        
+        UITableViewRowAction *action1 = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"删除" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+            [MpltShare.list.array removeObjectAtIndex:indexPath.row];
+            [MpltShare update];
+            
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }];
+        
+        return @[action1, action0];
+    }else{
+        return nil;
+    }
+}
+
+- (void)reListNameActionIndex:(NSIndexPath *)indexPath {
+    MusicPlayListEntity * list = MpltShare.list.array[indexPath.row];
+    @weakify(self);
+    {
+        UIAlertController * oneAC = [UIAlertController alertControllerWithTitle:@"修改" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        
+        [oneAC addTextFieldWithConfigurationHandler:^(UITextField *textField){
+            
+            textField.placeholder = @"名称";
+            textField.text = list.name;
+        }];
+        
+        UIAlertAction * cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction * changeAction = [UIAlertAction actionWithTitle:@"修改" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            @strongify(self);
+            UITextField * nameTF = oneAC.textFields[0];
+            if (nameTF.text.length > 0) {
+                list.name = nameTF.text;
+                [MpltShare update];
+                [self.view.infoTV reloadData];
+            }
+        }];
+        
+        [oneAC addAction:cancleAction];
+        [oneAC addAction:changeAction];
+        
+        [self.view.vc presentViewController:oneAC animated:YES completion:nil];
+    }
+    
+}
+
 #pragma mark - VC_EventHandler
-
-- (void)playBTEvent {
-    
-
-    NSString *path;
-    path = [[NSBundle mainBundle] pathForResource:@"杨凯莉 - 让我做你的眼睛" ofType:@"mp3"];
-    //path = [[NSBundle mainBundle] pathForResource:@"a" ofType:@"mp3"];
-    
-    NSURL * url = [NSURL fileURLWithPath:path];
-    [MptShare playEvent:url];
-}
-
-- (void)pauseEvent {
-    [MptShare pauseEvent];
-}
-
-- (void)previousBTEvent {
-    
-}
-
-- (void)nextBTEvent {
-    
-}
-
-- (void)rewindBTEvent {
-    
-}
-
-- (void)forwardBTEvent {
-    
-}
-
 - (void)showTVAlertAction:(UIBarButtonItem *)sender event:(UIEvent *)event {
     //CGRect fromRect = [[event.allTouches anyObject] view].frame;
     UITouch * touch = [event.allTouches anyObject];
@@ -273,6 +355,32 @@
         [oneAC addAction:changeAction];
         
         [self.view.vc presentViewController:oneAC animated:YES completion:nil];
+    }
+}
+
+- (void)startEditAction {
+    {
+        UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(endEditAction)];
+        self.view.vc.navigationItem.rightBarButtonItems = @[item1];
+    }
+    {
+        self.view.infoTV.allowsSelectionDuringEditing = NO;
+        self.view.infoTV.editing = YES;
+       // self.view.infoTV.allowsSelectionDuringEditing = NO;
+        //[self.view.infoTV setEditing:YES animated:YES];
+        //[self.view.infoTV reloadData];
+    }
+}
+
+- (void)endEditAction {
+    {
+        UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithTitle:@"更多" style:UIBarButtonItemStylePlain target:self action:@selector(showTVAlertAction:event:)];
+        self.view.vc.navigationItem.rightBarButtonItems = @[item1];
+    }
+    {
+        self.view.infoTV.editing = NO;
+        //[self.view.infoTV setEditing:NO animated:YES];
+        //[self.view.infoTV reloadData];
     }
 }
 

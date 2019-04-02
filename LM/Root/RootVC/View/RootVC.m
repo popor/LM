@@ -92,8 +92,6 @@
         make.bottom.mas_equalTo(0);
         make.height.mas_equalTo(self.playbar.height);
     }];
-    
-    [self.playbar.playBT addTarget:self.present action:@selector(playBTEvent) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (UITableView *)addTVs {

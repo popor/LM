@@ -8,6 +8,9 @@
 
 #import "MusicPlayBar.h"
 
+#import "MusicPlayTool.h"
+#import "MusicPlayListTool.h"
+
 #import <PoporUI/UIDeviceScreen.h>
 
 @interface MusicPlayBar ()
@@ -31,6 +34,8 @@
 
 - (id)init {
     if (self = [super init]) {
+        self.mpt  = MptShare;
+        self.mplt = MpltShare;
         self.backgroundColor = [UIColor whiteColor];
         [self addViews];
     }
@@ -91,26 +96,38 @@
                 [oneBT setImage:nil forState:UIControlStateHighlighted];
                 [oneBT setImage:[UIImage imageNamed:imageS[i]] forState:UIControlStateSelected];
                 self.playBT = oneBT;
+                
+                [oneBT addTarget:self action:@selector(playBTEvent) forControlEvents:UIControlEventTouchUpInside];
                 break;
             }
             case 1:{
                 self.previousBT = oneBT;
+                
+                [oneBT addTarget:self action:@selector(previousBTEvent) forControlEvents:UIControlEventTouchUpInside];
                 break;
             }
             case 2:{
                 self.nextBT = oneBT;
+                
+                [oneBT addTarget:self action:@selector(nextBTEvent) forControlEvents:UIControlEventTouchUpInside];
                 break;
             }
             case 3:{
                 self.rewindBT = oneBT;
+                
+                [oneBT addTarget:self action:@selector(rewindBTEvent) forControlEvents:UIControlEventTouchUpInside];
                 break;
             }
             case 4:{
                 self.forwardBT = oneBT;
+                
+                [oneBT addTarget:self action:@selector(forwardBTEvent) forControlEvents:UIControlEventTouchUpInside];
                 break;
             }
             case 5:{
                 self.orderBT = oneBT;
+                
+                //[oneBT addTarget:self action:@selector(<#selector#>) forControlEvents:UIControlEventTouchUpInside];
                 break;
             }
             default:
@@ -172,6 +189,73 @@
         make.left.mas_equalTo(self.forwardBT.mas_right).mas_offset(20);
         make.top.mas_equalTo(self.playBT.mas_top);
     }];
+    
+}
+
+- (void)playArray:(NSArray *)itemArray {
+    [self.mplt.currentList removeAllObjects];
+    [self.mplt.currentList addObjectsFromArray:itemArray];
+    self.playBT.selected = YES;
+    if (itemArray.count > 0) {
+        self.currentItem = self.mplt.currentList[0];
+        [self.mpt playItem:self.currentItem];
+    }
+}
+
+- (void)playBTEvent {
+    if (self.mpt.audioPlayer.isPlaying) {
+        [self pauseEvent];
+    }else{
+        [self playEvent];
+    }
+}
+
+- (void)playEvent {
+    //    if (!self.mplt.currentList) {
+    //        if (self.mplt.list.array.count > 0) {
+    //            MusicPlayListEntity * list = self.mplt.list.array[0];
+    //            [self.mplt.currentList addObjectsFromArray:list.array];
+    //        }
+    //    }
+    if (self.mplt.currentList.count>0) {
+        self.currentItem = self.mplt.currentList[0];
+        [self.mpt playItem:self.currentItem];
+    }
+}
+
+- (void)pauseEvent {
+    [self.mpt pauseEvent];
+}
+
+- (void)previousBTEvent {
+    if (self.mplt.currentList.count>0) {
+        NSInteger index = 0;
+        if (self.currentItem) {
+            index = [self.mplt.currentList indexOfObject:self.currentItem] - 1;
+        }
+        index =  index % self.mplt.currentList.count;
+        self.currentItem = self.mplt.currentList[index];
+        [self.mpt playItem:self.currentItem];
+    }
+}
+
+- (void)nextBTEvent {
+    if (self.mplt.currentList.count>0) {
+        NSInteger index = 0;
+        if (self.currentItem) {
+            index = [self.mplt.currentList indexOfObject:self.currentItem] + 1;
+        }
+        index =  index % self.mplt.currentList.count;
+        self.currentItem = self.mplt.currentList[index];
+        [self.mpt playItem:self.currentItem];
+    }
+}
+
+- (void)rewindBTEvent {
+    
+}
+
+- (void)forwardBTEvent {
     
 }
 

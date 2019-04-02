@@ -150,7 +150,7 @@
         if (self.selectFileEntity.isFolder) {
             for (FileEntity * fileEntity in self.selectFileEntity.itemArray) {
                 MusicPlayItemEntity * itme = [MusicPlayItemEntity new];
-                itme.path  = [NSString stringWithFormat:@"%@/%@", fileEntity.folderPath, fileEntity.fileName];
+                itme.docPath  = [NSString stringWithFormat:@"%@/%@", fileEntity.folderName, fileEntity.fileName];
                 itme.title = fileEntity.fileName;
                 
                 list.array.add(itme);
@@ -159,7 +159,7 @@
         }else{
             FileEntity * fileEntity    = self.selectFileEntity;
             MusicPlayItemEntity * itme = [MusicPlayItemEntity new];
-            itme.path  = [NSString stringWithFormat:@"%@/%@", fileEntity.folderPath, fileEntity.fileName];
+            itme.docPath  = [NSString stringWithFormat:@"%@/%@", fileEntity.folderName, fileEntity.fileName];
             itme.title = fileEntity.fileName;
             
             list.array.add(itme);
