@@ -9,8 +9,12 @@
 #import "RootVCInteractor.h"
 
 #import "MusicPlayTool.h"
+#import "MusicPlayListTool.h"
+
 #import "WifiAddFileVCRouter.h"
 #import "LocalMusicVCRouter.h"
+#import "SongListDetailVCRouter.h"
+
 
 @interface RootVCPresenter ()
 
@@ -49,7 +53,7 @@
     if (tableView == self.view.alertBubbleTV) {
         return RootMoreArray.count;
     }else{
-        return 1;
+        return MpltShare.list.array.count;
     }
 }
 
@@ -101,8 +105,8 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-        
-        cell.textLabel.text = [NSString stringWithFormat:@"%li", indexPath.row];
+        MusicPlayListEntity * list = MpltShare.list.array[indexPath.row];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ (%li)", list.name, list.array.count];
         
         return cell;
     }
@@ -115,7 +119,7 @@
         [self.view.alertBubbleView closeEvent];
         switch (indexPath.row) {
             case 0:{
-                
+                [self addListAction];
                 break;
             }
             case 1:{
@@ -131,10 +135,13 @@
         }
         
     }else{
-        
+        MusicPlayListEntity * list = MpltShare.list.array[indexPath.row];
+        NSDictionary * dic = @{@"title":list.name,
+                               @"listArray":list.array,
+                               
+                               };
+        [self.view.vc.navigationController pushViewController:[SongListDetailVCRouter vcWithDic:dic] animated:YES];
     }
-    
-    
     
 }
 
@@ -148,11 +155,11 @@
     //path = [[NSBundle mainBundle] pathForResource:@"a" ofType:@"mp3"];
     
     NSURL * url = [NSURL fileURLWithPath:path];
-    [MPTool playEvent:url];
+    [MptShare playEvent:url];
 }
 
 - (void)pauseEvent {
-    [MPTool pauseEvent];
+    [MptShare pauseEvent];
 }
 
 - (void)previousBTEvent {
@@ -210,20 +217,20 @@
 - (void)showWifiVC {
     
     [UIView animateWithDuration:0.15 animations:^{
-        [self.view.musicPlayboard mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.mas_equalTo(self.view.musicPlayboard.height);
+        [self.view.playbar mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.mas_equalTo(self.view.playbar.height);
         }];
-        [self.view.musicPlayboard.superview layoutIfNeeded];
+        [self.view.playbar.superview layoutIfNeeded];
     }];
     
     @weakify(self);
     BlockPVoid deallocBlock = ^(void) {
         @strongify(self);
         [UIView animateWithDuration:0.15 animations:^{
-            [self.view.musicPlayboard mas_updateConstraints:^(MASConstraintMaker *make) {
+            [self.view.playbar mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.bottom.mas_equalTo(0);
             }];
-            [self.view.musicPlayboard.superview layoutIfNeeded];
+            [self.view.playbar.superview layoutIfNeeded];
         }];
     };
     NSDictionary * dic = @{@"deallocBlock":deallocBlock};
@@ -232,8 +239,41 @@
 }
 
 - (void)showLocalMusicVC {
-    
-    [self.view.vc.navigationController pushViewController:[LocalMusicVCRouter vcWithDic:nil] animated:YES];
+    @weakify(self);
+    BlockPVoid deallocBlock = ^(void){
+        @strongify(self);
+        [self.view.infoTV reloadData];
+    };
+    NSDictionary * dic = @{@"deallocBlock":deallocBlock};
+    [self.view.vc.navigationController pushViewController:[LocalMusicVCRouter vcWithDic:dic] animated:YES];
+}
+
+- (void)addListAction {
+    __weak typeof(self) weakSelf = self;
+    {
+        UIAlertController * oneAC = [UIAlertController alertControllerWithTitle:@"创建新列表" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        
+        [oneAC addTextFieldWithConfigurationHandler:^(UITextField *textField){
+            
+            textField.placeholder = @"新列表名称";
+            textField.text = @"";
+        }];
+        
+        UIAlertAction * cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction * changeAction = [UIAlertAction actionWithTitle:@"创建" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            UITextField * nameTF = oneAC.textFields[0];
+            if (nameTF.text.length > 0) {
+                [MpltShare addListName:nameTF.text];
+                
+                [weakSelf.view.infoTV reloadData];
+            }
+        }];
+        
+        [oneAC addAction:cancleAction];
+        [oneAC addAction:changeAction];
+        
+        [self.view.vc presentViewController:oneAC animated:YES completion:nil];
+    }
 }
 
 #pragma mark - Interactor_EventHandler

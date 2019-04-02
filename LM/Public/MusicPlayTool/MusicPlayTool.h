@@ -1,5 +1,5 @@
 //
-//  MusicPlayTool.h
+//  MusicPlayer.h
 //  LM
 //
 //  Created by apple on 2019/3/28.
@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define MPTool [MusicPlayTool share]
+#define MptShare [MusicPlayTool share]
 
 @interface MusicPlayTool : NSObject
 

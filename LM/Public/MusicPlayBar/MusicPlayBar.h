@@ -1,5 +1,5 @@
 //
-//  MusicPlayboard.h
+//  MusicPlayBar.h
 //  LM
 //
 //  Created by apple on 2019/3/28.
@@ -18,9 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 //- (void)rewindBTEvent;
 //- (void)forwardBTEvent;
 
-@interface MusicPlayboard : UIView
+@interface MusicPlayBar : UIView
 
-+ (MusicPlayboard *)share;
++ (MusicPlayBar *)share;
 
 @property (nonatomic, strong) UILabel * nameL;
 @property (nonatomic, strong) UILabel * timeL;

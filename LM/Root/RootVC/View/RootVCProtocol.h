@@ -10,7 +10,7 @@
 #import <PoporPopNormalNC/PoporPopNormalNC.h>
 #import <PoporAlertBubbleView/AlertBubbleView.h>
 
-#import "MusicPlayboard.h"
+#import "MusicPlayBar.h"
 
 #define RootMoreArray   @[@"新增歌单", @"Wifi添加歌曲", @"查看本地歌曲"]
 #define RootMoreTvCellH 44
@@ -22,7 +22,7 @@
 - (void)setMyPresent:(id)present;
 
 // MARK: 自己的
-@property (nonatomic, weak  ) MusicPlayboard  * musicPlayboard;
+@property (nonatomic, weak  ) MusicPlayBar    * playbar;
 @property (nonatomic, strong) UITableView     * infoTV;
 @property (nonatomic, strong) AlertBubbleView * alertBubbleView;
 @property (nonatomic, strong) UITableView     * alertBubbleTV;
@@ -48,7 +48,5 @@
 - (void)nextBTEvent;
 - (void)rewindBTEvent;
 - (void)forwardBTEvent;
-
-//- (void)Event;
 
 @end

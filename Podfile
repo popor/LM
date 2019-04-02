@@ -14,6 +14,7 @@ target 'LM' do
   
   pod 'Masonry'
   pod 'YYModel'
+  pod 'YYCache'
   pod 'GCDWebServer'
   pod 'KVOController'
   pod 'ReactiveObjC'

@@ -6,8 +6,9 @@
 //  Copyright © 2019 popor. All rights reserved.
 
 #import <UIKit/UIKit.h>
-#import "MusicPlayboard.h"
+#import "MusicPlayBar.h"
 
+#import <PoporAlertBubbleView/AlertBubbleView.h>
 // MARK: 对外接口
 @protocol LocalMusicVCProtocol <NSObject>
 
@@ -15,12 +16,14 @@
 - (void)setMyPresent:(id)present;
 
 // MARK: 自己的
-@property (nonatomic, weak  ) MusicPlayboard  * musicPlayboard;
+@property (nonatomic, weak  ) MusicPlayBar  * musicPlayboard;
 @property (nonatomic, strong) UITableView     * infoTV;
+@property (nonatomic, strong) UITableView     * musicListTV;
 @property (nonatomic, weak  ) NSMutableArray  * itemArray;
 
 
 // MARK: 外部注入的
+@property (nonatomic, copy  ) BlockPVoid   deallocBlock;
 
 @end
 

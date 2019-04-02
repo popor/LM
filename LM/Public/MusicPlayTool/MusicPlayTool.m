@@ -1,5 +1,5 @@
 //
-//  MusicPlayTool.m
+//  MusicPlayer.m
 //  LM
 //
 //  Created by apple on 2019/3/28.
@@ -15,7 +15,7 @@
     static MusicPlayTool * instance;
     dispatch_once(&once, ^{
         instance = [self new];
-        //instance.player = [[STKAudioPlayer alloc] init];
+        
     });
     return instance;
 }

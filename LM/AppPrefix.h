@@ -14,4 +14,7 @@
 #import <Masonry/Masonry.h>
 #import <ReactiveObjC/ReactiveObjC.h>
 
+static NSString * LmCacheKey    = @"LmCache";
+static NSString * LmPlayListKey = @"list";
+
 #endif /* AppPrefix_h */

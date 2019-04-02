@@ -17,8 +17,16 @@
 
 @implementation LocalMusicVC
 @synthesize infoTV;
+@synthesize musicListTV;
 @synthesize musicPlayboard;
 @synthesize itemArray;
+@synthesize deallocBlock;
+
+- (void)dealloc {
+    if (self.deallocBlock) {
+        self.deallocBlock();
+    }
+}
 
 - (instancetype)initWithDic:(NSDictionary *)dic {
     if (self = [super init]) {
@@ -60,8 +68,8 @@
 
 #pragma mark - views
 - (void)addViews {
-    self.infoTV = [self addTVs];
-    
+    self.infoTV      = [self addTVs];
+    self.musicListTV = [self addMusicListTVs];
 }
 
 - (UITableView *)addTVs {
@@ -85,5 +93,26 @@
     
     return oneTV;
 }
+
+- (UITableView *)addMusicListTVs {
+    UITableView * oneTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 200, 250) style:UITableViewStylePlain];
+    
+    oneTV.delegate   = self.present;
+    oneTV.dataSource = self.present;
+    
+    oneTV.allowsMultipleSelectionDuringEditing = YES;
+    oneTV.directionalLockEnabled = YES;
+    
+    oneTV.estimatedRowHeight           = 0;
+    oneTV.estimatedSectionHeaderHeight = 0;
+    oneTV.estimatedSectionFooterHeight = 0;
+    
+    oneTV.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    oneTV.backgroundColor = [UIColor clearColor];
+    
+    return oneTV;
+}
+
+
 
 @end

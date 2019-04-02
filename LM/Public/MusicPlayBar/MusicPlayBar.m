@@ -1,27 +1,27 @@
 //
-//  MusicPlayboard.m
+//  MusicPlayBar.m
 //  LM
 //
 //  Created by apple on 2019/3/28.
 //  Copyright © 2019 popor. All rights reserved.
 //
 
-#import "MusicPlayboard.h"
+#import "MusicPlayBar.h"
 
 #import <PoporUI/UIDeviceScreen.h>
 
-@interface MusicPlayboard ()
+@interface MusicPlayBar ()
 
 @property (nonatomic        ) BOOL isX;
 @property (nonatomic, strong) NSArray * orderImageArray;
 
 @end
 
-@implementation MusicPlayboard
+@implementation MusicPlayBar
 
-+ (MusicPlayboard *)share {
++ (MusicPlayBar *)share {
     static dispatch_once_t once;
-    static MusicPlayboard * instance;
+    static MusicPlayBar * instance;
     dispatch_once(&once, ^{
         instance = [self new];
         

@@ -18,7 +18,7 @@
 @end
 
 @implementation RootVC
-@synthesize musicPlayboard;
+@synthesize playbar;
 @synthesize infoTV;
 @synthesize alertBubbleView;
 @synthesize alertBubbleTV;
@@ -71,7 +71,7 @@
         make.top.mas_equalTo(0);
         make.left.mas_equalTo(0);
         make.right.mas_equalTo(0);
-        make.bottom.mas_equalTo(-self.musicPlayboard.height);
+        make.bottom.mas_equalTo(-self.playbar.height);
     }];
     self.alertBubbleTVColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     self.alertBubbleTV = [self addAlertBubbleTV];
@@ -83,17 +83,17 @@
 }
 
 - (void)addPlayboard {
-    self.musicPlayboard = [MusicPlayboard share];
-    [self.navigationController.view addSubview:self.musicPlayboard];
+    self.playbar = [MusicPlayBar share];
+    [self.navigationController.view addSubview:self.playbar];
     
-    [self.musicPlayboard mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.playbar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);
         make.right.mas_equalTo(0);
         make.bottom.mas_equalTo(0);
-        make.height.mas_equalTo(self.musicPlayboard.height);
+        make.height.mas_equalTo(self.playbar.height);
     }];
     
-    [self.musicPlayboard.playBT addTarget:self.present action:@selector(playBTEvent) forControlEvents:UIControlEventTouchUpInside];
+    [self.playbar.playBT addTarget:self.present action:@selector(playBTEvent) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (UITableView *)addTVs {

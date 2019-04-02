@@ -9,11 +9,15 @@
 #import "LocalMusicVCInteractor.h"
 
 #import "LocalMusicVCRouter.h"
+#import "LocalMusicCell.h"
+
+#import "MusicPlayListTool.h"
 
 @interface LocalMusicVCPresenter ()
 
 @property (nonatomic, weak  ) id<LocalMusicVCProtocol> view;
 @property (nonatomic, strong) LocalMusicVCInteractor * interactor;
+@property (nonatomic, weak  ) FileEntity * selectFileEntity;
 
 @end
 
@@ -51,57 +55,151 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.interactor.infoArray.count;
+    if (tableView == self.view.infoTV) {
+        return self.interactor.infoArray.count;
+    }else{
+        return  MpltShare.list.array.count;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 50;
+    if (tableView == self.view.infoTV) {
+        return LocalMusicCellH;
+    }else{
+        return  50;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 10;
+    if (tableView == self.view.infoTV) {
+        return 10;
+    }else{
+        return 0.1;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 10;
+    if (tableView == self.view.infoTV) {
+        return 10;
+    }else{
+        return 0.1;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString * CellID = @"CellFolder";
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellID];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        if (self.view.itemArray) {
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        }else{
-            cell.accessoryType = UITableViewCellAccessoryNone;
+    if (tableView == self.view.infoTV) {
+        static NSString * CellID = @"CellFolder";
+        LocalMusicCell * cell = [tableView dequeueReusableCellWithIdentifier:CellID];
+        if (!cell) {
+            cell = [[LocalMusicCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            if (self.view.itemArray) {
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }else{
+                cell.accessoryType = UITableViewCellAccessoryNone;
+            }
+            
+            @weakify(self);
+            [[cell.addBt rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+                @strongify(self);
+                
+                LocalMusicCell  * scell = (LocalMusicCell *)x.superview;
+                FileEntity * entity     = (FileEntity *)scell.cellData;
+                self.selectFileEntity   = entity;
+                
+                [self addMusicPlistFile:entity];
+            }];
         }
-    }
-    FileEntity * entity = self.interactor.infoArray[indexPath.row];
-    if (entity.isFolder) {
-        cell.textLabel.text = [NSString stringWithFormat:@"%@ (%li)", entity.fileName, entity.itemArray.count];
+        FileEntity * entity = self.interactor.infoArray[indexPath.row];
+        if (entity.isFolder) {
+            cell.titelL.text = [NSString stringWithFormat:@"%@ (%li)", entity.fileName, entity.itemArray.count];
+        }else{
+            cell.titelL.text = [NSString stringWithFormat:@"%@", entity.fileName];
+        }
+        cell.cellData = entity;
+        
+        return cell;
     }else{
-        cell.textLabel.text = [NSString stringWithFormat:@"%@", entity.fileName];
+        static NSString * CellID = @"CellMusicList";
+        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellID];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
+            cell.backgroundColor = [UIColor clearColor];
+            cell.textLabel.textColor = [UIColor whiteColor];
+        }
+        MusicPlayListEntity * list = MpltShare.list.array[indexPath.row];
+        cell.textLabel.text = list.name;
+        
+        return cell;
     }
-    
-    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    FileEntity * entity = self.interactor.infoArray[indexPath.row];
-    if (entity.isFolder) {
-        NSDictionary * dic = @{@"title":entity.fileName, @"itemArray":entity.itemArray};
-        [self.view.vc.navigationController pushViewController:[LocalMusicVCRouter vcWithDic:dic] animated:YES];
+    if (tableView == self.view.infoTV) {
+        FileEntity * entity = self.interactor.infoArray[indexPath.row];
+        if (entity.isFolder) {
+            NSDictionary * dic = @{@"title":entity.fileName, @"itemArray":entity.itemArray};
+            [self.view.vc.navigationController pushViewController:[LocalMusicVCRouter vcWithDic:dic] animated:YES];
+        }else{
+            
+        }
     }else{
-        
-        
+        MusicPlayListEntity * list = MpltShare.list.array[indexPath.row];
+        if (self.selectFileEntity.isFolder) {
+            for (FileEntity * fileEntity in self.selectFileEntity.itemArray) {
+                MusicPlayItemEntity * itme = [MusicPlayItemEntity new];
+                itme.path  = [NSString stringWithFormat:@"%@/%@", fileEntity.folderPath, fileEntity.fileName];
+                itme.title = fileEntity.fileName;
+                
+                list.array.add(itme);
+            }
+            
+        }else{
+            FileEntity * fileEntity    = self.selectFileEntity;
+            MusicPlayItemEntity * itme = [MusicPlayItemEntity new];
+            itme.path  = [NSString stringWithFormat:@"%@/%@", fileEntity.folderPath, fileEntity.fileName];
+            itme.title = fileEntity.fileName;
+            
+            list.array.add(itme);
+        }
+        [MpltShare update];
     }
 }
 
 #pragma mark - VC_EventHandler
+- (void)addMusicPlistFile:(FileEntity *)entity {
+    //    NSString * title;
+    //    if (entity.isFolder) {
+    //        title = [NSString stringWithFormat:@"添加整个文件夹《%@》", entity.fileName];
+    //    }else{
+    //        title = [NSString stringWithFormat:@"添加文件《%@》", entity.fileName];
+    //    }
+    
+    UIColor * color = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    NSDictionary * dic = @{
+                           @"direction":@(AlertBubbleViewDirectionTop),
+                           @"baseView":self.view.vc.navigationController.view,
+                           @"borderLineColor":color,
+                           @"borderLineWidth":@(1),
+                           @"corner":@(10),
+                           
+                           @"bubbleBgColor":color,
+                           @"bgColor":[UIColor clearColor],
+                           @"showAroundRect":@(NO),
+                           @"showLogInfo":@(NO),
+                           };
+    
+    AlertBubbleView * abView = [[AlertBubbleView alloc] initWithDic:dic];
+    
+    self.view.musicListTV.center = self.view.vc.navigationController.view.center;
+    
+    [abView showCustomView:self.view.musicListTV close:^{
+        
+    }];
+    
+}
 
 #pragma mark - Interactor_EventHandler
 

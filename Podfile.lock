@@ -8,49 +8,49 @@ PODS:
     - GCDWebServer/Core
   - KVOController (1.2.0)
   - Masonry (1.1.0)
-  - PoporAlertBubbleView (0.0.08):
+  - PoporAlertBubbleView (0.0.09):
     - PoporFoundation/NSAssistant
     - PoporFoundation/PrefixCore
     - PoporUI/UIView
-  - PoporFoundation (0.0.36):
-    - PoporFoundation/KVO (= 0.0.36)
-    - PoporFoundation/NSArray (= 0.0.36)
-    - PoporFoundation/NSAssistant (= 0.0.36)
-    - PoporFoundation/NSData (= 0.0.36)
-    - PoporFoundation/NSDate (= 0.0.36)
-    - PoporFoundation/NSDecimalNumber (= 0.0.36)
-    - PoporFoundation/NSDictionary (= 0.0.36)
-    - PoporFoundation/NSFileManager (= 0.0.36)
-    - PoporFoundation/NSObject (= 0.0.36)
-    - PoporFoundation/NSString (= 0.0.36)
-    - PoporFoundation/NSURL (= 0.0.36)
-    - PoporFoundation/PrefixCore (= 0.0.36)
-    - PoporFoundation/PrefixOs (= 0.0.36)
-  - PoporFoundation/KVO (0.0.36)
-  - PoporFoundation/NSArray (0.0.36):
+  - PoporFoundation (0.0.37):
+    - PoporFoundation/KVO (= 0.0.37)
+    - PoporFoundation/NSArray (= 0.0.37)
+    - PoporFoundation/NSAssistant (= 0.0.37)
+    - PoporFoundation/NSData (= 0.0.37)
+    - PoporFoundation/NSDate (= 0.0.37)
+    - PoporFoundation/NSDecimalNumber (= 0.0.37)
+    - PoporFoundation/NSDictionary (= 0.0.37)
+    - PoporFoundation/NSFileManager (= 0.0.37)
+    - PoporFoundation/NSObject (= 0.0.37)
+    - PoporFoundation/NSString (= 0.0.37)
+    - PoporFoundation/NSURL (= 0.0.37)
+    - PoporFoundation/PrefixCore (= 0.0.37)
+    - PoporFoundation/PrefixOs (= 0.0.37)
+  - PoporFoundation/KVO (0.0.37)
+  - PoporFoundation/NSArray (0.0.37):
     - PoporFoundation/NSObject
     - PoporFoundation/PrefixCore
-  - PoporFoundation/NSAssistant (0.0.36):
+  - PoporFoundation/NSAssistant (0.0.37):
     - PoporFoundation/PrefixCore
     - PoporFoundation/PrefixOs
-  - PoporFoundation/NSData (0.0.36)
-  - PoporFoundation/NSDate (0.0.36):
+  - PoporFoundation/NSData (0.0.37)
+  - PoporFoundation/NSDate (0.0.37):
     - PoporFoundation/NSString
-  - PoporFoundation/NSDecimalNumber (0.0.36):
+  - PoporFoundation/NSDecimalNumber (0.0.37):
     - PoporFoundation/NSObject
-  - PoporFoundation/NSDictionary (0.0.36):
+  - PoporFoundation/NSDictionary (0.0.37):
     - PoporFoundation/NSObject
     - PoporFoundation/PrefixCore
-  - PoporFoundation/NSFileManager (0.0.36)
-  - PoporFoundation/NSObject (0.0.36)
-  - PoporFoundation/NSString (0.0.36):
+  - PoporFoundation/NSFileManager (0.0.37)
+  - PoporFoundation/NSObject (0.0.37)
+  - PoporFoundation/NSString (0.0.37):
     - PoporFoundation/PrefixOs
-  - PoporFoundation/NSURL (0.0.36):
+  - PoporFoundation/NSURL (0.0.37):
     - PoporFoundation/NSObject
     - PoporFoundation/NSString
-  - PoporFoundation/PrefixCore (0.0.36):
+  - PoporFoundation/PrefixCore (0.0.37):
     - PoporFoundation/PrefixOs
-  - PoporFoundation/PrefixOs (0.0.36)
+  - PoporFoundation/PrefixOs (0.0.37)
   - PoporPopNormalNC (0.0.03):
     - PoporUI/UIViewController
   - PoporUI (0.0.45):
@@ -102,6 +102,7 @@ PODS:
     - PoporFoundation/PrefixCore
   - ReactiveObjC (3.1.0)
   - StepSlider (1.2.1)
+  - YYCache (1.0.4)
   - YYModel (1.0.4)
 
 DEPENDENCIES:
@@ -116,6 +117,7 @@ DEPENDENCIES:
   - PoporUI
   - ReactiveObjC
   - StepSlider
+  - YYCache
   - YYModel
 
 SPEC REPOS:
@@ -129,20 +131,22 @@ SPEC REPOS:
     - PoporUI
     - ReactiveObjC
     - StepSlider
+    - YYCache
     - YYModel
 
 SPEC CHECKSUMS:
   GCDWebServer: ead88cd14596dd4eae4f5830b8877c87c8728990
   KVOController: d72ace34afea42468329623b3379ab3cd1d286b6
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  PoporAlertBubbleView: aea73e383fca9d7dedda533fac160c9e66c720cf
-  PoporFoundation: 5fe3d73a88209ed6cbfd96bc78e4edfd2d7805ca
+  PoporAlertBubbleView: 1f41884539a40903e6ad72da503cfe51cbd1b470
+  PoporFoundation: acfd6dc7560c3dd5357eeaf3341115b8a93a2565
   PoporPopNormalNC: 8ee829beeb1d8f31f99c85adbbafe302988f5fce
   PoporUI: 6476eafb257e872b8452b185b1119a2c1618ded6
   ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
   StepSlider: e1c9b8f3363cf87224e19c000abe9f5146f80dd1
+  YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: acba05477113aceab18bc5d0b328710c4e60e5a1
+PODFILE CHECKSUM: e5321faff06a1f9ff93ae4484ceecd5ed95a9ca3
 
 COCOAPODS: 1.7.0.beta.3
