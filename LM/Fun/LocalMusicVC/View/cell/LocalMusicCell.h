@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "MusicPlayList.h"
-
 static int LocalMusicCellH = 50;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -21,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIButton * addBt;
 @property (nonatomic, strong) UILabel  * titelL;
 @property (nonatomic, strong) UILabel  * timeL;
+@property (nonatomic, strong) UIButton * rightIV;
 
 @end
 

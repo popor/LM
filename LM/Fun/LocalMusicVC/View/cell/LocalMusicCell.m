@@ -53,11 +53,15 @@
         
         switch (i) {
             case 0:{
-                self.titelL = oneL;
+                oneL.font      = [UIFont systemFontOfSize:15];
+                oneL.textColor = [UIColor blackColor];
+                self.titelL    = oneL;
                 break;
             }
             case 1:{
-                self.timeL = oneL;
+                oneL.font      = [UIFont systemFontOfSize:13];
+                oneL.textColor = [UIColor grayColor];
+                self.timeL     = oneL;
                 break;
             }
             default:
@@ -73,12 +77,12 @@
     
     [self.titelL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.addBt.mas_right).mas_offset(10);
-        make.top.mas_equalTo(10);
+        make.top.mas_equalTo(7);
         make.height.mas_equalTo(20);
     }];
     [self.timeL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.addBt.mas_right).mas_offset(10);
-        make.bottom.mas_equalTo(-10);
+        make.bottom.mas_equalTo(-5);
         make.height.mas_equalTo(20);
     }];
 }

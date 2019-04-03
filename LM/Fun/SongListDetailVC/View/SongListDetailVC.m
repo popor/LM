@@ -60,8 +60,14 @@
 
 #pragma mark - views
 - (void)addViews {
+    self.playbar = [MusicPlayBar share];
     self.infoTV = [self addTVs];
-    
+    [self.infoTV mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(0);
+        make.left.mas_equalTo(0);
+        make.right.mas_equalTo(0);
+        make.bottom.mas_equalTo(-self.playbar.height);
+    }];
 }
 
 - (UITableView *)addTVs {
@@ -78,10 +84,6 @@
     oneTV.estimatedSectionFooterHeight = 0;
     
     [self.view addSubview:oneTV];
-    
-    [oneTV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, 0, 0));
-    }];
     
     return oneTV;
 }

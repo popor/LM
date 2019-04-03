@@ -10,6 +10,18 @@
 
 @implementation MusicPlayItemEntity
 
++ (MusicPlayItemEntity *)initWithFileEntity:(FileEntity *)fileEntity {
+    MusicPlayItemEntity * itme = [MusicPlayItemEntity new];
+    itme.docPath     = [NSString stringWithFormat:@"%@/%@", fileEntity.folderName, fileEntity.fileName];
+    itme.fileName    = fileEntity.fileName;
+    itme.musicTitle  = fileEntity.musicTitle;
+    itme.musicAuthor = fileEntity.musicAuthor;
+    
+    
+    
+    return itme;
+}
+
 @end
 
 @implementation MusicPlayListEntity

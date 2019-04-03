@@ -35,22 +35,10 @@
     return instance;
 }
 
-- (void)playEvent:(NSURL *)url {
-    if (self.audioPlayer && [self.audioPlayer.url isEqual:url]) {
-        [self.audioPlayer prepareToPlay];
-        [self.audioPlayer play];
-    }else{
-        self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-        self.audioPlayer.delegate = self;
-        [self.audioPlayer prepareToPlay];
-        [self.audioPlayer play];
-    }
-}
-
 - (void)playItem:(MusicPlayItemEntity *)item {
     NSString * path = [NSString stringWithFormat:@"%@/%@", MpltShare.docPath, item.docPath];
     NSURL * url     = [NSURL fileURLWithPath:path];
-    self.musicTitle = item.title;
+    self.musicTitle = item.fileName;
     
     if (self.audioPlayer && [self.audioPlayer.url isEqual:url]) {
         [self.audioPlayer prepareToPlay];

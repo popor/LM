@@ -65,14 +65,15 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     MusicPlayItemEntity * item = self.view.listArray[indexPath.row];
-    cell.textLabel.text = item.title;
+    cell.textLabel.text = item.fileName;
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+ 
+    [MpbShare playArray:self.view.listArray at:indexPath.row];
 }
 
 #pragma mark - VC_EventHandler

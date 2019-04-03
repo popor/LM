@@ -192,12 +192,12 @@
     
 }
 
-- (void)playArray:(NSArray *)itemArray {
+- (void)playArray:(NSArray *)itemArray at:(NSInteger)index {
     [self.mplt.currentList removeAllObjects];
     [self.mplt.currentList addObjectsFromArray:itemArray];
     self.playBT.selected = YES;
     if (itemArray.count > 0) {
-        self.currentItem = self.mplt.currentList[0];
+        self.currentItem = self.mplt.currentList[index];
         [self.mpt playItem:self.currentItem];
     }
 }

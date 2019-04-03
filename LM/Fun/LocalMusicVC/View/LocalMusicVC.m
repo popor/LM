@@ -18,7 +18,7 @@
 @implementation LocalMusicVC
 @synthesize infoTV;
 @synthesize musicListTV;
-@synthesize musicPlayboard;
+@synthesize playbar;
 @synthesize itemArray;
 @synthesize deallocBlock;
 
@@ -68,8 +68,16 @@
 
 #pragma mark - views
 - (void)addViews {
+    self.playbar     = MpbShare;
     self.infoTV      = [self addTVs];
     self.musicListTV = [self addMusicListTVs];
+    
+    [self.infoTV mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(0);
+        make.left.mas_equalTo(0);
+        make.right.mas_equalTo(0);
+        make.bottom.mas_equalTo(-self.playbar.height);
+    }];
 }
 
 - (UITableView *)addTVs {
@@ -86,10 +94,6 @@
     oneTV.estimatedSectionFooterHeight = 0;
     
     [self.view addSubview:oneTV];
-    
-    [oneTV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, 0, 0));
-    }];
     
     return oneTV;
 }

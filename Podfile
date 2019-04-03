@@ -25,7 +25,9 @@ target 'LM' do
   pod 'GCDWebServer'
   pod 'GCDWebServer/WebUploader'
   pod 'GCDWebServer/WebDAV'
-  
+
+  #pod 'YLGIFImage'
+
   # pod 'StreamingKit'
   # pod 'TheAmazingAudioEngine'
   

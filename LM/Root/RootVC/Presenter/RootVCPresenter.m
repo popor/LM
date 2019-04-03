@@ -104,14 +104,15 @@
         MusicListCell * cell = [tableView dequeueReusableCellWithIdentifier:CellID];
         if (!cell) {
             cell = [[MusicListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+            cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
             
             [[cell.playBt rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
                 //x 就是被点击的按钮
                 MusicListCell * scell = (MusicListCell *)x.superview;
                 MusicPlayListEntity * list = (MusicPlayListEntity *)scell.cellData;
                 
-                [MpbShare playArray:list.array];
+                [MpbShare playArray:list.array at:0];
             }];
         }
         MusicPlayListEntity * list = MpltShare.list.array[indexPath.row];

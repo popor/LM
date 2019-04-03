@@ -12,6 +12,7 @@
 #import "LocalMusicCell.h"
 
 #import "MusicPlayListTool.h"
+#import "MusicPlayBar.h"
 
 @interface LocalMusicVCPresenter ()
 
@@ -93,7 +94,7 @@
         if (!cell) {
             cell = [[LocalMusicCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            if (self.view.itemArray) {
+            if (!self.view.itemArray) {
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }else{
                 cell.accessoryType = UITableViewCellAccessoryNone;
@@ -112,9 +113,11 @@
         }
         FileEntity * entity = self.interactor.infoArray[indexPath.row];
         if (entity.isFolder) {
-            cell.titelL.text = [NSString stringWithFormat:@"%@ (%li)", entity.fileName, entity.itemArray.count];
+            cell.titelL.text = entity.fileName;
+            cell.timeL.text  = [NSString stringWithFormat:@"%li首", entity.itemArray.count];
         }else{
-            cell.titelL.text = [NSString stringWithFormat:@"%@", entity.fileName];
+            cell.titelL.text = [NSString stringWithFormat:@"%li: %@", indexPath.row+1, entity.musicTitle];
+            cell.timeL.text  = entity.musicAuthor;
         }
         cell.cellData = entity;
         
@@ -138,31 +141,23 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (tableView == self.view.infoTV) {
-        FileEntity * entity = self.interactor.infoArray[indexPath.row];
-        if (entity.isFolder) {
-            NSDictionary * dic = @{@"title":entity.fileName, @"itemArray":entity.itemArray};
+        FileEntity * fileEntity = self.interactor.infoArray[indexPath.row];
+        if (fileEntity.isFolder) {
+            NSDictionary * dic = @{@"title":fileEntity.fileName, @"itemArray":fileEntity.itemArray};
             [self.view.vc.navigationController pushViewController:[LocalMusicVCRouter vcWithDic:dic] animated:YES];
         }else{
-            
+            NSArray * array = @[[MusicPlayItemEntity initWithFileEntity:fileEntity]];
+            [MpbShare playArray:array at:0];
         }
     }else{
         MusicPlayListEntity * list = MpltShare.list.array[indexPath.row];
         if (self.selectFileEntity.isFolder) {
             for (FileEntity * fileEntity in self.selectFileEntity.itemArray) {
-                MusicPlayItemEntity * itme = [MusicPlayItemEntity new];
-                itme.docPath  = [NSString stringWithFormat:@"%@/%@", fileEntity.folderName, fileEntity.fileName];
-                itme.title = fileEntity.fileName;
-                
-                list.array.add(itme);
+                list.array.add([MusicPlayItemEntity initWithFileEntity:fileEntity]);
             }
-            
         }else{
             FileEntity * fileEntity    = self.selectFileEntity;
-            MusicPlayItemEntity * itme = [MusicPlayItemEntity new];
-            itme.docPath  = [NSString stringWithFormat:@"%@/%@", fileEntity.folderName, fileEntity.fileName];
-            itme.title = fileEntity.fileName;
-            
-            list.array.add(itme);
+            list.array.add([MusicPlayItemEntity initWithFileEntity:fileEntity]);
         }
         [MpltShare update];
     }

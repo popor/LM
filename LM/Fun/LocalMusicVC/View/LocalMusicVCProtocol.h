@@ -16,7 +16,7 @@
 - (void)setMyPresent:(id)present;
 
 // MARK: 自己的
-@property (nonatomic, weak  ) MusicPlayBar  * musicPlayboard;
+@property (nonatomic, weak  ) MusicPlayBar    * playbar;
 @property (nonatomic, strong) UITableView     * infoTV;
 @property (nonatomic, strong) UITableView     * musicListTV;
 @property (nonatomic, weak  ) NSMutableArray  * itemArray;

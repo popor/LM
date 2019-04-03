@@ -38,9 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak  ) MusicPlayItemEntity * currentItem;
 
 
-- (void)playArray:(NSArray *)itemArray;
-
-- (void)playBTEvent;
+- (void)playArray:(NSArray *)itemArray at:(NSInteger)index;
 
 - (void)playEvent;
 - (void)pauseEvent;

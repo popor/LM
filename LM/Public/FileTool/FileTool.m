@@ -48,6 +48,17 @@
             entity.folder = YES;
         }else{
             entity.folder = NO;
+            if (fileName.pathExtension.length > 0) {
+                fileName = [fileName substringToIndex:fileName.length - fileName.pathExtension.length - 1];
+            }
+            NSRange range = [fileName rangeOfString:@"-"];
+            if (range.location > 0 && range.length > 0) {
+                entity.musicTitle  = [fileName substringFromIndex:range.location + range.length];
+                entity.musicAuthor = [fileName substringToIndex:range.location];
+            }else{
+                entity.musicTitle  = fileName;
+                entity.musicAuthor = @"";
+            }
         }
         switch (type) {
             case FileTypeFolder:{

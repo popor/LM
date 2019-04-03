@@ -23,7 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (MusicPlayTool *)share;
 
-- (void)playEvent:(NSURL *)url;
 - (void)playItem:(MusicPlayItemEntity *)item;
 - (void)pauseEvent;
 - (void)rewindEvent:(int)second;
