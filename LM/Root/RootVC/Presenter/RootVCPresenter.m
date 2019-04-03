@@ -112,7 +112,7 @@
                 MusicListCell * scell = (MusicListCell *)x.superview;
                 MusicPlayListEntity * list = (MusicPlayListEntity *)scell.cellData;
                 
-                [MpbShare playArray:list.array at:0];
+                [MpbShare playTempArray:list.array at:0];
             }];
         }
         MusicPlayListEntity * list = MpltShare.list.array[indexPath.row];

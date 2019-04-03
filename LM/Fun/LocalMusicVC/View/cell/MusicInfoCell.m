@@ -1,14 +1,14 @@
 //
-//  LocalMusicCell.m
+//  MusicInfoCell.m
 //  LM
 //
 //  Created by apple on 2019/4/1.
 //  Copyright © 2019 popor. All rights reserved.
 //
 
-#import "LocalMusicCell.h"
+#import "MusicInfoCell.h"
 
-@implementation LocalMusicCell
+@implementation MusicInfoCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];

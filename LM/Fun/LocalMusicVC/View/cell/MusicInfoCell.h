@@ -1,5 +1,5 @@
 //
-//  LocalMusicCell.h
+//  MusicInfoCell.h
 //  LM
 //
 //  Created by apple on 2019/4/1.
@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-static int LocalMusicCellH = 50;
+static int MusicInfoCellH = 50;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LocalMusicCell : UITableViewCell
+@interface MusicInfoCell : UITableViewCell
 
 @property (nonatomic, weak  ) id cellData;
 

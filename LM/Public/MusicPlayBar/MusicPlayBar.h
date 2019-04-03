@@ -37,8 +37,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak  ) MusicPlayItemEntity * currentItem;
 
+// 播放临时数组
+- (void)playTempArray:(NSArray *)itemArray at:(NSInteger)index;
 
-- (void)playArray:(NSArray *)itemArray at:(NSInteger)index;
+// 播放歌单列表
+- (void)playRecordArray:(NSMutableArray *)itemArray at:(NSInteger)index;
 
 - (void)playEvent;
 - (void)pauseEvent;

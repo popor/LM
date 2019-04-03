@@ -16,9 +16,11 @@ static NSString * WFIgnoreFile = @".DS_Store";
 
 @property (nonatomic, strong) NSString *folderName;
 @property (nonatomic, strong) NSString *fileName;
+@property (nonatomic, strong) NSString *filePath;
 
 @property (nonatomic, strong) NSString * musicAuthor;
 @property (nonatomic, strong) NSString * musicTitle;
+//@property (nonatomic, strong) UIImage  * musicCover;
 
 @property (nonatomic, getter=isFolder) BOOL folder;
 

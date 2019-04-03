@@ -38,7 +38,7 @@
 		18DE13AA2251F40A009920D7 /* SongListDetailVCRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE13A22251F40A009920D7 /* SongListDetailVCRouter.m */; };
 		18DE13AB2251F40A009920D7 /* SongListDetailVCPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE13A42251F40A009920D7 /* SongListDetailVCPresenter.m */; };
 		18DE13AC2251F40A009920D7 /* SongListDetailVCInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE13A72251F40A009920D7 /* SongListDetailVCInteractor.m */; };
-		18DE13AF2251F78C009920D7 /* LocalMusicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE13AE2251F78C009920D7 /* LocalMusicCell.m */; };
+		18DE13AF2251F78C009920D7 /* MusicInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE13AE2251F78C009920D7 /* MusicInfoCell.m */; };
 		18E52ED32253050C00EF8BF6 /* MusicListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E52ED22253050C00EF8BF6 /* MusicListCell.m */; };
 		18F93E1E225463DD005236A3 /* YLGIFImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F93E1A225463DD005236A3 /* YLGIFImage.m */; };
 		18F93E1F225463DD005236A3 /* YLImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F93E1B225463DD005236A3 /* YLImageView.m */; };
@@ -134,8 +134,8 @@
 		18DE13A52251F40A009920D7 /* SongListDetailVCPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongListDetailVCPresenter.h; sourceTree = "<group>"; };
 		18DE13A72251F40A009920D7 /* SongListDetailVCInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongListDetailVCInteractor.m; sourceTree = "<group>"; };
 		18DE13A82251F40A009920D7 /* SongListDetailVCInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongListDetailVCInteractor.h; sourceTree = "<group>"; };
-		18DE13AD2251F78C009920D7 /* LocalMusicCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocalMusicCell.h; sourceTree = "<group>"; };
-		18DE13AE2251F78C009920D7 /* LocalMusicCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocalMusicCell.m; sourceTree = "<group>"; };
+		18DE13AD2251F78C009920D7 /* MusicInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicInfoCell.h; sourceTree = "<group>"; };
+		18DE13AE2251F78C009920D7 /* MusicInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicInfoCell.m; sourceTree = "<group>"; };
 		18E52ED12253050C00EF8BF6 /* MusicListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicListCell.h; sourceTree = "<group>"; };
 		18E52ED22253050C00EF8BF6 /* MusicListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicListCell.m; sourceTree = "<group>"; };
 		18F93E1A225463DD005236A3 /* YLGIFImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLGIFImage.m; sourceTree = "<group>"; };
@@ -559,8 +559,8 @@
 		18DE13B02251F790009920D7 /* cell */ = {
 			isa = PBXGroup;
 			children = (
-				18DE13AD2251F78C009920D7 /* LocalMusicCell.h */,
-				18DE13AE2251F78C009920D7 /* LocalMusicCell.m */,
+				18DE13AD2251F78C009920D7 /* MusicInfoCell.h */,
+				18DE13AE2251F78C009920D7 /* MusicInfoCell.m */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -865,7 +865,7 @@
 				18DE13AA2251F40A009920D7 /* SongListDetailVCRouter.m in Sources */,
 				183BF42F224A263A004DE115 /* UINavigationController+Jch.m in Sources */,
 				183BF427224A22EC004DE115 /* RootVCInteractor.m in Sources */,
-				18DE13AF2251F78C009920D7 /* LocalMusicCell.m in Sources */,
+				18DE13AF2251F78C009920D7 /* MusicInfoCell.m in Sources */,
 				18561595224DC089004BE073 /* MusicConfig.m in Sources */,
 				18DE13922251BD5F009920D7 /* MusicPlayListTool.m in Sources */,
 			);

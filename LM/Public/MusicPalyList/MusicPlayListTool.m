@@ -47,7 +47,7 @@
         if (!_list.array) {
             _list.array = [NSMutableArray new];
         }
-        _currentList = [NSMutableArray new];
+        _currentTempList = [NSMutableArray new];
     }
     return self;
 }

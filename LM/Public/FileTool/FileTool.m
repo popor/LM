@@ -43,6 +43,7 @@
         FileEntity * entity = [FileEntity new];
         entity.folderName = folderName;
         entity.fileName   = fileName;
+        entity.filePath   = [NSString stringWithFormat:@"%@/%@", folderName, fileName];
         if(folderFlag){
             [direnum skipDescendants];
             entity.folder = YES;

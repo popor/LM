@@ -9,7 +9,7 @@
 #import "LocalMusicVCInteractor.h"
 
 #import "LocalMusicVCRouter.h"
-#import "LocalMusicCell.h"
+#import "MusicInfoCell.h"
 
 #import "MusicPlayListTool.h"
 #import "MusicPlayBar.h"
@@ -19,6 +19,8 @@
 @property (nonatomic, weak  ) id<LocalMusicVCProtocol> view;
 @property (nonatomic, strong) LocalMusicVCInteractor * interactor;
 @property (nonatomic, weak  ) FileEntity * selectFileEntity;
+@property (nonatomic, weak  ) MusicPlayBar * mpb;
+@property (nonatomic, weak  ) MusicInfoCell * lastCell;
 
 @end
 
@@ -26,6 +28,7 @@
 
 - (id)init {
     if (self = [super init]) {
+        self.mpb = MpbShare;
         [self initInteractors];
         
     }
@@ -65,7 +68,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.view.infoTV) {
-        return LocalMusicCellH;
+        return MusicInfoCellH;
     }else{
         return  50;
     }
@@ -90,9 +93,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.view.infoTV) {
         static NSString * CellID = @"CellFolder";
-        LocalMusicCell * cell = [tableView dequeueReusableCellWithIdentifier:CellID];
+        MusicInfoCell * cell = [tableView dequeueReusableCellWithIdentifier:CellID];
         if (!cell) {
-            cell = [[LocalMusicCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
+            cell = [[MusicInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             if (!self.view.itemArray) {
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -104,7 +107,7 @@
             [[cell.addBt rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
                 @strongify(self);
                 
-                LocalMusicCell  * scell = (LocalMusicCell *)x.superview;
+                MusicInfoCell  * scell = (MusicInfoCell *)x.superview;
                 FileEntity * entity     = (FileEntity *)scell.cellData;
                 self.selectFileEntity   = entity;
                 
@@ -118,6 +121,19 @@
         }else{
             cell.titelL.text = [NSString stringWithFormat:@"%li: %@", indexPath.row+1, entity.musicTitle];
             cell.timeL.text  = entity.musicAuthor;
+            
+            if ([entity.filePath isEqualToString:self.mpb.currentItem.filePath]) {
+                cell.titelL.textColor = ColorThemeBlue1;
+                cell.timeL.textColor  = ColorThemeBlue1;
+                
+                self.lastCell = cell;
+                //cell.backgroundColor = [UIColor redColor];
+            }else{
+                cell.titelL.textColor = [UIColor blackColor];
+                cell.timeL.textColor  = [UIColor grayColor];
+                
+                //cell.backgroundColor = [UIColor whiteColor];
+            }
         }
         cell.cellData = entity;
         
@@ -147,7 +163,20 @@
             [self.view.vc.navigationController pushViewController:[LocalMusicVCRouter vcWithDic:dic] animated:YES];
         }else{
             NSArray * array = @[[MusicPlayItemEntity initWithFileEntity:fileEntity]];
-            [MpbShare playArray:array at:0];
+            [MpbShare playTempArray:array at:0];
+            
+            if (self.lastCell) {
+                self.lastCell.titelL.textColor = [UIColor blackColor];
+                self.lastCell.timeL.textColor  = [UIColor grayColor];
+            }
+            {
+                MusicInfoCell * cell = [tableView cellForRowAtIndexPath:indexPath];
+                cell.titelL.textColor = ColorThemeBlue1;
+                cell.timeL.textColor  = ColorThemeBlue1;
+                
+                self.lastCell = cell;
+            }
+            
         }
     }else{
         MusicPlayListEntity * list = MpltShare.list.array[indexPath.row];

@@ -192,12 +192,24 @@
     
 }
 
-- (void)playArray:(NSArray *)itemArray at:(NSInteger)index {
-    [self.mplt.currentList removeAllObjects];
-    [self.mplt.currentList addObjectsFromArray:itemArray];
+- (void)playTempArray:(NSArray *)itemArray at:(NSInteger)index {
+    [self.mplt.currentTempList removeAllObjects];
+    [self.mplt.currentTempList addObjectsFromArray:itemArray];
+    self.mplt.currentWeakList = self.mplt.currentTempList;
     self.playBT.selected = YES;
     if (itemArray.count > 0) {
-        self.currentItem = self.mplt.currentList[index];
+        self.currentItem = self.mplt.currentWeakList[index];
+        [self.mpt playItem:self.currentItem];
+    }
+}
+
+- (void)playRecordArray:(NSMutableArray *)itemArray at:(NSInteger)index {
+    if (self.mplt.currentWeakList != itemArray) {
+        self.mplt.currentWeakList = itemArray;
+    }
+    self.playBT.selected = YES;
+    if (itemArray.count > 0) {
+        self.currentItem = self.mplt.currentWeakList[index];
         [self.mpt playItem:self.currentItem];
     }
 }
@@ -217,9 +229,9 @@
     //            [self.mplt.currentList addObjectsFromArray:list.array];
     //        }
     //    }
-    if (self.mplt.currentList.count>0) {
+    if (self.mplt.currentWeakList.count>0) {
         if (!self.currentItem) {
-            self.currentItem = self.mplt.currentList[0];
+            self.currentItem = self.mplt.currentWeakList[0];
             [self.mpt playItem:self.currentItem];
         }else{
             [self.mpt playItem:self.currentItem];
@@ -232,25 +244,25 @@
 }
 
 - (void)previousBTEvent {
-    if (self.mplt.currentList.count>0) {
+    if (self.mplt.currentWeakList.count>0) {
         NSInteger index = 0;
         if (self.currentItem) {
-            index = [self.mplt.currentList indexOfObject:self.currentItem] - 1;
+            index = [self.mplt.currentWeakList indexOfObject:self.currentItem] - 1;
         }
-        index =  (index + self.mplt.currentList.count) % self.mplt.currentList.count;
-        self.currentItem = self.mplt.currentList[index];
+        index =  (index + self.mplt.currentWeakList.count) % self.mplt.currentWeakList.count;
+        self.currentItem = self.mplt.currentWeakList[index];
         [self.mpt playItem:self.currentItem];
     }
 }
 
 - (void)nextBTEvent {
-    if (self.mplt.currentList.count>0) {
+    if (self.mplt.currentWeakList.count>0) {
         NSInteger index = 0;
         if (self.currentItem) {
-            index = [self.mplt.currentList indexOfObject:self.currentItem] + 1;
+            index = [self.mplt.currentWeakList indexOfObject:self.currentItem] + 1;
         }
-        index =  index % self.mplt.currentList.count;
-        self.currentItem = self.mplt.currentList[index];
+        index =  index % self.mplt.currentWeakList.count;
+        self.currentItem = self.mplt.currentWeakList[index];
         [self.mpt playItem:self.currentItem];
     }
 }

@@ -36,7 +36,7 @@
 }
 
 - (void)playItem:(MusicPlayItemEntity *)item {
-    NSString * path = [NSString stringWithFormat:@"%@/%@", MpltShare.docPath, item.docPath];
+    NSString * path = [NSString stringWithFormat:@"%@/%@", MpltShare.docPath, item.filePath];
     NSURL * url     = [NSURL fileURLWithPath:path];
     self.musicTitle = item.fileName;
     
@@ -66,6 +66,24 @@
         //        MPMediaItemArtwork *albumArt = [[MPMediaItemArtwork alloc]initWithImage:img];
         //        [songInfo setObject: albumArt forKey:MPMediaItemPropertyArtwork ];
         //    }
+        {
+            // 设置封面
+            AVURLAsset *avURLAsset = [[AVURLAsset alloc] initWithURL:self.audioPlayer.url options:nil];
+            for (NSString * format in [avURLAsset availableMetadataFormats]){
+                for (AVMetadataItem *metadata in [avURLAsset metadataForFormat:format]){
+                    // NSLog(@"metadata.commonKey: %@", metadata.commonKey);
+                    // if([metadata.commonKey isEqualToString:@"title"]){
+                    //     NSString *title = (NSString *)metadata.value;//提取歌曲名
+                    // }
+                    if([metadata.commonKey isEqualToString:@"artwork"]){
+                        NSData*data = [metadata.value copyWithZone:nil];
+                        UIImage *coverImage = [UIImage imageWithData:data];
+                        MPMediaItemArtwork *media = [[MPMediaItemArtwork alloc] initWithImage:coverImage];
+                        [songInfo setObject:media forKey:MPMediaItemPropertyArtwork];
+                    }//还可以提取其他所需的信息
+                }
+            }
+        }
         //锁屏标题
         NSString * title = itemTitle;
         NSString * author = @"";
