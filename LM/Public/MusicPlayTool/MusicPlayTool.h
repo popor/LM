@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSURL * musicUrl;
 @property (nonatomic, strong) AVAudioPlayer * audioPlayer;
+@property (nonatomic, strong) NSString * musicTitle;
 
 + (MusicPlayTool *)share;
 

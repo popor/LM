@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 
-#import "MusicPlayBar.h"
+//#import "MusicPlayBar.h"
 
 @interface AppDelegate ()
 
@@ -24,40 +24,43 @@
     }
 #endif
     
-    // 接受系统锁屏控制
-    [self becomeFirstResponder];
-    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
-    
+
     return YES;
 }
 
-- (BOOL)becomeFirstResponder{
-    return YES;
-}
+// ios 9.1 以前的方案
+//    // 接受系统锁屏控制
+//    [self becomeFirstResponder];
+//    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+//
 
-- (void)remoteControlReceivedWithEvent:(UIEvent *)event {
-    switch (event.subtype) {
-        case UIEventSubtypeRemoteControlPlay:
-            [MpbShare playEvent];
-            break;
-        case UIEventSubtypeRemoteControlPause:
-            [MpbShare pauseEvent];
-            break;
-        case UIEventSubtypeRemoteControlStop:
-            
-            break;
-            
-        case UIEventSubtypeRemoteControlNextTrack: {
-            [MpbShare nextBTEvent];
-            break;
-        }
-        case UIEventSubtypeRemoteControlPreviousTrack: {
-            [MpbShare previousBTEvent];
-            break;
-        }
-        default:
-            break;
-    }
-}
+//- (BOOL)becomeFirstResponder{
+//    return YES;
+//}
+//
+//- (void)remoteControlReceivedWithEvent:(UIEvent *)event {
+//    switch (event.subtype) {
+//        case UIEventSubtypeRemoteControlPlay:
+//            [MpbShare playEvent];
+//            break;
+//        case UIEventSubtypeRemoteControlPause:
+//            [MpbShare pauseEvent];
+//            break;
+//        case UIEventSubtypeRemoteControlStop:
+//
+//            break;
+//
+//        case UIEventSubtypeRemoteControlNextTrack: {
+//            [MpbShare nextBTEvent];
+//            break;
+//        }
+//        case UIEventSubtypeRemoteControlPreviousTrack: {
+//            [MpbShare previousBTEvent];
+//            break;
+//        }
+//        default:
+//            break;
+//    }
+//}
 
 @end

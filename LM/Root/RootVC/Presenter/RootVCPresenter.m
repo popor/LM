@@ -366,9 +366,6 @@
     {
         self.view.infoTV.allowsSelectionDuringEditing = NO;
         self.view.infoTV.editing = YES;
-       // self.view.infoTV.allowsSelectionDuringEditing = NO;
-        //[self.view.infoTV setEditing:YES animated:YES];
-        //[self.view.infoTV reloadData];
     }
 }
 
@@ -379,8 +376,6 @@
     }
     {
         self.view.infoTV.editing = NO;
-        //[self.view.infoTV setEditing:NO animated:YES];
-        //[self.view.infoTV reloadData];
     }
 }
 

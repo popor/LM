@@ -1015,7 +1015,7 @@
 				DEVELOPMENT_TEAM = 6SK6RQ8S8Q;
 				GCC_PREFIX_HEADER = LM/AppPrefix.h;
 				INFOPLIST_FILE = LM/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1035,7 +1035,7 @@
 				DEVELOPMENT_TEAM = 6SK6RQ8S8Q;
 				GCC_PREFIX_HEADER = LM/AppPrefix.h;
 				INFOPLIST_FILE = LM/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
