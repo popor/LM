@@ -117,8 +117,14 @@
     for (int i = 0; i<imageN.count; i++) {
         UIButton * oneBT = ({
             UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-            [button setImage:[UIImage imageNamed:imageN[i]] forState:UIControlStateNormal];
-            [button setImage:[UIImage imageNamed:imageS[i]] forState:UIControlStateHighlighted];
+            if (i == 0) {
+                [button setImage:[UIImage imageNamed:imageN[i]] forState:UIControlStateNormal];
+                [button setImage:[UIImage imageNamed:imageS[i]] forState:UIControlStateHighlighted];
+            }else{
+                [button setImage:[UIImage imageNamed:imageN[i]] forState:UIControlStateNormal];
+                [button setImage:[UIImage imageFromImage:[UIImage imageNamed:imageS[i]] changecolor:[UIColor lightGrayColor]] forState:UIControlStateHighlighted];
+            }
+            
             [self addSubview:button];
             
             button;
@@ -265,7 +271,7 @@
         make.width.mas_equalTo(width);
         make.height.mas_equalTo(height);
         
-        make.right.mas_equalTo(self.playBT.mas_left).mas_offset(-20);
+        make.right.mas_equalTo(self.playBT.mas_left).mas_offset(-30);
         //make.top.mas_equalTo(self.playBT.mas_top);
         make.centerY.mas_equalTo(self.coverIV.mas_centerY);
     }];
@@ -274,7 +280,7 @@
         make.width.mas_equalTo(width);
         make.height.mas_equalTo(height);
         
-        make.left.mas_equalTo(self.playBT.mas_right).mas_offset(20);
+        make.left.mas_equalTo(self.playBT.mas_right).mas_offset(30);
         //make.top.mas_equalTo(self.playBT.mas_top);
         make.centerY.mas_equalTo(self.coverIV.mas_centerY);
     }];
