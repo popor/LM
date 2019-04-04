@@ -39,7 +39,7 @@
         self.backgroundColor = [UIColor whiteColor];
         [self addViews];
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self resumeLastStatus];
         });
     }
@@ -380,10 +380,11 @@
 
 #pragma mark - 恢复上次数据
 - (void)resumeLastStatus{
+    
     if (self.mplt.config.listIndex >= 0 && self.mplt.list.array > 0) {
-        //[self resumeMusicPlayListEntity:self.mplt.list.array[self.mplt.config.listIndex]  at:self.mplt.config.itemIndex];
+        [self resumeMusicPlayListEntity:self.mplt.list.array[self.mplt.config.listIndex]  at:self.mplt.config.itemIndex];
         
-        [self playMusicPlayListEntity:self.mplt.list.array[self.mplt.config.listIndex]  at:self.mplt.config.itemIndex];
+        //[self playMusicPlayListEntity:self.mplt.list.array[self.mplt.config.listIndex]  at:self.mplt.config.itemIndex];
     }
 }
 
