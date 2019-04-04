@@ -9,6 +9,8 @@
 #import "SongListDetailVCPresenter.h"
 #import "SongListDetailVCRouter.h"
 
+#import "MusicPlayTool.h"
+
 @interface SongListDetailVC ()
 
 @property (nonatomic, strong) SongListDetailVCPresenter * present;
@@ -19,6 +21,10 @@
 @synthesize infoTV;
 @synthesize playbar;
 @synthesize listEntity;
+
+- (void)dealloc {
+    MptShare.nextMusicBlock_SongListDetailVC = nil;
+}
 
 - (instancetype)initWithDic:(NSDictionary *)dic {
     if (self = [super init]) {
@@ -68,6 +74,10 @@
         make.right.mas_equalTo(0);
         make.bottom.mas_equalTo(-self.playbar.height);
     }];
+    __weak typeof(self) weakSelf = self;
+    MptShare.nextMusicBlock_SongListDetailVC = ^(void) {
+        [weakSelf.present freshTVVisiableCellEvent];
+    };
 }
 
 - (UITableView *)addTVs {

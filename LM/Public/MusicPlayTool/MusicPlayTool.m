@@ -41,6 +41,7 @@ static int TimeHourTen = 36000; // 10小时
         [instance initIosController];
         [instance initFormater];
        
+        instance.defaultCoverImage = [UIImage imageNamed:@"music_placeholder"];
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             instance.mpb = MpbShare;
@@ -94,34 +95,12 @@ static int TimeHourTen = 36000; // 10小时
     
     if (ap.duration > 0) {
         NSMutableDictionary *songInfo = [ [NSMutableDictionary alloc] init];
-        //锁屏图片
-        //    UIImage *img = [UIImage imageNamed:@"logo152"];
-        //    if (img) {
-        //        MPMediaItemArtwork *albumArt = [[MPMediaItemArtwork alloc]initWithImage:img];
-        //        [songInfo setObject: albumArt forKey:MPMediaItemPropertyArtwork ];
-        //    }
         {
-            UIImage * coverImage;
-            // 设置封面
-            AVURLAsset *avURLAsset = [[AVURLAsset alloc] initWithURL:self.audioPlayer.url options:nil];
-            for (NSString * format in [avURLAsset availableMetadataFormats]){
-                for (AVMetadataItem *metadata in [avURLAsset metadataForFormat:format]){
-                    // NSLog(@"metadata.commonKey: %@", metadata.commonKey);
-                    // if([metadata.commonKey isEqualToString:@"title"]){
-                    //     NSString *title = (NSString *)metadata.value;//提取歌曲名
-                    // }
-                    if([metadata.commonKey isEqualToString:@"artwork"]){
-                        NSData*data = [metadata.value copyWithZone:nil];
-                        coverImage = [UIImage imageWithData:data];
-                        MPMediaItemArtwork *media = [[MPMediaItemArtwork alloc] initWithImage:coverImage];
-                        [songInfo setObject:media forKey:MPMediaItemPropertyArtwork];
-                    }//还可以提取其他所需的信息
-                }
-            }
+            UIImage * coverImage = [MusicPlayTool imageOfUrl:self.audioPlayer.url];
             if (coverImage) {
                 self.mpb.coverIV.image = [UIImage imageFromImage:coverImage size:CGSizeMake(self.mpb.coverIV.size.width*[UIScreen mainScreen].scale, self.mpb.coverIV.size.height*[UIScreen mainScreen].scale)];
             }else{
-                self.mpb.coverIV.image = [UIImage imageNamed:@"music_placeholder"];
+                self.mpb.coverIV.image = self.defaultCoverImage;
             }
             coverImage = nil;
         }
@@ -306,6 +285,51 @@ static int TimeHourTen = 36000; // 10小时
         
         self.dateFormatter10HMS = df;
     }
+}
+
+#pragma mark - tool
++ (UIImage *)imageOfUrl:(NSURL *)url {
+    UIImage * coverImage;
+    // 设置封面
+    AVURLAsset *avURLAsset = [[AVURLAsset alloc] initWithURL:url options:nil];
+    for (NSString * format in [avURLAsset availableMetadataFormats]){
+        for (AVMetadataItem *metadata in [avURLAsset metadataForFormat:format]){
+            if([metadata.commonKey isEqualToString:@"artwork"]){
+                NSData*data = [metadata.value copyWithZone:nil];
+                coverImage = [UIImage imageWithData:data];
+                break;
+            }
+        }
+        if (coverImage) {
+            break;
+        }
+    }
+    return coverImage;
+    //
+    //    UIImage * coverImage;
+    //    // 设置封面
+    //    AVURLAsset *avURLAsset = [[AVURLAsset alloc] initWithURL:self.audioPlayer.url options:nil];
+    //    for (NSString * format in [avURLAsset availableMetadataFormats]){
+    //        for (AVMetadataItem *metadata in [avURLAsset metadataForFormat:format]){
+    //            // NSLog(@"metadata.commonKey: %@", metadata.commonKey);
+    //            // if([metadata.commonKey isEqualToString:@"title"]){
+    //            //     NSString *title = (NSString *)metadata.value;//提取歌曲名
+    //            // }
+    //            if([metadata.commonKey isEqualToString:@"artwork"]){
+    //                NSData*data = [metadata.value copyWithZone:nil];
+    //                coverImage = [UIImage imageWithData:data];
+    //                MPMediaItemArtwork *media = [[MPMediaItemArtwork alloc] initWithImage:coverImage];
+    //                [songInfo setObject:media forKey:MPMediaItemPropertyArtwork];
+    //            }//还可以提取其他所需的信息
+    //        }
+    //    }
+    //    if (coverImage) {
+    //        self.mpb.coverIV.image = [UIImage imageFromImage:coverImage size:CGSizeMake(self.mpb.coverIV.size.width*[UIScreen mainScreen].scale, self.mpb.coverIV.size.height*[UIScreen mainScreen].scale)];
+    //    }else{
+    //        self.mpb.coverIV.image = [UIImage imageNamed:@"music_placeholder"];
+    //    }
+    //    coverImage = nil;
+    
 }
 
 @end

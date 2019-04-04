@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (MusicPlayBar *)share;
 
+@property (nonatomic, weak  ) UINavigationController * rootNC;
+
 @property (nonatomic, strong) UIView  * lineView;
 @property (nonatomic, strong) UILabel * nameL;
 @property (nonatomic, strong) UILabel * timeCurrentL;

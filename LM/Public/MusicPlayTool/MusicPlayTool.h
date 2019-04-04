@@ -20,6 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSURL * musicUrl;
 @property (nonatomic, strong, nullable) AVAudioPlayer * audioPlayer;
 @property (nonatomic, strong) NSString * musicTitle;
+@property (nonatomic, strong) UIImage * defaultCoverImage;
+
+@property (nonatomic, copy  , nullable) BlockPVoid nextMusicBlock_SongListDetailVC;
 
 + (MusicPlayTool *)share;
 
@@ -29,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)pauseEvent;
 - (void)rewindEvent:(int)second;
 - (void)forwardEvent:(int)second;
+
++ (UIImage *)imageOfUrl:(NSURL *)url;
 
 @end
 

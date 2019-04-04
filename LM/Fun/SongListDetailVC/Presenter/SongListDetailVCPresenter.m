@@ -120,5 +120,8 @@
 #pragma mark - VC_EventHandler
 
 #pragma mark - Interactor_EventHandler
+- (void)freshTVVisiableCellEvent {
+    [self.view.infoTV reloadRowsAtIndexPaths:[self.view.infoTV indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+}
 
 @end

@@ -12,6 +12,7 @@
 #import "MusicPlayListTool.h"
 
 #import <PoporUI/UIDeviceScreen.h>
+#import <PoporImageBrower/PoporImageBrower.h>
 
 @interface MusicPlayBar ()
 
@@ -170,6 +171,10 @@
         UIImageView * iv = [UIImageView new];
         iv.contentMode = UIViewContentModeScaleAspectFill;
         iv.clipsToBounds = YES;
+        iv.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer * tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showBigIVAction)];
+        [iv addGestureRecognizer:tapGR];
         
         [self addSubview:iv];
         iv;
@@ -359,6 +364,11 @@
         
         self.mplt.config.itemIndex = index;
         [self.mplt updateConfig];
+        
+        // 刷新SongListDetailVC
+        if (self.mpt.nextMusicBlock_SongListDetailVC) {
+            self.mpt.nextMusicBlock_SongListDetailVC();
+        }
     }
 }
 
@@ -372,6 +382,11 @@
         
         self.mplt.config.itemIndex = index;
         [self.mplt updateConfig];
+        
+        // 刷新SongListDetailVC
+        if (self.mpt.nextMusicBlock_SongListDetailVC) {
+            self.mpt.nextMusicBlock_SongListDetailVC();
+        }
     }
 }
 
@@ -442,6 +457,36 @@
     
     [self.orderBT setImage:[UIImage imageNamed:MusicConfigOrderImageArray[self.mplt.config.order]] forState:UIControlStateNormal];
     
+}
+
+- (void)showBigIVAction {
+    if (!self.mpt.audioPlayer) {
+        return;
+    }
+    UIImage * smallImage = self.coverIV.image;
+    UIImage * bigImage   = [MusicPlayTool imageOfUrl:self.mpt.audioPlayer.url];
+    NSMutableArray * imageArray = [NSMutableArray new];
+    
+    {
+        PoporImageBrowerEntity * entity = [PoporImageBrowerEntity new];
+        entity.smallImage = smallImage;
+        entity.bigImage   = bigImage;
+        
+        [imageArray addObject:entity];
+    }
+    
+    
+    __weak typeof(self) weakSelf = self;
+    PoporImageBrower *photoBrower = [[PoporImageBrower alloc] initWithIndex:0 copyImageArray:imageArray presentVC:self.rootNC.topViewController originImageBlock:^UIImageView *(PoporImageBrower *browerController, NSInteger index) {
+        
+        return weakSelf.coverIV;
+    } disappearBlock:^(PoporImageBrower *browerController, NSInteger index) {
+        
+    } placeholderImageBlock:^UIImage *(PoporImageBrower *browerController) {
+        return nil;
+    }];
+    
+    [photoBrower show];
 }
 
 @end

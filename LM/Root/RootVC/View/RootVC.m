@@ -84,6 +84,7 @@
 
 - (void)addPlayboard {
     self.playbar = [MusicPlayBar share];
+    self.playbar.rootNC = self.navigationController;
     [self.navigationController.view addSubview:self.playbar];
     
     [self.playbar mas_makeConstraints:^(MASConstraintMaker *make) {

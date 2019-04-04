@@ -32,4 +32,6 @@
 // MARK: UI事件
 @protocol SongListDetailVCEventHandler <NSObject>
 
+- (void)freshTVVisiableCellEvent;
+
 @end

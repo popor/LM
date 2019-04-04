@@ -11,6 +11,7 @@ target 'LM' do
   pod 'PoporFoundation'
   pod 'PoporPopNormalNC'
   pod 'PoporAlertBubbleView'
+  pod 'PoporImageBrower'
   
   pod 'Masonry'
   pod 'YYModel'
