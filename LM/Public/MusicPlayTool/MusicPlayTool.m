@@ -9,10 +9,17 @@
 #import "MusicPlayTool.h"
 #import "MusicPlayBar.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import <KVOController/KVOController.h>
+
+static int TimeHourOne = 3600;  // 1小时
+static int TimeHourTen = 36000; // 10小时
 
 @interface MusicPlayTool() <AVAudioPlayerDelegate>
 
-
+@property (nonatomic, weak  ) MusicPlayBar    * mpb;
+@property (nonatomic, strong) NSDateFormatter * dateFormatterMS; // 分钟秒
+@property (nonatomic, strong) NSDateFormatter * dateFormatter1HMS;// 1小时分钟秒
+@property (nonatomic, strong) NSDateFormatter * dateFormatter10HMS;// 10小时分钟秒
 
 @end
 
@@ -30,6 +37,12 @@
         [session setActive:YES error:nil];
         
         [instance initIosController];
+        [instance initFormater];
+       
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            instance.mpb = MpbShare;
+        });
         
     });
     return instance;
@@ -44,10 +57,20 @@
         [self.audioPlayer prepareToPlay];
         [self.audioPlayer play];
     }else{
+        if (self.audioPlayer) {
+            self.audioPlayer = nil;
+        }
         self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
         self.audioPlayer.delegate = self;
         [self.audioPlayer prepareToPlay];
         [self.audioPlayer play];
+        
+        @weakify(self);
+        [[[RACSignal interval:1 onScheduler:[RACScheduler mainThreadScheduler]] takeUntil:self.audioPlayer.rac_willDeallocSignal] subscribeNext:^(id x) {
+            @strongify(self);
+            self.mpb.slider.value = self.audioPlayer.currentTime/self.audioPlayer.duration;
+            self.mpb.timeCurrentL.text = [self stringFromTime:self.audioPlayer.currentTime];
+        }];
     }
     
     [self updateIosLockInfoTimeOffset:0];
@@ -67,6 +90,7 @@
         //        [songInfo setObject: albumArt forKey:MPMediaItemPropertyArtwork ];
         //    }
         {
+            UIImage * coverImage;
             // 设置封面
             AVURLAsset *avURLAsset = [[AVURLAsset alloc] initWithURL:self.audioPlayer.url options:nil];
             for (NSString * format in [avURLAsset availableMetadataFormats]){
@@ -77,11 +101,16 @@
                     // }
                     if([metadata.commonKey isEqualToString:@"artwork"]){
                         NSData*data = [metadata.value copyWithZone:nil];
-                        UIImage *coverImage = [UIImage imageWithData:data];
+                        coverImage = [UIImage imageWithData:data];
                         MPMediaItemArtwork *media = [[MPMediaItemArtwork alloc] initWithImage:coverImage];
                         [songInfo setObject:media forKey:MPMediaItemPropertyArtwork];
                     }//还可以提取其他所需的信息
                 }
+            }
+            if (coverImage) {
+                self.mpb.coverIV.image = coverImage;
+            }else{
+                self.mpb.coverIV.image = [UIImage imageNamed:@"music_placeholder"];
             }
         }
         //锁屏标题
@@ -103,8 +132,26 @@
         [songInfo setObject:author forKey:MPMediaItemPropertyArtist];
         //[songInfo setObject:author forKey:MPMediaItemPropertyAlbumTitle];
         [mpic setNowPlayingInfo:songInfo];
+        
+        //
+        self.mpb.slider.value       = 0;
+        self.mpb.timeCurrentL.text  = @"00:00";
+        self.mpb.timeDurationL.text = [self stringFromTime:self.audioPlayer.duration];
+        self.mpb.nameL.text         = self.mpb.currentItem.fileName;
+        //self.mpb.slider;
     }else{
         [mpic setNowPlayingInfo:nil];
+    }
+}
+
+- (NSString *)stringFromTime:(int)time {
+    NSDate * date = [NSDate dateFromUnixDate:time];
+    if (time < TimeHourOne) {
+        return [self.dateFormatterMS stringFromDate:date];
+    }else if (time < TimeHourTen){
+        return [self.dateFormatter1HMS stringFromDate:date];
+    }else{
+        return [self.dateFormatter10HMS stringFromDate:date];
     }
 }
 
@@ -145,6 +192,10 @@
     
 }
 
+- (void)playAtTimeScale:(float)scale {
+    self.audioPlayer.currentTime = self.audioPlayer.duration * scale;
+}
+
 - (void)pauseEvent {
     // 暂停的时候刷新锁屏信息,但是这会造成信息闪烁跳动,酷狗没有做这个刷新.
     [self updateIosLockInfoTimeOffset:0.3];
@@ -163,6 +214,34 @@
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
     
     [MpbShare nextBTEvent];
+}
+
+#pragma mark - init
+- (void)initFormater {
+    {
+        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+        [df setDateFormat:@"mm:ss"];
+        [df setCalendar:[[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian]];
+        [df setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+        
+        self.dateFormatterMS = df;
+    }
+    {
+        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+        [df setDateFormat:@"H:mm:ss"];
+        [df setCalendar:[[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian]];
+        [df setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+        
+        self.dateFormatter1HMS = df;
+    }
+    {
+        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+        [df setDateFormat:@"HH:mm:ss"];
+        [df setCalendar:[[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian]];
+        [df setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+        
+        self.dateFormatter10HMS = df;
+    }
 }
 
 @end

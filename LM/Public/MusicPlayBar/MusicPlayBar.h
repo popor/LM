@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import <StepSlider/StepSlider.h>
 #import "MusicPlayListTool.h"
 #import "MusicPlayTool.h"
 
@@ -20,12 +19,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (MusicPlayBar *)share;
 
+@property (nonatomic, strong) UIView  * lineView;
 @property (nonatomic, strong) UILabel * nameL;
-@property (nonatomic, strong) UILabel * timeL;
+@property (nonatomic, strong) UILabel * timeCurrentL;
+@property (nonatomic, strong) UILabel * timeDurationL;
+
 @property (nonatomic, strong) UIButton * orderBT;
 
-@property (nonatomic, strong) StepSlider * slider;
+//@property (nonatomic, strong) MusicSlider * slider;
+@property (nonatomic, strong) UISlider * slider;
 
+
+@property (nonatomic, strong) UIImageView * coverIV;
 @property (nonatomic, strong) UIButton * playBT;
 @property (nonatomic, strong) UIButton * previousBT;
 @property (nonatomic, strong) UIButton * nextBT;

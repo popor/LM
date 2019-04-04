@@ -44,33 +44,47 @@
 
 - (void)addViews {
     int bottomMargin = [UIDeviceScreen safeBottomMargin];
-    self.frame = CGRectMake(0, 0, ScreenSize.width, 84 + bottomMargin);
+    self.frame = CGRectMake(0, 0, ScreenSize.width, 130 + bottomMargin);
     
-    for (int i = 0; i<2; i++) {
+    {
+        self.slider = [UISlider new];
+        self.slider.maximumValue = 1.0;
+        self.slider.minimumValue = 0.0;
+        
+        [self addSubview:self.slider];
+        [self.slider addTarget:self action:@selector(sliderAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    for (int i = 0; i<3; i++) {
         UILabel * oneL = ({
             UILabel * l = [UILabel new];
-            l.frame              = CGRectMake(0, 0, 0, 44);
             l.backgroundColor    = [UIColor clearColor];
-            l.font               = [UIFont systemFontOfSize:15];
             l.textColor          = [UIColor darkGrayColor];
-            
-            l.numberOfLines      = 1;
-            
-            l.layer.cornerRadius = 5;
-            l.layer.borderColor  = [UIColor lightGrayColor].CGColor;
-            l.layer.borderWidth  = 1;
-            l.clipsToBounds      = YES;
             
             [self addSubview:l];
             l;
         });
         switch (i) {
             case 0:{
+                oneL.font = [UIFont systemFontOfSize:14];
+                
+                oneL.layer.cornerRadius = 5;
+                oneL.layer.borderColor  = [UIColor lightGrayColor].CGColor;
+                oneL.layer.borderWidth  = 1;
+                oneL.clipsToBounds      = YES;
+                
                 self.nameL = oneL;
                 break;
             }
             case 1:{
-                self.timeL = oneL;
+                oneL.font = [UIFont systemFontOfSize:13];
+                oneL.text = @"--:--";
+                self.timeCurrentL = oneL;
+                break;
+            }
+            case 2:{
+                oneL.font = [UIFont systemFontOfSize:13];
+                oneL.text = @"--:--";
+                self.timeDurationL = oneL;
                 break;
             }
                 
@@ -134,24 +148,86 @@
                 break;
         }
         
-        
     }
+    
+    self.coverIV = ({
+        UIImageView * iv = [UIImageView new];
+        iv.contentMode = UIViewContentModeScaleAspectFill;
+        iv.clipsToBounds = YES;
+        
+        [self addSubview:iv];
+        iv;
+    });
+    {
+        self.lineView = [UIView new];
+        self.lineView.backgroundColor = ColorTV_separator;
+        
+        [self addSubview:self.lineView];
+        [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(0);
+            make.top.mas_equalTo(0);
+            make.right.mas_equalTo(0);
+            make.height.mas_equalTo(0.5);
+        }];
+    }
+    [self.timeCurrentL setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    self.timeCurrentL.numberOfLines =0;
+    [self.timeCurrentL mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(15);
+        make.centerY.mas_equalTo(self.slider.mas_centerY);
+        make.height.mas_equalTo(15);
+        make.width.mas_greaterThanOrEqualTo(40);
+    }];
+    [self.timeDurationL setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    self.timeDurationL.numberOfLines =0;
+    [self.timeDurationL mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-15);
+        make.centerY.mas_equalTo(self.slider.mas_centerY);
+        make.height.mas_equalTo(15);
+        make.width.mas_greaterThanOrEqualTo(40);
+    }];
+    [self.slider mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(6);
+        make.left.mas_equalTo(self.timeCurrentL.mas_right).mas_offset(3);
+        make.right.mas_equalTo(self.timeDurationL.mas_left).mas_offset(-3);
+        make.height.mas_equalTo(20);
+    }];
     
     float width = 40;
     float height = 40;
     [self.orderBT mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(width);
-        make.height.mas_equalTo(height);
+        make.width.mas_equalTo(30);
+        make.height.mas_equalTo(20);
         
-        make.right.mas_equalTo(-20);
-        make.top.mas_equalTo(0);
+        make.left.mas_equalTo(20);
+        make.top.mas_equalTo(self.slider.mas_bottom).mas_offset(3);
     }];
     
     [self.nameL mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(5);
-        make.left.mas_equalTo(20);
-        make.right.mas_equalTo(self.orderBT.mas_left).mas_offset(-20);
+        make.top.mas_equalTo(self.orderBT.mas_top);
+        make.left.mas_equalTo(self.orderBT.mas_right).mas_offset(5);
         make.height.mas_equalTo(20);;
+        make.width.mas_equalTo(200);
+    }];
+    [self.rewindBT mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(width);
+        make.height.mas_equalTo(height);
+        
+        make.left.mas_equalTo(self.nameL.mas_right).mas_offset(10);
+        make.centerY.mas_equalTo(self.nameL.mas_centerY);
+    }];
+    [self.forwardBT mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(width);
+        make.height.mas_equalTo(height);
+        
+        make.left.mas_equalTo(self.rewindBT.mas_right).mas_offset(8);
+        make.centerY.mas_equalTo(self.nameL.mas_centerY);
+    }];
+    
+    [self.coverIV mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(15);
+        make.top.mas_equalTo(self.orderBT.mas_bottom).mas_offset(5);
+        make.width.height.mas_equalTo(60);
     }];
     
     [self.playBT mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -159,35 +235,25 @@
         make.height.mas_equalTo(height);
         
         make.centerX.mas_equalTo(0);
-        make.top.mas_equalTo(40);
+        make.centerY.mas_equalTo(self.coverIV.mas_centerY);
     }];
-    [self.rewindBT mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(width);
-        make.height.mas_equalTo(height);
-        
-        make.right.mas_equalTo(self.playBT.mas_left).mas_offset(-20);
-        make.top.mas_equalTo(self.playBT.mas_top);
-    }];
+    
     [self.previousBT mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(width);
         make.height.mas_equalTo(height);
         
-        make.right.mas_equalTo(self.rewindBT.mas_left).mas_offset(-20);
-        make.top.mas_equalTo(self.playBT.mas_top);
+        make.right.mas_equalTo(self.playBT.mas_left).mas_offset(-20);
+        //make.top.mas_equalTo(self.playBT.mas_top);
+        make.centerY.mas_equalTo(self.coverIV.mas_centerY);
     }];
-    [self.forwardBT mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(width);
-        make.height.mas_equalTo(height);
-        
-        make.left.mas_equalTo(self.playBT.mas_right).mas_offset(20);
-        make.top.mas_equalTo(self.playBT.mas_top);
-    }];
+
     [self.nextBT mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(width);
         make.height.mas_equalTo(height);
         
-        make.left.mas_equalTo(self.forwardBT.mas_right).mas_offset(20);
-        make.top.mas_equalTo(self.playBT.mas_top);
+        make.left.mas_equalTo(self.playBT.mas_right).mas_offset(20);
+        //make.top.mas_equalTo(self.playBT.mas_top);
+        make.centerY.mas_equalTo(self.coverIV.mas_centerY);
     }];
     
 }
@@ -273,6 +339,19 @@
 
 - (void)forwardBTEvent {
     
+}
+
+- (void)sliderAction {
+    NSLog(@"%f", self.slider.value);
+    //    switch (self.slider.state) {
+    //        case <#constant#>:
+    //            <#statements#>
+    //            break;
+    //
+    //        default:
+    //            break;
+    //    }
+    [self.mpt playAtTimeScale:self.slider.value];
 }
 
 @end

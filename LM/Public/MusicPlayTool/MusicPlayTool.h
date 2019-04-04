@@ -18,12 +18,14 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MusicPlayTool : NSObject
 
 @property (nonatomic, strong) NSURL * musicUrl;
-@property (nonatomic, strong) AVAudioPlayer * audioPlayer;
+@property (nonatomic, strong, nullable) AVAudioPlayer * audioPlayer;
 @property (nonatomic, strong) NSString * musicTitle;
 
 + (MusicPlayTool *)share;
 
 - (void)playItem:(MusicPlayItemEntity *)item;
+- (void)playAtTimeScale:(float)scale;
+
 - (void)pauseEvent;
 - (void)rewindEvent:(int)second;
 - (void)forwardEvent:(int)second;
