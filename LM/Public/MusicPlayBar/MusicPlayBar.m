@@ -56,7 +56,25 @@
         self.slider.minimumValue = 0.0;
         
         [self addSubview:self.slider];
-        [self.slider addTarget:self action:@selector(sliderAction) forControlEvents:UIControlEventTouchUpInside];
+        
+        @weakify(self);
+        // 内部up
+        [[self.slider rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+            @strongify(self);
+            [self.mpt playAtTimeScale:self.slider.value];
+            self.sliderSelected = NO;
+        }];
+        
+        // 按下
+        [[self.slider rac_signalForControlEvents:UIControlEventTouchDown] subscribeNext:^(__kindof UIControl * _Nullable x) {
+            @strongify(self);
+            self.sliderSelected = YES;
+        }];
+        // 外部up,取消
+        [[self.slider rac_signalForControlEvents:UIControlEventTouchUpOutside|UIControlEventTouchCancel] subscribeNext:^(__kindof UIControl * _Nullable x) {
+            @strongify(self);
+            self.sliderSelected = NO;
+        }];
     }
     for (int i = 0; i<3; i++) {
         UILabel * oneL = ({
@@ -402,10 +420,6 @@
     self.mplt.config.order = (self.mplt.config.order + 1)%MusicConfigOrderImageArray.count;
     [self.orderBT setImage:[UIImage imageNamed:MusicConfigOrderImageArray[self.mplt.config.order]] forState:UIControlStateNormal];
     [self.mplt updateConfig];
-}
-
-- (void)sliderAction {
-    [self.mpt playAtTimeScale:self.slider.value];
 }
 
 #pragma mark - 恢复上次数据

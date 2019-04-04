@@ -21,6 +21,8 @@ static int TimeHourTen = 36000; // 10小时
 @property (nonatomic, strong) NSDateFormatter * dateFormatter1HMS;// 1小时分钟秒
 @property (nonatomic, strong) NSDateFormatter * dateFormatter10HMS;// 10小时分钟秒
 
+@property (nonatomic, strong) MusicConfig * racSlideOB; // 为rac 充当监控的东西
+
 @end
 
 @implementation MusicPlayTool
@@ -56,28 +58,33 @@ static int TimeHourTen = 36000; // 10小时
     if (self.audioPlayer && [self.audioPlayer.url isEqual:url]) {
         //[self.audioPlayer prepareToPlay];
         if (autoPlay) {
-            [self.audioPlayer play];
+            [self playEvent];
         }
     }else{
-        if (self.audioPlayer) {
-            self.audioPlayer = nil;
-        }
         self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
         self.audioPlayer.delegate = self;
         //[self.audioPlayer prepareToPlay];
         if (autoPlay) {
-            [self.audioPlayer play];
+            [self playEvent];
         }
-        
-        @weakify(self);
-        [[[RACSignal interval:1 onScheduler:[RACScheduler mainThreadScheduler]] takeUntil:self.audioPlayer.rac_willDeallocSignal] subscribeNext:^(id x) {
-            @strongify(self);
-            self.mpb.slider.value = self.audioPlayer.currentTime/self.audioPlayer.duration;
-            self.mpb.timeCurrentL.text = [self stringFromTime:self.audioPlayer.currentTime];
-        }];
     }
     
     [self updateIosLockInfoTimeOffset:0];
+}
+
+- (void)playEvent {
+    [self.audioPlayer play];
+    self.racSlideOB = [MusicConfig new];
+    
+    @weakify(self);
+    [[[RACSignal interval:1 onScheduler:[RACScheduler mainThreadScheduler]] takeUntil:self.racSlideOB.rac_willDeallocSignal] subscribeNext:^(id x) {
+        @strongify(self);
+        if (!self.mpb.isSliderSelected) {
+            self.mpb.slider.value = self.audioPlayer.currentTime/(float)self.audioPlayer.duration;
+        }
+        // NSLog(@"slider.value:%f", self.mpb.slider.value);
+        self.mpb.timeCurrentL.text = [self stringFromTime:self.audioPlayer.currentTime];
+    }];
 }
 
 - (void)updateIosLockInfoTimeOffset:(float)timeOffset {
@@ -131,16 +138,21 @@ static int TimeHourTen = 36000; // 10小时
         }
         
         [songInfo setObject:[NSNumber numberWithFloat:self.audioPlayer.duration] forKey:MPMediaItemPropertyPlaybackDuration];
-        [songInfo setObject:[NSNumber numberWithFloat:self.audioPlayer.currentTime + timeOffset] forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
+        [songInfo setObject:[NSNumber numberWithFloat:self.audioPlayer.currentTime] forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
         
         [songInfo setObject:title forKey:MPMediaItemPropertyTitle];
         [songInfo setObject:author forKey:MPMediaItemPropertyArtist];
         //[songInfo setObject:author forKey:MPMediaItemPropertyAlbumTitle];
         [mpic setNowPlayingInfo:songInfo];
         
-        //
-        self.mpb.slider.value       = 0;
-        self.mpb.timeCurrentL.text  = @"00:00";
+        if (timeOffset>0) {
+            self.mpb.slider.value = self.audioPlayer.currentTime/self.audioPlayer.duration;
+            self.mpb.timeCurrentL.text  = [self stringFromTime:self.audioPlayer.currentTime];
+        }else{
+            self.mpb.slider.value = 0;
+            self.mpb.timeCurrentL.text  = @"00:00";
+        }
+        
         self.mpb.timeDurationL.text = [self stringFromTime:self.audioPlayer.duration];
         self.mpb.nameL.text         = self.mpb.currentItem.fileName;
         //self.mpb.slider;
@@ -240,12 +252,15 @@ static int TimeHourTen = 36000; // 10小时
 
 - (void)playAtTimeScale:(float)scale {
     self.audioPlayer.currentTime = self.audioPlayer.duration * scale;
+    // 拖拽进度条后,需要刷新锁屏信息
+    [self updateIosLockInfoTimeOffset:self.audioPlayer.currentTime];
 }
 
 - (void)pauseEvent {
     // 暂停的时候刷新锁屏信息,但是这会造成信息闪烁跳动,酷狗没有做这个刷新.
-    [self updateIosLockInfoTimeOffset:0.3];
+    [self updateIosLockInfoTimeOffset:0];
     [self.audioPlayer pause];
+    self.racSlideOB = nil;
 }
 
 - (void)rewindEvent:(int)second {
