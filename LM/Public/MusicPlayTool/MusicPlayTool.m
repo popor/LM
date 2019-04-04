@@ -99,6 +99,10 @@ static int TimeHourTen = 36000; // 10小时
             UIImage * coverImage = [MusicPlayTool imageOfUrl:self.audioPlayer.url];
             if (coverImage) {
                 self.mpb.coverIV.image = [UIImage imageFromImage:coverImage size:CGSizeMake(self.mpb.coverIV.size.width*[UIScreen mainScreen].scale, self.mpb.coverIV.size.height*[UIScreen mainScreen].scale)];
+                
+                MPMediaItemArtwork *media = [[MPMediaItemArtwork alloc] initWithImage:coverImage];
+                [songInfo setObject:media forKey:MPMediaItemPropertyArtwork];
+                
             }else{
                 self.mpb.coverIV.image = self.defaultCoverImage;
             }
