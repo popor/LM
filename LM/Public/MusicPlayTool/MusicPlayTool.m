@@ -258,8 +258,13 @@ static int TimeHourTen = 36000; // 10小时
 
 #pragma mark - delegate
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
-    
-    [MpbShare nextBTEvent];
+    if (self.mpb.mplt.config.order == MusicConfigOrderSingle) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.audioPlayer play];
+        });
+    }else{
+        [MpbShare nextBTEvent];
+    }
 }
 
 #pragma mark - init

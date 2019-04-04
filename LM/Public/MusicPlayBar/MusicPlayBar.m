@@ -71,11 +71,6 @@
             case 0:{
                 oneL.font = [UIFont systemFontOfSize:14];
                 
-                oneL.layer.cornerRadius = 5;
-                oneL.layer.borderColor  = [UIColor lightGrayColor].CGColor;
-                oneL.layer.borderWidth  = 1;
-                oneL.clipsToBounds      = YES;
-                
                 self.nameL = oneL;
                 break;
             }
@@ -144,8 +139,7 @@
             }
             case 5:{
                 self.orderBT = oneBT;
-                
-                //[oneBT addTarget:self action:@selector(<#selector#>) forControlEvents:UIControlEventTouchUpInside];
+                [oneBT addTarget:self action:@selector(orderAction) forControlEvents:UIControlEventTouchUpInside];
                 break;
             }
             default:
@@ -199,38 +193,31 @@
     
     float width = 40;
     float height = 40;
-    [self.orderBT mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(30);
-        make.height.mas_equalTo(20);
-        
-        make.left.mas_equalTo(20);
-        make.top.mas_equalTo(self.slider.mas_bottom).mas_offset(3);
-    }];
     
     [self.nameL mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.orderBT.mas_top);
-        make.left.mas_equalTo(self.orderBT.mas_right).mas_offset(5);
+        make.top.mas_equalTo(self.slider.mas_bottom).mas_offset(10);
+        make.left.mas_equalTo(15);
         make.height.mas_equalTo(20);;
-        make.width.mas_equalTo(200);
+        make.right.mas_equalTo(self.rewindBT.mas_left).mas_offset(-5);
     }];
     [self.rewindBT mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(width);
         make.height.mas_equalTo(height);
         
-        make.left.mas_equalTo(self.nameL.mas_right).mas_offset(10);
+        make.right.mas_equalTo(self.forwardBT.mas_left).mas_offset(-10);
         make.centerY.mas_equalTo(self.nameL.mas_centerY);
     }];
     [self.forwardBT mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(width);
         make.height.mas_equalTo(height);
         
-        make.left.mas_equalTo(self.rewindBT.mas_right).mas_offset(8);
+        make.right.mas_equalTo(-15);
         make.centerY.mas_equalTo(self.nameL.mas_centerY);
     }];
     
     [self.coverIV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(15);
-        make.top.mas_equalTo(self.orderBT.mas_bottom).mas_offset(5);
+        make.top.mas_equalTo(self.nameL.mas_bottom).mas_offset(7);
         make.width.height.mas_equalTo(60);
     }];
     
@@ -259,7 +246,15 @@
         //make.top.mas_equalTo(self.playBT.mas_top);
         make.centerY.mas_equalTo(self.coverIV.mas_centerY);
     }];
-    
+ 
+    // 顺序
+    [self.orderBT mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(30);
+        make.height.mas_equalTo(30);
+        
+        make.right.mas_equalTo(-15);
+        make.centerY.mas_equalTo(self.coverIV.mas_centerY);
+    }];
 }
 
 - (void)playTempArray:(NSArray *)itemArray at:(NSInteger)index {
@@ -296,15 +291,10 @@
     if (self.mplt.currentWeakList != listEntity.array) {
         self.mplt.currentWeakList = listEntity.array;
     }
-    //self.playBT.selected = YES;
     if (listEntity.array.count > 0) {
         self.currentItem = self.mplt.currentWeakList[index];
         [self.mpt playItem:self.currentItem autoPlay:NO];
     }
-    
-    //self.mplt.config.listIndex = [self.mplt.list.array indexOfObject:listEntity];
-    //self.mplt.config.itemIndex = index;
-    //[self.mplt updateConfig];
 }
 
 - (void)playBTEvent {
@@ -334,11 +324,7 @@
 
 - (void)previousBTEvent {
     if (self.mplt.currentWeakList.count>0) {
-        NSInteger index = 0;
-        if (self.currentItem) {
-            index = [self.mplt.currentWeakList indexOfObject:self.currentItem] - 1;
-        }
-        index =  (index + self.mplt.currentWeakList.count) % self.mplt.currentWeakList.count;
+        NSInteger index = [self getPreviousIndex];
         self.currentItem = self.mplt.currentWeakList[index];
         [self.mpt playItem:self.currentItem autoPlay:YES];
         
@@ -351,11 +337,7 @@
 
 - (void)nextBTEvent {
     if (self.mplt.currentWeakList.count>0) {
-        NSInteger index = 0;
-        if (self.currentItem) {
-            index = [self.mplt.currentWeakList indexOfObject:self.currentItem] + 1;
-        }
-        index =  index % self.mplt.currentWeakList.count;
+        NSInteger index = [self getNextIndex];
         self.currentItem = self.mplt.currentWeakList[index];
         [self.mpt playItem:self.currentItem autoPlay:YES];
         
@@ -366,12 +348,60 @@
     }
 }
 
+- (NSInteger)getNextIndex {
+    NSInteger index = 0;
+    switch (self.mplt.config.order) {
+        case MusicConfigOrderRandom:{
+            index = arc4random() % self.mplt.currentWeakList.count;
+            break;
+        }
+        case MusicConfigOrderNormal:
+            case MusicConfigOrderSingle:
+        default:{
+            if (self.currentItem) {
+                index = [self.mplt.currentWeakList indexOfObject:self.currentItem] + 1;
+            }
+            index =  index % self.mplt.currentWeakList.count;
+            break;
+        }
+    }
+    
+    return index;
+}
+
+- (NSInteger)getPreviousIndex {
+    NSInteger index = 0;
+    switch (self.mplt.config.order) {
+        case MusicConfigOrderRandom:{
+            index = arc4random() % self.mplt.currentWeakList.count;
+            break;
+        }
+        case MusicConfigOrderNormal:
+        case MusicConfigOrderSingle:
+        default:{
+            if (self.currentItem) {
+                index = [self.mplt.currentWeakList indexOfObject:self.currentItem] - 1;
+            }
+            index =  index % self.mplt.currentWeakList.count;
+            break;
+        }
+    }
+    
+    return index;
+}
+
 - (void)rewindBTEvent {
     
 }
 
 - (void)forwardBTEvent {
     
+}
+
+- (void)orderAction {
+    self.mplt.config.order = (self.mplt.config.order + 1)%MusicConfigOrderImageArray.count;
+    [self.orderBT setImage:[UIImage imageNamed:MusicConfigOrderImageArray[self.mplt.config.order]] forState:UIControlStateNormal];
+    [self.mplt updateConfig];
 }
 
 - (void)sliderAction {
@@ -386,6 +416,9 @@
         
         //[self playMusicPlayListEntity:self.mplt.list.array[self.mplt.config.listIndex]  at:self.mplt.config.itemIndex];
     }
+    
+    [self.orderBT setImage:[UIImage imageNamed:MusicConfigOrderImageArray[self.mplt.config.order]] forState:UIControlStateNormal];
+    
 }
 
 @end
