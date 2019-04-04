@@ -21,8 +21,9 @@
     // Configure the view for the selected state
 }
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier type:(MusicInfoCellType)type {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        _type = type;
         [self addViews];
     }
     return self;
@@ -32,7 +33,6 @@
     self.addBt = ({
         UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame =  CGRectMake(0, 0, 30, 30);
-        [button setImage:[UIImage imageNamed:@"add_gray"] forState:UIControlStateNormal];
         [self addSubview:button];
         
         button;
@@ -71,19 +71,41 @@
     
     [self.addBt mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(0);
-        make.width.height.mas_equalTo(30);
+        switch (self.type) {
+            case MusicInfoCellTypeDefault:{
+                make.width.height.mas_equalTo(0);
+                break;
+            }
+            case MusicInfoCellTypeAdd:{
+                [self.addBt setImage:[UIImage imageNamed:@"add_gray"] forState:UIControlStateNormal];
+                make.width.height.mas_equalTo(30);
+                break;
+            }
+        }
+        
         make.left.mas_equalTo(15);
     }];
     
     [self.titelL mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.addBt.mas_right).mas_offset(10);
+        
         make.top.mas_equalTo(7);
         make.height.mas_equalTo(20);
+        switch (self.type) {
+            case MusicInfoCellTypeDefault:{
+                make.left.mas_equalTo(self.addBt.mas_right);
+                break;
+            }
+            case MusicInfoCellTypeAdd:{
+                make.left.mas_equalTo(self.addBt.mas_right).mas_offset(10);
+                break;
+            }
+        }
     }];
     [self.timeL mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.addBt.mas_right).mas_offset(10);
+        make.left.mas_equalTo(self.titelL.mas_left);
         make.bottom.mas_equalTo(-5);
         make.height.mas_equalTo(20);
+        
     }];
 }
 

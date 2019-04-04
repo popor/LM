@@ -68,7 +68,7 @@
     static NSString * CellID = @"CellID";
     MusicInfoCell * cell = [tableView dequeueReusableCellWithIdentifier:CellID];
     if (!cell) {
-        cell = [[MusicInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
+        cell = [[MusicInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID type:MusicInfoCellTypeDefault];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.addBt.userInteractionEnabled = NO;
         [cell.addBt setImage:nil forState:UIControlStateNormal];
@@ -90,10 +90,11 @@
         
         //cell.backgroundColor = [UIColor whiteColor];
     }
-    if (!item.musicCover) {
-        item.musicCover = [item coverImage];
-    }
-    [cell.addBt setImage:item.musicCover forState:UIControlStateNormal];
+    // 打开cover的话,内存会达到100MB以上.
+    //if (!item.musicCover) {
+    //    item.musicCover = [item coverImage];
+    //}
+    //[cell.addBt setImage:item.musicCover forState:UIControlStateNormal];
     
     return cell;
 }

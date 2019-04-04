@@ -12,7 +12,17 @@ static int MusicInfoCellH = 50;
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(int, MusicInfoCellType) {
+    MusicInfoCellTypeDefault, // 只显示文字
+    MusicInfoCellTypeAdd, // 显示Add按钮
+    
+};
+
 @interface MusicInfoCell : UITableViewCell
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier type:(MusicInfoCellType)type;
+
+@property (nonatomic        ) MusicInfoCellType type;
 
 @property (nonatomic, weak  ) id cellData;
 

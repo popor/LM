@@ -95,7 +95,7 @@
         static NSString * CellID = @"CellFolder";
         MusicInfoCell * cell = [tableView dequeueReusableCellWithIdentifier:CellID];
         if (!cell) {
-            cell = [[MusicInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
+            cell = [[MusicInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID type:MusicInfoCellTypeAdd];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             if (!self.view.itemArray) {
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
