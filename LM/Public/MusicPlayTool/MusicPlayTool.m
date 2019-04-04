@@ -112,10 +112,11 @@ static int TimeHourTen = 36000; // 10小时
                 }
             }
             if (coverImage) {
-                self.mpb.coverIV.image = coverImage;
+                self.mpb.coverIV.image = [UIImage imageFromImage:coverImage size:CGSizeMake(self.mpb.coverIV.size.width*[UIScreen mainScreen].scale, self.mpb.coverIV.size.height*[UIScreen mainScreen].scale)];
             }else{
                 self.mpb.coverIV.image = [UIImage imageNamed:@"music_placeholder"];
             }
+            coverImage = nil;
         }
         //锁屏标题
         NSString * title = itemTitle;
