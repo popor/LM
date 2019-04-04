@@ -69,7 +69,7 @@ static int TimeHourTen = 36000; // 10小时
         }
     }
     
-    [self updateIosLockInfoTimeOffset:0];
+    [self updateIosLockInfo];
 }
 
 - (void)playEvent {
@@ -87,7 +87,7 @@ static int TimeHourTen = 36000; // 10小时
     }];
 }
 
-- (void)updateIosLockInfoTimeOffset:(float)timeOffset {
+- (void)updateIosLockInfo {
     NSString * itemTitle          = self.musicTitle.toUtf8Encode;
     AVAudioPlayer * ap            = self.audioPlayer;
     MPNowPlayingInfoCenter * mpic = [MPNowPlayingInfoCenter defaultCenter];
@@ -147,14 +147,9 @@ static int TimeHourTen = 36000; // 10小时
         [songInfo setObject:author forKey:MPMediaItemPropertyArtist];
         //[songInfo setObject:author forKey:MPMediaItemPropertyAlbumTitle];
         [mpic setNowPlayingInfo:songInfo];
-        
-        if (timeOffset>0) {
-            self.mpb.slider.value = self.audioPlayer.currentTime/self.audioPlayer.duration;
-            self.mpb.timeCurrentL.text  = [self stringFromTime:self.audioPlayer.currentTime];
-        }else{
-            self.mpb.slider.value = 0;
-            self.mpb.timeCurrentL.text  = @"00:00";
-        }
+
+        self.mpb.slider.value = self.audioPlayer.currentTime/self.audioPlayer.duration;
+        self.mpb.timeCurrentL.text  = [self stringFromTime:self.audioPlayer.currentTime];
         
         self.mpb.timeDurationL.text = [self stringFromTime:self.audioPlayer.duration];
         self.mpb.nameL.text = name;
@@ -256,12 +251,12 @@ static int TimeHourTen = 36000; // 10小时
 - (void)playAtTimeScale:(float)scale {
     self.audioPlayer.currentTime = self.audioPlayer.duration * scale;
     // 拖拽进度条后,需要刷新锁屏信息
-    [self updateIosLockInfoTimeOffset:self.audioPlayer.currentTime];
+    [self updateIosLockInfo];
 }
 
 - (void)pauseEvent {
     // 暂停的时候刷新锁屏信息,但是这会造成信息闪烁跳动,酷狗没有做这个刷新.
-    [self updateIosLockInfoTimeOffset:0];
+    [self updateIosLockInfo];
     [self.audioPlayer pause];
     self.racSlideOB = nil;
 }
