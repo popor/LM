@@ -158,6 +158,18 @@ static int TimeHourTen = 36000; // 10小时
 - (void)initIosController  {
     MPRemoteCommandCenter *commandCenter = [MPRemoteCommandCenter sharedCommandCenter];
     // https://github.com/wsl2ls/LyricsAnalysis demo
+    // https://www.jianshu.com/p/950fec0cdb21 详细
+    // https://www.jianshu.com/p/87f3f2024038 拔耳机
+    
+    [commandCenter.togglePlayPauseCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
+        if (MpbShare.playBT.isSelected) {
+            [MpbShare pauseEvent];
+        }else{
+            [MpbShare playEvent];
+        }
+        return MPRemoteCommandHandlerStatusSuccess;
+    }];
+    
     [commandCenter.playCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
         [MpbShare playEvent];
         return MPRemoteCommandHandlerStatusSuccess;
@@ -180,6 +192,9 @@ static int TimeHourTen = 36000; // 10小时
         return MPRemoteCommandHandlerStatusSuccess;
     }];
     
+    
+    //togglePlayPauseCommand
+    
     // 处理锁屏拖拽进度条事件
     @weakify(self);
     [commandCenter.changePlaybackPositionCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
@@ -190,6 +205,32 @@ static int TimeHourTen = 36000; // 10小时
         return MPRemoteCommandHandlerStatusSuccess;
     }];
     
+    // 拔耳机
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioRouteChangeListenerCallback:)   name:AVAudioSessionRouteChangeNotification object:nil];//设置通知
+}
+
+//通知方法的实现
+- (void)audioRouteChangeListenerCallback:(NSNotification*)notification {
+    NSDictionary *interuptionDict = notification.userInfo;
+    NSInteger routeChangeReason = [[interuptionDict valueForKey:AVAudioSessionRouteChangeReasonKey] integerValue];
+    switch (routeChangeReason) {
+        case AVAudioSessionRouteChangeReasonNewDeviceAvailable:
+            //NSLog(@"AVAudioSessionRouteChangeReasonNewDeviceAvailable");
+            //tipWithMessage(@"耳机插入");
+            break;
+        case AVAudioSessionRouteChangeReasonOldDeviceUnavailable:{
+            NSLog(@"AVAudioSessionRouteChangeReasonOldDeviceUnavailable");
+            //tipWithMessage(@"耳机拔出，停止播放操作");
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.mpb pauseEvent];
+            });
+            break;
+        }
+        case AVAudioSessionRouteChangeReasonCategoryChange:
+            // called at start - also when other audio wants to play
+            //tipWithMessage(@"AVAudioSessionRouteChangeReasonCategoryChange");
+            break;
+    }
 }
 
 - (void)playAtTimeScale:(float)scale {

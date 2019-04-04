@@ -303,10 +303,12 @@
             [self.mpt playItem:self.currentItem];
         }
     }
+    self.playBT.selected = YES;
 }
 
 - (void)pauseEvent {
     [self.mpt pauseEvent];
+    self.playBT.selected = NO;
 }
 
 - (void)previousBTEvent {
@@ -318,6 +320,8 @@
         index =  (index + self.mplt.currentWeakList.count) % self.mplt.currentWeakList.count;
         self.currentItem = self.mplt.currentWeakList[index];
         [self.mpt playItem:self.currentItem];
+        
+        self.playBT.selected = YES;
     }
 }
 
@@ -330,6 +334,8 @@
         index =  index % self.mplt.currentWeakList.count;
         self.currentItem = self.mplt.currentWeakList[index];
         [self.mpt playItem:self.currentItem];
+        
+        self.playBT.selected = YES;
     }
 }
 
@@ -342,15 +348,6 @@
 }
 
 - (void)sliderAction {
-    NSLog(@"%f", self.slider.value);
-    //    switch (self.slider.state) {
-    //        case <#constant#>:
-    //            <#statements#>
-    //            break;
-    //
-    //        default:
-    //            break;
-    //    }
     [self.mpt playAtTimeScale:self.slider.value];
 }
 
