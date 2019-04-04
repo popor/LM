@@ -36,14 +36,29 @@
             _docPath = pathArray[0]; //获得Document系统文件目录路径
         }
         _yyCache   = [YYCache cacheWithName:LmCacheKey];
-        BOOL isContains = [_yyCache containsObjectForKey:LmPlayListKey];
-        if (isContains) {
-            id value    = [_yyCache objectForKey:LmPlayListKey];
-            _list       = [MusicPlayList yy_modelWithJSON:value];
-        }else{
-            _list       = [MusicPlayList new];
-            _list.array = [NSMutableArray new];
+        
+        {
+            BOOL isContains = [_yyCache containsObjectForKey:LmPlayListKey];
+            if (isContains) {
+                id value    = [_yyCache objectForKey:LmPlayListKey];
+                _list       = [MusicPlayList yy_modelWithJSON:value];
+            }else{
+                _list       = [MusicPlayList new];
+                _list.array = [NSMutableArray new];
+            }
         }
+        {
+            BOOL isContains = [_yyCache containsObjectForKey:LmConfigKey];
+            if (isContains) {
+                id value    = [_yyCache objectForKey:LmConfigKey];
+                _config     = [MusicConfig yy_modelWithJSON:value];
+            }else{
+                _config     = [MusicConfig new];
+                _config.listIndex = -1;
+                _config.itemIndex = -1;
+            }
+        }
+        
         if (!_list.array) {
             _list.array = [NSMutableArray new];
         }
@@ -58,11 +73,15 @@
     list.name = name;
     
     self.list.array.add(list);
-    [self update];
+    [self updateList];
 }
 
-- (void)update {
+- (void)updateList {
     [self.yyCache setObject:[self.list yy_modelToJSONString] forKey:LmPlayListKey];
+}
+
+- (void)updateConfig {
+    [self.yyCache setObject:[self.config yy_modelToJSONString] forKey:LmConfigKey];
 }
 
 @end

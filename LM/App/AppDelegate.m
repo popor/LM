@@ -23,10 +23,50 @@
         [[NSBundle bundleWithPath:iosInjectionPath] load];
     }
 #endif
-    
+   
 
     return YES;
 }
+
+//// 启动类型的枚举变量
+//typedef NS_ENUM(NSUInteger, STARTUP_TPYE){
+//    STARTUP_TPYE_BY_NOMAL = 0,
+//    STARTUP_TPYE_BY_NOTIFICATION,
+//    STARTUP_TPYE_BY_PUSH,
+//    STARTUP_TPYE_BY_SCHEME,
+//};
+//
+//- (STARTUP_TPYE)checkStartUpType:(NSDictionary *)launchOptions{
+//    STARTUP_TPYE startType = STARTUP_TPYE_BY_NOMAL;
+//    if (launchOptions) {
+//        // 有远程通知
+//        NSDictionary *payload = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+//        if (payload) {
+//            startType = STARTUP_TPYE_BY_PUSH;
+//
+//        }
+//        // 有本地通知
+//        UILocalNotification *localNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+//        if (localNotification) {
+//            startType = STARTUP_TPYE_BY_NOTIFICATION;
+//
+//        }
+//        // 有第三方APP调用
+//        NSURL* launchURL = (NSURL*)[launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];
+//        if(launchURL) {
+//            startType = STARTUP_TPYE_BY_SCHEME;
+//
+//        }
+//
+//    } else {
+//        startType = STARTUP_TPYE_BY_NOMAL;
+//
+//    }
+//    NSString * info = launchOptions.description ? :@"空";
+//    AlertToastTitleTime(info, 600);
+//    return startType;
+//}
+
 
 // ios 9.1 以前的方案
 //    // 接受系统锁屏控制

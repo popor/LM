@@ -155,7 +155,7 @@
         }
         MusicPlayListEntity * list = MpltShare.list.array[indexPath.row];
         NSDictionary * dic = @{@"title":list.name,
-                               @"listArray":list.array,
+                               @"listEntity":list,
                                
                                };
         [self.view.vc.navigationController pushViewController:[SongListDetailVCRouter vcWithDic:dic] animated:YES];
@@ -182,7 +182,7 @@
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     if (tableView == self.view.infoTV) {
         [MpltShare.list.array exchangeObjectAtIndex:sourceIndexPath.row withObjectAtIndex:destinationIndexPath.row];
-        [MpltShare update];
+        [MpltShare updateList];
     }else{
         
     }
@@ -218,7 +218,7 @@
         
         UITableViewRowAction *action1 = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"删除" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
             [MpltShare.list.array removeObjectAtIndex:indexPath.row];
-            [MpltShare update];
+            [MpltShare updateList];
             
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         }];
@@ -247,7 +247,7 @@
             UITextField * nameTF = oneAC.textFields[0];
             if (nameTF.text.length > 0) {
                 list.name = nameTF.text;
-                [MpltShare update];
+                [MpltShare updateList];
                 [self.view.infoTV reloadData];
             }
         }];

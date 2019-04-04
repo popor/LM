@@ -20,7 +20,7 @@
 @property (nonatomic, weak  ) MusicPlayBar * playbar;
 
 // MARK: 外部注入的
-@property (nonatomic, weak  ) NSMutableArray * listArray;
+@property (nonatomic, weak  ) MusicPlayListEntity * listEntity;
 
 @end
 

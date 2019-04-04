@@ -38,6 +38,10 @@
         self.mplt = MpltShare;
         self.backgroundColor = [UIColor whiteColor];
         [self addViews];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self resumeLastStatus];
+        });
     }
     return self;
 }
@@ -265,19 +269,42 @@
     self.playBT.selected = YES;
     if (itemArray.count > 0) {
         self.currentItem = self.mplt.currentWeakList[index];
-        [self.mpt playItem:self.currentItem];
+        [self.mpt playItem:self.currentItem autoPlay:YES];
     }
+    self.mplt.config.listIndex = -1;
+    self.mplt.config.itemIndex = -1;
+    [self.mplt updateConfig];
 }
 
-- (void)playRecordArray:(NSMutableArray *)itemArray at:(NSInteger)index {
-    if (self.mplt.currentWeakList != itemArray) {
-        self.mplt.currentWeakList = itemArray;
+- (void)playMusicPlayListEntity:(MusicPlayListEntity *)listEntity at:(NSInteger)index {
+    if (self.mplt.currentWeakList != listEntity.array) {
+        self.mplt.currentWeakList = listEntity.array;
     }
     self.playBT.selected = YES;
-    if (itemArray.count > 0) {
+    if (listEntity.array.count > 0) {
         self.currentItem = self.mplt.currentWeakList[index];
-        [self.mpt playItem:self.currentItem];
+        [self.mpt playItem:self.currentItem autoPlay:YES];
     }
+    
+    self.mplt.config.listIndex = [self.mplt.list.array indexOfObject:listEntity];
+    self.mplt.config.itemIndex = index;
+    [self.mplt updateConfig];
+}
+
+// 恢复上次播放记录
+- (void)resumeMusicPlayListEntity:(MusicPlayListEntity *)listEntity at:(NSInteger)index {
+    if (self.mplt.currentWeakList != listEntity.array) {
+        self.mplt.currentWeakList = listEntity.array;
+    }
+    //self.playBT.selected = YES;
+    if (listEntity.array.count > 0) {
+        self.currentItem = self.mplt.currentWeakList[index];
+        [self.mpt playItem:self.currentItem autoPlay:NO];
+    }
+    
+    //self.mplt.config.listIndex = [self.mplt.list.array indexOfObject:listEntity];
+    //self.mplt.config.itemIndex = index;
+    //[self.mplt updateConfig];
 }
 
 - (void)playBTEvent {
@@ -289,18 +316,12 @@
 }
 
 - (void)playEvent {
-    //    if (!self.mplt.currentList) {
-    //        if (self.mplt.list.array.count > 0) {
-    //            MusicPlayListEntity * list = self.mplt.list.array[0];
-    //            [self.mplt.currentList addObjectsFromArray:list.array];
-    //        }
-    //    }
     if (self.mplt.currentWeakList.count>0) {
         if (!self.currentItem) {
             self.currentItem = self.mplt.currentWeakList[0];
-            [self.mpt playItem:self.currentItem];
+            [self.mpt playItem:self.currentItem autoPlay:YES];
         }else{
-            [self.mpt playItem:self.currentItem];
+            [self.mpt playItem:self.currentItem autoPlay:YES];
         }
     }
     self.playBT.selected = YES;
@@ -319,9 +340,12 @@
         }
         index =  (index + self.mplt.currentWeakList.count) % self.mplt.currentWeakList.count;
         self.currentItem = self.mplt.currentWeakList[index];
-        [self.mpt playItem:self.currentItem];
+        [self.mpt playItem:self.currentItem autoPlay:YES];
         
         self.playBT.selected = YES;
+        
+        self.mplt.config.itemIndex = index;
+        [self.mplt updateConfig];
     }
 }
 
@@ -333,9 +357,12 @@
         }
         index =  index % self.mplt.currentWeakList.count;
         self.currentItem = self.mplt.currentWeakList[index];
-        [self.mpt playItem:self.currentItem];
+        [self.mpt playItem:self.currentItem autoPlay:YES];
         
         self.playBT.selected = YES;
+        
+        self.mplt.config.itemIndex = index;
+        [self.mplt updateConfig];
     }
 }
 
@@ -349,6 +376,15 @@
 
 - (void)sliderAction {
     [self.mpt playAtTimeScale:self.slider.value];
+}
+
+#pragma mark - 恢复上次数据
+- (void)resumeLastStatus{
+    if (self.mplt.config.listIndex >= 0 && self.mplt.list.array > 0) {
+        //[self resumeMusicPlayListEntity:self.mplt.list.array[self.mplt.config.listIndex]  at:self.mplt.config.itemIndex];
+        
+        [self playMusicPlayListEntity:self.mplt.list.array[self.mplt.config.listIndex]  at:self.mplt.config.itemIndex];
+    }
 }
 
 @end

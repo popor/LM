@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "MusicPlayList.h"
+#import "MusicConfig.h"
 
 #define MpltShare [MusicPlayListTool share]
 
@@ -20,12 +21,14 @@ NS_ASSUME_NONNULL_BEGIN
 + (MusicPlayListTool *)share;
 
 @property (nonatomic, strong) MusicPlayList * list;
+@property (nonatomic, strong) MusicConfig   * config;
 @property (nonatomic, strong) NSMutableArray * currentTempList; // 针对本地歌单
 @property (nonatomic, weak  ) NSMutableArray * currentWeakList; // 针对保存的歌单
 @property (nonatomic, strong) NSString * docPath;
 - (void)addListName:(NSString *)name;
 
-- (void)update;
+- (void)updateList;
+- (void)updateConfig;
 
 @end
 

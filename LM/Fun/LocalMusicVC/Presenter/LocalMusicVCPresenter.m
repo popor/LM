@@ -188,7 +188,7 @@
             FileEntity * fileEntity    = self.selectFileEntity;
             list.array.add([MusicPlayItemEntity initWithFileEntity:fileEntity]);
         }
-        [MpltShare update];
+        [MpltShare updateList];
     }
 }
 

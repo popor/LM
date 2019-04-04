@@ -16,6 +16,7 @@
 
 static NSString * LmCacheKey    = @"LmCache";
 static NSString * LmPlayListKey = @"list";
+static NSString * LmConfigKey   = @"config";
 
 //static UIColor * ColorThemeBlue1 = RGB16(0X36a5d7);
 #define ColorThemeBlue1 RGB16(0X36a5d7)

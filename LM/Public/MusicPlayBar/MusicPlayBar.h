@@ -46,7 +46,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)playTempArray:(NSArray *)itemArray at:(NSInteger)index;
 
 // 播放歌单列表
-- (void)playRecordArray:(NSMutableArray *)itemArray at:(NSInteger)index;
+- (void)playMusicPlayListEntity:(MusicPlayListEntity *)listEntity at:(NSInteger)index;
+//- (void)resumeMusicPlayListEntity:(MusicPlayListEntity *)listEntity at:(NSInteger)index;
 
 - (void)playEvent;
 - (void)pauseEvent;

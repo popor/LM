@@ -48,22 +48,26 @@ static int TimeHourTen = 36000; // 10小时
     return instance;
 }
 
-- (void)playItem:(MusicPlayItemEntity *)item {
+- (void)playItem:(MusicPlayItemEntity *)item autoPlay:(BOOL)autoPlay {
     NSString * path = [NSString stringWithFormat:@"%@/%@", MpltShare.docPath, item.filePath];
     NSURL * url     = [NSURL fileURLWithPath:path];
     self.musicTitle = item.fileName;
     
     if (self.audioPlayer && [self.audioPlayer.url isEqual:url]) {
-        [self.audioPlayer prepareToPlay];
-        [self.audioPlayer play];
+        //[self.audioPlayer prepareToPlay];
+        if (autoPlay) {
+            [self.audioPlayer play];
+        }
     }else{
         if (self.audioPlayer) {
             self.audioPlayer = nil;
         }
         self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
         self.audioPlayer.delegate = self;
-        [self.audioPlayer prepareToPlay];
-        [self.audioPlayer play];
+        //[self.audioPlayer prepareToPlay];
+        if (autoPlay) {
+            [self.audioPlayer play];
+        }
         
         @weakify(self);
         [[[RACSignal interval:1 onScheduler:[RACScheduler mainThreadScheduler]] takeUntil:self.audioPlayer.rac_willDeallocSignal] subscribeNext:^(id x) {

@@ -12,7 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MusicConfig : NSObject
 
-+ (MusicConfig *)share;
+@property (nonatomic        ) NSInteger listIndex; // 歌单位置
+@property (nonatomic        ) NSInteger itemIndex; // 歌曲位置
 
 @end
 

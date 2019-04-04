@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (MusicPlayTool *)share;
 
-- (void)playItem:(MusicPlayItemEntity *)item;
+- (void)playItem:(MusicPlayItemEntity *)item autoPlay:(BOOL)autoPlay;
 - (void)playAtTimeScale:(float)scale;
 
 - (void)pauseEvent;

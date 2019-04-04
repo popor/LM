@@ -49,7 +49,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.view.listArray.count;
+    return self.view.listEntity.array.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -73,7 +73,7 @@
         cell.addBt.userInteractionEnabled = NO;
         [cell.addBt setImage:nil forState:UIControlStateNormal];
     }
-    MusicPlayItemEntity * item = self.view.listArray[indexPath.row];
+    MusicPlayItemEntity * item = self.view.listEntity.array[indexPath.row];
     
     cell.titelL.text = [NSString stringWithFormat:@"%li: %@", indexPath.row+1, item.musicTitle];
     cell.timeL.text  = item.musicAuthor;
@@ -101,8 +101,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
- 
-    [MpbShare playRecordArray:self.view.listArray at:indexPath.row];
+    //NSMutableArray * array = self.view.listEntity;
+    [MpbShare playMusicPlayListEntity:self.view.listEntity at:indexPath.row];
     
     if (self.lastCell) {
         self.lastCell.titelL.textColor = [UIColor blackColor];

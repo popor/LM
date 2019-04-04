@@ -18,7 +18,7 @@
 @implementation SongListDetailVC
 @synthesize infoTV;
 @synthesize playbar;
-@synthesize listArray;
+@synthesize listEntity;
 
 - (instancetype)initWithDic:(NSDictionary *)dic {
     if (self = [super init]) {
