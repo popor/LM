@@ -126,15 +126,18 @@ static int TimeHourTen = 36000; // 10小时
             coverImage = nil;
         }
         //锁屏标题
-        NSString * title = itemTitle;
+        NSString * name = itemTitle;
+        if (name.pathExtension.length > 0) {
+            name = [name substringToIndex:name.length - name.pathExtension.length - 1];
+        }
+        
+        NSString * title = name;
         NSString * author = @"";
         NSRange range = [title rangeOfString:@"-"];
         if (range.length>0 && range.location>0) {
             author = [title substringToIndex:range.location];
             title  = [title substringFromIndex:range.location + range.length];
-        }
-        if (ap.url.pathExtension.length > 0) {
-            title = [title substringToIndex:title.length - ap.url.pathExtension.length - 1];
+            title  = [title replaceWithREG:@"^\\s+" newString:@""];
         }
         
         [songInfo setObject:[NSNumber numberWithFloat:self.audioPlayer.duration] forKey:MPMediaItemPropertyPlaybackDuration];
@@ -154,8 +157,8 @@ static int TimeHourTen = 36000; // 10小时
         }
         
         self.mpb.timeDurationL.text = [self stringFromTime:self.audioPlayer.duration];
-        self.mpb.nameL.text         = self.mpb.currentItem.fileName;
-        //self.mpb.slider;
+        self.mpb.nameL.text = name;
+        
     }else{
         [mpic setNowPlayingInfo:nil];
     }

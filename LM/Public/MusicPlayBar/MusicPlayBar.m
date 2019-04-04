@@ -212,26 +212,35 @@
     float width = 40;
     float height = 40;
     
+    self.rewindBT.hidden = YES;
+    self.forwardBT.hidden = YES;
     [self.nameL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.slider.mas_bottom).mas_offset(10);
         make.left.mas_equalTo(15);
-        make.height.mas_equalTo(20);;
-        make.right.mas_equalTo(self.rewindBT.mas_left).mas_offset(-5);
-    }];
-    [self.rewindBT mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(width);
-        make.height.mas_equalTo(height);
-        
-        make.right.mas_equalTo(self.forwardBT.mas_left).mas_offset(-10);
-        make.centerY.mas_equalTo(self.nameL.mas_centerY);
-    }];
-    [self.forwardBT mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(width);
-        make.height.mas_equalTo(height);
-        
+        make.height.mas_equalTo(20);
         make.right.mas_equalTo(-15);
-        make.centerY.mas_equalTo(self.nameL.mas_centerY);
     }];
+    
+    //    [self.nameL mas_makeConstraints:^(MASConstraintMaker *make) {
+    //        make.top.mas_equalTo(self.slider.mas_bottom).mas_offset(10);
+    //        make.left.mas_equalTo(15);
+    //        make.height.mas_equalTo(20);
+    //        make.right.mas_equalTo(self.rewindBT.mas_left).mas_offset(-5);
+    //    }];
+    //    [self.rewindBT mas_makeConstraints:^(MASConstraintMaker *make) {
+    //        make.width.mas_equalTo(width);
+    //        make.height.mas_equalTo(height);
+    //
+    //        make.right.mas_equalTo(self.forwardBT.mas_left).mas_offset(-10);
+    //        make.centerY.mas_equalTo(self.nameL.mas_centerY);
+    //    }];
+    //    [self.forwardBT mas_makeConstraints:^(MASConstraintMaker *make) {
+    //        make.width.mas_equalTo(width);
+    //        make.height.mas_equalTo(height);
+    //
+    //        make.right.mas_equalTo(-15);
+    //        make.centerY.mas_equalTo(self.nameL.mas_centerY);
+    //    }];
     
     [self.coverIV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(15);
@@ -255,7 +264,7 @@
         //make.top.mas_equalTo(self.playBT.mas_top);
         make.centerY.mas_equalTo(self.coverIV.mas_centerY);
     }];
-
+    
     [self.nextBT mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(width);
         make.height.mas_equalTo(height);
