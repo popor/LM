@@ -34,7 +34,7 @@
     //        UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
     //        button.frame =  CGRectMake(0, 0, 30, 30);
     //        [button setImage:[UIImage imageNamed:@"play_gray"] forState:UIControlStateNormal];
-    //        [self addSubview:button];
+    //        [self.contentView addSubview:button];
     //        
     //        button;
     //    });
@@ -45,7 +45,7 @@
             l.font               = [UIFont systemFontOfSize:15];
             l.textColor          = [UIColor darkGrayColor];
             
-            [self addSubview:l];
+            [self.contentView addSubview:l];
             l;
         });
         
@@ -74,12 +74,12 @@
         iv.image = [UIImage imageFromImage:[UIImage imageNamed:@"paly_sound"] changecolor:ColorThemeBlue1];
         iv.hidden = YES;
         
-        [self addSubview:iv];
+        [self.contentView addSubview:iv];
         iv;
     });
     
     [self.rightIV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(-35);
+        make.right.mas_equalTo(0);
         make.size.mas_equalTo(self.rightIV.image.size);
         make.centerY.mas_equalTo(0);
     }];
@@ -90,7 +90,6 @@
         make.height.mas_equalTo(20);
         make.right.mas_lessThanOrEqualTo(self.rightIV.mas_left).mas_offset(-10);
     }];
-
 }
 
 @end

@@ -33,7 +33,7 @@
     self.addBt = ({
         UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame =  CGRectMake(0, 0, 30, 30);
-        [self addSubview:button];
+        [self.contentView addSubview:button];
         
         button;
     });
@@ -44,7 +44,7 @@
             l.font               = [UIFont systemFontOfSize:15];
             l.textColor          = [UIColor darkGrayColor];
             
-            [self addSubview:l];
+            [self.contentView addSubview:l];
             l;
         });
         
@@ -74,7 +74,7 @@
         iv.image = [UIImage imageFromImage:[UIImage imageNamed:@"paly_sound"] changecolor:ColorThemeBlue1];
         iv.hidden = YES;
         
-        [self addSubview:iv];
+        [self.contentView addSubview:iv];
         iv;
     });
     
