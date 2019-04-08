@@ -55,7 +55,8 @@
         self.slider = [UISlider new];
         self.slider.maximumValue = 1.0;
         self.slider.minimumValue = 0.0;
-        
+        self.slider.tintColor    = ColorThemeBlue1;
+        self.slider.thumbTintColor = ColorThemeBlue1;
         [self addSubview:self.slider];
         
         @weakify(self);
@@ -82,7 +83,7 @@
             UILabel * l = [UILabel new];
             l.backgroundColor    = [UIColor clearColor];
             l.textColor          = [UIColor darkGrayColor];
-            
+            l.textColor          = ColorThemeBlue1;
             [self addSubview:l];
             l;
         });
@@ -118,10 +119,11 @@
         UIButton * oneBT = ({
             UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
             if (i == 0) {
-                [button setImage:[UIImage imageNamed:imageN[i]] forState:UIControlStateNormal];
-                [button setImage:[UIImage imageNamed:imageS[i]] forState:UIControlStateHighlighted];
+                
+                [button setImage:[UIImage imageFromImage:[UIImage imageNamed:imageN[i]] changecolor:ColorThemeBlue1] forState:UIControlStateNormal];
+                [button setImage:[UIImage imageFromImage:[UIImage imageNamed:imageS[i]] changecolor:ColorThemeBlue1] forState:UIControlStateHighlighted];
             }else{
-                [button setImage:[UIImage imageNamed:imageN[i]] forState:UIControlStateNormal];
+                [button setImage:[UIImage imageFromImage:[UIImage imageNamed:imageN[i]] changecolor:ColorThemeBlue1] forState:UIControlStateNormal];
                 [button setImage:[UIImage imageFromImage:[UIImage imageNamed:imageS[i]] changecolor:[UIColor lightGrayColor]] forState:UIControlStateHighlighted];
             }
             
@@ -132,7 +134,7 @@
         switch (i) {
             case 0:{
                 [oneBT setImage:nil forState:UIControlStateHighlighted];
-                [oneBT setImage:[UIImage imageNamed:imageS[i]] forState:UIControlStateSelected];
+                [oneBT setImage:[UIImage imageFromImage:[UIImage imageNamed:imageS[i]] changecolor:ColorThemeBlue1] forState:UIControlStateSelected];
                 self.playBT = oneBT;
                 
                 [oneBT addTarget:self action:@selector(playBTEvent) forControlEvents:UIControlEventTouchUpInside];
@@ -319,7 +321,14 @@
         [self.mpt playItem:self.currentItem autoPlay:YES];
     }
     
-    self.mplt.config.listIndex = [self.mplt.list.array indexOfObject:listEntity];
+    NSInteger currentListIndex = [self.mplt.list.array indexOfObject:listEntity];
+    if (self.mplt.config.listIndex != currentListIndex) {
+        self.mplt.config.listIndex = currentListIndex;
+        if (self.freshBlockRootVC) {
+            self.freshBlockRootVC();
+        }
+    }
+    
     self.mplt.config.itemIndex = index;
     [self.mplt updateConfig];
 }
@@ -448,7 +457,8 @@
 
 - (void)orderAction {
     self.mplt.config.order = (self.mplt.config.order + 1)%MusicConfigOrderImageArray.count;
-    [self.orderBT setImage:[UIImage imageNamed:MusicConfigOrderImageArray[self.mplt.config.order]] forState:UIControlStateNormal];
+    
+    [self.orderBT setImage:[UIImage imageFromImage:[UIImage imageNamed:MusicConfigOrderImageArray[self.mplt.config.order]] changecolor:ColorThemeBlue1] forState:UIControlStateNormal];
     [self.mplt updateConfig];
 }
 
@@ -461,7 +471,7 @@
         //[self playMusicPlayListEntity:self.mplt.list.array[self.mplt.config.listIndex]  at:self.mplt.config.itemIndex];
     }
     
-    [self.orderBT setImage:[UIImage imageNamed:MusicConfigOrderImageArray[self.mplt.config.order]] forState:UIControlStateNormal];
+    [self.orderBT setImage:[UIImage imageFromImage:[UIImage imageNamed:MusicConfigOrderImageArray[self.mplt.config.order]] changecolor:ColorThemeBlue1] forState:UIControlStateNormal];
     
 }
 

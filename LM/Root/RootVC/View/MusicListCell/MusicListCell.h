@@ -16,8 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak  ) id cellData;
 
-@property (nonatomic, strong) UIButton * playBt;
+// @property (nonatomic, strong) UIButton * playBt;
 @property (nonatomic, strong) UILabel  * titelL;
+@property (nonatomic, strong) UIImageView * rightIV;
 
 @end
 

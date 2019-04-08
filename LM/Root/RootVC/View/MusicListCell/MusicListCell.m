@@ -30,14 +30,14 @@
 }
 
 - (void)addViews {
-    self.playBt = ({
-        UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame =  CGRectMake(0, 0, 30, 30);
-        [button setImage:[UIImage imageNamed:@"play_gray"] forState:UIControlStateNormal];
-        [self addSubview:button];
-        
-        button;
-    });
+    //    self.playBt = ({
+    //        UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
+    //        button.frame =  CGRectMake(0, 0, 30, 30);
+    //        [button setImage:[UIImage imageNamed:@"play_gray"] forState:UIControlStateNormal];
+    //        [self addSubview:button];
+    //        
+    //        button;
+    //    });
     for (int i = 0; i<1; i++) {
         UILabel * oneL = ({
             UILabel * l = [UILabel new];
@@ -62,17 +62,33 @@
         }
     }
     
-    [self.playBt mas_makeConstraints:^(MASConstraintMaker *make) {
+    //    [self.playBt mas_makeConstraints:^(MASConstraintMaker *make) {
+    //        make.centerY.mas_equalTo(0);
+    //        make.width.mas_equalTo(40);
+    //        make.height.mas_equalTo(30);
+    //        make.left.mas_equalTo(15);
+    //    }];
+    
+    self.rightIV = ({
+        UIImageView * iv = [UIImageView new];
+        iv.image = [UIImage imageFromImage:[UIImage imageNamed:@"paly_sound"] changecolor:ColorThemeBlue1];
+        iv.hidden = YES;
+        
+        [self addSubview:iv];
+        iv;
+    });
+    
+    [self.rightIV mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-35);
+        make.size.mas_equalTo(self.rightIV.image.size);
         make.centerY.mas_equalTo(0);
-        make.width.mas_equalTo(40);
-        make.height.mas_equalTo(30);
-        make.left.mas_equalTo(15);
     }];
     
     [self.titelL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(0);
-        make.left.mas_equalTo(self.playBt.mas_right).mas_offset(10);
+        make.left.mas_equalTo(15);
         make.height.mas_equalTo(20);
+        make.right.mas_lessThanOrEqualTo(self.rightIV.mas_left).mas_offset(-10);
     }];
 
 }

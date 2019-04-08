@@ -80,6 +80,9 @@
         UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithTitle:@"更多" style:UIBarButtonItemStylePlain target:self.present action:@selector(showTVAlertAction:event:)];
         self.navigationItem.rightBarButtonItems = @[item1];
     }
+    {
+        self.navigationController.navigationBar.tintColor = ColorThemeBlue1;
+    }
 }
 
 - (void)addPlayboard {
@@ -93,6 +96,9 @@
         make.bottom.mas_equalTo(0);
         make.height.mas_equalTo(self.playbar.height);
     }];
+    self.playbar.freshBlockRootVC = ^{
+        [self.infoTV reloadRowsAtIndexPaths:self.infoTV.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationNone];
+    };
 }
 
 - (UITableView *)addTVs {

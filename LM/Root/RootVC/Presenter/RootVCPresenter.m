@@ -16,11 +16,13 @@
 #import "SongListDetailVCRouter.h"
 
 #import "MusicListCell.h"
+#import "MusicPlayListTool.h"
 
 @interface RootVCPresenter ()
 
 @property (nonatomic, weak  ) id<RootVCProtocol> view;
 @property (nonatomic, strong) RootVCInteractor * interactor;
+@property (nonatomic, weak  ) MusicPlayListTool * mplt;
 
 @end
 
@@ -29,7 +31,7 @@
 - (id)init {
     if (self = [super init]) {
         [self initInteractors];
-        
+        self.mplt = MpltShare;
     }
     return self;
 }
@@ -106,18 +108,26 @@
             cell = [[MusicListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
             cell.selectionStyle = UITableViewCellSelectionStyleDefault;
             cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
+            cell.tintColor      = ColorThemeBlue1;
             
-            [[cell.playBt rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-                //x 就是被点击的按钮
-                MusicListCell * scell = (MusicListCell *)x.superview;
-                MusicPlayListEntity * list = (MusicPlayListEntity *)scell.cellData;
-                
-                [MpbShare playTempArray:list.array at:0];
-            }];
+            //[[cell.playBt rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+            //    //x 就是被点击的按钮
+            //    MusicListCell * scell = (MusicListCell *)x.superview;
+            //    MusicPlayListEntity * list = (MusicPlayListEntity *)scell.cellData;
+            //    [MpbShare playTempArray:list.array at:0];
+            //}];
         }
         MusicPlayListEntity * list = MpltShare.list.array[indexPath.row];
         cell.cellData = list;
         cell.titelL.text = [NSString stringWithFormat:@"%@ (%li)", list.name, list.array.count];
+        
+        if(self.mplt.config.listIndex == indexPath.row){
+            cell.rightIV.hidden = NO;
+            cell.titelL.textColor = ColorThemeBlue1;
+        }else{
+            cell.rightIV.hidden = YES;
+            cell.titelL.textColor = [UIColor darkGrayColor];
+        }
         
         return cell;
     }

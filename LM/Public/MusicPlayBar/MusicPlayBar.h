@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UISlider * slider;
 @property (nonatomic, getter=isSliderSelected) BOOL sliderSelected;
 
+@property (nonatomic, copy  ) BlockPVoid freshBlockRootVC;
 
 @property (nonatomic, strong) UIImageView * coverIV;
 @property (nonatomic, strong) UIButton * playBT;

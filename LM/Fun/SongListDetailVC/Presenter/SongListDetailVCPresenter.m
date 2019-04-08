@@ -81,13 +81,13 @@
     if ([item.filePath isEqualToString:self.mpb.currentItem.filePath]) {
         cell.titelL.textColor = ColorThemeBlue1;
         cell.timeL.textColor  = ColorThemeBlue1;
-        
+        cell.rightIV.hidden   = NO;
         self.lastCell = cell;
         //cell.backgroundColor = [UIColor redColor];
     }else{
         cell.titelL.textColor = [UIColor blackColor];
         cell.timeL.textColor  = [UIColor grayColor];
-        
+        cell.rightIV.hidden   = YES;
         //cell.backgroundColor = [UIColor whiteColor];
     }
     // 打开cover的话,内存会达到100MB以上.
@@ -107,11 +107,13 @@
     if (self.lastCell) {
         self.lastCell.titelL.textColor = [UIColor blackColor];
         self.lastCell.timeL.textColor  = [UIColor grayColor];
+        self.lastCell.rightIV.hidden   = YES;
     }
     {
         MusicInfoCell * cell = [tableView cellForRowAtIndexPath:indexPath];
         cell.titelL.textColor = ColorThemeBlue1;
         cell.timeL.textColor  = ColorThemeBlue1;
+        cell.rightIV.hidden   = NO;
         
         self.lastCell = cell;
     }

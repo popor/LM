@@ -29,7 +29,7 @@ typedef NS_ENUM(int, MusicInfoCellType) {
 @property (nonatomic, strong) UIButton * addBt;
 @property (nonatomic, strong) UILabel  * titelL;
 @property (nonatomic, strong) UILabel  * timeL;
-@property (nonatomic, strong) UIButton * rightIV;
+@property (nonatomic, strong) UIImageView * rightIV;
 
 @end
 
