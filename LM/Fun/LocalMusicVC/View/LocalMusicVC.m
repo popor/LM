@@ -38,7 +38,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (!self.title) {
-        self.title = @"LocalMusicVC";
+        self.title = @"本地歌曲";
     }
     self.view.backgroundColor = [UIColor whiteColor];
     if (!self.present) {

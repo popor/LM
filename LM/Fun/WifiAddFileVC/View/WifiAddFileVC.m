@@ -40,7 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (!self.title) {
-        self.title = @"WifiAddFileVC";
+        self.title = @"Wifi添加歌曲";
     }
     self.view.backgroundColor = [UIColor whiteColor];
     if (!self.present) {
