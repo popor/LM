@@ -56,6 +56,9 @@
             if (range.location > 0 && range.length > 0) {
                 entity.musicTitle  = [fileName substringFromIndex:range.location + range.length];
                 entity.musicAuthor = [fileName substringToIndex:range.location];
+                
+                entity.musicTitle  = [entity.musicTitle replaceWithREG:@"^\\s+" newString:@""];
+                entity.musicAuthor = [entity.musicAuthor replaceWithREG:@"\\s+$" newString:@""];
             }else{
                 entity.musicTitle  = fileName;
                 entity.musicAuthor = @"";

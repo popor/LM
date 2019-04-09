@@ -10,19 +10,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(int, MusicConfigOrder) {
-    MusicConfigOrderNormal, // 普通
-    MusicConfigOrderRandom, // 随机
-    MusicConfigOrderSingle, // 单曲循环
+typedef NS_ENUM(int, McPlayOrder) {
+    McPlayOrderNormal, // 普通
+    McPlayOrderRandom, // 随机
+    McPlayOrderSingle, // 单曲循环
 };
 
-#define MusicConfigOrderImageArray @[@"loop_order", @"loop_random", @"loop_single"]
+#define McPlayOrderImageArray @[@"loop_order", @"loop_random", @"loop_single"]
 
 @interface MusicConfig : NSObject
 
 @property (nonatomic        ) NSInteger listIndex;// 歌单位置
 @property (nonatomic        ) NSInteger itemIndex;// 歌曲位置
-@property (nonatomic        ) MusicConfigOrder order;
+@property (nonatomic        ) McPlayOrder playOrder;
 
 @end
 

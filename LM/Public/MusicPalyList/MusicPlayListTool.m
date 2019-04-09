@@ -71,7 +71,7 @@
 - (void)addListName:(NSString *)name {
     MusicPlayListEntity * list = [MusicPlayListEntity new];
     list.name = name;
-    
+    list.viewOrder = -1;
     self.list.array.add(list);
     [self updateList];
 }

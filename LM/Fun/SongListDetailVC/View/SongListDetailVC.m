@@ -19,6 +19,11 @@
 
 @implementation SongListDetailVC
 @synthesize infoTV;
+
+@synthesize alertBubbleView;
+@synthesize alertBubbleTV;
+@synthesize alertBubbleTVColor;
+
 @synthesize playbar;
 @synthesize listEntity;
 @synthesize aimBT;
@@ -79,6 +84,34 @@
     MptShare.nextMusicBlock_SongListDetailVC = ^(void) {
         [weakSelf.present freshTVVisiableCellEvent];
     };
+    
+    self.alertBubbleTVColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    self.alertBubbleTV = [self addAlertBubbleTV];
+    
+    [self addAimBTs];
+    
+    [self.present defaultNcRightItem];
+}
+
+- (UITableView *)addTVs {
+    UITableView * oneTV = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    
+    oneTV.delegate   = self.present;
+    oneTV.dataSource = self.present;
+    
+    oneTV.allowsMultipleSelectionDuringEditing = YES;
+    oneTV.directionalLockEnabled = YES;
+    
+    oneTV.estimatedRowHeight           = 0;
+    oneTV.estimatedSectionHeaderHeight = 0;
+    oneTV.estimatedSectionFooterHeight = 0;
+    
+    [self.view addSubview:oneTV];
+    
+    return oneTV;
+}
+
+- (void)addAimBTs {
     {
         self.aimBT = ({
             UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -101,11 +134,10 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.present aimAtCurrentItem:self.aimBT];
     });
-    
 }
 
-- (UITableView *)addTVs {
-    UITableView * oneTV = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+- (UITableView *)addAlertBubbleTV {
+    UITableView * oneTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 160, SongListDetailVCSortTvCellH * MpViewOrderTitleArray.count) style:UITableViewStylePlain];
     
     oneTV.delegate   = self.present;
     oneTV.dataSource = self.present;
@@ -117,9 +149,18 @@
     oneTV.estimatedSectionHeaderHeight = 0;
     oneTV.estimatedSectionFooterHeight = 0;
     
-    [self.view addSubview:oneTV];
+    oneTV.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    
+    oneTV.backgroundColor = [UIColor clearColor];
+    
+    oneTV.layer.cornerRadius = 4;
+    oneTV.clipsToBounds      = YES;
+    oneTV.scrollEnabled      = NO;
+    
+    oneTV.tintColor = [UIColor whiteColor];
     
     return oneTV;
 }
+
 
 @end

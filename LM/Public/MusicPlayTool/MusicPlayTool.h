@@ -17,10 +17,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MusicPlayTool : NSObject
 
-@property (nonatomic, strong) NSURL * musicUrl;
-@property (nonatomic, strong, nullable) AVAudioPlayer * audioPlayer;
-@property (nonatomic, strong) NSString * musicTitle;
-@property (nonatomic, strong) UIImage * defaultCoverImage;
+@property (nonatomic, strong) NSURL               * musicUrl;
+@property (nonatomic, strong) AVAudioPlayer       * audioPlayer;
+@property (nonatomic, weak  ) MusicPlayItemEntity * musicItem;
+
+@property (nonatomic, strong) UIImage             * defaultCoverImage;
 
 @property (nonatomic, copy  , nullable) BlockPVoid nextMusicBlock_SongListDetailVC;
 

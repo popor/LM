@@ -54,7 +54,8 @@ static int TimeHourTen = 36000; // 10小时
 - (void)playItem:(MusicPlayItemEntity *)item autoPlay:(BOOL)autoPlay {
     NSString * path = [NSString stringWithFormat:@"%@/%@", MpltShare.docPath, item.filePath];
     NSURL * url     = [NSURL fileURLWithPath:path];
-    self.musicTitle = item.fileName;
+    //self.musicTitle = item.fileName;
+    self.musicItem  = item;
     
     if (self.audioPlayer && [self.audioPlayer.url isEqual:url]) {
         //[self.audioPlayer prepareToPlay];
@@ -89,7 +90,6 @@ static int TimeHourTen = 36000; // 10小时
 }
 
 - (void)updateIosLockInfo {
-    NSString * itemTitle          = self.musicTitle.toUtf8Encode;
     AVAudioPlayer * ap            = self.audioPlayer;
     MPNowPlayingInfoCenter * mpic = [MPNowPlayingInfoCenter defaultCenter];
     
@@ -109,33 +109,19 @@ static int TimeHourTen = 36000; // 10小时
             coverImage = nil;
         }
         //锁屏标题
-        NSString * name = itemTitle;
-        if (name.pathExtension.length > 0) {
-            name = [name substringToIndex:name.length - name.pathExtension.length - 1];
-        }
-        
-        NSString * title = name;
-        NSString * author = @"";
-        NSRange range = [title rangeOfString:@"-"];
-        if (range.length>0 && range.location>0) {
-            author = [title substringToIndex:range.location];
-            title  = [title substringFromIndex:range.location + range.length];
-            title  = [title replaceWithREG:@"^\\s+" newString:@""];
-        }
-        
         [songInfo setObject:[NSNumber numberWithFloat:self.audioPlayer.duration] forKey:MPMediaItemPropertyPlaybackDuration];
         [songInfo setObject:[NSNumber numberWithFloat:self.audioPlayer.currentTime] forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
         
-        [songInfo setObject:title forKey:MPMediaItemPropertyTitle];
-        [songInfo setObject:author forKey:MPMediaItemPropertyArtist];
+        [songInfo setObject:self.musicItem.musicTitle forKey:MPMediaItemPropertyTitle];
+        [songInfo setObject:self.musicItem.musicAuthor forKey:MPMediaItemPropertyArtist];
         //[songInfo setObject:author forKey:MPMediaItemPropertyAlbumTitle];
         [mpic setNowPlayingInfo:songInfo];
 
-        self.mpb.slider.value = self.audioPlayer.currentTime/self.audioPlayer.duration;
+        self.mpb.slider.value       = self.audioPlayer.currentTime/self.audioPlayer.duration;
         self.mpb.timeCurrentL.text  = [self stringFromTime:self.audioPlayer.currentTime];
-        
+
         self.mpb.timeDurationL.text = [self stringFromTime:self.audioPlayer.duration];
-        self.mpb.nameL.text = name;
+        self.mpb.nameL.text         = [NSString stringWithFormat:@"%@ - %@", self.musicItem.musicAuthor, self.musicItem.musicTitle];
         
     }else{
         [mpic setNowPlayingInfo:nil];
@@ -254,7 +240,7 @@ static int TimeHourTen = 36000; // 10小时
 
 #pragma mark - delegate
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
-    if (self.mpb.mplt.config.order == MusicConfigOrderSingle) {
+    if (self.mpb.mplt.config.playOrder == McPlayOrderSingle) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.audioPlayer play];
         });

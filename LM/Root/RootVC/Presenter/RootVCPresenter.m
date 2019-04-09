@@ -86,7 +86,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.view.alertBubbleTV) {
-        static NSString * CellID = @"CellID";
+        static NSString * CellID = @"CellIDAlert";
         UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellID];
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
@@ -102,7 +102,7 @@
         
         return cell;
     }else{
-        static NSString * CellID = @"CellID";
+        static NSString * CellID = @"CellIDInfo";
         MusicListCell * cell = [tableView dequeueReusableCellWithIdentifier:CellID];
         if (!cell) {
             cell = [[MusicListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];

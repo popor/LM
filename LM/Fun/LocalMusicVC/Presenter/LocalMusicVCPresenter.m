@@ -183,11 +183,15 @@
         MusicPlayListEntity * list = MpltShare.list.array[indexPath.row];
         if (self.selectFileEntity.isFolder) {
             for (FileEntity * fileEntity in self.selectFileEntity.itemArray) {
-                list.array.add([MusicPlayItemEntity initWithFileEntity:fileEntity]);
+                MusicPlayItemEntity * ie = [MusicPlayItemEntity initWithFileEntity:fileEntity];
+                ie.index = list.recoredNum++;
+                list.array.add(ie);
             }
         }else{
             FileEntity * fileEntity    = self.selectFileEntity;
-            list.array.add([MusicPlayItemEntity initWithFileEntity:fileEntity]);
+            MusicPlayItemEntity * ie = [MusicPlayItemEntity initWithFileEntity:fileEntity];
+            ie.index = list.recoredNum++;
+            list.array.add(ie);
         }
         [MpltShare updateList];
         

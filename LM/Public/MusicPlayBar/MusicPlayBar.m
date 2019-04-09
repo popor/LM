@@ -407,13 +407,13 @@
 
 - (NSInteger)getNextIndex {
     NSInteger index = 0;
-    switch (self.mplt.config.order) {
-        case MusicConfigOrderRandom:{
+    switch (self.mplt.config.playOrder) {
+        case McPlayOrderRandom:{
             index = arc4random() % self.mplt.currentWeakList.count;
             break;
         }
-        case MusicConfigOrderNormal:
-            case MusicConfigOrderSingle:
+        case McPlayOrderNormal:
+            case McPlayOrderSingle:
         default:{
             if (self.currentItem) {
                 index = [self.mplt.currentWeakList indexOfObject:self.currentItem] + 1;
@@ -428,13 +428,13 @@
 
 - (NSInteger)getPreviousIndex {
     NSInteger index = 0;
-    switch (self.mplt.config.order) {
-        case MusicConfigOrderRandom:{
+    switch (self.mplt.config.playOrder) {
+        case McPlayOrderRandom:{
             index = arc4random() % self.mplt.currentWeakList.count;
             break;
         }
-        case MusicConfigOrderNormal:
-        case MusicConfigOrderSingle:
+        case McPlayOrderNormal:
+        case McPlayOrderSingle:
         default:{
             if (self.currentItem) {
                 index = [self.mplt.currentWeakList indexOfObject:self.currentItem] - 1;
@@ -456,9 +456,9 @@
 }
 
 - (void)orderAction {
-    self.mplt.config.order = (self.mplt.config.order + 1)%MusicConfigOrderImageArray.count;
+    self.mplt.config.playOrder = (self.mplt.config.playOrder + 1)%McPlayOrderImageArray.count;
     
-    [self.orderBT setImage:LmImageThemeBlue1(MusicConfigOrderImageArray[self.mplt.config.order]) forState:UIControlStateNormal];
+    [self.orderBT setImage:LmImageThemeBlue1(McPlayOrderImageArray[self.mplt.config.playOrder]) forState:UIControlStateNormal];
     [self.mplt updateConfig];
 }
 
@@ -471,7 +471,7 @@
         //[self playMusicPlayListEntity:self.mplt.list.array[self.mplt.config.listIndex]  at:self.mplt.config.itemIndex];
     }
     
-    [self.orderBT setImage:LmImageThemeBlue1(MusicConfigOrderImageArray[self.mplt.config.order]) forState:UIControlStateNormal];
+    [self.orderBT setImage:LmImageThemeBlue1(McPlayOrderImageArray[self.mplt.config.playOrder]) forState:UIControlStateNormal];
     
 }
 

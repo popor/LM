@@ -65,6 +65,90 @@
     return @{@"array" : [MusicPlayItemEntity class]};
 }
 
+- (void)sortArray:(MpViewOrder)viewOrder {
+    self.viewOrder = viewOrder;
+    
+    switch(viewOrder) {
+        case MpViewOrderAuthorAscend: {
+            [self sortAuthorAscending:YES];
+            break;
+        }
+        case MpViewOrderAuthorDescend: {
+            [self sortAuthorAscending:NO];
+            break;
+        }
+        case MpViewOrderTitleAscend: {
+            [self sortTitleAscending:YES];
+            break;
+        }
+        case MpViewOrderTitleDescend: {
+            [self sortTitleAscending:NO];
+            break;
+        }
+        case MpViewOrderCustomAscend: {
+            [self sortCustomAscending:YES];
+            break;
+        }
+        case MpViewOrderCustomDescend: {
+            [self sortCustomAscending:NO];
+            break;
+        }
+    }
+    
+}
+
+- (void)sortAuthorAscending:(BOOL)Ascending {
+    NSArray * tArray = [self.array sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        MusicPlayItemEntity * ie1 = obj1;
+        MusicPlayItemEntity * ie2 = obj2;
+        if (Ascending) {
+            return [ie1.musicAuthor localizedCompare:ie2.musicAuthor];
+        }else{
+            return [ie2.musicAuthor localizedCompare:ie1.musicAuthor];
+        }
+        //return [ie1.musicAuthor localizedCompare:ie2.musicAuthor] ? NSOrderedAscending : NSOrderedDescending;
+    }];
+    [self.array removeAllObjects];
+    [self.array addObjectsFromArray:tArray];
+    
+    //for (MusicPlayItemEntity * ie in tArray) {
+    //    NSLog(@"作者: %@, 标题:%@", ie.musicAuthor, ie.musicTitle);
+    //}
+}
+
+- (void)sortTitleAscending:(BOOL)Ascending  {
+    NSArray * tArray = [self.array sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        MusicPlayItemEntity * ie1 = obj1;
+        MusicPlayItemEntity * ie2 = obj2;
+        if (Ascending) {
+            return [ie1.musicTitle localizedCompare:ie2.musicTitle];
+        }else{
+           return [ie2.musicTitle localizedCompare:ie1.musicTitle];
+        }
+        //return [ie1.musicTitle localizedCompare:ie2.musicTitle] ? NSOrderedAscending : NSOrderedDescending;
+    }];
+    [self.array removeAllObjects];
+    [self.array addObjectsFromArray:tArray];
+    
+    //for (MusicPlayItemEntity * ie in tArray) {
+    //    NSLog(@"标题:%@, 作者: %@", ie.musicTitle, ie.musicAuthor);
+    //}
+}
+
+- (void)sortCustomAscending:(BOOL)Ascending  {
+    NSArray * tArray = [self.array sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        MusicPlayItemEntity * ie1 = obj1;
+        MusicPlayItemEntity * ie2 = obj2;
+        if (Ascending) {
+            return ie1.index<ie2.index ? NSOrderedAscending : NSOrderedDescending;
+        }else{
+            return ie1.index<ie2.index ? NSOrderedDescending : NSOrderedAscending;
+        }
+    }];
+    [self.array removeAllObjects];
+    [self.array addObjectsFromArray:tArray];
+}
+
 @end
 
 @implementation MusicPlayList

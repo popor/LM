@@ -26,6 +26,7 @@
 // MARK: 自己的
 @property (nonatomic, weak  ) MusicPlayBar    * playbar;
 @property (nonatomic, strong) UITableView     * infoTV;
+
 @property (nonatomic, strong) AlertBubbleView * alertBubbleView;
 @property (nonatomic, strong) UITableView     * alertBubbleTV;
 @property (nonatomic, strong) UIColor         * alertBubbleTVColor;
