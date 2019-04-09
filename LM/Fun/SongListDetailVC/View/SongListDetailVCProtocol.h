@@ -18,6 +18,7 @@
 // MARK: 自己的
 @property (nonatomic, strong) UITableView  * infoTV;
 @property (nonatomic, weak  ) MusicPlayBar * playbar;
+@property (nonatomic, strong) UIButton     * aimBT;
 
 // MARK: 外部注入的
 @property (nonatomic, weak  ) MusicPlayListEntity * listEntity;
@@ -33,5 +34,6 @@
 @protocol SongListDetailVCEventHandler <NSObject>
 
 - (void)freshTVVisiableCellEvent;
+- (void)aimAtCurrentItem:(UIButton *)bt;
 
 @end

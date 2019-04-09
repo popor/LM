@@ -71,7 +71,7 @@
     
     self.rightIV = ({
         UIImageView * iv = [UIImageView new];
-        iv.image = [UIImage imageFromImage:[UIImage imageNamed:@"paly_sound"] changecolor:ColorThemeBlue1];
+        iv.image = LmImageThemeBlue1(@"paly_sound");
         iv.hidden = YES;
         
         [self.contentView addSubview:iv];

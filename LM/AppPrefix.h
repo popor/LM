@@ -21,4 +21,8 @@ static NSString * LmConfigKey   = @"config";
 //static UIColor * ColorThemeBlue1 = RGB16(0X36a5d7);
 #define ColorThemeBlue1 RGB16(0X36a5d7)
 
+#define LmImageThemeBlue1(imageName) [UIImage imageFromImage:[UIImage imageNamed:imageName] changecolor:ColorThemeBlue1]
+
+#define LmImageLightGray(imageName) [UIImage imageFromImage:[UIImage imageNamed:imageName] changecolor:[UIColor lightGrayColor]]
+
 #endif /* AppPrefix_h */

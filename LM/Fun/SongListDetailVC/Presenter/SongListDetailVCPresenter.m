@@ -126,4 +126,11 @@
     [self.view.infoTV reloadRowsAtIndexPaths:[self.view.infoTV indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
 }
 
+- (void)aimAtCurrentItem:(UIButton *)bt {
+    MusicPlayListEntity * le = self.mpb.mplt.list.array[self.mpb.mplt.config.listIndex];
+    if (self.view.listEntity.array == le.array) {
+        [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.mpb.mplt.config.itemIndex inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
+}
+
 @end

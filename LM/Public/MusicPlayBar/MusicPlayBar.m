@@ -120,11 +120,11 @@
             UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
             if (i == 0) {
                 
-                [button setImage:[UIImage imageFromImage:[UIImage imageNamed:imageN[i]] changecolor:ColorThemeBlue1] forState:UIControlStateNormal];
-                [button setImage:[UIImage imageFromImage:[UIImage imageNamed:imageS[i]] changecolor:ColorThemeBlue1] forState:UIControlStateHighlighted];
+                [button setImage:LmImageThemeBlue1(imageN[i]) forState:UIControlStateNormal];
+                [button setImage:LmImageThemeBlue1(imageS[i]) forState:UIControlStateHighlighted];
             }else{
-                [button setImage:[UIImage imageFromImage:[UIImage imageNamed:imageN[i]] changecolor:ColorThemeBlue1] forState:UIControlStateNormal];
-                [button setImage:[UIImage imageFromImage:[UIImage imageNamed:imageS[i]] changecolor:[UIColor lightGrayColor]] forState:UIControlStateHighlighted];
+                [button setImage:LmImageThemeBlue1(imageN[i]) forState:UIControlStateNormal];
+                [button setImage:LmImageLightGray(imageS[i])  forState:UIControlStateHighlighted];
             }
             
             [self addSubview:button];
@@ -134,7 +134,7 @@
         switch (i) {
             case 0:{
                 [oneBT setImage:nil forState:UIControlStateHighlighted];
-                [oneBT setImage:[UIImage imageFromImage:[UIImage imageNamed:imageS[i]] changecolor:ColorThemeBlue1] forState:UIControlStateSelected];
+                [oneBT setImage:LmImageThemeBlue1(imageS[i]) forState:UIControlStateSelected];
                 self.playBT = oneBT;
                 
                 [oneBT addTarget:self action:@selector(playBTEvent) forControlEvents:UIControlEventTouchUpInside];
@@ -458,7 +458,7 @@
 - (void)orderAction {
     self.mplt.config.order = (self.mplt.config.order + 1)%MusicConfigOrderImageArray.count;
     
-    [self.orderBT setImage:[UIImage imageFromImage:[UIImage imageNamed:MusicConfigOrderImageArray[self.mplt.config.order]] changecolor:ColorThemeBlue1] forState:UIControlStateNormal];
+    [self.orderBT setImage:LmImageThemeBlue1(MusicConfigOrderImageArray[self.mplt.config.order]) forState:UIControlStateNormal];
     [self.mplt updateConfig];
 }
 
@@ -471,7 +471,7 @@
         //[self playMusicPlayListEntity:self.mplt.list.array[self.mplt.config.listIndex]  at:self.mplt.config.itemIndex];
     }
     
-    [self.orderBT setImage:[UIImage imageFromImage:[UIImage imageNamed:MusicConfigOrderImageArray[self.mplt.config.order]] changecolor:ColorThemeBlue1] forState:UIControlStateNormal];
+    [self.orderBT setImage:LmImageThemeBlue1(MusicConfigOrderImageArray[self.mplt.config.order]) forState:UIControlStateNormal];
     
 }
 
