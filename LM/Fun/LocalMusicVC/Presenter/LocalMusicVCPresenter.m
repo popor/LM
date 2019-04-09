@@ -104,11 +104,12 @@
             }
             
             @weakify(self);
+            @weakify(cell);
             [[cell.addBt rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
                 @strongify(self);
+                @strongify(cell);
                 
-                MusicInfoCell  * scell = (MusicInfoCell *)x.superview;
-                FileEntity * entity     = (FileEntity *)scell.cellData;
+                FileEntity * entity     = (FileEntity *)cell.cellData;
                 self.selectFileEntity   = entity;
                 
                 [self addMusicPlistFile:entity];
@@ -189,6 +190,8 @@
             list.array.add([MusicPlayItemEntity initWithFileEntity:fileEntity]);
         }
         [MpltShare updateList];
+        
+        AlertToastTitle(@"增加成功");
     }
 }
 
