@@ -19,6 +19,8 @@
 @property (nonatomic, weak  ) MusicPlayBar * mpb;
 @property (nonatomic, weak  ) MusicInfoCell * lastCell;
 
+@property (nonatomic        ) BOOL firstAimAt;
+
 @end
 
 @implementation SongListDetailVCPresenter
@@ -26,6 +28,7 @@
 - (id)init {
     if (self = [super init]) {
         self.mpb = MpbShare;
+        self.firstAimAt = YES;
         [self initInteractors];
         
     }
@@ -322,7 +325,11 @@
     if (self.view.listEntity == le) {
         [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.mpb.mplt.config.itemIndex inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }else{
-        AlertToastTitle(@"未播放该歌单");
+        if (self.firstAimAt) {
+            self.firstAimAt = NO;
+        }else{
+            AlertToastTitle(@"未播放该歌单");
+        }
     }
 }
 
