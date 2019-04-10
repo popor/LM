@@ -16,6 +16,8 @@ static int TimeHourTen = 36000; // 10小时
 
 @interface MusicPlayTool() <AVAudioPlayerDelegate>
 
+@property (nonatomic, getter=isNeedActive) BOOL needActive;
+
 @property (nonatomic, weak  ) MusicPlayBar    * mpb;
 @property (nonatomic, strong) NSDateFormatter * dateFormatterMS; // 分钟秒
 @property (nonatomic, strong) NSDateFormatter * dateFormatter1HMS;// 1小时分钟秒
@@ -36,7 +38,16 @@ static int TimeHourTen = 36000; // 10小时
         // 后台播放设置
         AVAudioSession *session = [AVAudioSession sharedInstance];
         [session setCategory:AVAudioSessionCategoryPlayback error:nil];
-        [session setActive:YES error:nil];
+        //                   AVAudioSessionCategoryPlayback
+        
+        //[session setCategory:AVAudioSessionCategoryAmbient error:nil]; // 可以和后台音乐一起播放
+        NSLog(@"其他APP是否播放: %i", session.isOtherAudioPlaying);
+        if (session.isOtherAudioPlaying) {
+            instance.needActive = YES;
+        }else{
+            instance.needActive = NO;
+            [session setActive:YES error:nil];
+        }
         
         [instance initIosController];
         [instance initFormater];
@@ -76,6 +87,14 @@ static int TimeHourTen = 36000; // 10小时
 
 - (void)playEvent {
     [self.audioPlayer play];
+    
+    // 设置 session active
+    if (self.isNeedActive) {
+        self.needActive = NO;
+        AVAudioSession * session = [AVAudioSession sharedInstance];
+        [session setActive:YES error:nil];
+    }
+    
     self.racSlideOB = [MusicConfig new];
     
     @weakify(self);
