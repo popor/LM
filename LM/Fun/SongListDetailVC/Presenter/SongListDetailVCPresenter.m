@@ -208,7 +208,6 @@
     }
 }
 
-
 #pragma mark - tv 删除
 // 只要实现了这个方法，左滑出现按钮的功能就有了
 // (一旦左滑出现了N个按钮，tableView就进入了编辑模式, tableView.editing = YES)
@@ -275,7 +274,13 @@
     
     AlertBubbleView * abView = [[AlertBubbleView alloc] initWithDic:dic];
     
-    [abView showCustomView:self.view.alertBubbleTV around:fromRect close:nil];
+    self.view.vc.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    
+    @weakify(self);
+    [abView showCustomView:self.view.alertBubbleTV around:fromRect close:^{
+        @strongify(self);
+        self.view.vc.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    }];
     
     self.view.alertBubbleView = abView;
 }
