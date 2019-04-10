@@ -13,6 +13,7 @@ target 'LM' do
   pod 'PoporAlertBubbleView'
   pod 'PoporImageBrower'
   pod 'PoporAFN'
+  #pod 'PoporNetRecord'
   
   pod 'Masonry'
   pod 'YYModel'

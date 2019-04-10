@@ -8,7 +8,7 @@
 
 #import "AppNetRecordConfig.h"
 
-#import <PoporNetRecord/PoporNetRecord.h>
+//#import <PoporNetRecord/PoporNetRecord.h>
 #import <AFNetworking/AFHTTPSessionManager.h>
 
 #import "UINavigationController+Jch.h"
@@ -16,31 +16,37 @@
 @implementation AppNetRecordConfig
 
 + (void)showNetRecord {
+    
+    //{
+    //    PoporAFNConfig * config = [PoporAFNConfig share];
+    //    config.recordBlock = ^(NSString *url, NSString *title, NSString *method, id head, id parameters, id response) {
+    //        [PoporNetRecord addUrl:url title:title method:method head:head parameter:parameters response:response];
+    //    };
+    //}
+    
     //NSString * uuid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     //fprintf(stderr, "uuid : %s\n", [uuid UTF8String]);
-    PnrConfig * config =[PnrConfig share];
-    BOOL isRecord = NO;
-    config.recordType = PoporNetRecordDisable;
-    //    if (IsDebugVersion) {
-    //        isRecord = YES;
-    //        config.recordType = PoporNetRecordAuto;
-    //    }else{
+    
+    // 设置监测type 和 web参数
+    // {
+    //     PnrConfig * config =[PnrConfig share];
+    //     BOOL isRecord = NO;
+    //     config.recordType = PoporNetRecordDisable;
+    //     if (isRecord) {
+    //         NSString * title;
+    //         NSString * path;
+    //         title = @"LM";
+    //         path = [[NSBundle mainBundle] pathForResource:@"favicon" ofType:@"ico"];
     //
-    //    }
-    if (isRecord) {
-        NSString * title;
-        NSString * path;
-        title = @"LM";
-        path = [[NSBundle mainBundle] pathForResource:@"favicon" ofType:@"ico"];
-        
-        config.webRootTitle = title;
-        config.webIconData = [[NSData alloc] initWithContentsOfFile:path];
-        // 设置pnr nc样式
-        config.presentNCBlock = ^(UINavigationController *nc) {
-            [nc setVRSNCBarTitleColor];
-        };
-        //[self setPnrResubmit];
-    }
+    //         config.webRootTitle = title;
+    //         config.webIconData = [[NSData alloc] initWithContentsOfFile:path];
+    //         // 设置pnr nc样式
+    //         config.presentNCBlock = ^(UINavigationController *nc) {
+    //             [nc setVRSNCBarTitleColor];
+    //         };
+    //         [self setPnrResubmit];
+    //     }
+    // }
 }
 
 //+ (void)setPnrResubmit {
