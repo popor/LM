@@ -12,10 +12,9 @@
 
 #import "MusicPlayBar.h"
 
-#define RootMoreArray   @[@"新增歌单", @"Wifi添加歌曲", @"查看本地歌曲", @"编辑歌单"]
-//#define RootMoreArray   @[@"新增歌单", @"Wifi添加歌曲", @"查看本地歌曲"]
-
-#define RootMoreTvCellH 44
+#define RootMoreArray       @[@"新增歌单", @"Wifi添加歌曲", @"查看本地歌曲", @"编辑歌单", @"检查更新"]
+#define RootMoreCheckUpdate 4
+#define RootMoreTvCellH     44
 
 // MARK: 对外接口
 @protocol RootVCProtocol <NSObject>

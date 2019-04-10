@@ -32,12 +32,15 @@
     if (self = [super init]) {
         [self initInteractors];
         self.mplt = MpltShare;
+        
     }
     return self;
 }
 
 - (void)setMyView:(id<RootVCProtocol>)view {
     self.view = view;
+    
+    [self.interactor autoCheckUpdateAtVC:self.view.vc];
 }
 
 - (void)initInteractors {
@@ -87,17 +90,24 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.view.alertBubbleTV) {
         static NSString * CellID = @"CellIDAlert";
-        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellID];
+        UITableViewCell * cell   = [tableView dequeueReusableCellWithIdentifier:CellID];
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
-            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-            
-            //cell.backgroundColor = self.alertBubbleTVColor;
+            cell.selectionStyle  = UITableViewCellSelectionStyleDefault;
             cell.backgroundColor = [UIColor clearColor];
-            cell.textLabel.font = [UIFont systemFontOfSize:15];
+            cell.textLabel.font  = [UIFont systemFontOfSize:15];
             cell.textLabel.textColor = [UIColor whiteColor];
         }
-        
+        if (indexPath.row == RootMoreCheckUpdate) {
+            if (self.interactor.needUpdate) {
+                cell.accessoryType = UITableViewCellAccessoryDetailButton;
+                cell.tintColor     = [UIColor whiteColor];
+            }else{
+                cell.accessoryType = UITableViewCellAccessoryNone;
+            }
+        }else{
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
         cell.textLabel.text = RootMoreArray[indexPath.row];
         
         return cell;
@@ -153,6 +163,10 @@
             }
             case 3:{
                 [self startEditAction];
+                break;
+            }
+            case 4:{
+                [self checkVersion];
                 break;
             }
             default:
@@ -305,6 +319,11 @@
     [abView showCustomView:self.view.alertBubbleTV around:fromRect close:nil];
     
     self.view.alertBubbleView = abView;
+    
+    if (self.interactor.needFresh) {
+        self.interactor.needFresh = NO;
+        [self.view.alertBubbleTV reloadData];
+    }
 }
 
 - (void)showWifiVC {
@@ -388,6 +407,10 @@
     {
         self.view.infoTV.editing = NO;
     }
+}
+
+- (void)checkVersion {
+    [AppVersionCheck alertCheckVersionAtVC:self.view.vc];
 }
 
 #pragma mark - Interactor_EventHandler

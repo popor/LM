@@ -10,9 +10,20 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface AppVersionEntity : NSObject
+
+@property (nonatomic, strong) NSString * version;
+@property (nonatomic, strong) NSString * downloadUrl;
+
+@end
+
 @interface AppVersionCheck : NSObject
 
-+ (void)checkVersion;
+// 弹出警告框
++ (void)alertCheckVersionAtVC:(UIViewController *)vc;
+
+// 每天只自动弹出一次警告框
++ (void)autoAlertCheckVersionAtVc:(UIViewController *)vc finish:(BlockPBool)finish;
 
 @end
 
