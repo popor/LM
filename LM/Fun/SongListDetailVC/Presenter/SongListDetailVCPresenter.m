@@ -323,7 +323,12 @@
 - (void)aimAtCurrentItem:(UIButton *)bt {
     MusicPlayListEntity * le = self.mpb.mplt.list.array[self.mpb.mplt.config.listIndex];
     if (self.view.listEntity == le) {
-        [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.mpb.mplt.config.itemIndex inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        BOOL animation = YES;
+        if (self.firstAimAt) {
+            self.firstAimAt = NO;
+            animation = NO;
+        }
+        [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.mpb.mplt.config.itemIndex inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:animation];
     }else{
         if (self.firstAimAt) {
             self.firstAimAt = NO;
