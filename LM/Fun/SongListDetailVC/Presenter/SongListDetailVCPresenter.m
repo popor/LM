@@ -184,11 +184,16 @@
 // 这个回调实现了以后，就会出现更换位置的按钮，回调本身用来处理更换位置后的数据交换。
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     if (tableView == self.view.infoTV) {
+        MusicPlayItemEntity * ie0 = self.view.listEntity.array[sourceIndexPath.row];
+        MusicPlayItemEntity * ie1 = self.view.listEntity.array[destinationIndexPath.row];
+        NSInteger i = ie0.index;
+        ie0.index   = ie1.index;
+        ie1.index   = i;
+        
         [self.view.listEntity.array exchangeObjectAtIndex:sourceIndexPath.row withObjectAtIndex:destinationIndexPath.row];
     }else{
         
     }
-    
 }
 
 // 这个回调决定了在当前indexPath的Cell是否可以移动。

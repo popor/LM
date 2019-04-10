@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 
+#import "AppNetRecordConfig.h"
+
 @interface AppDelegate ()
 
 @end
@@ -21,6 +23,7 @@
         [[NSBundle bundleWithPath:iosInjectionPath] load];
     }
 #endif
+    [AppNetRecordConfig showNetRecord];
     
     return YES;
 }

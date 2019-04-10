@@ -1,4 +1,19 @@
 PODS:
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
+    - AFNetworking/NSURLSession
   - GCDWebServer (3.5.2):
     - GCDWebServer/Core (= 3.5.2)
   - GCDWebServer/Core (3.5.2)
@@ -9,6 +24,9 @@ PODS:
   - KVOController (1.2.0)
   - Masonry (1.1.0)
   - MBProgressHUD (1.1.0)
+  - PoporAFN (0.0.14):
+    - AFNetworking
+    - PoporFoundation/PrefixCore
   - PoporAlertBubbleView (0.0.09):
     - PoporFoundation/NSAssistant
     - PoporFoundation/PrefixCore
@@ -52,7 +70,7 @@ PODS:
   - PoporFoundation/PrefixCore (0.0.37):
     - PoporFoundation/PrefixOs
   - PoporFoundation/PrefixOs (0.0.37)
-  - PoporImageBrower (0.0.21):
+  - PoporImageBrower (0.0.22):
     - MBProgressHUD
     - SDWebImage
   - PoporPopNormalNC (0.0.03):
@@ -118,6 +136,7 @@ DEPENDENCIES:
   - GCDWebServer/WebUploader
   - KVOController
   - Masonry
+  - PoporAFN
   - PoporAlertBubbleView
   - PoporFoundation
   - PoporImageBrower
@@ -130,10 +149,12 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - AFNetworking
     - GCDWebServer
     - KVOController
     - Masonry
     - MBProgressHUD
+    - PoporAFN
     - PoporAlertBubbleView
     - PoporFoundation
     - PoporImageBrower
@@ -146,13 +167,15 @@ SPEC REPOS:
     - YYModel
 
 SPEC CHECKSUMS:
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   GCDWebServer: ead88cd14596dd4eae4f5830b8877c87c8728990
   KVOController: d72ace34afea42468329623b3379ab3cd1d286b6
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
+  PoporAFN: 839d84de6792691058a04b3e0d61e924113bb9ce
   PoporAlertBubbleView: 1f41884539a40903e6ad72da503cfe51cbd1b470
   PoporFoundation: acfd6dc7560c3dd5357eeaf3341115b8a93a2565
-  PoporImageBrower: 2c350678f175c5fbcc96376191168152147437e8
+  PoporImageBrower: 60ec12b8b697badca79dc411bf72d97b02a8bba2
   PoporPopNormalNC: 8ee829beeb1d8f31f99c85adbbafe302988f5fce
   PoporUI: 6476eafb257e872b8452b185b1119a2c1618ded6
   ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
@@ -161,6 +184,6 @@ SPEC CHECKSUMS:
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: f6cdbd45f41685f35af3f379a13ba7c5b15c4a05
+PODFILE CHECKSUM: 403d70344455d70db36b7787d007ab553813a1d6
 
 COCOAPODS: 1.7.0.beta.3

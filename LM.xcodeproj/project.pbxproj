@@ -32,6 +32,8 @@
 		185615AD224DC23A004BE073 /* WifiAddFileVCPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 185615A3224DC239004BE073 /* WifiAddFileVCPresenter.m */; };
 		185615AE224DC23A004BE073 /* WifiAddFileVCInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 185615A6224DC239004BE073 /* WifiAddFileVCInteractor.m */; };
 		185615AF224DC23A004BE073 /* WifiAddFileVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 185615A9224DC239004BE073 /* WifiAddFileVC.m */; };
+		189A5DEE225C94A8001E8A9D /* AppNetRecordConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 189A5DED225C94A7001E8A9D /* AppNetRecordConfig.m */; };
+		189A5DF1225C95E6001E8A9D /* AppVersionCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = 189A5DF0225C95E6001E8A9D /* AppVersionCheck.m */; };
 		18DE138F2251AAC9009920D7 /* MusicPlayTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE138D2251AAC8009920D7 /* MusicPlayTool.m */; };
 		18DE13922251BD5F009920D7 /* MusicPlayListTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE13912251BD5F009920D7 /* MusicPlayListTool.m */; };
 		18DE13A92251F40A009920D7 /* SongListDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE139D2251F40A009920D7 /* SongListDetailVC.m */; };
@@ -121,6 +123,11 @@
 		185615A9224DC239004BE073 /* WifiAddFileVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WifiAddFileVC.m; sourceTree = "<group>"; };
 		185615AA224DC239004BE073 /* WifiAddFileVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WifiAddFileVC.h; sourceTree = "<group>"; };
 		185615AB224DC239004BE073 /* WifiAddFileVCProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WifiAddFileVCProtocol.h; sourceTree = "<group>"; };
+		189A5DEB225C92AD001E8A9D /* version.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = version.json; sourceTree = "<group>"; };
+		189A5DEC225C94A7001E8A9D /* AppNetRecordConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppNetRecordConfig.h; sourceTree = "<group>"; };
+		189A5DED225C94A7001E8A9D /* AppNetRecordConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppNetRecordConfig.m; sourceTree = "<group>"; };
+		189A5DEF225C95E6001E8A9D /* AppVersionCheck.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppVersionCheck.h; sourceTree = "<group>"; };
+		189A5DF0225C95E6001E8A9D /* AppVersionCheck.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppVersionCheck.m; sourceTree = "<group>"; };
 		18DE138D2251AAC8009920D7 /* MusicPlayTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicPlayTool.m; sourceTree = "<group>"; };
 		18DE138E2251AAC9009920D7 /* MusicPlayTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayTool.h; sourceTree = "<group>"; };
 		18DE13902251BD5F009920D7 /* MusicPlayListTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicPlayListTool.h; sourceTree = "<group>"; };
@@ -312,6 +319,7 @@
 				183BF3E4224A1DBD004DE115 /* LaunchScreen.storyboard */,
 				183BF3E7224A1DBD004DE115 /* Info.plist */,
 				183BF3E8224A1DBD004DE115 /* main.m */,
+				189A5DEB225C92AD001E8A9D /* version.json */,
 			);
 			name = other;
 			sourceTree = "<group>";
@@ -378,6 +386,10 @@
 		183BF42A224A24FD004DE115 /* config */ = {
 			isa = PBXGroup;
 			children = (
+				189A5DEC225C94A7001E8A9D /* AppNetRecordConfig.h */,
+				189A5DED225C94A7001E8A9D /* AppNetRecordConfig.m */,
+				189A5DEF225C95E6001E8A9D /* AppVersionCheck.h */,
+				189A5DF0225C95E6001E8A9D /* AppVersionCheck.m */,
 			);
 			path = config;
 			sourceTree = "<group>";
@@ -846,6 +858,7 @@
 				1856158E224DBF0E004BE073 /* MusicPlayList.m in Sources */,
 				183BF426224A22EC004DE115 /* RootVC.m in Sources */,
 				18F93E1F225463DD005236A3 /* YLImageView.m in Sources */,
+				189A5DEE225C94A8001E8A9D /* AppNetRecordConfig.m in Sources */,
 				180E33BD224DE806008C176D /* LocalMusicVC.m in Sources */,
 				18DE13AC2251F40A009920D7 /* SongListDetailVCInteractor.m in Sources */,
 				180E33BC224DE806008C176D /* LocalMusicVCRouter.m in Sources */,
@@ -854,6 +867,7 @@
 				180E33BA224DE806008C176D /* LocalMusicVCPresenter.m in Sources */,
 				183BF425224A22EC004DE115 /* RootVCRouter.m in Sources */,
 				183BF428224A22EC004DE115 /* RootVCPresenter.m in Sources */,
+				189A5DF1225C95E6001E8A9D /* AppVersionCheck.m in Sources */,
 				18DE13AB2251F40A009920D7 /* SongListDetailVCPresenter.m in Sources */,
 				18DE138F2251AAC9009920D7 /* MusicPlayTool.m in Sources */,
 				180E33BB224DE806008C176D /* LocalMusicVCInteractor.m in Sources */,
