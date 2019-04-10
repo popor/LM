@@ -177,10 +177,16 @@
         if (self.view.infoTV.isEditing) {
             return;
         }
+        @weakify(self);
+        BlockPBool deallocBlock = ^(BOOL value){
+            @strongify(self);
+            [self.view.infoTV reloadData];
+        };
+        
         MusicPlayListEntity * list = MpltShare.list.array[indexPath.row];
         NSDictionary * dic = @{@"title":list.name,
                                @"listEntity":list,
-                               
+                               @"deallocBlock":deallocBlock,
                                };
         [self.view.vc.navigationController pushViewController:[SongListDetailVCRouter vcWithDic:dic] animated:YES];
     }

@@ -27,9 +27,14 @@
 @synthesize playbar;
 @synthesize listEntity;
 @synthesize aimBT;
+@synthesize deallocBlock;
+@synthesize needUpdateSuperVC;
 
 - (void)dealloc {
     MptShare.nextMusicBlock_SongListDetailVC = nil;
+    if (self.deallocBlock) {
+        self.deallocBlock(self.needUpdateSuperVC);
+    }
 }
 
 - (instancetype)initWithDic:(NSDictionary *)dic {

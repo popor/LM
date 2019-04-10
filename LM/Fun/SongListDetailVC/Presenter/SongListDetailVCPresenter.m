@@ -164,6 +164,7 @@
     }else{
         MusicPlayListEntity * le = self.view.listEntity;
         [le sortArray:(MpViewOrder)indexPath.row];
+        [self defaultNcRightItem];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.view.infoTV reloadData];
@@ -209,6 +210,13 @@
 }
 
 #pragma mark - tv 删除
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == self.view.infoTV) {
+        return tableView.isEditing;
+    }else{
+        return NO;
+    }
+}
 // 只要实现了这个方法，左滑出现按钮的功能就有了
 // (一旦左滑出现了N个按钮，tableView就进入了编辑模式, tableView.editing = YES)
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -219,22 +227,18 @@
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView == self.view.infoTV) {
-        //        @weakify(self);
-        //        UITableViewRowAction *action0 = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"重命名" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-        //            @strongify(self);
-        //            [self reListNameActionIndex:indexPath];
-        //        }];
-        //
-        //        UITableViewRowAction *action1 = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"删除" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-        //            [MpltShare.list.array removeObjectAtIndex:indexPath.row];
-        //            [MpltShare updateList];
-        //
-        //            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        //        }];
-        //
-        //        return @[action1, action0];
+        @weakify(self);
         
-        return nil;
+        UITableViewRowAction *action1 = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"删除" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+            @strongify(self);
+            self.view.needUpdateSuperVC = YES;
+            [self.view.listEntity.array removeObjectAtIndex:indexPath.row];
+            [MpltShare updateList];
+            
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }];
+        
+        return @[action1];
     }else{
         return nil;
     }
@@ -306,18 +310,22 @@
 
 - (void)endEditAction {
     [self defaultNcRightItem];
+    self.view.infoTV.editing = NO;
     [self.mpb.mplt updateList];
 }
 
 - (void)defaultNcRightItem {
     {
         UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithTitle:@"排序" style:UIBarButtonItemStylePlain target:self action:@selector(showSortTVAlertAction:event:)];
+        
         UIBarButtonItem *item2 = [[UIBarButtonItem alloc] initWithTitle:@"修改" style:UIBarButtonItemStylePlain target:self action:@selector(editCustomAscendAction)];
+        if (self.view.listEntity.viewOrder != MpViewOrderCustomAscend) {
+            item2.tintColor = [UIColor lightGrayColor];
+        }else{
+            
+        }
         
         self.view.vc.navigationItem.rightBarButtonItems = @[item1, item2];
-    }
-    {
-        self.view.infoTV.editing = NO;
     }
 }
 

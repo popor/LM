@@ -27,10 +27,11 @@
 
 @property (nonatomic, weak  ) MusicPlayBar    * playbar;
 @property (nonatomic, strong) UIButton        * aimBT;
-
+@property (nonatomic        ) BOOL            needUpdateSuperVC;
 
 // MARK: 外部注入的
 @property (nonatomic, weak  ) MusicPlayListEntity * listEntity;
+@property (nonatomic, copy  ) BlockPBool      deallocBlock;
 
 @end
 
