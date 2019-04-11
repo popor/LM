@@ -76,7 +76,11 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (tableView == self.view.infoTV) {
-        return 10;
+        if (self.view.itemArray) {
+            return 0.1;
+        }else{
+            return 10;
+        }
     }else{
         return 0.1;
     }

@@ -29,6 +29,9 @@
 @property (nonatomic, strong) UIButton        * aimBT;
 @property (nonatomic        ) BOOL            needUpdateSuperVC;
 
+@property (nonatomic, strong) UISearchBar * searchBar;
+@property (nonatomic, strong) UIView      * searchCoverView; // 弹出searchBar的时候,遮住infoTV的view.
+
 // MARK: 外部注入的
 @property (nonatomic, weak  ) MusicPlayListEntity * listEntity;
 @property (nonatomic, copy  ) BlockPBool      deallocBlock;

@@ -21,6 +21,8 @@
 @property (nonatomic, strong) UITableView     * musicListTV;
 @property (nonatomic, weak  ) NSMutableArray  * itemArray;
 
+@property (nonatomic, strong) UISearchBar     * searchBar;
+@property (nonatomic, strong) UIView          * searchCoverView;
 
 // MARK: 外部注入的
 @property (nonatomic, copy  ) BlockPVoid   deallocBlock;
