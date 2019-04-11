@@ -166,6 +166,8 @@
             }
             case 5:{
                 self.orderBT = oneBT;
+                [oneBT setImage:nil forState:UIControlStateHighlighted];
+                
                 [oneBT addTarget:self action:@selector(orderAction) forControlEvents:UIControlEventTouchUpInside];
                 break;
             }

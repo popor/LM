@@ -41,7 +41,7 @@ static int TimeHourTen = 36000; // 10小时
         //                   AVAudioSessionCategoryPlayback
         
         //[session setCategory:AVAudioSessionCategoryAmbient error:nil]; // 可以和后台音乐一起播放
-        NSLog(@"其他APP是否播放: %i", session.isOtherAudioPlaying);
+        //NSLog(@"其他APP是否播放: %i", session.isOtherAudioPlaying);
         if (session.isOtherAudioPlaying) {
             instance.needActive = YES;
         }else{
