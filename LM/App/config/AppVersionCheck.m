@@ -17,7 +17,7 @@
 @implementation AppVersionCheck
 
 // 弹出警告框
-+ (void)alertCheckVersionAtVC:(UIViewController *)vc {
++ (void)oneAlertCheckVersionAtVC:(UIViewController *)vc finish:(BlockPBool _Nonnull)finish {
     //NSString * url = @"https://github.com/popor/LM/blob/master/LM/version.json";
     NSString * url = @"https://raw.githubusercontent.com/popor/LM/master/LM/version.json";
     
@@ -28,16 +28,19 @@
         AppVersionEntity * entity = [AppVersionEntity yy_modelWithDictionary:dic];
         if ([entity.version isEqualToString:[UIDevice getAppVersion_short]]) {
             AlertToastTitle(@"已经是最新版本");
+            finish(NO);
         }else{
+            finish(YES);
             [AppVersionCheck alertEntity:entity vc:vc];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         AlertToastTitle(error.localizedDescription);
+        finish(NO);
     }];
 }
 
 // 每天只自动弹出一次警告框
-+ (void)autoAlertCheckVersionAtVc:(UIViewController *)vc finish:(BlockPBool)finish  {
++ (void)autoAlertCheckVersionAtVc:(UIViewController *)vc finish:(BlockPBool _Nonnull)finish  {
     NSString * currentDate = [NSDate stringFromNow:@"yyyy-MM-dd"];
     BOOL needShow;
     if ([currentDate isEqualToString:[self getAppCheckDate]]) {
@@ -55,21 +58,15 @@
         
         AppVersionEntity * entity = [AppVersionEntity yy_modelWithDictionary:dic];
         if ([entity.version isEqualToString:[UIDevice getAppVersion_short]]) {
-            if (finish) {
-                finish(NO);
-            }
+            finish(NO);
         }else{
-            if (finish) {
-                finish(YES);
-            }
+            finish(YES);
             if (needShow) {
                 [AppVersionCheck alertEntity:entity vc:vc];
             }
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (finish) {
-            finish(NO);
-        }
+        finish(NO);
     }];
 }
 

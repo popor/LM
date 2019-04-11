@@ -21,6 +21,16 @@
 }
 
 #pragma mark - VCDataSource
+- (void)oneCheckUpdateAtVC:(UIViewController *)vc {
+    @weakify(self);
+    [AppVersionCheck oneAlertCheckVersionAtVC:vc finish:^(BOOL value) {
+        @strongify(self);
+        //value = YES;
+        self.needFresh  = value;
+        self.needUpdate = value;
+    }];
+}
+
 - (void)autoCheckUpdateAtVC:(UIViewController *)vc {
     @weakify(self);
     [AppVersionCheck autoAlertCheckVersionAtVc:vc finish:^(BOOL value) {

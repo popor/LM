@@ -416,7 +416,7 @@
 }
 
 - (void)checkVersion {
-    [AppVersionCheck alertCheckVersionAtVC:self.view.vc];
+    [self.interactor oneCheckUpdateAtVC:self.view.vc];
 }
 
 #pragma mark - Interactor_EventHandler

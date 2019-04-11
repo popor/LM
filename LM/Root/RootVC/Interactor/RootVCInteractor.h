@@ -14,6 +14,8 @@
 @property (nonatomic        ) BOOL needFresh;
 @property (nonatomic        ) BOOL needUpdate;
 
+- (void)oneCheckUpdateAtVC:(UIViewController *)vc;
+
 - (void)autoCheckUpdateAtVC:(UIViewController *)vc;
 
 @end

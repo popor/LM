@@ -20,10 +20,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AppVersionCheck : NSObject
 
 // 弹出警告框
-+ (void)alertCheckVersionAtVC:(UIViewController *)vc;
++ (void)oneAlertCheckVersionAtVC:(UIViewController *)vc finish:(BlockPBool _Nonnull)finish;
 
 // 每天只自动弹出一次警告框
-+ (void)autoAlertCheckVersionAtVc:(UIViewController *)vc finish:(BlockPBool)finish;
++ (void)autoAlertCheckVersionAtVc:(UIViewController *)vc finish:(BlockPBool _Nonnull)finish;
 
 @end
 
