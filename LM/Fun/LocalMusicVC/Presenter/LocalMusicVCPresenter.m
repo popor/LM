@@ -60,7 +60,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == self.view.infoTV) {
-        return self.interactor.infoArray.count;
+        if (self.view.isSearchType) {
+            return self.view.searchArray.count;
+        }else{
+            return self.interactor.infoArray.count;
+        }
+        
     }else{
         return  MpltShare.list.array.count;
     }
@@ -119,7 +124,14 @@
                 [self addMusicPlistFile:entity];
             }];
         }
-        FileEntity * entity = self.interactor.infoArray[indexPath.row];
+        
+        FileEntity * entity;
+        if (self.view.isSearchType) {
+            entity = self.view.searchArray[indexPath.row];
+        }else{
+            entity = self.interactor.infoArray[indexPath.row];
+        }
+        
         if (entity.isFolder) {
             cell.titelL.text = entity.fileName;
             cell.timeL.text  = [NSString stringWithFormat:@"%li首", entity.itemArray.count];
@@ -132,12 +144,14 @@
                 cell.timeL.textColor  = ColorThemeBlue1;
                 
                 self.lastCell = cell;
-                //cell.backgroundColor = [UIColor redColor];
             }else{
                 cell.titelL.textColor = [UIColor blackColor];
                 cell.timeL.textColor  = [UIColor grayColor];
-                
-                //cell.backgroundColor = [UIColor whiteColor];
+            }
+            
+            if (self.view.isSearchType) {
+                [self attLable:cell.titelL searchText:self.view.searchBar.text];
+                [self attLable:cell.timeL searchText:self.view.searchBar.text];
             }
         }
         cell.cellData = entity;
@@ -158,11 +172,33 @@
     }
 }
 
+- (void)attLable:(UILabel *)cellL searchText:(NSString *)searchText {
+    if ([cellL.text.lowercaseString containsString:searchText.lowercaseString]) {
+        NSMutableAttributedString * attBase = [NSMutableAttributedString new];
+        [attBase addString:cellL.text font:cellL.font color:cellL.textColor];
+        
+        NSRange range = [cellL.text.lowercaseString rangeOfString:searchText.lowercaseString];
+        
+        NSMutableAttributedString * attReplace = [NSMutableAttributedString new];
+        [attReplace addString:[cellL.text substringWithRange:range] font:cellL.font color:[UIColor redColor]];
+        
+        [attBase replaceCharactersInRange:range withAttributedString:attReplace];
+        
+        cellL.attributedText = attBase;
+    }
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (tableView == self.view.infoTV) {
-        FileEntity * fileEntity = self.interactor.infoArray[indexPath.row];
+        FileEntity * fileEntity;
+        if (self.view.isSearchType) {
+            fileEntity = self.view.searchArray[indexPath.row];
+        }else{
+            fileEntity = self.interactor.infoArray[indexPath.row];
+        }
+        
         if (fileEntity.isFolder) {
             NSDictionary * dic = @{@"title":fileEntity.fileName, @"itemArray":fileEntity.itemArray};
             [self.view.vc.navigationController pushViewController:[LocalMusicVCRouter vcWithDic:dic] animated:YES];
@@ -173,13 +209,24 @@
             if (self.lastCell) {
                 self.lastCell.titelL.textColor = [UIColor blackColor];
                 self.lastCell.timeL.textColor  = [UIColor grayColor];
+                
+                // 刷新搜索状态
+                if (self.view.isSearchType) {
+                    [self attLable:self.lastCell.titelL searchText:self.view.searchBar.text];
+                    [self attLable:self.lastCell.timeL searchText:self.view.searchBar.text];
+                }
             }
             {
                 MusicInfoCell * cell = [tableView cellForRowAtIndexPath:indexPath];
                 cell.titelL.textColor = ColorThemeBlue1;
                 cell.timeL.textColor  = ColorThemeBlue1;
-                
                 self.lastCell = cell;
+                
+                // 刷新搜索状态
+                if (self.view.isSearchType) {
+                    [self attLable:self.lastCell.titelL searchText:self.view.searchBar.text];
+                    [self attLable:self.lastCell.timeL searchText:self.view.searchBar.text];
+                }
             }
             
         }
@@ -237,5 +284,16 @@
 }
 
 #pragma mark - Interactor_EventHandler
+#pragma mark - 搜索
+- (void)searchAction:(UISearchBar *)bar {
+    [self.view.searchArray removeAllObjects];
+    NSString * text = bar.text.lowercaseString;
+    for (FileEntity * fileEntity in self.interactor.infoArray) {
+        if ([fileEntity.fileName.lowercaseString containsString:text]) {
+            [self.view.searchArray addObject:fileEntity];
+        }
+    }
+    [self.view.infoTV reloadData];
+}
 
 @end

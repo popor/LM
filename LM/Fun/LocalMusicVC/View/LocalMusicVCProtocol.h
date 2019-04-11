@@ -23,6 +23,9 @@
 
 @property (nonatomic, strong) UISearchBar     * searchBar;
 @property (nonatomic, strong) UIView          * searchCoverView;
+@property (nonatomic, getter=isSearchTypeOld) BOOL searchTypeOld;// 显示搜索模式
+@property (nonatomic, getter=isSearchType) BOOL searchType;// 显示搜索模式
+@property (nonatomic, strong) NSMutableArray * searchArray;
 
 // MARK: 外部注入的
 @property (nonatomic, copy  ) BlockPVoid   deallocBlock;
@@ -36,5 +39,7 @@
 
 // MARK: UI事件
 @protocol LocalMusicVCEventHandler <NSObject>
+
+- (void)searchAction:(UISearchBar *)bar;
 
 @end

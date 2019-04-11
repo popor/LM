@@ -339,6 +339,8 @@
     self.mplt.config.listIndex = -1;
     self.mplt.config.itemIndex = -1;
     [self.mplt updateConfig];
+    
+    AlertToastTitle(@"单曲播放");
 }
 
 - (void)playMusicPlayListEntity:(MusicPlayListEntity *)listEntity at:(NSInteger)index {

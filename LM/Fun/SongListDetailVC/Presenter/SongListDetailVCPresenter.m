@@ -53,7 +53,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == self.view.infoTV) {
-        return self.view.listEntity.array.count;
+        if (self.view.isSearchType) {
+            return self.view.searchArray.count;
+        }else{
+            return self.view.listEntity.array.count;
+        }
     }else{
         return MpViewOrderTitleArray.count;
     }
@@ -93,7 +97,12 @@
             cell.addBt.userInteractionEnabled = NO;
             [cell.addBt setImage:nil forState:UIControlStateNormal];
         }
-        MusicPlayItemEntity * item = self.view.listEntity.array[indexPath.row];
+        MusicPlayItemEntity * item;
+        if (self.view.isSearchType) {
+            item = self.view.searchArray[indexPath.row];
+        }else{
+            item = self.view.listEntity.array[indexPath.row];
+        }
         
         cell.titelL.text = [NSString stringWithFormat:@"%li: %@", indexPath.row+1, item.musicTitle];
         cell.timeL.text  = item.musicAuthor;
@@ -103,12 +112,14 @@
             cell.timeL.textColor  = ColorThemeBlue1;
             cell.rightIV.hidden   = NO;
             self.lastCell = cell;
-            //cell.backgroundColor = [UIColor redColor];
         }else{
             cell.titelL.textColor = [UIColor blackColor];
             cell.timeL.textColor  = [UIColor grayColor];
             cell.rightIV.hidden   = YES;
-            //cell.backgroundColor = [UIColor whiteColor];
+        }
+        if (self.view.isSearchType) {
+            [self attLable:cell.titelL searchText:self.view.searchBar.text];
+            [self attLable:cell.timeL searchText:self.view.searchBar.text];
         }
         // 打开cover的话,内存会达到100MB以上.
         //if (!item.musicCover) {
@@ -142,25 +153,57 @@
     
 }
 
+- (void)attLable:(UILabel *)cellL searchText:(NSString *)searchText {
+    if ([cellL.text.lowercaseString containsString:searchText.lowercaseString]) {
+        NSMutableAttributedString * attBase = [NSMutableAttributedString new];
+        [attBase addString:cellL.text font:cellL.font color:cellL.textColor];
+        
+        NSRange range = [cellL.text.lowercaseString rangeOfString:searchText.lowercaseString];
+        
+        NSMutableAttributedString * attReplace = [NSMutableAttributedString new];
+        [attReplace addString:[cellL.text substringWithRange:range] font:cellL.font color:[UIColor redColor]];
+        
+        [attBase replaceCharactersInRange:range withAttributedString:attReplace];
+        
+        cellL.attributedText = attBase;
+    }
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     //NSMutableArray * array = self.view.listEntity;
     if (tableView == self.view.infoTV) {
-        [MpbShare playMusicPlayListEntity:self.view.listEntity at:indexPath.row];
         
+        if (self.view.isSearchType) {
+            [MpbShare playTempArray:@[self.view.searchArray[indexPath.row]] at:0];
+        }else{
+            [MpbShare playMusicPlayListEntity:self.view.listEntity at:indexPath.row];
+        }
         if (self.lastCell) {
             self.lastCell.titelL.textColor = [UIColor blackColor];
             self.lastCell.timeL.textColor  = [UIColor grayColor];
             self.lastCell.rightIV.hidden   = YES;
+            
+            // 刷新搜索状态
+            if (self.view.isSearchType) {
+                [self attLable:self.lastCell.titelL searchText:self.view.searchBar.text];
+                [self attLable:self.lastCell.timeL searchText:self.view.searchBar.text];
+            }
         }
         {
             MusicInfoCell * cell = [tableView cellForRowAtIndexPath:indexPath];
             cell.titelL.textColor = ColorThemeBlue1;
             cell.timeL.textColor  = ColorThemeBlue1;
             cell.rightIV.hidden   = NO;
-            
             self.lastCell = cell;
+            
+            // 刷新搜索状态
+            if (self.view.isSearchType) {
+                [self attLable:self.lastCell.titelL searchText:self.view.searchBar.text];
+                [self attLable:self.lastCell.timeL searchText:self.view.searchBar.text];
+            }
         }
+        
     }else{
         MusicPlayListEntity * le = self.view.listEntity;
         [le sortArray:(MpViewOrder)indexPath.row];
@@ -329,6 +372,10 @@
     }
 }
 
+- (void)nilNcRightItem {
+    self.view.vc.navigationItem.rightBarButtonItems = nil;
+}
+
 - (void)freshTVVisiableCellEvent {
     [self.view.infoTV reloadRowsAtIndexPaths:[self.view.infoTV indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
 }
@@ -349,6 +396,18 @@
             AlertToastTitle(@"未播放该歌单");
         }
     }
+}
+
+#pragma mark - 搜索
+- (void)searchAction:(UISearchBar *)bar {
+    [self.view.searchArray removeAllObjects];
+    NSString * text = bar.text.lowercaseString;
+    for (MusicPlayItemEntity * item in self.view.listEntity.array) {
+        if ([item.fileName.lowercaseString containsString:text]) {
+            [self.view.searchArray addObject:item];
+        }
+    }
+    [self.view.infoTV reloadData];
 }
 
 @end

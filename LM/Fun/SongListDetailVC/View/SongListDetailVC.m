@@ -27,6 +27,9 @@
 
 @synthesize searchBar;
 @synthesize searchCoverView;
+@synthesize searchType;
+@synthesize searchTypeOld;
+@synthesize searchArray;
 
 @synthesize playbar;
 @synthesize listEntity;
@@ -44,6 +47,7 @@
 - (instancetype)initWithDic:(NSDictionary *)dic {
     if (self = [super init]) {
         [NSAssistant setVC:self dic:dic];
+        self.searchArray = [NSMutableArray new];
     }
     return self;
 }
@@ -252,6 +256,7 @@
             
         } completion:^(BOOL finished) {
             [self.searchCoverView removeFromSuperview];
+            [self searchCancelAction];
         }];
     }
 }
@@ -259,12 +264,33 @@
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
     [self.view becomeFirstResponder];
+    
+    [self searchCancelAction];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    NSLog(@"search txt: %@", searchBar.text);
+    //NSLog(@"search txt: %@", searchBar.text);
     [searchBar resignFirstResponder];
     [self.view becomeFirstResponder];
+    
+    if (searchBar.text.length > 0) {
+        self.searchType = YES;
+        [self.present searchAction:searchBar];
+        [self.present nilNcRightItem];
+    }else{
+        [self searchCancelAction];
+    }
+    self.searchTypeOld = self.isSearchType;
+}
+
+- (void)searchCancelAction {
+    if (searchBar.text.length == 0) {
+        self.searchType = NO;
+        [self.present defaultNcRightItem];
+        if (self.isSearchTypeOld != self.isSearchType) {
+            [self.infoTV reloadData];
+        }
+    }
 }
 
 @end
