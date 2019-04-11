@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 //@property (nonatomic, strong) MusicSlider * slider;
 @property (nonatomic, strong) UISlider * slider;
 @property (nonatomic, getter=isSliderSelected) BOOL sliderSelected;
+@property (nonatomic, strong) UILabel  * sliderTimeL;
 
 @property (nonatomic, copy  ) BlockPVoid freshBlockRootVC;
 

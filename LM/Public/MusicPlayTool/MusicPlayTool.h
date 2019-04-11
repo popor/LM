@@ -36,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (UIImage *)imageOfUrl:(NSURL *)url;
 
+- (NSString *)stringFromTime:(int)time;
+
 @end
 
 NS_ASSUME_NONNULL_END

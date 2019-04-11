@@ -52,6 +52,19 @@
     self.frame = CGRectMake(0, 0, ScreenSize.width, 130 + bottomMargin);
     
     {
+        self.sliderTimeL = ({
+            UILabel * l = [UILabel new];
+            l.frame              = CGRectMake(0, 0, 120, 30);
+            l.backgroundColor    = [UIColor clearColor];
+            l.font               = [UIFont systemFontOfSize:15];
+            l.textColor          = ColorThemeBlue1;
+            l.textAlignment      = NSTextAlignmentCenter;
+            l.hidden             = YES;
+            
+            [self addSubview:l];
+            l;
+        });
+        
         self.slider = [UISlider new];
         self.slider.maximumValue = 1.0;
         self.slider.minimumValue = 0.0;
@@ -65,17 +78,32 @@
             @strongify(self);
             [self.mpt playAtTimeScale:self.slider.value];
             self.sliderSelected = NO;
+            self.sliderTimeL.hidden  = YES;
         }];
         
         // 按下
         [[self.slider rac_signalForControlEvents:UIControlEventTouchDown] subscribeNext:^(__kindof UIControl * _Nullable x) {
             @strongify(self);
             self.sliderSelected = YES;
+            self.sliderTimeL.hidden  = NO;
         }];
         // 外部up,取消
         [[self.slider rac_signalForControlEvents:UIControlEventTouchUpOutside|UIControlEventTouchCancel] subscribeNext:^(__kindof UIControl * _Nullable x) {
             @strongify(self);
             self.sliderSelected = NO;
+            self.sliderTimeL.hidden  = YES;
+        }];
+        
+        // 变更
+        [[self.slider rac_signalForControlEvents:UIControlEventValueChanged] subscribeNext:^(__kindof UIControl * _Nullable x) {
+            @strongify(self);
+            if (self.sliderSelected && self.mpt.audioPlayer.duration > 0) {
+                int time = self.mpt.audioPlayer.duration * self.slider.value;
+                self.sliderTimeL.text = [self.mpt stringFromTime:time];
+                
+                float x = self.slider.frame.origin.x + self.slider.width*self.slider.value;
+                self.sliderTimeL.center = CGPointMake(x, -40);
+            }
         }];
     }
     for (int i = 0; i<3; i++) {
