@@ -230,7 +230,6 @@
                 self.searchBar.showsCancelButton = YES;
                 
             } completion:^(BOOL finished) {
-                //[self.present nilNcRightItem];
             }];
         });
         
@@ -245,7 +244,6 @@
             [self.searchCoverView removeFromSuperview];
             [self searchCancelAction];
             
-            //[self.present defaultNcRightItem];
         }];
     }
 }
