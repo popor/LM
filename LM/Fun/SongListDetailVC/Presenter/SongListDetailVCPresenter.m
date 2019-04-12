@@ -175,7 +175,8 @@
     if (tableView == self.view.infoTV) {
         
         if (self.view.isSearchType) {
-            [MpbShare playTempArray:@[self.view.searchArray[indexPath.row]] at:0];
+            self.mpb.mplt.config.indexList = [self.mpb.mplt.list.array indexOfObject:self.view.listEntity];
+            [MpbShare playTempArray:self.view.searchArray at:indexPath.row];
         }else{
             [MpbShare playMusicPlayListEntity:self.view.listEntity at:indexPath.row];
         }
@@ -217,10 +218,10 @@
             [self.mpb.mplt updateList];
             
             // 更新数字配置
-            MusicPlayListEntity * le = self.mpb.mplt.list.array[self.mpb.mplt.config.listIndex];
+            MusicPlayListEntity * le = self.mpb.mplt.list.array[self.mpb.mplt.config.indexList];
             if (self.view.listEntity == le) {
                 NSUInteger itemIndex = [le.array indexOfObject:self.mpb.currentItem];
-                self.mpb.mplt.config.itemIndex = itemIndex;
+                self.mpb.mplt.config.indexItem = itemIndex;
                 [self.mpb.mplt updateConfig];
             }
         });
@@ -381,14 +382,14 @@
 }
 
 - (void)aimAtCurrentItem:(UIButton *)bt {
-    MusicPlayListEntity * le = self.mpb.mplt.list.array[self.mpb.mplt.config.listIndex];
+    MusicPlayListEntity * le = self.mpb.mplt.list.array[self.mpb.mplt.config.indexList];
     if (self.view.listEntity == le) {
         BOOL animation = YES;
         if (self.firstAimAt) {
             self.firstAimAt = NO;
             animation = NO;
         }
-        [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.mpb.mplt.config.itemIndex inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:animation];
+        [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.mpb.mplt.config.indexItem inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:animation];
     }else{
         if (self.firstAimAt) {
             self.firstAimAt = NO;

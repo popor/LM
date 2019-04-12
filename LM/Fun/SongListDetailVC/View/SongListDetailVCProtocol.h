@@ -29,6 +29,7 @@
 @property (nonatomic, strong) UIButton        * aimBT;
 @property (nonatomic        ) BOOL            needUpdateSuperVC;
 
+// MARK: 搜索部分
 @property (nonatomic, strong) UISearchBar * searchBar;
 @property (nonatomic, strong) UIView      * searchCoverView; // 弹出searchBar的时候,遮住infoTV的view.
 @property (nonatomic, getter=isSearchTypeOld) BOOL searchTypeOld;// 显示搜索模式

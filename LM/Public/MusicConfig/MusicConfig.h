@@ -20,8 +20,8 @@ typedef NS_ENUM(int, McPlayOrder) {
 
 @interface MusicConfig : NSObject
 
-@property (nonatomic        ) NSInteger listIndex;// 歌单位置
-@property (nonatomic        ) NSInteger itemIndex;// 歌曲位置
+@property (nonatomic        ) NSInteger indexList;// 歌单位置
+@property (nonatomic        ) NSInteger indexItem;// 歌曲位置
 @property (nonatomic        ) McPlayOrder playOrder;
 
 @end

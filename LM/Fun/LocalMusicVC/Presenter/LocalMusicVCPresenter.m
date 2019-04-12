@@ -203,8 +203,13 @@
             NSDictionary * dic = @{@"title":fileEntity.fileName, @"itemArray":fileEntity.itemArray};
             [self.view.vc.navigationController pushViewController:[LocalMusicVCRouter vcWithDic:dic] animated:YES];
         }else{
+            // 播放本地列表的时候, 需要清空播放记录
+            self.mpb.mplt.config.indexList = -1;
+            self.mpb.mplt.config.indexItem = -1;
+            [self.mpb.mplt updateConfig];
+            
             NSArray * array = @[[MusicPlayItemEntity initWithFileEntity:fileEntity]];
-            [MpbShare playTempArray:array at:0];
+            [self.mpb playTempArray:array at:0];
             
             if (self.lastCell) {
                 self.lastCell.titelL.textColor = [UIColor blackColor];

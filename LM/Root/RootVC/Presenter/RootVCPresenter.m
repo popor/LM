@@ -119,19 +119,12 @@
             cell.selectionStyle = UITableViewCellSelectionStyleDefault;
             cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
             cell.tintColor      = ColorThemeBlue1;
-            
-            //[[cell.playBt rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-            //    //x 就是被点击的按钮
-            //    MusicListCell * scell = (MusicListCell *)x.superview;
-            //    MusicPlayListEntity * list = (MusicPlayListEntity *)scell.cellData;
-            //    [MpbShare playTempArray:list.array at:0];
-            //}];
         }
         MusicPlayListEntity * list = MpltShare.list.array[indexPath.row];
         cell.cellData = list;
         cell.titelL.text = [NSString stringWithFormat:@"%@ (%li)", list.name, list.array.count];
         
-        if(self.mplt.config.listIndex == indexPath.row){
+        if(self.mplt.config.indexList == indexPath.row){
             cell.rightIV.hidden = NO;
             cell.titelL.textColor = ColorThemeBlue1;
         }else{

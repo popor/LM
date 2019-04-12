@@ -330,38 +330,41 @@
 - (void)playTempArray:(NSArray *)itemArray at:(NSInteger)index {
     [self.mplt.currentTempList removeAllObjects];
     [self.mplt.currentTempList addObjectsFromArray:itemArray];
+    
     self.mplt.currentWeakList = self.mplt.currentTempList;
-    self.playBT.selected = YES;
+    self.playBT.selected      = YES;
+    self.playSearchLocalItem  = YES;
+    
     if (itemArray.count > 0) {
         self.currentItem = self.mplt.currentWeakList[index];
         [self.mpt playItem:self.currentItem autoPlay:YES];
     }
-    self.mplt.config.listIndex = -1;
-    self.mplt.config.itemIndex = -1;
-    [self.mplt updateConfig];
     
-    AlertToastTitle(@"单曲播放");
+    // 刷新item
+    [self updateConfigIndex:index];
 }
 
 - (void)playMusicPlayListEntity:(MusicPlayListEntity *)listEntity at:(NSInteger)index {
     if (self.mplt.currentWeakList != listEntity.array) {
         self.mplt.currentWeakList = listEntity.array;
     }
-    self.playBT.selected = YES;
+    self.playBT.selected     = YES;
+    self.playSearchLocalItem = NO;
+    
     if (listEntity.array.count > 0) {
         self.currentItem = self.mplt.currentWeakList[index];
         [self.mpt playItem:self.currentItem autoPlay:YES];
     }
     
     NSInteger currentListIndex = [self.mplt.list.array indexOfObject:listEntity];
-    if (self.mplt.config.listIndex != currentListIndex) {
-        self.mplt.config.listIndex = currentListIndex;
+    if (self.mplt.config.indexList != currentListIndex) {
+        self.mplt.config.indexList = currentListIndex;
         if (self.freshBlockRootVC) {
             self.freshBlockRootVC();
         }
     }
     
-    self.mplt.config.itemIndex = index;
+    self.mplt.config.indexItem = index;
     [self.mplt updateConfig];
 }
 
@@ -409,8 +412,8 @@
         
         self.playBT.selected = YES;
         
-        self.mplt.config.itemIndex = index;
-        [self.mplt updateConfig];
+        // 刷新item
+        [self updateConfigIndex:index];
         
         // 刷新SongListDetailVC
         if (self.mpt.nextMusicBlock_SongListDetailVC) {
@@ -427,8 +430,8 @@
         
         self.playBT.selected = YES;
         
-        self.mplt.config.itemIndex = index;
-        [self.mplt updateConfig];
+        // 刷新item
+        [self updateConfigIndex:index];
         
         // 刷新SongListDetailVC
         if (self.mpt.nextMusicBlock_SongListDetailVC) {
@@ -479,6 +482,25 @@
     return index;
 }
 
+- (void)updateConfigIndex:(NSInteger)itemIndex {
+    if (self.isPlaySearchLocalItem) {
+        // 假如播放的是搜索或者本地 音乐的话
+        if (self.mplt.config.indexList >= 0) {
+            MusicPlayListEntity * le = self.mplt.list.array[self.mplt.config.indexList];
+            itemIndex = [le.array indexOfObject:self.currentItem];
+            
+            if (itemIndex != INTMAX_MAX && itemIndex >= 0) {
+                self.mplt.config.indexItem = itemIndex;
+                [self.mplt updateConfig];
+            }
+        }
+        AlertToastTitle(@"当前播放歌单为: 搜索结果");
+    }else{
+        self.mplt.config.indexItem = itemIndex;
+        [self.mplt updateConfig];
+    }
+}
+
 - (void)rewindBTEvent {
     
 }
@@ -497,8 +519,8 @@
 #pragma mark - 恢复上次数据
 - (void)resumeLastStatus{
     
-    if (self.mplt.config.listIndex >= 0 && self.mplt.list.array > 0) {
-        [self resumeMusicPlayListEntity:self.mplt.list.array[self.mplt.config.listIndex]  at:self.mplt.config.itemIndex];
+    if (self.mplt.config.indexList >= 0 && self.mplt.list.array > 0) {
+        [self resumeMusicPlayListEntity:self.mplt.list.array[self.mplt.config.indexList]  at:self.mplt.config.indexItem];
         
         //[self playMusicPlayListEntity:self.mplt.list.array[self.mplt.config.listIndex]  at:self.mplt.config.itemIndex];
     }

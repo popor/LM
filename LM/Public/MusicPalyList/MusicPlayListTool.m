@@ -54,8 +54,8 @@
                 _config     = [MusicConfig yy_modelWithJSON:value];
             }else{
                 _config     = [MusicConfig new];
-                _config.listIndex = -1;
-                _config.itemIndex = -1;
+                _config.indexList = -1;
+                _config.indexItem = -1;
             }
         }
         
