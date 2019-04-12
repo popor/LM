@@ -29,6 +29,8 @@
 @synthesize searchTypeOld;
 @synthesize searchArray;
 
+@synthesize root;
+
 - (void)dealloc {
     if (self.deallocBlock) {
         self.deallocBlock();
@@ -39,6 +41,7 @@
     if (self = [super init]) {
         [NSAssistant setVC:self dic:dic];
         self.searchArray = [NSMutableArray new];
+        root = self.itemArray ? NO:YES;
     }
     return self;
 }
@@ -94,8 +97,8 @@
     self.infoTV      = [self addTVs];
     self.musicListTV = [self addMusicListTVs];
     
-    if (self.itemArray) {
-        self.infoTV.tableHeaderView = self.searchBar;
+    if (!self.isRoot) {
+        self.searchBar.backgroundColor = ColorTV_BG;
     }
     
     [self.infoTV mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -107,7 +110,8 @@
 }
 
 - (UITableView *)addTVs {
-    UITableView * oneTV = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    UITableViewStyle style = self.isRoot ? UITableViewStyleGrouped:UITableViewStylePlain;
+    UITableView * oneTV = [[UITableView alloc] initWithFrame:self.view.bounds style:style];
     
     oneTV.delegate   = self.present;
     oneTV.dataSource = self.present;
@@ -167,44 +171,33 @@
 
 - (void)keyboardFrameChanged:(CGRect)rect duration:(CGFloat)duration show:(BOOL)show {
     if (show) {
-        self.infoTV.scrollEnabled             = NO;
+        if (!self.infoTV.scrollEnabled) {
+            return;
+        }
+
+        self.infoTV.scrollEnabled = NO;
         
-        [self.infoTV addSubview:self.searchCoverView];
-        
-        self.searchCoverView.y = self.searchBar.height;
-        
-        [UIView animateWithDuration:duration animations:^{
-            self.searchCoverView.backgroundColor = RGBA(0, 0, 0, 0.25);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.searchCoverView.y = CGRectGetMaxY(self.searchBar.frame);
+            [self.infoTV addSubview:self.searchCoverView];
             
-            [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
-            [self.navigationController setNavigationBarHidden:YES animated:NO];
-            self.searchBar.showsCancelButton = YES;
-            
-            if (IsVersionLessThan11) {
-                [self.infoTV mas_updateConstraints:^(MASConstraintMaker *make) {
-                    make.top.mas_equalTo(20);
-                }];
-            }
-            
-        } completion:^(BOOL finished) {
-            
-        }];
+            [UIView animateWithDuration:duration animations:^{
+                self.searchCoverView.backgroundColor = RGBA(0, 0, 0, 0.25);
+                self.searchBar.showsCancelButton = YES;
+                
+            } completion:nil];
+        });
         
     }else{
-        self.infoTV.scrollEnabled             = YES;
+        if (self.infoTV.scrollEnabled) {
+            return;
+        }
+        
+        self.infoTV.scrollEnabled = YES;
         
         [UIView animateWithDuration:duration animations:^{
             self.searchCoverView.backgroundColor = RGBA(0, 0, 0, 0);
-            
             self.searchBar.showsCancelButton = NO;
-            [self.navigationController setNavigationBarHidden:NO animated:NO];
-            [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-            
-            if (IsVersionLessThan11) {
-                [self.infoTV mas_updateConstraints:^(MASConstraintMaker *make) {
-                    make.top.mas_equalTo(0);
-                }];
-            }
             
         } completion:^(BOOL finished) {
             [self.searchCoverView removeFromSuperview];

@@ -27,6 +27,8 @@
 @property (nonatomic, getter=isSearchType) BOOL searchType;// 显示搜索模式
 @property (nonatomic, strong) NSMutableArray * searchArray;
 
+@property (nonatomic, readonly, getter=isRoot) BOOL root;
+
 // MARK: 外部注入的
 @property (nonatomic, copy  ) BlockPVoid   deallocBlock;
 

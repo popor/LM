@@ -73,15 +73,20 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (tableView == self.view.infoTV) {
+        return self.view.searchBar.height;
         return 0.1;
     }else{
         return 0.1;
     }
 }
 
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    return self.view.searchBar;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     if (tableView == self.view.infoTV) {
-        return 10;
+        return 0.1;
     }else{
         return 0.1;
     }
@@ -292,6 +297,10 @@
 
 #pragma mark - Interactor_EventHandler
 - (void)showSortTVAlertAction:(UIBarButtonItem *)sender event:(UIEvent *)event {
+    if (self.view.searchBar.isFirstResponder) {
+        [self.view.vc.view endEditing:YES];
+        return;
+    }
     //CGRect fromRect = [[event.allTouches anyObject] view].frame;
     UITouch * touch = [event.allTouches anyObject];
     //UIWindow * window = [[UIApplication sharedApplication] keyWindow];
@@ -334,6 +343,10 @@
 }
 
 - (void)editCustomAscendAction {
+    if (self.view.searchBar.isFirstResponder) {
+        [self.view.vc.view endEditing:YES];
+        return;
+    }
     if (self.view.listEntity.viewOrder == MpViewOrderCustomAscend) {
         [self startEditAction];
     }else{
