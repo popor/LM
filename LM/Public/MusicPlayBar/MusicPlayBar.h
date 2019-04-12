@@ -42,6 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIButton * rewindBT;
 @property (nonatomic, strong) UIButton * forwardBT;
 
+@property (nonatomic, strong) UIButton * exitPlaySearchLocalBT; //退出播放搜索结果模式
+
 @property (nonatomic, weak  ) MusicPlayTool       * mpt;
 @property (nonatomic, weak  ) MusicPlayListTool   * mplt;
 

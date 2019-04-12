@@ -25,4 +25,6 @@ static NSString * LmConfigKey   = @"config";
 
 #define LmImageLightGray(imageName) [UIImage imageFromImage:[UIImage imageNamed:imageName] changecolor:[UIColor lightGrayColor]]
 
+#define LmImageRed(imageName) [UIImage imageFromImage:[UIImage imageNamed:imageName] changecolor:[UIColor redColor]]
+
 #endif /* AppPrefix_h */

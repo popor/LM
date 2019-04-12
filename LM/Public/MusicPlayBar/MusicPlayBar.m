@@ -140,17 +140,19 @@
         }
     }
     self.orderImageArray = @[@"loop_random", @"loop_order", @"loop_single"];
-    NSArray * imageN = @[@"big_play_button",  @"prev_song", @"next_song", @"rewind", @"forward", @"loop_random"];
-    NSArray * imageS = @[@"big_pause_button", @"prev_song", @"next_song", @"rewind", @"forward", @"loop_random"];
+    NSArray * imageN = @[@"big_play_button",  @"prev_song", @"next_song", @"rewind", @"forward", @"loop_random", @"searchMode"];
+    NSArray * imageS = @[@"big_pause_button", @"prev_song", @"next_song", @"rewind", @"forward", @"loop_random", @"searchMode"];
     
     for (int i = 0; i<imageN.count; i++) {
         UIButton * oneBT = ({
             UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
             if (i == 0) {
-                
                 [button setImage:LmImageThemeBlue1(imageN[i]) forState:UIControlStateNormal];
                 [button setImage:LmImageThemeBlue1(imageS[i]) forState:UIControlStateHighlighted];
-            }else{
+            }else if(i == 6){
+                [button setImage:LmImageRed(imageN[i]) forState:UIControlStateNormal];
+                [button setImage:LmImageLightGray(imageS[i])  forState:UIControlStateHighlighted];
+            } else{
                 [button setImage:LmImageThemeBlue1(imageN[i]) forState:UIControlStateNormal];
                 [button setImage:LmImageLightGray(imageS[i])  forState:UIControlStateHighlighted];
             }
@@ -197,6 +199,12 @@
                 [oneBT setImage:nil forState:UIControlStateHighlighted];
                 
                 [oneBT addTarget:self action:@selector(orderAction) forControlEvents:UIControlEventTouchUpInside];
+                break;
+            }
+            case 6:{
+                self.exitPlaySearchLocalBT = oneBT;
+                
+                [oneBT addTarget:self action:@selector(exitPlaySearchLocalBTAction) forControlEvents:UIControlEventTouchUpInside];
                 break;
             }
             default:
@@ -261,6 +269,12 @@
         make.top.mas_equalTo(self.slider.mas_bottom).mas_offset(10);
         make.left.mas_equalTo(15);
         make.height.mas_equalTo(20);
+        make.right.mas_equalTo(self.exitPlaySearchLocalBT.mas_left).mas_offset(-5);
+    }];
+    // 退出播放搜素结果列表
+    [self.exitPlaySearchLocalBT mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(self.nameL.mas_centerY);
+        make.size.mas_equalTo(CGSizeZero);
         make.right.mas_equalTo(-15);
     }];
     
@@ -327,6 +341,29 @@
     }];
 }
 
+- (void)setPlaySearchLocalItem:(BOOL)playSearchLocalItem {
+    _playSearchLocalItem = playSearchLocalItem;
+    
+    if (playSearchLocalItem) {
+        if (self.exitPlaySearchLocalBT) {
+            [UIView animateWithDuration:0.15 animations:^{
+                [self.exitPlaySearchLocalBT mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.size.mas_equalTo(CGSizeMake(30, 30));
+                }];
+                [self.exitPlaySearchLocalBT.superview layoutIfNeeded];
+            } completion:^(BOOL finished) {
+                
+            }];
+            
+        }
+    }else{
+        [self.exitPlaySearchLocalBT mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeZero);
+        }];
+        [self.exitPlaySearchLocalBT.superview layoutIfNeeded];
+    }
+}
+
 - (void)playTempArray:(NSArray *)itemArray at:(NSInteger)index {
     [self.mplt.currentTempList removeAllObjects];
     [self.mplt.currentTempList addObjectsFromArray:itemArray];
@@ -349,7 +386,10 @@
         self.mplt.currentWeakList = listEntity.array;
     }
     self.playBT.selected     = YES;
-    self.playSearchLocalItem = NO;
+    if (self.isPlaySearchLocalItem) {
+        self.playSearchLocalItem = NO;
+        //AlertToastTitle(@"退出 [搜索歌单] 模式");
+    }
     
     if (listEntity.array.count > 0) {
         self.currentItem = self.mplt.currentWeakList[index];
@@ -494,7 +534,7 @@
                 [self.mplt updateConfig];
             }
         }
-        AlertToastTitle(@"当前播放歌单为: 搜索结果");
+        //AlertToastTitle(@"当前播放歌单为: 搜索结果");
     }else{
         self.mplt.config.indexItem = itemIndex;
         [self.mplt updateConfig];
@@ -507,6 +547,23 @@
 
 - (void)forwardBTEvent {
     
+}
+
+- (void)exitPlaySearchLocalBTAction {
+    self.playSearchLocalItem = NO;
+    
+    if (self.mplt.config.indexList >= 0) {
+        MusicPlayListEntity * le = self.mplt.list.array[self.mplt.config.indexList];
+        NSInteger row = [le.array indexOfObject:self.currentItem];
+        if (row != INTMAX_MAX) {
+            [self playMusicPlayListEntity:le at:row];
+            AlertToastTitle(@"退出 [搜索歌单] 模式");
+        }else{
+            AlertToastTitle(@"未在当前个当中找到 当前音乐");
+        }
+    }else{
+        AlertToastTitle(@"未在当前个当中找到 当前音乐");
+    }
 }
 
 - (void)orderAction {

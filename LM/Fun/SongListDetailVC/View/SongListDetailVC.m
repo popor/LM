@@ -42,9 +42,6 @@
     if (self.deallocBlock) {
         self.deallocBlock(self.needUpdateSuperVC);
     }
-    if (MpbShare.isPlaySearchLocalItem) {
-        AlertToastTitle(@"当前播放歌单为: 搜索结果");
-    }
 }
 
 - (instancetype)initWithDic:(NSDictionary *)dic {
