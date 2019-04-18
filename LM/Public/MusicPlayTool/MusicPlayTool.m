@@ -210,6 +210,9 @@ static int TimeHourTen = 36000; // 10小时
     
     // 拔耳机
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioRouteChangeListenerCallback:)   name:AVAudioSessionRouteChangeNotification object:nil];//设置通知
+    
+    // 被其他APP打断
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleInterruption:) name:AVAudioSessionInterruptionNotification object:nil];
 }
 
 //通知方法的实现
@@ -233,6 +236,18 @@ static int TimeHourTen = 36000; // 10小时
             // called at start - also when other audio wants to play
             //tipWithMessage(@"AVAudioSessionRouteChangeReasonCategoryChange");
             break;
+    }
+}
+
+- (void)handleInterruption:(NSNotification *)notification {
+    NSNumber *interruptionType      = [[notification userInfo] objectForKey:AVAudioSessionInterruptionTypeKey];
+    NSNumber *interruptionOptionKey = [[notification userInfo] objectForKey:AVAudioSessionInterruptionOptionKey];
+    if (interruptionType.integerValue == 1) {
+        //NSLog(@"暂停");
+        [self.mpb pauseEvent];
+    }else if (interruptionOptionKey.integerValue == 1) {
+        //NSLog(@"播放");
+        [self.mpb playEvent];
     }
 }
 
