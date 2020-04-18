@@ -11,7 +11,7 @@
 #import "MusicPlayTool.h"
 #import "MusicPlayListTool.h"
 
-#import <PoporUI/UIDeviceScreen.h>
+#import <PoporUI/UIDevice+pScreenSize.h>
 #import <PoporImageBrower/PoporImageBrower.h>
 
 @interface MusicPlayBar ()
@@ -48,8 +48,8 @@
 }
 
 - (void)addViews {
-    int bottomMargin = [UIDeviceScreen safeBottomMargin];
-    self.frame = CGRectMake(0, 0, ScreenSize.width, 130 + bottomMargin);
+    int bottomMargin = [UIDevice safeBottomMargin];
+    self.frame = CGRectMake(0, 0, PSCREEN_SIZE.width, 130 + bottomMargin);
     
     {
         self.sliderTimeL = ({
@@ -227,7 +227,7 @@
     });
     {
         self.lineView = [UIView new];
-        self.lineView.backgroundColor = ColorTV_separator;
+        self.lineView.backgroundColor = PColorBlackC;// ColorTV_separator;
         
         [self addSubview:self.lineView];
         [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {

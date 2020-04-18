@@ -76,7 +76,8 @@
 
 - (void)addServer {
     if (!self.infoL) {
-        self.infoL = [[UILabelInsets alloc] initWithInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+        self.infoL = [UILabel new];
+        //self.infoL.insets = UIEdgeInsetsMake(0, 0, 0, 0);
         self.infoL.backgroundColor = [UIColor clearColor];
         self.infoL.font = [UIFont systemFontOfSize:14];
         self.infoL.numberOfLines = 0;

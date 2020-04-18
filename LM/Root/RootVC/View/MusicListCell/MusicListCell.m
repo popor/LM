@@ -73,7 +73,6 @@
         UIImageView * iv = [UIImageView new];
         iv.image = LmImageThemeBlue1(@"paly_sound");
         iv.hidden = YES;
-        
         [self.contentView addSubview:iv];
         iv;
     });

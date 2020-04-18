@@ -19,7 +19,7 @@ static NSString * LmPlayListKey = @"list";
 static NSString * LmConfigKey   = @"config";
 
 //static UIColor * ColorThemeBlue1 = RGB16(0X36a5d7);
-#define ColorThemeBlue1 RGB16(0X36a5d7)
+#define ColorThemeBlue1 PRGB16(0X36a5d7)
 
 #define LmImageThemeBlue1(imageName) [UIImage imageFromImage:[UIImage imageNamed:imageName] changecolor:ColorThemeBlue1]
 

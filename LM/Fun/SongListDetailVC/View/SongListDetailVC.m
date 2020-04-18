@@ -10,7 +10,7 @@
 #import "SongListDetailVCRouter.h"
 
 #import "MusicPlayTool.h"
-#import <PoporUI/UIViewController+TapEndEdit.h>
+#import <PoporUI/UIViewController+pTapEndEdit.h>
 
 @interface SongListDetailVC () <UISearchBarDelegate>
 
@@ -112,7 +112,7 @@
         [weakSelf.present freshTVVisiableCellEvent];
     };
     
-    self.searchBar.backgroundColor = ColorTV_BG;
+    self.searchBar.backgroundColor = PColorTVBG;
     
     self.alertBubbleTVColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     self.alertBubbleTV = [self addAlertBubbleTV];
@@ -196,7 +196,7 @@
 - (UIView *)searchCoverView {
     if (!searchCoverView) {
         UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.infoTV.width, self.infoTV.height)];
-        view.backgroundColor = RGBA(0, 0, 0, 0);
+        view.backgroundColor = PRGBF(0, 0, 0, 0);
         
         searchCoverView = view;
     }
@@ -205,7 +205,7 @@
 
 - (UISearchBar *)searchBar {
     if (!searchBar) {
-        searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, ScreenSize.width, 44+10)];
+        searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, PSCREEN_SIZE.width, 44+10)];
         [searchBar setBackgroundImage:[UIImage imageFromColor:[UIColor clearColor] size:CGSizeMake(1, 1)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault]; //此处使底部线条颜色为红色
         searchBar.placeholder = @"搜索";
         searchBar.tintColor   = ColorThemeBlue1;
@@ -223,7 +223,7 @@
             [self.infoTV addSubview:self.searchCoverView];
             
             [UIView animateWithDuration:duration animations:^{
-                self.searchCoverView.backgroundColor = RGBA(0, 0, 0, 0.25);
+                self.searchCoverView.backgroundColor = PRGBF(0, 0, 0, 0.25);
                 self.searchBar.showsCancelButton = YES;
                 
             } completion:^(BOOL finished) {
@@ -234,7 +234,7 @@
         self.infoTV.scrollEnabled = YES;
         
         [UIView animateWithDuration:duration animations:^{
-            self.searchCoverView.backgroundColor = RGBA(0, 0, 0, 0);
+            self.searchCoverView.backgroundColor = PRGBF(0, 0, 0, 0);
             self.searchBar.showsCancelButton = NO;
             
         } completion:^(BOOL finished) {
