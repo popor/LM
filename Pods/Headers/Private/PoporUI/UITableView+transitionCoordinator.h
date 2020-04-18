@@ -1,1 +1,0 @@
-../../../PoporUI/PoporUI/Classes/UITableView/UITableView+transitionCoordinator.h

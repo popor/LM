@@ -1,1 +1,0 @@
-../../../PoporFoundation/PoporFoundation/Classes/NSString/NSString+IDCard.h

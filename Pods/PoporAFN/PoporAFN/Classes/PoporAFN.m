@@ -7,7 +7,6 @@
 //
 
 #import "PoporAFN.h"
-#import <PoporFoundation/PrefixFun.h>
 
 //如何添加head.
 //https://www.jianshu.com/p/c741236c5c30
@@ -81,14 +80,14 @@
     __weak typeof(manager) weakManager = manager;
     if (method == PoporMethodGet) {
         methodStr = @"GET";
-        [manager GET:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [manager GET:urlString parameters:parameters headers:manager.requestSerializer.HTTPRequestHeaders progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [PoporAFN successManager:weakManager url:urlString title:title method:methodStr parameters:parameters task:task response:responseObject success:success];
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             [PoporAFN failManager:weakManager url:urlString title:title method:methodStr parameters:parameters task:task error:error failure:failure];
         }];
     }else if (method == PoporMethodPost){
         methodStr = @"POST";
-        [manager POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [manager POST:urlString parameters:parameters headers:manager.requestSerializer.HTTPRequestHeaders progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [PoporAFN successManager:weakManager url:urlString title:title method:methodStr parameters:parameters task:task response:responseObject success:success];
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             [PoporAFN failManager:weakManager url:urlString title:title method:methodStr parameters:parameters task:task error:error failure:failure];
@@ -98,7 +97,7 @@
 
 + (void)successManager:(AFHTTPSessionManager *)manager url:(NSString *)urlString title:(NSString *_Nullable)title method:(NSString *)method parameters:(NSDictionary * _Nullable)parameters task:(NSURLSessionDataTask * _Nullable)task response:(id _Nullable) responseObject success:(PoporAFNFinishBlock _Nullable )success
 {
-    [manager invalidateSessionCancelingTasks:YES];
+    [manager invalidateSessionCancelingTasks:YES resetSession:NO];
     dispatch_async(dispatch_get_main_queue(), ^{
         NSDictionary *dic;
         if (responseObject) {
@@ -124,7 +123,7 @@
 
 + (void)failManager:(AFHTTPSessionManager *)manager url:(NSString *)urlString title:(NSString *_Nullable)title method:(NSString *)method parameters:(NSDictionary * _Nullable)parameters task:(NSURLSessionDataTask * _Nullable)task error:(NSError *)error failure:(PoporAFNFailureBlock _Nullable)failure
 {
-    [manager invalidateSessionCancelingTasks:YES];
+    [manager invalidateSessionCancelingTasks:YES resetSession:NO];
     dispatch_async(dispatch_get_main_queue(), ^{
         if (failure) {
             failure(task, error);

@@ -8,7 +8,7 @@
 
 #import "PoporPopNormalNC.h"
 
-#import <PoporUI/UIViewController+ncBar.h>
+#import <PoporUI/UIViewController+pNcBar.h>
 
 @interface PoporPopNormalNC () <UINavigationControllerDelegate>
 

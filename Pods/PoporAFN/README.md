@@ -66,6 +66,10 @@ config.recordBlock = ^(NSString *url, NSString *title, NSString *method, id head
 };
 
 ```
+```
+1.02: 应对AFN 4.0 最低iOS9.0
+
+```
 
 ## Author
 

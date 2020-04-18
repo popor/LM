@@ -1,0 +1,1 @@
+../../../PoporFoundation/PoporFoundation/Classes/NSObject/NSObject+pAssign.h
