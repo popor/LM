@@ -18,6 +18,7 @@
 
 @property (nonatomic        ) BOOL isX;
 @property (nonatomic, strong) NSArray * orderImageArray;
+@property (nonatomic        ) CGFloat sliderImageWH;
 
 @end
 
@@ -55,7 +56,7 @@
         self.sliderTimeL = ({
             UILabel * l = [UILabel new];
             l.frame              = CGRectMake(0, 0, 120, 30);
-            l.backgroundColor    = [UIColor clearColor];
+            l.backgroundColor    = [UIColor redColor];
             l.font               = [UIFont systemFontOfSize:15];
             l.textColor          = ColorThemeBlue1;
             l.textAlignment      = NSTextAlignmentCenter;
@@ -65,12 +66,22 @@
             l;
         });
         
-        self.slider = [UISlider new];
-        self.slider.maximumValue = 1.0;
-        self.slider.minimumValue = 0.0;
-        self.slider.tintColor    = ColorThemeBlue1;
-        self.slider.thumbTintColor = ColorThemeBlue1;
-        [self addSubview:self.slider];
+        self.sliderImageWH = 24;
+        
+        self.slider = ({
+            UISlider * slider = [UISlider new];
+            slider.maximumValue   = 1.0;
+            slider.minimumValue   = 0.0;
+            slider.tintColor      = ColorThemeBlue1;
+            
+            //slider.thumbTintColor = ColorThemeBlue1;
+            UIImage *image = [UIImage imageFromColor:ColorThemeBlue1 size:CGSizeMake(self.sliderImageWH, self.sliderImageWH) corner:self.sliderImageWH/2];
+            [slider setThumbImage:image forState:UIControlStateNormal];
+            
+            [self addSubview:slider];
+            
+            slider;
+        });
         
         @weakify(self);
         // 内部up
@@ -101,7 +112,7 @@
                 int time = self.mpt.audioPlayer.duration * self.slider.value;
                 self.sliderTimeL.text = [self.mpt stringFromTime:time];
                 
-                float x = self.slider.frame.origin.x + self.slider.width*self.slider.value;
+                float x = self.slider.frame.origin.x  +self.sliderImageWH/2 +(self.slider.width -self.sliderImageWH) *self.slider.value;
                 self.sliderTimeL.center = CGPointMake(x, -40);
             }
         }];
