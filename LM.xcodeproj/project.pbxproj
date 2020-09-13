@@ -1037,7 +1037,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6SK6RQ8S8Q;
+				DEVELOPMENT_TEAM = 7DUQZP3WD7;
 				GCC_PREFIX_HEADER = LM/AppPrefix.h;
 				INFOPLIST_FILE = LM/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
@@ -1046,7 +1046,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.5;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ifcar99.LM;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xyeduzj.LM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1058,7 +1058,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6SK6RQ8S8Q;
+				DEVELOPMENT_TEAM = 7DUQZP3WD7;
 				GCC_PREFIX_HEADER = LM/AppPrefix.h;
 				INFOPLIST_FILE = LM/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
@@ -1067,7 +1067,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.5;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ifcar99.LM;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xyeduzj.LM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
