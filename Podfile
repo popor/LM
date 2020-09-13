@@ -2,8 +2,8 @@
 #platform :ios, '9.0'
 
 # 推荐继续使用 传统的 pod
-source 'https://github.com/CocoaPods/Specs.git'
-#source 'https://cdn.cocoapods.org/'
+#source 'https://github.com/CocoaPods/Specs.git'
+source 'https://cdn.cocoapods.org/'
 
 target 'LM' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -11,12 +11,12 @@ target 'LM' do
   inhibit_all_warnings!
   
   # Pods for LM
-  pod 'PoporUI'
-  pod 'PoporFoundation'
+  pod 'PoporUI'#, '~>1.20'
+  pod 'PoporFoundation' #, '~>1.21'
   pod 'PoporPopNormalNC'
   pod 'PoporAlertBubbleView'
   pod 'PoporImageBrower'
-  pod 'PoporAFN'
+  pod 'PoporAFN', '~>1.07'
   #pod 'PoporNetRecord'
   
   pod 'Masonry'

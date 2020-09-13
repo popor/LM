@@ -11,7 +11,7 @@
 
 #pragma mark - 或许模仿苹果聊天的背景图片
 + (UIImage *)stretchableImage:(UIImage *)image orient:(UIImageOrientation)direction point:(CGPoint)point {
-    UIImage * twoI=[UIImage imageWithCGImage:image.CGImage scale:1.0 orientation:direction];
+    UIImage * twoI = [UIImage imageWithCGImage:image.CGImage scale:[UIScreen mainScreen].scale orientation:direction];
     return [twoI stretchableImageWithLeftCapWidth:point.x topCapHeight:point.y];
     //    if (leftOrRight) {
     //        return [oneI stretchableImageWithLeftCapWidth:thePoint.x
@@ -33,7 +33,7 @@
       @"414x736" : @"LaunchImage-800-Portrait-736h"
       };
     
-    NSString * key = [NSString stringWithFormat:@"%dx%d", (int)[UIScreen mainScreen].bounds.size.width, (int)[UIScreen mainScreen].bounds.size.height];
+    NSString * key = [NSString stringWithFormat:@"%lix%li", (NSInteger)[UIScreen mainScreen].bounds.size.width, (NSInteger)[UIScreen mainScreen].bounds.size.height];
     return [dic objectForKey:key];
 }
 
@@ -53,7 +53,7 @@
     
     CGFloat max = 1;
     CGFloat min = 0;
-    for (int i = 0; i < 6; ++i) {
+    for (NSInteger i = 0; i < 6; ++i) {
         compression = (max + min) / 2;
         data = UIImageJPEGRepresentation(self, compression);
         //NSLog(@"Compression = %.1f", compression);

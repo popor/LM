@@ -1,18 +1,18 @@
 PODS:
-  - AFNetworking (4.0.0):
-    - AFNetworking/NSURLSession (= 4.0.0)
-    - AFNetworking/Reachability (= 4.0.0)
-    - AFNetworking/Security (= 4.0.0)
-    - AFNetworking/Serialization (= 4.0.0)
-    - AFNetworking/UIKit (= 4.0.0)
-  - AFNetworking/NSURLSession (4.0.0):
+  - AFNetworking (4.0.1):
+    - AFNetworking/NSURLSession (= 4.0.1)
+    - AFNetworking/Reachability (= 4.0.1)
+    - AFNetworking/Security (= 4.0.1)
+    - AFNetworking/Serialization (= 4.0.1)
+    - AFNetworking/UIKit (= 4.0.1)
+  - AFNetworking/NSURLSession (4.0.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (4.0.0)
-  - AFNetworking/Security (4.0.0)
-  - AFNetworking/Serialization (4.0.0)
-  - AFNetworking/UIKit (4.0.0):
+  - AFNetworking/Reachability (4.0.1)
+  - AFNetworking/Security (4.0.1)
+  - AFNetworking/Serialization (4.0.1)
+  - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
   - GCDWebServer (3.5.4):
     - GCDWebServer/Core (= 3.5.4)
@@ -23,110 +23,108 @@ PODS:
     - GCDWebServer/Core
   - Masonry (1.1.0)
   - MBProgressHUD (1.2.0)
-  - PoporAFN (1.02):
+  - PoporAFN (1.07):
     - AFNetworking
-  - PoporAlertBubbleView (1.01):
-    - PoporFoundation/NSAssistant
-    - PoporUI/UIView
-  - PoporFoundation (1.14):
-    - PoporFoundation/KVO (= 1.14)
-    - PoporFoundation/NSArray (= 1.14)
-    - PoporFoundation/NSAssistant (= 1.14)
-    - PoporFoundation/NSData (= 1.14)
-    - PoporFoundation/NSDate (= 1.14)
-    - PoporFoundation/NSDecimalNumber (= 1.14)
-    - PoporFoundation/NSDictionary (= 1.14)
-    - PoporFoundation/NSFileManager (= 1.14)
-    - PoporFoundation/NSObject (= 1.14)
-    - PoporFoundation/NSString (= 1.14)
-    - PoporFoundation/NSTimer (= 1.14)
-    - PoporFoundation/NSURL (= 1.14)
-    - PoporFoundation/Os (= 1.14)
-    - PoporFoundation/Prefix (= 1.14)
-  - PoporFoundation/KVO (1.14)
-  - PoporFoundation/NSArray (1.14):
+  - PoporAlertBubbleView (1.02)
+  - PoporFoundation (1.21):
+    - PoporFoundation/KVO (= 1.21)
+    - PoporFoundation/NSArray (= 1.21)
+    - PoporFoundation/NSAssistant (= 1.21)
+    - PoporFoundation/NSData (= 1.21)
+    - PoporFoundation/NSDate (= 1.21)
+    - PoporFoundation/NSDecimalNumber (= 1.21)
+    - PoporFoundation/NSDictionary (= 1.21)
+    - PoporFoundation/NSFileManager (= 1.21)
+    - PoporFoundation/NSObject (= 1.21)
+    - PoporFoundation/NSString (= 1.21)
+    - PoporFoundation/NSTimer (= 1.21)
+    - PoporFoundation/NSURL (= 1.21)
+    - PoporFoundation/Os (= 1.21)
+    - PoporFoundation/Prefix (= 1.21)
+  - PoporFoundation/KVO (1.21)
+  - PoporFoundation/NSArray (1.21):
     - PoporFoundation/NSObject
     - PoporFoundation/Prefix
-  - PoporFoundation/NSAssistant (1.14):
+  - PoporFoundation/NSAssistant (1.21):
     - PoporFoundation/Os
     - PoporFoundation/Prefix
-  - PoporFoundation/NSData (1.14)
-  - PoporFoundation/NSDate (1.14):
+  - PoporFoundation/NSData (1.21)
+  - PoporFoundation/NSDate (1.21):
     - PoporFoundation/NSString
-  - PoporFoundation/NSDecimalNumber (1.14):
+  - PoporFoundation/NSDecimalNumber (1.21):
     - PoporFoundation/NSObject
-  - PoporFoundation/NSDictionary (1.14):
+  - PoporFoundation/NSDictionary (1.21):
     - PoporFoundation/NSObject
     - PoporFoundation/Prefix
-  - PoporFoundation/NSFileManager (1.14)
-  - PoporFoundation/NSObject (1.14)
-  - PoporFoundation/NSString (1.14):
+  - PoporFoundation/NSFileManager (1.21)
+  - PoporFoundation/NSObject (1.21)
+  - PoporFoundation/NSString (1.21):
     - PoporFoundation/NSObject
     - PoporFoundation/Os
     - PoporFoundation/Prefix
-  - PoporFoundation/NSTimer (1.14)
-  - PoporFoundation/NSURL (1.14):
+  - PoporFoundation/NSTimer (1.21)
+  - PoporFoundation/NSURL (1.21):
     - PoporFoundation/NSObject
     - PoporFoundation/NSString
-  - PoporFoundation/Os (1.14)
-  - PoporFoundation/Prefix (1.14):
+  - PoporFoundation/Os (1.21)
+  - PoporFoundation/Prefix (1.21):
     - PoporFoundation/Os
   - PoporImageBrower (0.0.23):
     - MBProgressHUD
     - SDWebImage
   - PoporPopNormalNC (1.01):
     - PoporUI/UIViewController
-  - PoporUI (1.13):
-    - PoporUI/IToast (= 1.13)
-    - PoporUI/ProgressView (= 1.13)
-    - PoporUI/Response (= 1.13)
-    - PoporUI/UIAlertController (= 1.13)
-    - PoporUI/UIButton (= 1.13)
-    - PoporUI/UIDevice (= 1.13)
-    - PoporUI/UIImage (= 1.13)
-    - PoporUI/UILabel (= 1.13)
-    - PoporUI/UINavigationController (= 1.13)
-    - PoporUI/UIScrollView (= 1.13)
-    - PoporUI/UITableView (= 1.13)
-    - PoporUI/UITextField (= 1.13)
-    - PoporUI/UITextView (= 1.13)
-    - PoporUI/UIView (= 1.13)
-    - PoporUI/UIViewController (= 1.13)
-  - PoporUI/IToast (1.13):
+  - PoporUI (1.20):
+    - PoporUI/IToast (= 1.20)
+    - PoporUI/ProgressView (= 1.20)
+    - PoporUI/Response (= 1.20)
+    - PoporUI/UIAlertController (= 1.20)
+    - PoporUI/UIButton (= 1.20)
+    - PoporUI/UIDevice (= 1.20)
+    - PoporUI/UIImage (= 1.20)
+    - PoporUI/UILabel (= 1.20)
+    - PoporUI/UINavigationController (= 1.20)
+    - PoporUI/UIScrollView (= 1.20)
+    - PoporUI/UITableView (= 1.20)
+    - PoporUI/UITextField (= 1.20)
+    - PoporUI/UITextView (= 1.20)
+    - PoporUI/UIView (= 1.20)
+    - PoporUI/UIViewController (= 1.20)
+  - PoporUI/IToast (1.20):
     - PoporFoundation/NSString
-  - PoporUI/ProgressView (1.13)
-  - PoporUI/Response (1.13)
-  - PoporUI/UIAlertController (1.13)
-  - PoporUI/UIButton (1.13):
+  - PoporUI/ProgressView (1.20)
+  - PoporUI/Response (1.20)
+  - PoporUI/UIAlertController (1.20)
+  - PoporUI/UIButton (1.20):
     - PoporFoundation/NSObject
     - PoporFoundation/NSString
     - PoporFoundation/Prefix
     - PoporUI/UIImage
     - PoporUI/UIView
-  - PoporUI/UIDevice (1.13):
+  - PoporUI/UIDevice (1.20):
     - PoporFoundation/NSString
     - PoporUI/IToast
-  - PoporUI/UIImage (1.13)
-  - PoporUI/UILabel (1.13):
+  - PoporUI/UIImage (1.20)
+  - PoporUI/UILabel (1.20):
     - PoporFoundation/NSObject
     - PoporFoundation/NSString
     - PoporUI/UIView
-  - PoporUI/UINavigationController (1.13)
-  - PoporUI/UIScrollView (1.13)
-  - PoporUI/UITableView (1.13)
-  - PoporUI/UITextField (1.13):
+  - PoporUI/UINavigationController (1.20)
+  - PoporUI/UIScrollView (1.20)
+  - PoporUI/UITableView (1.20)
+  - PoporUI/UITextField (1.20):
     - PoporFoundation/NSObject
     - PoporFoundation/NSString
-  - PoporUI/UITextView (1.13)
-  - PoporUI/UIView (1.13)
-  - PoporUI/UIViewController (1.13):
+  - PoporUI/UITextView (1.20)
+  - PoporUI/UIView (1.20)
+  - PoporUI/UIViewController (1.20):
     - PoporFoundation/NSObject
     - PoporFoundation/NSString
     - PoporFoundation/Prefix
   - ReactiveObjC (3.1.1)
-  - SDWebImage (5.7.2):
-    - SDWebImage/Core (= 5.7.2)
-  - SDWebImage/Core (5.7.2)
+  - SDWebImage (5.9.1):
+    - SDWebImage/Core (= 5.9.1)
+  - SDWebImage/Core (5.9.1)
   - StepSlider (1.2.1)
   - YYCache (1.0.4)
   - YYModel (1.0.4)
@@ -136,7 +134,7 @@ DEPENDENCIES:
   - GCDWebServer/WebDAV
   - GCDWebServer/WebUploader
   - Masonry
-  - PoporAFN
+  - PoporAFN (~> 1.07)
   - PoporAlertBubbleView
   - PoporFoundation
   - PoporImageBrower
@@ -148,7 +146,7 @@ DEPENDENCIES:
   - YYModel
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - AFNetworking
     - GCDWebServer
     - Masonry
@@ -166,22 +164,22 @@ SPEC REPOS:
     - YYModel
 
 SPEC CHECKSUMS:
-  AFNetworking: d9fdf484a3c723ec3c558a41cc5754c7e845ee77
+  AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
-  PoporAFN: 6946d6eb1778bbf1702a148960bebca84ca4d798
-  PoporAlertBubbleView: f1b48e79767045630efd422eacefa24c0ce249c1
-  PoporFoundation: 25f70450a23ad082beec1458185e993c16172ea4
+  PoporAFN: ddce973b567ff5b8a26de6517326d74d39c4c3b3
+  PoporAlertBubbleView: 8a02b8b3331534eef503adaa83f77f8867fb74a4
+  PoporFoundation: dc0999db26642dd31bde8629dd641da498713d36
   PoporImageBrower: 5ee21d4c5391fae11d44e4df27888c8212138717
   PoporPopNormalNC: bd272185aba7156e91dcd399a0a9c744a5a02e36
-  PoporUI: 3fb4f0b6317bc3a64b654c2fbb50c64628aef5e3
+  PoporUI: 6e2d89bbf7c6251f796a6ef8734bbfb22342122b
   ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
-  SDWebImage: d9ea4959d99c52276dfada481987018fcaea3d58
+  SDWebImage: a990c053fff71e388a10f3357edb0be17929c9c5
   StepSlider: e1c9b8f3363cf87224e19c000abe9f5146f80dd1
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 6156b1deeef0488901b55d06f2836e863784556c
+PODFILE CHECKSUM: 0fcacbc899427827e197d13b0f501eed47e58b82
 
 COCOAPODS: 1.10.0.beta.2

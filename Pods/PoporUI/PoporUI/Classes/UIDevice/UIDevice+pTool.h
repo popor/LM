@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(int, NetStatusType)
+typedef NS_ENUM(NSInteger, NetStatusType)
 {
     NetStatusType_nil,
     NetStatusType_2G,
@@ -59,10 +59,13 @@ typedef NS_ENUM(int, NetStatusType)
 /**
  * 获取当前可用内存
  */
-+ (long long)getAvailableMemorySize;
+// root 用户可用磁盘空间
++ (long long)diskAvailableSize:(BOOL)root;
+
++ (long long)diskTotalSize;
 
 #pragma mark 【获取人性化容量】
-+ (NSString *)getHumanSize:(float)fileSizeFloat;
-
++ (NSString *)getHumanSize:(CGFloat)fileSizeFloat;
++ (void)fileSize:(NSInteger)fileSize complete:(void (^ __nullable)(CGFloat sizeFloat, NSString * sizeUnit))complete ;
 
 @end

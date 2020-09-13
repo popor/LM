@@ -9,8 +9,6 @@
 #import "AlertBubbleFrame.h"
 #import "AlertBubbleView.h"
 
-#import <PoporUI/UIView+pExtension.h>
-
 @implementation AlertBubbleFrame
 
 + (void)moveCustomView:(UIView *)customView // 中间显示的自定义view
@@ -20,20 +18,19 @@
        AlertBubbleView:(AlertBubbleView *)abView
 {
     AlertBubbleViewDirection direction = abView.direction;
-
-    float customeViewInnerGap = abView.customeViewInnerGap ;// lable insertEdge  gap
-    float miniGap             = abView.miniGap;// borderInnerGap + customeViewInnerGap
-    float borderInnerGap      = abView.borderInnerGap;// lable insertEdge  gap
-
-
-    float trangleHeight       = abView.trangleHeight;
+    NSArray * directionSortArray       = abView.directionSortArray;
     
-    float tX  = arroudRect.origin.x;
-    float tY  = arroudRect.origin.y;
-    float tW  = arroudRect.size.width;
-    float tH  = arroudRect.size.height;
-    float tCX = tX + tW/2;
-    float tCY = tY + tH/2;
+    CGFloat customeViewInnerGap = abView.customeViewInnerGap ;// lable insertEdge  gap
+    CGFloat miniGap             = abView.miniGap;// borderInnerGap + customeViewInnerGap
+    CGFloat borderInnerGap      = abView.borderInnerGap;// lable insertEdge  gap
+    CGFloat trangleHeight       = abView.trangleHeight;
+    
+    CGFloat tX  = arroudRect.origin.x;
+    CGFloat tY  = arroudRect.origin.y;
+    CGFloat tW  = arroudRect.size.width;
+    CGFloat tH  = arroudRect.size.height;
+    CGFloat tCX = tX + tW/2;
+    CGFloat tCY = tY + tH/2;
     
     __block CGRect  cRect;
     __block CGRect  bRect;
@@ -69,44 +66,44 @@
         switch (direction) {
             case AlertBubbleViewDirectionTop:
             case AlertBubbleViewDirectionBottom:{
-                if (point.x - miniGap < customView.width/2) {
+                if (point.x - miniGap < customView.frame.size.width/2) {
                     // 左 越界
                     trangleX = - (point.x - miniGap);
-                }else if(abView.width - miniGap - point.x < customView.width/2){
+                }else if(abView.frame.size.width - miniGap - point.x < customView.frame.size.width/2){
                     // 右 越界
-                    trangleX = - (customView.width - (abView.width - miniGap - point.x));
+                    trangleX = - (customView.frame.size.width - (abView.frame.size.width - miniGap - point.x));
                 }else{
-                    trangleX = -customView.width/2;
+                    trangleX = -customView.frame.size.width/2;
                 }
                 // 赋值
                 if (direction == AlertBubbleViewDirectionTop) {
-                    cRect = CGRectMake(point.x + trangleX, point.y - customView.height
-                                       , customView.width, customView.height);
+                    cRect = CGRectMake(point.x + trangleX, point.y - customView.frame.size.height
+                                       , customView.frame.size.width, customView.frame.size.height);
                 }else{
                     cRect = CGRectMake(point.x + trangleX, point.y
-                                       , customView.width, customView.height);
+                                       , customView.frame.size.width, customView.frame.size.height);
                 }
                 break;
             }
             case AlertBubbleViewDirectionLeft:
             case AlertBubbleViewDirectionRight:{
-                if (point.y - miniGap < customView.height/2) {
+                if (point.y - miniGap < customView.frame.size.height/2) {
                     // 上 越界
                     trangleY = - (point.y - miniGap);
                     
-                }else if (abView.height - miniGap - point.y < customView.height/2) {
+                }else if (abView.frame.size.height - miniGap - point.y < customView.frame.size.height/2) {
                     // 下 越界
-                    trangleY = - (customView.height - (abView.height - miniGap - point.y));
+                    trangleY = - (customView.frame.size.height - (abView.frame.size.height - miniGap - point.y));
                 }else{
-                    trangleY = -customView.height/2;
+                    trangleY = -customView.frame.size.height/2;
                 }
                 // 赋值
                 if (direction == AlertBubbleViewDirectionLeft) {
-                    cRect = CGRectMake(point.x - customView.width, point.y + trangleY
-                                       , customView.width, customView.height);
+                    cRect = CGRectMake(point.x - customView.frame.size.width, point.y + trangleY
+                                       , customView.frame.size.width, customView.frame.size.height);
                 }else{
                     cRect = CGRectMake(point.x, point.y + trangleY
-                                       , customView.width, customView.height);
+                                       , customView.frame.size.width, customView.frame.size.height);
                 }
                 
                 break;
@@ -167,15 +164,31 @@
     if (!rectBlock(direction)) {
         BOOL ok = NO;
         AlertBubbleViewDirection updateDirection = AlertBubbleViewDirectionNone;
-        for (int i = AlertBubbleViewDirectionTop; i<AlertBubbleViewDirectionError; i++) {
-            if (direction == i) {
-                continue;
-            }else{
-                if (rectBlock(i)) {
-                    updateDirection = i;
-                    ok = YES;
-                    //NSLog(@"AlertBubbleView OK 2");
-                    break;
+        if (directionSortArray.count > 0) { // 使用自定义的书序检查
+            for (NSNumber * number in directionSortArray) {
+                NSInteger i = number.integerValue;
+                if (direction == i) {
+                    continue;
+                }else{
+                    if (rectBlock(i)) {
+                        updateDirection = i;
+                        ok = YES;
+                        //NSLog(@"AlertBubbleView OK 2");
+                        break;
+                    }
+                }
+            }
+        } else {
+            for (NSInteger i = AlertBubbleViewDirectionTop; i<AlertBubbleViewDirectionError; i++) {
+                if (direction == i) {
+                    continue;
+                }else{
+                    if (rectBlock(i)) {
+                        updateDirection = i;
+                        ok = YES;
+                        //NSLog(@"AlertBubbleView OK 2");
+                        break;
+                    }
                 }
             }
         }

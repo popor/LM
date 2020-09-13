@@ -147,14 +147,15 @@ static int TimeHourTen = 36000; // 10小时
 }
 
 - (NSString *)stringFromTime:(int)time {
-    NSDate * date = [NSDate dateFromUnixDate:time];
-    if (time < TimeHourOne) {
-        return [self.dateFormatterMS stringFromDate:date];
-    }else if (time < TimeHourTen){
-        return [self.dateFormatter1HMS stringFromDate:date];
-    }else{
-        return [self.dateFormatter10HMS stringFromDate:date];
-    }
+    return [NSDate clockText:time];
+    //    NSDate * date = [NSDate dateFromUnixDate:time];
+    //    if (time < TimeHourOne) {
+    //        return [self.dateFormatterMS stringFromDate:date];
+    //    }else if (time < TimeHourTen){
+    //        return [self.dateFormatter1HMS stringFromDate:date];
+    //    }else{
+    //        return [self.dateFormatter10HMS stringFromDate:date];
+    //    }
 }
 
 - (void)initIosController  {

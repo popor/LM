@@ -37,7 +37,19 @@ NSDictionary+pSwizzling setSafeObject: forKey: 增加对key的判断
 增加:  NSString.NSMutableAttributedString 生成具有间隔的att, 例如身份证、电话号码、银行卡、金钱数等
 
 1.14
-增加NSTimer, 从<<Effective Objective-C 2.0>>截取
+增加NSTimer, (从<<Effective Objective-C 2.0>>截取),解决了NSTimer循环引用的问题,简化使用.
+
+1.15
+适配swift: int > NSInteger,  float > CGFloat
+
+1.16
+NSAssistant 增加 paraNameOf: equal:, 可以获得某个参数的名称, 避免一部分硬代码.
+
+1.20
+整理NSMutableAttributedString+pAtt 和 NSMutableParagraphStyle+pAtt, 增加了链式编程代码.
+
+1.21
+NSAttributedString (pAtt) 整理
 
 ## Author
 

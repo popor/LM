@@ -49,10 +49,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Date转NSString
 + (NSString *)stringFromDate:(NSDate * _Nullable)date formatter:(NSString * _Nullable)formatterString;
-+ (NSString *)stringFromDate:(NSDate * _Nullable)date formatter:(NSString * _Nullable)formatterString timeZone:(int)timeZone;
++ (NSString *)stringFromDate:(NSDate * _Nullable)date formatter:(NSString * _Nullable)formatterString timeZone:(NSInteger)timeZone;
 
 - (NSString *)stringWithFormatter:(NSString * _Nullable)formatterString;
-- (NSString *)stringWithFormatter:(NSString * _Nullable)formatterString timeZone:(int)timeZone;
+- (NSString *)stringWithFormatter:(NSString * _Nullable)formatterString timeZone:(NSInteger)timeZone;
 
 #pragma mark - 返回时间(NSString)
 + (NSDate *)dateFromUnixDateString:(NSString * _Nullable)theUnixDateString;
@@ -79,7 +79,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 // -------------------------------------------------------------------------
 #pragma mark - 获取时差
-+ (int)getZoneHour;
++ (NSInteger)getZoneHour;
+
+#pragma mark - 时钟text
+// 时间为负数的话, 显示为 00:00
++ (NSString *)clockText:(NSTimeInterval)time;
 
 @end
 

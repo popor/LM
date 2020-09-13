@@ -136,12 +136,14 @@
             case 1:{
                 oneL.font = [UIFont systemFontOfSize:13];
                 oneL.text = @"--:--";
+                oneL.textAlignment = NSTextAlignmentRight;
                 self.timeCurrentL = oneL;
                 break;
             }
             case 2:{
                 oneL.font = [UIFont systemFontOfSize:13];
                 oneL.text = @"--:--";
+                oneL.textAlignment = NSTextAlignmentLeft;
                 self.timeDurationL = oneL;
                 break;
             }
@@ -248,26 +250,18 @@
             make.height.mas_equalTo(0.5);
         }];
     }
-    [self.timeCurrentL setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
-    self.timeCurrentL.numberOfLines =0;
-    [self.timeCurrentL mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(15);
-        make.centerY.mas_equalTo(self.slider.mas_centerY);
-        make.height.mas_equalTo(15);
-        make.width.mas_greaterThanOrEqualTo(40);
-    }];
-    [self.timeDurationL setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
-    self.timeDurationL.numberOfLines =0;
-    [self.timeDurationL mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(-15);
-        make.centerY.mas_equalTo(self.slider.mas_centerY);
-        make.height.mas_equalTo(15);
-        make.width.mas_greaterThanOrEqualTo(40);
-    }];
+    
+    CGFloat top = 6;
+    CGFloat lW  = 60;
+    {   // 因为要不停的修改时间, 所以这里不能使用masonry, 会因此浪费大量cpu
+        self.timeCurrentL.frame  = CGRectMake(0, top, lW, 20);
+        self.timeDurationL.frame = CGRectMake(self.width -lW, top, lW, 20);
+    }
+    
     [self.slider mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(6);
-        make.left.mas_equalTo(self.timeCurrentL.mas_right).mas_offset(3);
-        make.right.mas_equalTo(self.timeDurationL.mas_left).mas_offset(-3);
+        make.top.mas_equalTo(top);
+        make.left.mas_equalTo(self.timeCurrentL.right +5);
+        make.right.mas_equalTo(- (self.timeDurationL.width +5));
         make.height.mas_equalTo(20);
     }];
     

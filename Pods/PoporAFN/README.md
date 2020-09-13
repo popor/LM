@@ -71,6 +71,17 @@ config.recordBlock = ^(NSString *url, NSString *title, NSString *method, id head
 
 ```
 
+1.03: 注释了过期代码
+修改之前仓促的修改, 允许单独设置header或者使用默认的manger.header.
+更新接口.
+
+1.04: 增加了form-data请求类型 和 progress 接口.
+鉴于种类太多,  修改了PoporAfnRecordBlock的method的定义
+
+1.06: manager和header分开设置, 更新请求方式, 增加了post data的功能.
+
+1.07: manager 增加注释例子
+
 ## Author
 
 wangkq, 908891024@qq.com

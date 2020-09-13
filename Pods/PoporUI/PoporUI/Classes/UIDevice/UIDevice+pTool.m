@@ -74,7 +74,7 @@
     UIApplication *app = [UIApplication sharedApplication];
     NSArray *children  = [[[app valueForKeyPath:@"statusBar"] valueForKeyPath:@"foregroundView"] subviews];
     NSString *state    = @"无网络";
-    int netType = 0;
+    NSInteger netType = 0;
     //获取到网络返回码
     for (id child in children) {
         if ([child isKindOfClass:NSClassFromString(@"UIStatusBarDataNetworkItemView")]) {
@@ -116,8 +116,8 @@
 + (NetStatusType)getIOSStatusBarNetWorkTypeInt {
     UIApplication *app = [UIApplication sharedApplication];
     NSArray *children  = [[[app valueForKeyPath:@"statusBar"] valueForKeyPath:@"foregroundView"] subviews];
-    int state    = NetStatusType_nil;
-    int netType = 0;
+    NSInteger state    = NetStatusType_nil;
+    NSInteger netType = 0;
     //获取到网络返回码
     for (id child in children) {
         if ([child isKindOfClass:NSClassFromString(@"UIStatusBarDataNetworkItemView")]) {
@@ -182,7 +182,7 @@
 + (BOOL)isIPhone6SOrNewer {
     NSString * platform = [UIDevice devicePlatform];
     if (platform.length > 7) {
-        int number = [[platform substringWithRange:(NSRange){6,1}] intValue];
+        NSInteger number = [[platform substringWithRange:(NSRange){6,1}] integerValue];
         if (number >= 8) {
             return YES;
         }else{
@@ -201,7 +201,7 @@
 + (BOOL)isIPhone5S {
     NSString * platform = [UIDevice devicePlatform];
     if (platform.length > 7) {
-        int number = [[platform substringWithRange:(NSRange){6,1}] intValue];
+        NSInteger number = [[platform substringWithRange:(NSRange){6,1}] integerValue];
         if (number == 6) {
             return YES;
         }else{
@@ -248,24 +248,59 @@
 }
 
 #pragma mark 【获取人性化容量】
-+ (long long)getAvailableMemorySize {
+// root 用户可用磁盘空间
++ (long long)diskAvailableSize:(BOOL)root {
     struct statfs buf;
     unsigned long long freeSpace = -1;
     if (statfs("/var", &buf) >= 0) {
-        freeSpace = (unsigned long long)(buf.f_bsize * buf.f_bavail);
+        if (root) {
+            freeSpace = (unsigned long long)(buf.f_bsize * buf.f_bfree);
+        } else {
+            freeSpace = (unsigned long long)(buf.f_bsize * buf.f_bavail);
+        }
+        /**
+         可以看到f_bfree和f_bavail两个值的区别，前者是硬盘所有剩余空间，后者为非root用户剩余空间。一般ext3文件系统会给root留5%的独享空间。所以如果计算出来的剩余空间总比df显示的要大，那一定是你用了f_bfree。 5%的空间大小这个值是仅仅给root用的，普通用户用不了，目的是防止文件系统的碎片。
+         */
     }
     return freeSpace;
 }
 
-+ (NSString *)getHumanSize:(float)fileSizeFloat {
-    if (fileSizeFloat<1048576.0f) {
-        return [NSString stringWithFormat:@"%.02fKB", fileSizeFloat/1024.0f];
-    }else if(fileSizeFloat<1073741824.0f) {
-        return [NSString stringWithFormat:@"%.02fMB", fileSizeFloat/1048576.0f];
-    }else {
-        return [NSString stringWithFormat:@"%.02fGB", fileSizeFloat/1073741824.0f];
++ (long long)diskTotalSize {
+    struct statfs buf;
+    unsigned long long freeSpace = -1;
+    if (statfs("/var", &buf) >= 0) {
+        freeSpace = (unsigned long long)(buf.f_bsize * buf.f_blocks);
     }
-    // end.
+    return freeSpace;
+}
+
+
++ (NSString *)getHumanSize:(CGFloat)fileSizeFloat {
+    __block NSString * humanSize;
+    [self fileSize:fileSizeFloat complete:^(CGFloat size, NSString *unit) {
+        humanSize = [NSString stringWithFormat:@"%.02f%@", size, unit];
+    }];
+    return humanSize;;
+}
+
++ (void)fileSize:(NSInteger)fileSize complete:(void (^ __nullable)(CGFloat sizeFloat, NSString * sizeUnit))complete {
+    if (!complete) {
+        return;
+    }
+    CGFloat KbMax = 1024.0;
+    CGFloat MbMax = 1048576.0;
+    CGFloat GbMax = 1073741824.0;
+    CGFloat TbMax = 1099511627776.0;
+    
+    if (fileSize < MbMax) {
+        complete(fileSize/KbMax, @"KB");
+    } else if (fileSize < GbMax) {
+        complete(fileSize/MbMax, @"MB");
+    } else if (fileSize < TbMax) {
+        complete(fileSize/GbMax, @"GB");
+    } else {
+        complete(fileSize/TbMax, @"TB");
+    }
 }
 
 @end

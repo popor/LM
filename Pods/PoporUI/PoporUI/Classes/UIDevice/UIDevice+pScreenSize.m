@@ -25,7 +25,7 @@
     return iPhoneX;
 }
 
-+ (int)statusBarHeight {
++ (CGFloat)statusBarHeight {
     if (@available(iOS 11.0, *)) {
         UIWindow *mainWindow = [[[UIApplication sharedApplication] delegate] window];
         return mainWindow.safeAreaInsets.top;
@@ -39,6 +39,15 @@
         return 34;
     }else{
         return 0;
+    }
+}
+
++ (UIEdgeInsets)safeAreaInsets {
+    if (@available(iOS 11.0, *)) {
+        UIWindow *mainWindow = [[[UIApplication sharedApplication] delegate] window];
+        return mainWindow.safeAreaInsets;
+    } else {
+        return UIEdgeInsetsZero;
     }
 }
 

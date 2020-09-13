@@ -72,5 +72,14 @@ return instance;\
     }
 }
 
++ (NSDictionary *)createHeader {
+    PoporAFNConfig * config = [PoporAFNConfig share];
+    if (config.afnHeaderBlock) {
+        return config.afnHeaderBlock();
+    }else{
+        return nil;
+    }
+}
+
 @end
 

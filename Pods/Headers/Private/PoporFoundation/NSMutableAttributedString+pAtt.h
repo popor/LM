@@ -1,0 +1,1 @@
+../../../PoporFoundation/PoporFoundation/Classes/NSString/NSMutableAttributedString+pAtt.h

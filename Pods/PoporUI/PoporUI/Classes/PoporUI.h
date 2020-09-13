@@ -28,7 +28,6 @@ FOUNDATION_EXPORT const unsigned char UIExtensionVersionString[];
 
 // UIButton
 #import "UIButton+pUIEdgeInsets.h"
-#import "UIButton+pLayoutCustom.h"
 
 // UIDevice
 #import "UIDevice+pPermission.h"
@@ -37,11 +36,13 @@ FOUNDATION_EXPORT const unsigned char UIExtensionVersionString[];
 #import "UIDevice+pTool.h"
 
 // UIImage
+#import "UIImage+pColorAtPixel.h"
 #import "UIImage+pCreate.h"
 #import "UIImage+pGradient.h"
 #import "UIImage+pRead.h"
 #import "UIImage+pSave.h"
 #import "UIImage+pTool.h"
+#import "UIImage+pEffects.h"
 
 // UILabel
 #import "UILabel+pFormat.h"
@@ -51,7 +52,6 @@ FOUNDATION_EXPORT const unsigned char UIExtensionVersionString[];
 
 // UINavigationController
 #import "UINavigationController+pRemove.h"
-#import "UINavigationController+pSize.h"
 
 // UIScrollView
 #import "UIScrollView_pPanGR.h"

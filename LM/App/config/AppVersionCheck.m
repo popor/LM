@@ -22,7 +22,7 @@
     NSString * url = @"https://raw.githubusercontent.com/popor/LM/master/LM/version.json";
     
     @weakify(vc);
-    [PoporAFNTool url:url method:PoporMethodGet parameters:nil success:^(NSString * _Nonnull url, NSData * _Nonnull data, NSDictionary * _Nonnull dic) {
+    [PoporAFNTool title:@"访问最新版本号" url:url method:PoporMethodGet parameters:nil success:^(NSString * _Nonnull url, NSData * _Nullable data, NSDictionary * _Nullable dic) {
         @strongify(vc);
         
         AppVersionEntity * entity = [AppVersionEntity yy_modelWithDictionary:dic];
@@ -53,7 +53,7 @@
     NSString * url = @"https://raw.githubusercontent.com/popor/LM/master/LM/version.json";
     
     @weakify(vc);
-    [PoporAFNTool url:url method:PoporMethodGet parameters:nil success:^(NSString * _Nonnull url, NSData * _Nonnull data, NSDictionary * _Nonnull dic) {
+    [PoporAFNTool title:@"访问最新版本号" url:url method:PoporMethodGet parameters:nil success:^(NSString * _Nonnull url, NSData * _Nullable data, NSDictionary * _Nullable dic) {
         @strongify(vc);
         
         AppVersionEntity * entity = [AppVersionEntity yy_modelWithDictionary:dic];
