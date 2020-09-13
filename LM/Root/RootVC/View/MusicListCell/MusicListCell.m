@@ -78,7 +78,7 @@
     });
     
     [self.rightIV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(0);
+        make.right.mas_equalTo(-6);
         make.size.mas_equalTo(self.rightIV.image.size);
         make.centerY.mas_equalTo(0);
     }];

@@ -56,7 +56,7 @@
         self.sliderTimeL = ({
             UILabel * l = [UILabel new];
             l.frame              = CGRectMake(0, 0, 120, 30);
-            l.backgroundColor    = [UIColor redColor];
+            l.backgroundColor    = [UIColor clearColor];
             l.font               = [UIFont systemFontOfSize:15];
             l.textColor          = ColorThemeBlue1;
             l.textAlignment      = NSTextAlignmentCenter;
