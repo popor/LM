@@ -67,7 +67,7 @@
         }
         
     }else{
-        return  MpltShare.list.array.count;
+        return  MAX(MpltShare.list.array.count, 1);
     }
 }
 
@@ -173,7 +173,9 @@
         cell.cellData = entity;
         
         return cell;
-    }else{
+    }
+    
+    else{
         static NSString * CellID = @"CellMusicList";
         UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellID];
         if (!cell) {
@@ -182,7 +184,11 @@
             cell.textLabel.textColor = [UIColor whiteColor];
         }
         MusicPlayListEntity * list = MpltShare.list.array[indexPath.row];
-        cell.textLabel.text = list.name;
+        if (list) {
+            cell.textLabel.text = list.name;
+        } else {
+            cell.textLabel.text = @"请在首页 新增歌单";
+        }
         
         return cell;
     }
@@ -251,23 +257,30 @@
             }
             
         }
-    }else{
+    }
+    
+    else {
         MusicPlayListEntity * list = MpltShare.list.array[indexPath.row];
-        if (self.selectFileEntity.isFolder) {
-            for (FileEntity * fileEntity in self.selectFileEntity.itemArray) {
+        if (list) {
+            if (self.selectFileEntity.isFolder) {
+                for (FileEntity * fileEntity in self.selectFileEntity.itemArray) {
+                    MusicPlayItemEntity * ie = [MusicPlayItemEntity initWithFileEntity:fileEntity];
+                    ie.index = list.recoredNum++;
+                    list.array.add(ie);
+                }
+            }else{
+                FileEntity * fileEntity    = self.selectFileEntity;
                 MusicPlayItemEntity * ie = [MusicPlayItemEntity initWithFileEntity:fileEntity];
                 ie.index = list.recoredNum++;
                 list.array.add(ie);
             }
-        }else{
-            FileEntity * fileEntity    = self.selectFileEntity;
-            MusicPlayItemEntity * ie = [MusicPlayItemEntity initWithFileEntity:fileEntity];
-            ie.index = list.recoredNum++;
-            list.array.add(ie);
+            [MpltShare updateList];
+            
+            AlertToastTitle(@"增加成功");
+        } else {
+            AlertToastTitle(@"请在首页 新增歌单");
         }
-        [MpltShare updateList];
         
-        AlertToastTitle(@"增加成功");
     }
 }
 
