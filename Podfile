@@ -23,7 +23,7 @@ target 'LM' do
   pod 'YYModel'
   pod 'YYCache'
   pod 'GCDWebServer'
-  pod 'KVOController'
+  #  pod 'KVOController'
   pod 'ReactiveObjC'
   
   pod 'StepSlider'

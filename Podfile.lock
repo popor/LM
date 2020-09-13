@@ -21,7 +21,6 @@ PODS:
     - GCDWebServer/Core
   - GCDWebServer/WebUploader (3.5.4):
     - GCDWebServer/Core
-  - KVOController (1.2.0)
   - Masonry (1.1.0)
   - MBProgressHUD (1.2.0)
   - PoporAFN (1.02):
@@ -136,7 +135,6 @@ DEPENDENCIES:
   - GCDWebServer
   - GCDWebServer/WebDAV
   - GCDWebServer/WebUploader
-  - KVOController
   - Masonry
   - PoporAFN
   - PoporAlertBubbleView
@@ -153,7 +151,6 @@ SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - AFNetworking
     - GCDWebServer
-    - KVOController
     - Masonry
     - MBProgressHUD
     - PoporAFN
@@ -171,7 +168,6 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AFNetworking: d9fdf484a3c723ec3c558a41cc5754c7e845ee77
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
-  KVOController: d72ace34afea42468329623b3379ab3cd1d286b6
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   PoporAFN: 6946d6eb1778bbf1702a148960bebca84ca4d798
@@ -186,6 +182,6 @@ SPEC CHECKSUMS:
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: aaa51ee9ce99c8b1bbbc30286c4d9a66f6d0a1c2
+PODFILE CHECKSUM: 6156b1deeef0488901b55d06f2836e863784556c
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.10.0.beta.2

@@ -9,7 +9,6 @@
 #import "MusicPlayTool.h"
 #import "MusicPlayBar.h"
 #import <MediaPlayer/MediaPlayer.h>
-#import <KVOController/KVOController.h>
 
 static int TimeHourOne = 3600;  // 1小时
 static int TimeHourTen = 36000; // 10小时
