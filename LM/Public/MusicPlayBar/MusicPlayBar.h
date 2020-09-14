@@ -72,6 +72,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)rewindBTEvent;
 - (void)forwardBTEvent;
 
+- (void)updateTimeCurrentFrameTime:(CGFloat)widthTag;
+
+- (void)updateTimeDurationFrameTime:(CGFloat)widthTag;
+
 @end
 
 NS_ASSUME_NONNULL_END

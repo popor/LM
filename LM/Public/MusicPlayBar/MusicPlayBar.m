@@ -14,6 +14,9 @@
 #import <PoporUI/UIDevice+pScreenSize.h>
 #import <PoporImageBrower/PoporImageBrower.h>
 
+static CGFloat MPBTimeLabelWidth0 = 38;
+static CGFloat MPBTimeLabelWidth1 = 57;
+
 @interface MusicPlayBar ()
 
 @property (nonatomic        ) BOOL isX;
@@ -136,7 +139,7 @@
             case 1:{
                 oneL.font = [UIFont systemFontOfSize:13];
                 oneL.text = @"--:--";
-                oneL.textAlignment = NSTextAlignmentRight;
+                oneL.textAlignment = NSTextAlignmentLeft;
                 self.timeCurrentL = oneL;
                 break;
             }
@@ -252,18 +255,14 @@
     }
     
     CGFloat top = 6;
-    CGFloat lW  = 60;
+    CGFloat lW  = MPBTimeLabelWidth0;
     {   // 因为要不停的修改时间, 所以这里不能使用masonry, 会因此浪费大量cpu
-        self.timeCurrentL.frame  = CGRectMake(0, top, lW, 20);
-        self.timeDurationL.frame = CGRectMake(self.width -lW, top, lW, 20);
+        self.timeCurrentL.frame  = CGRectMake(15, top, lW, 20);
+        self.timeDurationL.frame = CGRectMake(self.width -lW -self.timeCurrentL.x, top, lW, 20);
+        self.slider.frame        = CGRectMake(self.timeCurrentL.right +5, top, self.timeDurationL.left -self.timeCurrentL.right - 10, 20);
+        
+        self.timeCurrentL.tag = MPBTimeLabelWidth0;
     }
-    
-    [self.slider mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(top);
-        make.left.mas_equalTo(self.timeCurrentL.right +5);
-        make.right.mas_equalTo(- (self.timeDurationL.width +5));
-        make.height.mas_equalTo(20);
-    }];
     
     float width = 40;
     float height = 40;
@@ -271,7 +270,7 @@
     self.rewindBT.hidden = YES;
     self.forwardBT.hidden = YES;
     [self.nameL mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.slider.mas_bottom).mas_offset(10);
+        make.top.mas_equalTo(self.slider.bottom +10);
         make.left.mas_equalTo(15);
         make.height.mas_equalTo(20);
         make.right.mas_equalTo(self.exitPlaySearchLocalBT.mas_left).mas_offset(-5);
@@ -366,6 +365,41 @@
             make.size.mas_equalTo(CGSizeZero);
         }];
         [self.exitPlaySearchLocalBT.superview layoutIfNeeded];
+    }
+}
+
+- (void)updateTimeCurrentFrameTime:(CGFloat)time {
+    CGFloat widthTag = 0;
+    if (time >= 3600) {
+        widthTag = MPBTimeLabelWidth1;
+    } else {
+        widthTag = MPBTimeLabelWidth0;
+    }
+    
+    if (self.timeCurrentL.tag != widthTag) {
+        self.timeCurrentL.tag = widthTag;
+        
+        [UIView animateWithDuration:0.1 animations:^{
+            self.timeCurrentL.width = widthTag;
+            self.slider.frame        = CGRectMake(self.timeCurrentL.right +5, self.slider.y, self.timeDurationL.left -self.timeCurrentL.right - 10, 20);
+        }];
+    }
+}
+
+- (void)updateTimeDurationFrameTime:(CGFloat)time {
+    CGFloat widthTag = 0;
+    if (time >= 3600) {
+        widthTag = MPBTimeLabelWidth1;
+    } else {
+        widthTag = MPBTimeLabelWidth0;
+    }
+    
+    if (self.timeDurationL.tag != widthTag) {
+        self.timeDurationL.tag = widthTag;
+        [UIView animateWithDuration:0.1 animations:^{
+            self.timeDurationL.frame = CGRectMake(self.width -widthTag -self.timeCurrentL.x, self.timeDurationL.y, widthTag, self.timeDurationL.height);
+            self.slider.frame        = CGRectMake(self.timeCurrentL.right +5, self.slider.y, self.timeDurationL.left -self.timeCurrentL.right - 10, 20);
+        }];
     }
 }
 

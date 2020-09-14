@@ -10,9 +10,6 @@
 #import "MusicPlayBar.h"
 #import <MediaPlayer/MediaPlayer.h>
 
-static int TimeHourOne = 3600;  // 1小时
-static int TimeHourTen = 36000; // 10小时
-
 @interface MusicPlayTool() <AVAudioPlayerDelegate>
 
 @property (nonatomic, getter=isNeedActive) BOOL needActive;
@@ -97,13 +94,16 @@ static int TimeHourTen = 36000; // 10小时
     self.racSlideOB = [MusicConfig new];
     
     @weakify(self);
-    [[[RACSignal interval:1 onScheduler:[RACScheduler mainThreadScheduler]] takeUntil:self.racSlideOB.rac_willDeallocSignal] subscribeNext:^(id x) {
+    [[[RACSignal interval:0.1 onScheduler:[RACScheduler mainThreadScheduler]] takeUntil:self.racSlideOB.rac_willDeallocSignal] subscribeNext:^(id x) {
         @strongify(self);
         if (!self.mpb.isSliderSelected) {
             self.mpb.slider.value = self.audioPlayer.currentTime/(float)self.audioPlayer.duration;
         }
-        // NSLog(@"slider.value:%f", self.mpb.slider.value);
-        self.mpb.timeCurrentL.text = [self stringFromTime:self.audioPlayer.currentTime];
+        //CGFloat time = self.audioPlayer.currentTime *59;
+        CGFloat time = self.audioPlayer.currentTime;
+        
+        [self.mpb updateTimeCurrentFrameTime:time];
+        self.mpb.timeCurrentL.text = [self stringFromTime:time];
     }];
 }
 
@@ -137,8 +137,12 @@ static int TimeHourTen = 36000; // 10小时
 
         self.mpb.slider.value       = self.audioPlayer.currentTime/self.audioPlayer.duration;
         self.mpb.timeCurrentL.text  = [self stringFromTime:self.audioPlayer.currentTime];
-
-        self.mpb.timeDurationL.text = [self stringFromTime:self.audioPlayer.duration];
+        
+        //CGFloat time = self.audioPlayer.duration +7200;
+        CGFloat time = self.audioPlayer.duration;
+        self.mpb.timeDurationL.text = [self stringFromTime:time];
+        [self.mpb updateTimeDurationFrameTime:time];
+        
         self.mpb.nameL.text         = [NSString stringWithFormat:@"%@ - %@", self.musicItem.musicAuthor, self.musicItem.musicTitle];
         
     }else{
@@ -148,14 +152,6 @@ static int TimeHourTen = 36000; // 10小时
 
 - (NSString *)stringFromTime:(int)time {
     return [NSDate clockText:time];
-    //    NSDate * date = [NSDate dateFromUnixDate:time];
-    //    if (time < TimeHourOne) {
-    //        return [self.dateFormatterMS stringFromDate:date];
-    //    }else if (time < TimeHourTen){
-    //        return [self.dateFormatter1HMS stringFromDate:date];
-    //    }else{
-    //        return [self.dateFormatter10HMS stringFromDate:date];
-    //    }
 }
 
 - (void)initIosController  {
