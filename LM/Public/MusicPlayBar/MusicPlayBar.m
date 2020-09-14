@@ -132,7 +132,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         switch (i) {
             case 0:{
                 oneL.font = [UIFont systemFontOfSize:14];
-                
+                oneL.text = @"请通过wifi添加音乐文件，新建歌单。"; //欢迎使用：
                 self.nameL = oneL;
                 break;
             }
@@ -233,6 +233,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         UIImageView * iv = [UIImageView new];
         iv.contentMode = UIViewContentModeScaleAspectFill;
         iv.clipsToBounds = YES;
+        iv.image = [UIImage imageNamed:@"music_placeholder"];
         iv.userInteractionEnabled = YES;
         
         UITapGestureRecognizer * tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showBigIVAction)];

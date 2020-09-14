@@ -34,7 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (!self.title) {
-        self.title = @"";
+        self.title = @"LM";
     }
     self.view.backgroundColor = [UIColor whiteColor];
     if (!self.present) {

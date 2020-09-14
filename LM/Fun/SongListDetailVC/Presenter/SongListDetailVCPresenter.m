@@ -391,13 +391,19 @@
 
 - (void)aimAtCurrentItem:(UIButton *)bt {
     MusicPlayListEntity * le = self.mpb.mplt.list.array[self.mpb.mplt.config.indexList];
+    if (!le) {
+        return;
+    }
     if (self.view.listEntity == le) {
         BOOL animation = YES;
         if (self.firstAimAt) {
             self.firstAimAt = NO;
             animation = NO;
         }
-        [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.mpb.mplt.config.indexItem inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:animation];
+        
+        if ([self.view.infoTV.dataSource tableView:self.view.infoTV numberOfRowsInSection:0] > self.mpb.mplt.config.indexItem) {
+            [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.mpb.mplt.config.indexItem inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:animation];
+        }
     }else{
         if (self.firstAimAt) {
             self.firstAimAt = NO;
