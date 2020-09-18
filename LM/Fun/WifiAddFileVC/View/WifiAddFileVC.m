@@ -196,8 +196,8 @@
 
 
 - (void)openFolderAction {
-    NSURL * url = [NSURL fileURLWithPath:@"file:///Users/popor/Desktop/demo/"];
-    //url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"file://%@", [FileTool getAppDocPath]]];
+    //NSURL * url = [NSURL fileURLWithPath:@"file:///Users/popor/Desktop/demo/"];
+    NSURL * url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"file://%@", [FileTool getAppDocPath]]];
     
     [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
         

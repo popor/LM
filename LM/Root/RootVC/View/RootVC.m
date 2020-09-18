@@ -114,6 +114,15 @@
     oneTV.estimatedSectionHeaderHeight = 0;
     oneTV.estimatedSectionFooterHeight = 0;
     
+#if TARGET_OS_MACCATALYST
+    oneTV.backgroundColor = PColorTVBG;
+    oneTV.separatorColor  = [UIColor grayColor];
+    
+#else
+    
+#endif
+    
+    
     [self.view addSubview:oneTV];
     
     return oneTV;

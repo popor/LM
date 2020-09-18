@@ -123,6 +123,14 @@
     oneTV.estimatedSectionHeaderHeight = 0;
     oneTV.estimatedSectionFooterHeight = 0;
     
+#if TARGET_OS_MACCATALYST
+    oneTV.backgroundColor = PColorTVBG;
+    oneTV.separatorColor  = [UIColor grayColor];
+    
+#else
+    
+#endif
+    
     [self.view addSubview:oneTV];
     
     return oneTV;
@@ -161,9 +169,19 @@
 - (UISearchBar *)searchBar {
     if (!searchBar) {
         searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, PSCREEN_SIZE.width, 44+10)];
+#if TARGET_OS_MACCATALYST
+        [searchBar setBackgroundImage:[UIImage imageFromColor:PRGB16(0XF0F0F0) size:CGSizeMake(1, 1)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault]; //此处使底部线条颜色为红色
+        searchBar.tintColor = [UIColor blackColor];
+        //searchBar.searchTextField.backgroundColor = PRGB16F(0Xe1e1e1, 1);
+        searchBar.searchTextField.backgroundColor = [UIColor lightGrayColor];
+        
+        searchBar.searchTextField.textColor = [UIColor blackColor];
+        
+#else
         [searchBar setBackgroundImage:[UIImage imageFromColor:[UIColor clearColor] size:CGSizeMake(1, 1)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault]; //此处使底部线条颜色为红色
-        searchBar.placeholder = @"搜索";
         searchBar.tintColor   = ColorThemeBlue1;
+#endif
+        searchBar.placeholder = @"搜索";
         searchBar.delegate    = self;
     }
     return searchBar;
