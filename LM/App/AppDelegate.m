@@ -25,6 +25,16 @@
 #endif
     [AppNetRecordConfig showNetRecord];
     
+    
+#if TARGET_OS_MACCATALYST
+    // mac 的 Windows尺寸可以变得小点
+    self.window.canResizeToFitContent = YES;
+    
+    
+#else
+    
+#endif
+    
     return YES;
 }
 
