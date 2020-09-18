@@ -74,50 +74,50 @@ PODS:
     - SDWebImage
   - PoporPopNormalNC (1.01):
     - PoporUI/UIViewController
-  - PoporUI (1.20):
-    - PoporUI/IToast (= 1.20)
-    - PoporUI/ProgressView (= 1.20)
-    - PoporUI/Response (= 1.20)
-    - PoporUI/UIAlertController (= 1.20)
-    - PoporUI/UIButton (= 1.20)
-    - PoporUI/UIDevice (= 1.20)
-    - PoporUI/UIImage (= 1.20)
-    - PoporUI/UILabel (= 1.20)
-    - PoporUI/UINavigationController (= 1.20)
-    - PoporUI/UIScrollView (= 1.20)
-    - PoporUI/UITableView (= 1.20)
-    - PoporUI/UITextField (= 1.20)
-    - PoporUI/UITextView (= 1.20)
-    - PoporUI/UIView (= 1.20)
-    - PoporUI/UIViewController (= 1.20)
-  - PoporUI/IToast (1.20):
+  - PoporUI (1.22):
+    - PoporUI/IToast (= 1.22)
+    - PoporUI/ProgressView (= 1.22)
+    - PoporUI/Response (= 1.22)
+    - PoporUI/UIAlertController (= 1.22)
+    - PoporUI/UIButton (= 1.22)
+    - PoporUI/UIDevice (= 1.22)
+    - PoporUI/UIImage (= 1.22)
+    - PoporUI/UILabel (= 1.22)
+    - PoporUI/UINavigationController (= 1.22)
+    - PoporUI/UIScrollView (= 1.22)
+    - PoporUI/UITableView (= 1.22)
+    - PoporUI/UITextField (= 1.22)
+    - PoporUI/UITextView (= 1.22)
+    - PoporUI/UIView (= 1.22)
+    - PoporUI/UIViewController (= 1.22)
+  - PoporUI/IToast (1.22):
     - PoporFoundation/NSString
-  - PoporUI/ProgressView (1.20)
-  - PoporUI/Response (1.20)
-  - PoporUI/UIAlertController (1.20)
-  - PoporUI/UIButton (1.20):
+  - PoporUI/ProgressView (1.22)
+  - PoporUI/Response (1.22)
+  - PoporUI/UIAlertController (1.22)
+  - PoporUI/UIButton (1.22):
     - PoporFoundation/NSObject
     - PoporFoundation/NSString
     - PoporFoundation/Prefix
     - PoporUI/UIImage
     - PoporUI/UIView
-  - PoporUI/UIDevice (1.20):
+  - PoporUI/UIDevice (1.22):
     - PoporFoundation/NSString
     - PoporUI/IToast
-  - PoporUI/UIImage (1.20)
-  - PoporUI/UILabel (1.20):
+  - PoporUI/UIImage (1.22)
+  - PoporUI/UILabel (1.22):
     - PoporFoundation/NSObject
     - PoporFoundation/NSString
     - PoporUI/UIView
-  - PoporUI/UINavigationController (1.20)
-  - PoporUI/UIScrollView (1.20)
-  - PoporUI/UITableView (1.20)
-  - PoporUI/UITextField (1.20):
+  - PoporUI/UINavigationController (1.22)
+  - PoporUI/UIScrollView (1.22)
+  - PoporUI/UITableView (1.22)
+  - PoporUI/UITextField (1.22):
     - PoporFoundation/NSObject
     - PoporFoundation/NSString
-  - PoporUI/UITextView (1.20)
-  - PoporUI/UIView (1.20)
-  - PoporUI/UIViewController (1.20):
+  - PoporUI/UITextView (1.22)
+  - PoporUI/UIView (1.22)
+  - PoporUI/UIViewController (1.22):
     - PoporFoundation/NSObject
     - PoporFoundation/NSString
     - PoporFoundation/Prefix
@@ -139,7 +139,7 @@ DEPENDENCIES:
   - PoporFoundation
   - PoporImageBrower
   - PoporPopNormalNC
-  - PoporUI
+  - PoporUI (~> 1.22)
   - ReactiveObjC
   - StepSlider
   - YYCache
@@ -173,13 +173,13 @@ SPEC CHECKSUMS:
   PoporFoundation: dc0999db26642dd31bde8629dd641da498713d36
   PoporImageBrower: 5ee21d4c5391fae11d44e4df27888c8212138717
   PoporPopNormalNC: bd272185aba7156e91dcd399a0a9c744a5a02e36
-  PoporUI: 6e2d89bbf7c6251f796a6ef8734bbfb22342122b
+  PoporUI: 0d9fab9eba7348b92d333cfec11a188271acb690
   ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
   SDWebImage: a990c053fff71e388a10f3357edb0be17929c9c5
   StepSlider: e1c9b8f3363cf87224e19c000abe9f5146f80dd1
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 0fcacbc899427827e197d13b0f501eed47e58b82
+PODFILE CHECKSUM: e0177acb08de1ee75a5d016b49a335eb2d23678a
 
 COCOAPODS: 1.10.0.beta.2

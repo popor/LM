@@ -12,36 +12,52 @@
 
 @implementation UIButton (pUIEdgeInsets)
 
+// 只包含title的
+- (void)setEdgeType:(PEdgeInsetType)edgeInsetType gap:(CGFloat)spaceGap image:(UIImage *)image title:(NSString *)title titleWidth:(CGFloat)titleWidth {
+    [self setEdgeType:edgeInsetType gap:spaceGap image:image title:title att:nil titleWidth:titleWidth titleSize:CGSizeZero];
+}
+
+- (void)setEdgeType:(PEdgeInsetType)edgeInsetType gap:(CGFloat)spaceGap image:(UIImage *)image title:(NSString *)title titleWidth:(CGFloat)titleWidth titleSize:(CGSize)titleSize {
+    [self setEdgeType:edgeInsetType gap:spaceGap image:image title:title att:nil titleWidth:titleWidth titleSize:titleSize];
+}
+
+// 只包含att的
+- (void)setEdgeType:(PEdgeInsetType)edgeInsetType gap:(CGFloat)spaceGap image:(UIImage *)image att:(NSAttributedString *)att titleWidth:(CGFloat)titleWidth {
+    [self setEdgeType:edgeInsetType gap:spaceGap image:image title:nil att:att titleWidth:titleWidth titleSize:CGSizeZero];
+}
+
+- (void)setEdgeType:(PEdgeInsetType)edgeInsetType gap:(CGFloat)spaceGap image:(UIImage *)image att:(NSAttributedString *)att titleWidth:(CGFloat)titleWidth titleSize:(CGSize)titleSize {
+    [self setEdgeType:edgeInsetType gap:spaceGap image:image title:nil att:att titleWidth:titleWidth titleSize:titleSize];
+}
+
 /**
  *  设置 bt 的image的相对位置, 默认为title是居中的. 后期增加左右对齐的方式
  *
  *  @param edgeInsetType image 的位置
  *  @param spaceGap title 和 image 间距
+ *  @param att attributedText
  *  @param titleWidth 允许的最大宽度
- *  @param attTitle 是否使用 setAttributedTitle 方法, 目前发现不同的方法计算的titlt.size数据不一致
+ *  @param titleSize 允许的预设titleSize, 当titleSize为0的话, 需要依赖titleWidth.
  */
-- (void)setImageInset:(PEdgeInsetType)edgeInsetType spaceGap:(CGFloat)spaceGap titleWidth:(CGFloat)titleWidth attTitle:(BOOL)attTitle {
-    [self setImageInset:edgeInsetType spaceGap:spaceGap titleWidth:titleWidth attTitle:attTitle textSize:CGSizeZero];
-}
-
-- (void)setImageInset:(PEdgeInsetType)edgeInsetType spaceGap:(CGFloat)spaceGap titleWidth:(CGFloat)titleWidth attTitle:(BOOL)attTitle textSize:(CGSize)textSize {
-
+- (void)setEdgeType:(PEdgeInsetType)edgeInsetType gap:(CGFloat)spaceGap image:(UIImage *)image title:(NSString *)title att:(NSAttributedString *)att titleWidth:(CGFloat)titleWidth titleSize:(CGSize)titleSize
+{
+    CGFloat imageWith   = image.size.width;
+    CGFloat imageHeight = image.size.height;
     
-    self.titleLabel.numberOfLines = 0;
-    CGFloat imageWith   = self.imageView.image.size.width;
-    CGFloat imageHeight = self.imageView.image.size.height;
     
-    //    {   // 测试数据
-    //        NSLog(@"spaceGap: %f", spaceGap);
-    //        NSLog(@"imageWith: %f, imageHeight: %f", imageWith, imageHeight);
+    //    {
     //        self.titleLabel.backgroundColor = [UIColor colorWithRed:0.3 green:0.3 blue:0 alpha:0.2];
     //        self.imageView.backgroundColor  = [UIColor redColor];
     //        self.backgroundColor            = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
-    //        
+    //    }
+    //    {   // 测试数据
+    //        NSLog(@"spaceGap: %f", spaceGap);
+    //        NSLog(@"imageWith: %f, imageHeight: %f", imageWith, imageHeight);
     //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
     //            NSLog(@"0.5秒后");
     //            NSLog(@"self.imageView.frame: %@", NSStringFromCGRect(self.imageView.frame));
     //            NSLog(@"UIButton.frame: %@", NSStringFromCGRect(self.frame));
+    //            NSLog(@"UIButton.titleLabel.text: %@", self.titleLabel.text);
     //        });
     //    }
     
@@ -49,16 +65,23 @@
         titleWidth = self.frame.size.width;
     }
     
-    if (CGSizeEqualToSize(CGSizeZero, textSize)) {
-        if (attTitle) {
-            textSize = [self.titleLabel.attributedText sizeWithWidth:titleWidth];
+    if (CGSizeEqualToSize(CGSizeZero, titleSize)) {
+        if (title) {
+            titleSize = [title sizeInFont:self.titleLabel.font width:titleWidth];
+        } else if (att) {
+            titleSize = [att sizeWithWidth:titleWidth];
         } else {
-            textSize = [self.titleLabel.text sizeInFont:self.titleLabel.font width:titleWidth];
+            titleSize = CGSizeZero;
         }
     }
     
-    CGFloat labelWidth  = textSize.width;
-    CGFloat labelHeight = textSize.height;
+    // 如果文字长度为0 或者图片为空, 则把spaceGap变为0.
+    if (CGSizeEqualToSize(CGSizeZero, titleSize) || CGSizeEqualToSize(CGSizeZero, image.size) ) {
+        spaceGap = 0;
+    }
+    
+    CGFloat labelWidth  = titleSize.width;
+    CGFloat labelHeight = titleSize.height;
     
     UIEdgeInsets imageEdgeInsets = UIEdgeInsetsZero;
     UIEdgeInsets labelEdgeInsets = UIEdgeInsetsZero;
@@ -115,9 +138,11 @@
             }
             
             // 现更改image的位移.
-            imageEdgeInsets = UIEdgeInsetsMake(imageMove, 0, -imageMove, spaceGap + labelWidth);
+            imageEdgeInsets = UIEdgeInsetsMake(imageMove, spaceGap/2, -imageMove, spaceGap +labelWidth -spaceGap/2);
             // 此时title会跟随image移动到左侧, 然后再让lable右移spaceGap即可
+            // labelEdgeInsets = UIEdgeInsetsMake(0, spaceGap/2, 0, spaceGap/2); // 曾经一度以为需要这样编写
             labelEdgeInsets = UIEdgeInsetsMake(0, spaceGap, 0, 0);
+            
             break;
         }
             
@@ -161,6 +186,7 @@
         case PEdgeInsetType_RightTop:
         case PEdgeInsetType_RightBottom: {
             self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, labelWidth +imageWith +spaceGap, MAX(imageHeight, labelHeight));
+            //NSLog(@"self.frame: %@", NSStringFromCGRect(self.frame));
             
             CGFloat imageMove = 0;
             // 特别矮的图片, 不太好操作, 高图 不需要修改, 可以自适应
@@ -173,7 +199,8 @@
             }
             
             imageEdgeInsets = UIEdgeInsetsMake(imageMove, labelWidth +spaceGap/2, -imageMove, -spaceGap/2);
-            labelEdgeInsets = UIEdgeInsetsMake(0, -imageWith -spaceGap/2, 0, imageWith + spaceGap/2);
+            //labelEdgeInsets = UIEdgeInsetsMake(0, -imageWith -spaceGap/2, 0, imageWith + spaceGap/2); // 曾经一度以为需要这样编写, 但是在自定义textSize的时候, 发现布局不合适
+            labelEdgeInsets = UIEdgeInsetsMake(0, -imageWith -spaceGap, 0, imageWith);
             self.contentEdgeInsets = UIEdgeInsetsMake(0, spaceGap/2, 0, spaceGap/2);
             
             break;

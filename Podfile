@@ -11,7 +11,7 @@ target 'LM' do
   inhibit_all_warnings!
   
   # Pods for LM
-  pod 'PoporUI'#, '~>1.20'
+  pod 'PoporUI'#, '~>1.22'
   pod 'PoporFoundation' #, '~>1.21'
   pod 'PoporPopNormalNC'
   pod 'PoporAlertBubbleView'
