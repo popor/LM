@@ -7,6 +7,7 @@
 //
 
 #import "MusicPlayListTool.h"
+#import "FileTool.h"
 
 #import <YYCache/YYCache.h>
 #import <YYModel/YYModel.h>
@@ -31,11 +32,8 @@
 
 - (id)init {
     if (self = [super init]) {
-        {
-            NSArray * pathArray = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-            _docPath = pathArray[0]; //获得Document系统文件目录路径
-        }
-        _yyCache   = [YYCache cacheWithName:LmCacheKey];
+        _docPath = [FileTool getAppDocPath]; //获得Document系统文件目录路径
+        _yyCache = [YYCache cacheWithName:LmCacheKey];
         
         {
             BOOL isContains = [_yyCache containsObjectForKey:LmPlayListKey];

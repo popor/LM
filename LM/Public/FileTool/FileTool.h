@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FileTool : NSObject
 
++ (NSString *)getAppDocPath;
+
 + (NSMutableArray *)getArrayAtPath:(NSString *_Nullable)path type:(FileType)type;
 
 @end

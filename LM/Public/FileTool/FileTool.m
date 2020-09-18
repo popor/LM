@@ -10,15 +10,38 @@
 
 @implementation FileTool
 
++ (NSString *)getAppDocPath {
+    return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+}
+
+//+ (NSString *)getAppDocPath {
+//#if !TARGET_OS_MACCATALYST
+//    return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+//#else
+//    return [self getFileToolDoc];
+//#endif
+//}
+//
+//+ (void)saveFileToolDoc:(NSString *)fileToolDoc {
+//    [[NSUserDefaults standardUserDefaults] setObject:fileToolDoc forKey:@"fileToolDoc"];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//}
+//
+//+ (NSString *)getFileToolDoc {
+//    NSString * info = [[NSUserDefaults standardUserDefaults] objectForKey:@"fileToolDoc"];
+//    if (!info) {
+//        info = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+//        [self saveFileToolDoc:info];
+//    }
+//    return info;
+//}
+
+
 + (NSMutableArray *)getArrayAtPath:(NSString * _Nullable)path type:(FileType)type {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     //下面是指定沙盒的路径。我要读取pc上的，所以就用自己pc上的路径
     NSString * folderName;
-    NSString * docPath;
-    {
-        NSArray * pathArray = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        docPath = pathArray[0]; //获得Document系统文件目录路径
-    }
+    NSString * docPath = [self getAppDocPath];
     if (!path) {
         path       = docPath;
         folderName = @"";

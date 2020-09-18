@@ -9,6 +9,8 @@
 #import "WifiAddFileVCPresenter.h"
 #import "WifiAddFileVCRouter.h"
 
+#import "FileTool.h"
+
 @interface WifiAddFileVC ()
 
 @property (nonatomic, strong) WifiAddFileVCPresenter * present;
@@ -72,11 +74,21 @@
 - (void)addViews {
     [self addServer];
     
+#if !TARGET_OS_MACCATALYST
     {
         UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithTitle:@"端口" style:UIBarButtonItemStylePlain target:self action:@selector(updatePortAction)];
         // [item1 setTitleTextAttributes:@{NSFontAttributeName:Font16} forState:UIControlStateNormal];
         self.navigationItem.rightBarButtonItems = @[item1];
     }
+#else
+    {
+        UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithTitle:@"打开" style:UIBarButtonItemStylePlain target:self action:@selector(openFolderAction)];
+        //UIBarButtonItem *item2 = [[UIBarButtonItem alloc] initWithTitle:@"更改" style:UIBarButtonItemStylePlain target:self action:@selector(setFolderAction)];
+        // [item1 setTitleTextAttributes:@{NSFontAttributeName:Font16} forState:UIControlStateNormal];
+        self.navigationItem.rightBarButtonItems = @[item1];
+    }
+#endif
+    
 }
 
 - (void)addServer {
@@ -90,13 +102,15 @@
         
         [self.view addSubview:self.infoL];
     }
-    
+#if !TARGET_OS_MACCATALYST
     if (!self.webUploader) {
-        NSString* documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-        self.webUploader = [[GCDWebUploader alloc] initWithUploadDirectory:documentsPath];
+        self.webUploader = [[GCDWebUploader alloc] initWithUploadDirectory:[FileTool getAppDocPath]];
         //[self.webUploader start];
         [self.webUploader startWithPort:[self getPort] bonjourName:@""];
     }
+#else
+    
+#endif
     
     [self updateInfoL];
     
@@ -114,17 +128,21 @@
 - (void)updateInfoL {
     UIFont * font1 = [UIFont systemFontOfSize:16];
     NSMutableAttributedString * att = [NSMutableAttributedString new];
-    if (!self.webUploader.serverURL) {
-        [att addString:@"1.通过wifi添加文件\n    " font:font1 color:[UIColor blackColor]];
-        [att addString:@"未开启wifi或者无法获得IP地址" font:font1 color:[UIColor redColor]];
-    }else{
-        // NSLog(@"Visit %@ in your web browser", self.webUploader.serverURL);
-        [att addString:@"1.通过wifi添加文件，访问网址:\n    " font:font1 color:[UIColor blackColor]];
-        [att addString:self.webUploader.serverURL.absoluteString font:font1 color:[UIColor redColor]];
+    if (self.webUploader) {
+        if (!self.webUploader.serverURL) {
+            [att addString:@"1.通过wifi添加文件\n    " font:font1 color:[UIColor blackColor]];
+            [att addString:@"未开启wifi或者无法获得IP地址" font:font1 color:[UIColor redColor]];
+        }else{
+            // NSLog(@"Visit %@ in your web browser", self.webUploader.serverURL);
+            [att addString:@"1.通过wifi添加文件，访问网址:\n    " font:font1 color:[UIColor blackColor]];
+            [att addString:self.webUploader.serverURL.absoluteString font:font1 color:[UIColor redColor]];
+        }
+        [att addString:@"\n2.通过itunes将文件放置到Document文件目录下。" font:font1 color:[UIColor blackColor]];
+        [att addString:@"\n3.只支持1层文件夹，暂不支持多层。\n 根目录只支持文件夹，一级目录只支持mp3文件。" font:font1 color:[UIColor redColor]];
+        [att addString:@"\n4.上传文件过程中，请勿关闭本页面、误锁屏。" font:font1 color:[UIColor redColor]];
+    } else {
+        [att addString:[NSString stringWithFormat:@"\n1.请将音乐文件夹复制到: %@。", [FileTool getAppDocPath]] font:font1 color:[UIColor blackColor]];
     }
-    [att addString:@"\n2.通过itunes将文件放置到Document文件目录下。" font:font1 color:[UIColor blackColor]];
-    [att addString:@"\n3.只支持1层文件夹，暂不支持多层。\n 根目录只支持文件夹，一级目录只支持mp3文件。" font:font1 color:[UIColor redColor]];
-    [att addString:@"\n4.上传文件过程中，请勿关闭本页面、误锁屏。" font:font1 color:[UIColor redColor]];
     
     self.infoL.attributedText = att;
 }
@@ -174,6 +192,21 @@
         port = 8080;
     }
     return port;
+}
+
+
+- (void)openFolderAction {
+    NSURL * url = [NSURL fileURLWithPath:@"file:///Users/popor/Desktop/demo/"];
+    //url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"file://%@", [FileTool getAppDocPath]]];
+    
+    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
+        
+    }];
+}
+
+- (void)setFolderAction {
+    
+    
 }
 
 @end
