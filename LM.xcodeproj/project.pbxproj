@@ -139,6 +139,7 @@
 		80F3B930C3AFCB09C6C2E77B /* Pods-LMUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMUITests.release.xcconfig"; path = "Target Support Files/Pods-LMUITests/Pods-LMUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C32678F725145FB9007CADFC /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		C32678F925145FB9007CADFC /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		C3267B2C251489C1007CADFC /* LM.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LM.entitlements; sourceTree = "<group>"; };
 		D517352033FD9281F808A739 /* Pods-LM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LM.release.xcconfig"; path = "Target Support Files/Pods-LM/Pods-LM.release.xcconfig"; sourceTree = "<group>"; };
 		D7B2B70D60E892B2A452617D /* libPods-LM.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LM.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9733473842C796E3D6C9304 /* libPods-LMUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LMUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -262,6 +263,7 @@
 		183BF40B224A1EF1004DE115 /* other */ = {
 			isa = PBXGroup;
 			children = (
+				C3267B2C251489C1007CADFC /* LM.entitlements */,
 				183BF40F224A20E0004DE115 /* AppPrefix.h */,
 				183BF3DF224A1DBB004DE115 /* Main.storyboard */,
 				183BF3E2224A1DBD004DE115 /* Assets.xcassets */,
@@ -848,6 +850,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LM/LM.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7DUQZP3WD7;
 				GCC_PREFIX_HEADER = LM/AppPrefix.h;
@@ -860,6 +863,7 @@
 				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.xyeduzj.LM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -870,6 +874,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LM/LM.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7DUQZP3WD7;
 				GCC_PREFIX_HEADER = LM/AppPrefix.h;
@@ -882,6 +887,7 @@
 				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.xyeduzj.LM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
