@@ -413,6 +413,45 @@
     }
 }
 
+#pragma mark - mac 系统事件
+- (void)listRenameAction {
+    MusicPlayListEntity * list = self.view.listEntity;
+    @weakify(self);
+    {
+        UIAlertController * oneAC = [UIAlertController alertControllerWithTitle:@"修改" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        
+        [oneAC addTextFieldWithConfigurationHandler:^(UITextField *textField){
+            
+            textField.placeholder = @"名称";
+            textField.text = list.name;
+        }];
+        
+        UIAlertAction * cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction * changeAction = [UIAlertAction actionWithTitle:@"修改" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            @strongify(self);
+            UITextField * nameTF = oneAC.textFields[0];
+            if (nameTF.text.length > 0) {
+                list.name = nameTF.text;
+                [MpltShare updateList];
+                
+                self.view.vc.title = nameTF.text;
+            }
+        }];
+        
+        [oneAC addAction:cancleAction];
+        [oneAC addAction:changeAction];
+        
+        [self.view.vc presentViewController:oneAC animated:YES completion:nil];
+    }
+}
+
+- (void)listDeleteAction {
+    [MpltShare.list.array removeObject:self.view.listEntity];
+    [MpltShare updateList];
+    
+    [self.view.vc.navigationController popViewControllerAnimated:YES];
+}
+
 #pragma mark - 搜索
 - (void)searchAction:(UISearchBar *)bar {
     [self.view.searchArray removeAllObjects];

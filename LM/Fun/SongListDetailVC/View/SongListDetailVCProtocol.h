@@ -61,4 +61,7 @@
 
 - (void)searchAction:(UISearchBar *)bar;
 
+- (void)listRenameAction;
+- (void)listDeleteAction;
+
 @end
