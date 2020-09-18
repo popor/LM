@@ -95,7 +95,7 @@
         NSString* documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
         self.webUploader = [[GCDWebUploader alloc] initWithUploadDirectory:documentsPath];
         //[self.webUploader start];
-        [self.webUploader startWithPort:1010 bonjourName:@""];
+        [self.webUploader startWithPort:[self getPort] bonjourName:@""];
     }
     
     [self updateInfoL];
