@@ -18,8 +18,6 @@
 		183BF3E3224A1DBD004DE115 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 183BF3E2224A1DBD004DE115 /* Assets.xcassets */; };
 		183BF3E6224A1DBD004DE115 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 183BF3E4224A1DBD004DE115 /* LaunchScreen.storyboard */; };
 		183BF3E9224A1DBD004DE115 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 183BF3E8224A1DBD004DE115 /* main.m */; };
-		183BF3F3224A1DBD004DE115 /* LMTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 183BF3F2224A1DBD004DE115 /* LMTests.m */; };
-		183BF3FE224A1DBE004DE115 /* LMUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 183BF3FD224A1DBE004DE115 /* LMUITests.m */; };
 		183BF425224A22EC004DE115 /* RootVCRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 183BF41A224A22EC004DE115 /* RootVCRouter.m */; };
 		183BF426224A22EC004DE115 /* RootVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 183BF41E224A22EC004DE115 /* RootVC.m */; };
 		183BF427224A22EC004DE115 /* RootVCInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 183BF420224A22EC004DE115 /* RootVCInteractor.m */; };
@@ -43,7 +41,6 @@
 		18DE13AF2251F78C009920D7 /* MusicInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE13AE2251F78C009920D7 /* MusicInfoCell.m */; };
 		18E52ED32253050C00EF8BF6 /* MusicListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E52ED22253050C00EF8BF6 /* MusicListCell.m */; };
 		18E94AAD22609076009A6C8C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 18E94AAC22609076009A6C8C /* README.md */; };
-		934D4095D2B75CB56DE82906 /* libPods-LMTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 29BA81301DB9758FD1B2E469 /* libPods-LMTests.a */; };
 		C32678F825145FB9007CADFC /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C32678F725145FB9007CADFC /* WidgetKit.framework */; };
 		C32678FA25145FB9007CADFC /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C32678F925145FB9007CADFC /* SwiftUI.framework */; };
 		C32678FD25145FB9007CADFC /* widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32678FC25145FB9007CADFC /* widget.swift */; };
@@ -52,24 +49,9 @@
 		C326790325145FBB007CADFC /* widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = C32678FE25145FB9007CADFC /* widget.intentdefinition */; };
 		C326790625145FBB007CADFC /* widgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C32678F625145FB9007CADFC /* widgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D4807A288BE4B56179FA77D5 /* libPods-LM.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7B2B70D60E892B2A452617D /* libPods-LM.a */; };
-		E8CD01315A4805BCD8D53BE4 /* libPods-LMUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9733473842C796E3D6C9304 /* libPods-LMUITests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		183BF3EF224A1DBD004DE115 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 183BF3CE224A1DBB004DE115 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 183BF3D5224A1DBB004DE115;
-			remoteInfo = LM;
-		};
-		183BF3FA224A1DBE004DE115 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 183BF3CE224A1DBB004DE115 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 183BF3D5224A1DBB004DE115;
-			remoteInfo = LM;
-		};
 		C326790425145FBB007CADFC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 183BF3CE224A1DBB004DE115 /* Project object */;
@@ -117,12 +99,6 @@
 		183BF3E5224A1DBD004DE115 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		183BF3E7224A1DBD004DE115 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		183BF3E8224A1DBD004DE115 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		183BF3EE224A1DBD004DE115 /* LMTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LMTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		183BF3F2224A1DBD004DE115 /* LMTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LMTests.m; sourceTree = "<group>"; };
-		183BF3F4224A1DBD004DE115 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		183BF3F9224A1DBE004DE115 /* LMUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LMUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		183BF3FD224A1DBE004DE115 /* LMUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LMUITests.m; sourceTree = "<group>"; };
-		183BF3FF224A1DBE004DE115 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		183BF40F224A20E0004DE115 /* AppPrefix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppPrefix.h; sourceTree = "<group>"; };
 		183BF419224A22EC004DE115 /* RootVCRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootVCRouter.h; sourceTree = "<group>"; };
 		183BF41A224A22EC004DE115 /* RootVCRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootVCRouter.m; sourceTree = "<group>"; };
@@ -197,22 +173,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4807A288BE4B56179FA77D5 /* libPods-LM.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		183BF3EB224A1DBD004DE115 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				934D4095D2B75CB56DE82906 /* libPods-LMTests.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		183BF3F6224A1DBE004DE115 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E8CD01315A4805BCD8D53BE4 /* libPods-LMUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,8 +265,6 @@
 			children = (
 				18E94AAC22609076009A6C8C /* README.md */,
 				183BF3D8224A1DBB004DE115 /* LM */,
-				183BF3F1224A1DBD004DE115 /* LMTests */,
-				183BF3FC224A1DBE004DE115 /* LMUITests */,
 				C32678FB25145FB9007CADFC /* widget */,
 				183BF3D7224A1DBB004DE115 /* Products */,
 				87C314330D17CE51241C552F /* Pods */,
@@ -318,8 +276,6 @@
 			isa = PBXGroup;
 			children = (
 				183BF3D6224A1DBB004DE115 /* LM.app */,
-				183BF3EE224A1DBD004DE115 /* LMTests.xctest */,
-				183BF3F9224A1DBE004DE115 /* LMUITests.xctest */,
 				C32678F625145FB9007CADFC /* widgetExtension.appex */,
 			);
 			name = Products;
@@ -335,24 +291,6 @@
 				184F370E224B26A100FEB57B /* Fun */,
 			);
 			path = LM;
-			sourceTree = "<group>";
-		};
-		183BF3F1224A1DBD004DE115 /* LMTests */ = {
-			isa = PBXGroup;
-			children = (
-				183BF3F2224A1DBD004DE115 /* LMTests.m */,
-				183BF3F4224A1DBD004DE115 /* Info.plist */,
-			);
-			path = LMTests;
-			sourceTree = "<group>";
-		};
-		183BF3FC224A1DBE004DE115 /* LMUITests */ = {
-			isa = PBXGroup;
-			children = (
-				183BF3FD224A1DBE004DE115 /* LMUITests.m */,
-				183BF3FF224A1DBE004DE115 /* Info.plist */,
-			);
-			path = LMUITests;
 			sourceTree = "<group>";
 		};
 		183BF40B224A1EF1004DE115 /* other */ = {
@@ -679,44 +617,6 @@
 			productReference = 183BF3D6224A1DBB004DE115 /* LM.app */;
 			productType = "com.apple.product-type.application";
 		};
-		183BF3ED224A1DBD004DE115 /* LMTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 183BF405224A1DBE004DE115 /* Build configuration list for PBXNativeTarget "LMTests" */;
-			buildPhases = (
-				7AB3DA7BB4357BEB97789D97 /* [CP] Check Pods Manifest.lock */,
-				183BF3EA224A1DBD004DE115 /* Sources */,
-				183BF3EB224A1DBD004DE115 /* Frameworks */,
-				183BF3EC224A1DBD004DE115 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				183BF3F0224A1DBD004DE115 /* PBXTargetDependency */,
-			);
-			name = LMTests;
-			productName = LMTests;
-			productReference = 183BF3EE224A1DBD004DE115 /* LMTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		183BF3F8224A1DBE004DE115 /* LMUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 183BF408224A1DBE004DE115 /* Build configuration list for PBXNativeTarget "LMUITests" */;
-			buildPhases = (
-				B6CF43EF84AA1FE70231BF95 /* [CP] Check Pods Manifest.lock */,
-				183BF3F5224A1DBE004DE115 /* Sources */,
-				183BF3F6224A1DBE004DE115 /* Frameworks */,
-				183BF3F7224A1DBE004DE115 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				183BF3FB224A1DBE004DE115 /* PBXTargetDependency */,
-			);
-			name = LMUITests;
-			productName = LMUITests;
-			productReference = 183BF3F9224A1DBE004DE115 /* LMUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 		C32678F525145FB9007CADFC /* widgetExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C326790A25145FBB007CADFC /* Build configuration list for PBXNativeTarget "widgetExtension" */;
@@ -752,14 +652,6 @@
 							};
 						};
 					};
-					183BF3ED224A1DBD004DE115 = {
-						CreatedOnToolsVersion = 10.1;
-						TestTargetID = 183BF3D5224A1DBB004DE115;
-					};
-					183BF3F8224A1DBE004DE115 = {
-						CreatedOnToolsVersion = 10.1;
-						TestTargetID = 183BF3D5224A1DBB004DE115;
-					};
 					C32678F525145FB9007CADFC = {
 						CreatedOnToolsVersion = 12.0;
 					};
@@ -780,8 +672,6 @@
 			projectRoot = "";
 			targets = (
 				183BF3D5224A1DBB004DE115 /* LM */,
-				183BF3ED224A1DBD004DE115 /* LMTests */,
-				183BF3F8224A1DBE004DE115 /* LMUITests */,
 				C32678F525145FB9007CADFC /* widgetExtension */,
 			);
 		};
@@ -796,20 +686,6 @@
 				183BF3E3224A1DBD004DE115 /* Assets.xcassets in Resources */,
 				18E94AAD22609076009A6C8C /* README.md in Resources */,
 				183BF3E1224A1DBB004DE115 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		183BF3EC224A1DBD004DE115 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		183BF3F7224A1DBE004DE115 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -840,50 +716,6 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-LM-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7AB3DA7BB4357BEB97789D97 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-LMTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B6CF43EF84AA1FE70231BF95 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-LMUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -948,22 +780,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		183BF3EA224A1DBD004DE115 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				183BF3F3224A1DBD004DE115 /* LMTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		183BF3F5224A1DBE004DE115 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				183BF3FE224A1DBE004DE115 /* LMUITests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C32678F225145FB9007CADFC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -976,16 +792,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		183BF3F0224A1DBD004DE115 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 183BF3D5224A1DBB004DE115 /* LM */;
-			targetProxy = 183BF3EF224A1DBD004DE115 /* PBXContainerItemProxy */;
-		};
-		183BF3FB224A1DBE004DE115 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 183BF3D5224A1DBB004DE115 /* LM */;
-			targetProxy = 183BF3FA224A1DBE004DE115 /* PBXContainerItemProxy */;
-		};
 		C326790525145FBB007CADFC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C32678F525145FB9007CADFC /* widgetExtension */;
@@ -1173,80 +979,6 @@
 			};
 			name = Release;
 		};
-		183BF406224A1DBE004DE115 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4BD68A1A6DDCAC558466342A /* Pods-LMTests.debug.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = LMTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ifcar99.LMTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LM.app/LM";
-			};
-			name = Debug;
-		};
-		183BF407224A1DBE004DE115 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 078253BCBD17386773F1E16B /* Pods-LMTests.release.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = LMTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ifcar99.LMTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LM.app/LM";
-			};
-			name = Release;
-		};
-		183BF409224A1DBE004DE115 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 767D491D9049577971B2EEE5 /* Pods-LMUITests.debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = LMUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ifcar99.LMUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = LM;
-			};
-			name = Debug;
-		};
-		183BF40A224A1DBE004DE115 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 80F3B930C3AFCB09C6C2E77B /* Pods-LMUITests.release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = LMUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ifcar99.LMUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = LM;
-			};
-			name = Release;
-		};
 		C326790825145FBB007CADFC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1314,24 +1046,6 @@
 			buildConfigurations = (
 				183BF403224A1DBE004DE115 /* Debug */,
 				183BF404224A1DBE004DE115 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		183BF405224A1DBE004DE115 /* Build configuration list for PBXNativeTarget "LMTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				183BF406224A1DBE004DE115 /* Debug */,
-				183BF407224A1DBE004DE115 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		183BF408224A1DBE004DE115 /* Build configuration list for PBXNativeTarget "LMUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				183BF409224A1DBE004DE115 /* Debug */,
-				183BF40A224A1DBE004DE115 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
