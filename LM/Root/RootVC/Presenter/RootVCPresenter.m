@@ -240,10 +240,12 @@
         }];
         
         UITableViewRowAction *action1 = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"删除" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+            @strongify(self);
+            
             [MpltShare.list.array removeObjectAtIndex:indexPath.row];
             [MpltShare updateList];
             
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.view.infoTV deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         }];
         
         return @[action1, action0];
