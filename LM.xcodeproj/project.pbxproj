@@ -258,7 +258,6 @@
 			isa = PBXGroup;
 			children = (
 				18E94AAC22609076009A6C8C /* README.md */,
-				18FFE8DD224B0E41002F031F /* Resource */,
 				183BF3D8224A1DBB004DE115 /* LM */,
 				183BF3F1224A1DBD004DE115 /* LMTests */,
 				183BF3FC224A1DBE004DE115 /* LMUITests */,
@@ -582,13 +581,6 @@
 				18E52ED22253050C00EF8BF6 /* MusicListCell.m */,
 			);
 			path = MusicListCell;
-			sourceTree = "<group>";
-		};
-		18FFE8DD224B0E41002F031F /* Resource */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Resource;
 			sourceTree = "<group>";
 		};
 		87C314330D17CE51241C552F /* Pods */ = {

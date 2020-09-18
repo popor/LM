@@ -72,6 +72,11 @@
 - (void)addViews {
     [self addServer];
     
+    {
+        UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithTitle:@"端口" style:UIBarButtonItemStylePlain target:self action:@selector(updatePortAction)];
+        // [item1 setTitleTextAttributes:@{NSFontAttributeName:Font16} forState:UIControlStateNormal];
+        self.navigationItem.rightBarButtonItems = @[item1];
+    }
 }
 
 - (void)addServer {
@@ -89,8 +94,24 @@
     if (!self.webUploader) {
         NSString* documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
         self.webUploader = [[GCDWebUploader alloc] initWithUploadDirectory:documentsPath];
-        [self.webUploader start];
+        //[self.webUploader start];
+        [self.webUploader startWithPort:1010 bonjourName:@""];
     }
+    
+    [self updateInfoL];
+    
+    self.infoL.preferredMaxLayoutWidth = 100;
+    [self.infoL setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
+    self.infoL.numberOfLines =0;
+    [self.infoL mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(10);
+        make.left.mas_equalTo(10);
+        make.right.mas_equalTo(-10);
+        //make.bottom.mas_equalTo(-20);
+    }];
+}
+
+- (void)updateInfoL {
     UIFont * font1 = [UIFont systemFontOfSize:16];
     NSMutableAttributedString * att = [NSMutableAttributedString new];
     if (!self.webUploader.serverURL) {
@@ -106,16 +127,53 @@
     [att addString:@"\n4.上传文件过程中，请勿关闭本页面、误锁屏。" font:font1 color:[UIColor redColor]];
     
     self.infoL.attributedText = att;
+}
+
+- (void)updatePortAction {
+    UIAlertController * oneAC = [UIAlertController alertControllerWithTitle:@"修改端口号" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
-    self.infoL.preferredMaxLayoutWidth = 100;
-    [self.infoL setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
-    self.infoL.numberOfLines =0;
-    [self.infoL mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(10);
-        make.left.mas_equalTo(10);
-        make.right.mas_equalTo(-10);
-        //make.bottom.mas_equalTo(-20);
+    [oneAC addTextFieldWithConfigurationHandler:^(UITextField *textField){
+        
+        textField.placeholder = @"8080";
+        textField.text = [NSString stringWithFormat:@"%li", [self getPort]];
+        textField.keyboardType = UIKeyboardTypeNumberPad;
     }];
+    
+    @weakify(self);
+    UIAlertAction * cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction * changeAction = [UIAlertAction actionWithTitle:@"修改" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        @strongify(self);
+        
+        UITextField * nameTF = oneAC.textFields[0];
+        [self savePort:nameTF.text.integerValue];
+        
+        [self.webUploader stop];
+        [self.webUploader startWithPort:[self getPort] bonjourName:@""];
+        
+        [self updateInfoL];
+    }];
+    
+    [oneAC addAction:cancleAction];
+    [oneAC addAction:changeAction];
+    
+    [self presentViewController:oneAC animated:YES completion:nil];
+}
+
+- (void)savePort:(NSInteger)port {
+    if (port > 65535) {
+        port = 65535;
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%li", port] forKey:@"WifiAddFileVC_port"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSInteger)getPort {
+    NSString * info = [[NSUserDefaults standardUserDefaults] objectForKey:@"WifiAddFileVC_port"];
+    NSInteger port = [info integerValue];
+    if (port == 0) {
+        port = 8080;
+    }
+    return port;
 }
 
 @end
