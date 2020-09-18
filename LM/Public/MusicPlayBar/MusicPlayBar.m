@@ -404,6 +404,11 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     }
 }
 
+- (void)updateProgressSectionFrame {
+    self.timeDurationL.right = self.width -self.timeCurrentL.x;
+    self.slider.frame        = CGRectMake(self.timeCurrentL.right +5, self.slider.y, self.timeDurationL.left -self.timeCurrentL.right - 10, 20);
+}
+
 - (void)playTempArray:(NSArray *)itemArray at:(NSInteger)index {
     [self.mplt.currentTempList removeAllObjects];
     [self.mplt.currentTempList addObjectsFromArray:itemArray];

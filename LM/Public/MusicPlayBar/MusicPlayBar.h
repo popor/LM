@@ -76,6 +76,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateTimeDurationFrameTime:(CGFloat)widthTag;
 
+- (void)updateProgressSectionFrame;
+
 @end
 
 NS_ASSUME_NONNULL_END

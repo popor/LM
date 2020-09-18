@@ -83,10 +83,23 @@
     {
         self.navigationController.navigationBar.tintColor = ColorThemeBlue1;
     }
+    
+#if TARGET_OS_MACCATALYST
+    // mac 模式下需要监听用户缩放frame
+    @weakify(self);
+    [RACObserve(self.navigationController.view, frame) subscribeNext:^(id  _Nullable x) {
+        @strongify(self);
+        [self.playbar updateProgressSectionFrame];
+    }];
+#else
+    
+#endif
+    
 }
 
 - (void)addPlayboard {
     self.playbar = [MusicPlayBar share];
+    
     self.playbar.rootNC = self.navigationController;
     [self.navigationController.view addSubview:self.playbar];
     
