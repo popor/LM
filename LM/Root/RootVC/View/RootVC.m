@@ -67,6 +67,10 @@
     [self addPlayboard];
     
     self.infoTV = [self addTVs];
+    
+    self.view.backgroundColor = self.infoTV.backgroundColor;
+    //self.navigationController.view.backgroundColor = self.infoTV.backgroundColor;
+    
     [self.infoTV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(0);
         make.left.mas_equalTo(0);
