@@ -28,6 +28,7 @@
 @synthesize alertBubbleTVColor;
 @synthesize segmentView;
 @synthesize tvSV;
+@synthesize localMusicVC;
 
 - (instancetype)initWithDic:(NSDictionary *)dic {
     if (self = [super init]) {
@@ -113,9 +114,9 @@
         NSLog(@"刷新frame");
         [self.playbar updateProgressSectionFrame];
         
-        for (UITableView * tv in self.tvArray) {
-            [tv reloadData];
-        }
+        
+        [self.infoTV reloadData];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             self.tvSV.contentSize = CGSizeMake(ceil(self.tvSV.width +1)*2, self.tvSV.height); // mac 全屏之后, 不+1的话, 会导致滑动失效.
         });
@@ -256,36 +257,68 @@
         self.tvSV = sv;
     }
     
-    for (int i = 0; i<self.titleArray.count; i++) {
-        UITableView * oneTV = [self addTVs];
-        oneTV.tag = i;
-        oneTV.backgroundColor = PColorTVBG;
-        [self.tvSV addSubview:oneTV];
-        
-        //[self setMJFreshSearchCV:oneTV];
-        [self.tvArray addObject:oneTV];
-        
-        [oneTV mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(0);
-            make.bottom.mas_equalTo(0);
+    {
+        self.infoTV = ({
+            UITableView * oneTV = [self addTVs];
+            oneTV.tag = 0;
+            oneTV.backgroundColor = PColorTVBG;
+            [self.tvSV addSubview:oneTV];
             
-            make.width.mas_equalTo(self.tvSV);
-            make.height.mas_equalTo(self.tvSV);
-        }];
+            //[self setMJFreshSearchCV:oneTV];
+            [self.tvArray addObject:oneTV];
+            
+            [oneTV mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.mas_equalTo(0);
+                make.bottom.mas_equalTo(0);
+                
+                make.width.mas_equalTo(self.tvSV);
+                make.height.mas_equalTo(self.tvSV);
+            }];
+            oneTV;
+        });
         
+        self.localMusicVC = ({
+            LocalMusicVC * vc = [[LocalMusicVC alloc] initWithDic:nil];
+            
+            [self addChildViewController:vc];
+            [self.tvSV addSubview:vc.view];
+            
+            [self.tvArray addObject:vc.view];
+            
+            [vc.view mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.mas_equalTo(0);
+                make.bottom.mas_equalTo(0);
+                
+                make.width.mas_equalTo(self.tvSV);
+                make.height.mas_equalTo(self.tvSV);
+            }];
+            
+            vc;
+        });
+        
+        [self.tvSV masSpacingHorizontallyWith:self.tvArray];
     }
+    //    for (int i = 0; i<self.titleArray.count; i++) {
+    //        UITableView * oneTV = [self addTVs];
+    //        oneTV.tag = i;
+    //        oneTV.backgroundColor = PColorTVBG;
+    //        [self.tvSV addSubview:oneTV];
+    //
+    //        //[self setMJFreshSearchCV:oneTV];
+    //        [self.tvArray addObject:oneTV];
+    //
+    //        [oneTV mas_makeConstraints:^(MASConstraintMaker *make) {
+    //            make.top.mas_equalTo(0);
+    //            make.bottom.mas_equalTo(0);
+    //
+    //            make.width.mas_equalTo(self.tvSV);
+    //            make.height.mas_equalTo(self.tvSV);
+    //        }];
+    //
+    //    }
     
-    [self.tvSV masSpacingHorizontallyWith:self.tvArray];
+    //    [self.tvSV masSpacingHorizontallyWith:self.tvArray];
  
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        for (UITableView * tv in self.tvArray) {
-            NSLogRect(tv.frame);
-        }
-        NSLogRect(self.tvSV.frame);
-        NSLogRect(self.view.frame);
-        NSLogSize(self.tvSV.contentSize);
-    });
 }
 
 - (CGFloat)statusBarHeight {

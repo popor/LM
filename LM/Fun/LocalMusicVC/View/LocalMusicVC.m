@@ -51,7 +51,7 @@
     [super viewDidLoad];
     
     if (!self.title) {
-        self.title = @"AA";
+        self.title = @"";
     }
     self.view.backgroundColor = [UIColor whiteColor];
 }
@@ -99,7 +99,8 @@
         make.top.mas_equalTo(0);
         make.left.mas_equalTo(0);
         make.right.mas_equalTo(0);
-        make.bottom.mas_equalTo(-self.playbar.height);
+        //make.bottom.mas_equalTo(-self.playbar.height);
+        make.bottom.mas_equalTo(0);
     }];
     
     [self addTapEndEditGRAction];
