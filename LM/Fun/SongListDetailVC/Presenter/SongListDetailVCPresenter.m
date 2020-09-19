@@ -261,7 +261,8 @@
     }
 }
 
-#pragma mark - tv 删除
+
+#pragma mark - tv 删除 目前有ios11 和 之前代码区分
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.view.infoTV) {
         return tableView.isEditing;
@@ -269,15 +270,45 @@
         return NO;
     }
 }
-// 只要实现了这个方法，左滑出现按钮的功能就有了
-// (一旦左滑出现了N个按钮，tableView就进入了编辑模式, tableView.editing = YES)
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_0
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath  API_AVAILABLE(ios(11.0)){
+    if (tableView == self.view.infoTV) {
+        if (@available(iOS 11.0, *)) {
+            @weakify(self);
+            
+            UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:@"删除" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+                @strongify(self);
+                
+                self.view.needUpdateSuperVC = YES;
+                [self.view.listEntity.array removeObjectAtIndex:indexPath.row];
+                [MpltShare updateList];
+                
+                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                
+                completionHandler(YES);
+            }];
+            //也可以设置图片
+            deleteAction.backgroundColor = [UIColor grayColor];
+            
+            
+            UISwipeActionsConfiguration *config = [UISwipeActionsConfiguration configurationWithActions:@[deleteAction]];
+            return config;
+        } else {
+            // Fallback on earlier versions
+            return nil;
+        }
+    } else {
+        return nil;
+    }
 }
 
-- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+#else
+// 只要实现了这个方法，左滑出现按钮的功能就有了
+// (一旦左滑出现了N个按钮，tableView就进入了编辑模式, tableView.editing = YES)
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath { }
+
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.view.infoTV) {
         @weakify(self);
         
@@ -295,6 +326,8 @@
         return nil;
     }
 }
+
+#endif
 
 #pragma mark - VC_EventHandler
 

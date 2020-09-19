@@ -116,9 +116,17 @@
         {
             UIImage * coverImage = [MusicPlayTool imageOfUrl:self.audioPlayer.url];
             if (coverImage) {
-                self.mpb.coverIV.image = [UIImage imageFromImage:coverImage size:CGSizeMake(self.mpb.coverIV.size.width*[UIScreen mainScreen].scale, self.mpb.coverIV.size.height*[UIScreen mainScreen].scale)];
+                CGSize size = CGSizeMake(self.mpb.coverIV.size.width*[UIScreen mainScreen].scale, self.mpb.coverIV.size.height*[UIScreen mainScreen].scale);
+                self.mpb.coverIV.image = [UIImage imageFromImage:coverImage size:size];
                 
-                MPMediaItemArtwork *media = [[MPMediaItemArtwork alloc] initWithImage:coverImage];
+                MPMediaItemArtwork *media;
+#if TARGET_OS_MACCATALYST
+                media = [[MPMediaItemArtwork alloc] initWithBoundsSize:size requestHandler:^UIImage * _Nonnull(CGSize size) {
+                    return coverImage;
+                }];
+#else
+                media = [[MPMediaItemArtwork alloc] initWithImage:coverImage];
+#endif
                 [songInfo setObject:media forKey:MPMediaItemPropertyArtwork];
                 
             }else{

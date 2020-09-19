@@ -212,6 +212,8 @@
     
 }
 
+
+#pragma mark - tv 删除 目前有ios11 和 之前代码区分
 // 这个回调决定了在当前indexPath的Cell是否可以移动。
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.view.infoTV) {
@@ -221,17 +223,52 @@
     }
 }
 
-
-#pragma mark - tv 删除
-// 只要实现了这个方法，左滑出现按钮的功能就有了
-// (一旦左滑出现了N个按钮，tableView就进入了编辑模式, tableView.editing = YES)
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_0
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath  API_AVAILABLE(ios(11.0)){
+    if (tableView == self.view.infoTV) {
+        if (@available(iOS 11.0, *)) {
+            @weakify(self);
+            
+            UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:@"删除" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+                @strongify(self);
+                
+                [MpltShare.list.array removeObjectAtIndex:indexPath.row];
+                [MpltShare updateList];
+                
+                [self.view.infoTV deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                
+                completionHandler(YES);
+            }];
+            //也可以设置图片
+            deleteAction.backgroundColor = [UIColor grayColor];
+            
+            UIContextualAction *renameAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:@"重命名" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+                @strongify(self);
+                [self reListNameActionIndex:indexPath];
+                
+                completionHandler(YES);
+            }];
+            //也可以设置图片
+            renameAction.backgroundColor = [UIColor lightGrayColor];
+            
+            
+            UISwipeActionsConfiguration *config = [UISwipeActionsConfiguration configurationWithActions:@[deleteAction, renameAction]];
+            return config;
+        } else {
+            // Fallback on earlier versions
+            return nil;
+        }
+    } else {
+        return nil;
+    }
 }
 
-- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+#else
+// 只要实现了这个方法，左滑出现按钮的功能就有了
+//(一旦左滑出现了N个按钮，tableView就进入了编辑模式, tableView.editing = YES)
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath { }
+
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.view.infoTV) {
         @weakify(self);
         UITableViewRowAction *action0 = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"重命名" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
@@ -253,6 +290,9 @@
         return nil;
     }
 }
+
+#endif
+
 
 - (void)reListNameActionIndex:(NSIndexPath *)indexPath {
     MusicPlayListEntity * list = MpltShare.list.array[indexPath.row];
