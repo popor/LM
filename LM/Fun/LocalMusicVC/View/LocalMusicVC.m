@@ -7,7 +7,7 @@
 
 #import "LocalMusicVC.h"
 #import "LocalMusicVCPresenter.h"
-#import "LocalMusicVCRouter.h"
+#import "LocalMusicVCInteractor.h"
 
 #import <PoporUI/UIViewController+pTapEndEdit.h>
 @interface LocalMusicVC () <UISearchBarDelegate>
@@ -46,31 +46,14 @@
     return self;
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    [self startMonitorTapEdit];
-}
-
-- (void)viewDidDisappear:(BOOL)animated  {
-    [super viewDidDisappear:animated];
-    
-    [self stopMonitorTapEdit];
-}
-
 - (void)viewDidLoad {
+    [self assembleViper];
     [super viewDidLoad];
+    
     if (!self.title) {
-        self.title = @"本地歌曲";
+        self.title = @"AA";
     }
     self.view.backgroundColor = [UIColor whiteColor];
-    if (!self.present) {
-        [LocalMusicVCRouter setVCPresent:self];
-    }
-    
-    [self addViews];
-    
-    [self addTapEndEditGRAction];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -87,12 +70,23 @@
     return self;
 }
 
-- (void)setMyPresent:(id)present {
-    self.present = present;
+#pragma mark - viper views
+- (void)assembleViper {
+    if (!self.present) {
+        LocalMusicVCPresenter  * present    = [LocalMusicVCPresenter new];
+        LocalMusicVCInteractor * interactor = [LocalMusicVCInteractor new];
+        
+        self.present = present;
+        [present setMyInteractor:interactor];
+        [present setMyView:self];
+        
+        [self addViews];
+        [self startEvent];
+    }
 }
 
-#pragma mark - views
 - (void)addViews {
+    
     self.playbar     = MpbShare;
     self.infoTV      = [self addTVs];
     self.musicListTV = [self addMusicListTVs];
@@ -107,8 +101,36 @@
         make.right.mas_equalTo(0);
         make.bottom.mas_equalTo(-self.playbar.height);
     }];
+    
+    [self addTapEndEditGRAction];
 }
 
+// 开始执行事件,比如获取网络数据
+- (void)startEvent {
+    [self.present startEvent];
+    
+}
+
+////-------
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self startMonitorTapEdit];
+}
+
+- (void)viewDidDisappear:(BOOL)animated  {
+    [super viewDidDisappear:animated];
+    
+    [self stopMonitorTapEdit];
+}
+
+
+#pragma mark - VCProtocol
+- (void)setMyPresent:(id)present {
+    self.present = present;
+}
+
+#pragma mark - views
 - (UITableView *)addTVs {
     UITableViewStyle style = self.isRoot ? UITableViewStyleGrouped:UITableViewStylePlain;
     UITableView * oneTV = [[UITableView alloc] initWithFrame:self.view.bounds style:style];

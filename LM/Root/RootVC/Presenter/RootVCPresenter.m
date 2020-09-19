@@ -12,7 +12,7 @@
 #import "MusicPlayListTool.h"
 
 #import "WifiAddFileVCRouter.h"
-#import "LocalMusicVCRouter.h"
+#import "LocalMusicVC.h"
 #import "SongListDetailVCRouter.h"
 
 #import "MusicListCell.h"
@@ -427,7 +427,7 @@
         [self.view.infoTV reloadData];
     };
     NSDictionary * dic = @{@"deallocBlock":deallocBlock};
-    [self.view.vc.navigationController pushViewController:[LocalMusicVCRouter vcWithDic:dic] animated:YES];
+    [self.view.vc.navigationController pushViewController:[[LocalMusicVC alloc] initWithDic:dic] animated:YES];
 }
 
 - (void)addListAction {

@@ -8,7 +8,7 @@
 #import "LocalMusicVCPresenter.h"
 #import "LocalMusicVCInteractor.h"
 
-#import "LocalMusicVCRouter.h"
+#import "LocalMusicVC.h"
 #import "MusicInfoCell.h"
 
 #import "MusicPlayListTool.h"
@@ -18,6 +18,7 @@
 
 @property (nonatomic, weak  ) id<LocalMusicVCProtocol> view;
 @property (nonatomic, strong) LocalMusicVCInteractor * interactor;
+
 @property (nonatomic, weak  ) FileEntity * selectFileEntity;
 @property (nonatomic, weak  ) MusicPlayBar * mpb;
 @property (nonatomic, weak  ) MusicInfoCell * lastCell;
@@ -29,10 +30,14 @@
 - (id)init {
     if (self = [super init]) {
         self.mpb = MpbShare;
-        [self initInteractors];
         
     }
     return self;
+}
+
+- (void)setMyInteractor:(LocalMusicVCInteractor *)interactor {
+    self.interactor = interactor;
+    
 }
 
 - (void)setMyView:(id<LocalMusicVCProtocol>)view {
@@ -44,12 +49,13 @@
         [self.interactor initData];
     }
     [self.view.infoTV reloadData];
+    
 }
 
-- (void)initInteractors {
-    if (!self.interactor) {
-        self.interactor = [LocalMusicVCInteractor new];
-    }
+// 开始执行事件,比如获取网络数据
+- (void)startEvent {
+    
+    
 }
 
 #pragma mark - VC_DataSource
@@ -223,7 +229,7 @@
         
         if (fileEntity.isFolder) {
             NSDictionary * dic = @{@"title":fileEntity.fileName, @"itemArray":fileEntity.itemArray};
-            [self.view.vc.navigationController pushViewController:[LocalMusicVCRouter vcWithDic:dic] animated:YES];
+            [self.view.vc.navigationController pushViewController:[[LocalMusicVC alloc] initWithDic:dic] animated:YES];
         }else{
             // 播放本地列表的时候, 需要清空播放记录
             self.mpb.mplt.config.indexList = -1;
