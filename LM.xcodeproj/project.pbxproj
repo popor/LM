@@ -263,12 +263,12 @@
 		183BF40B224A1EF1004DE115 /* other */ = {
 			isa = PBXGroup;
 			children = (
-				C3267B2C251489C1007CADFC /* LM.entitlements */,
+				183BF3E2224A1DBD004DE115 /* Assets.xcassets */,
 				183BF40F224A20E0004DE115 /* AppPrefix.h */,
 				183BF3DF224A1DBB004DE115 /* Main.storyboard */,
-				183BF3E2224A1DBD004DE115 /* Assets.xcassets */,
 				183BF3E4224A1DBD004DE115 /* LaunchScreen.storyboard */,
 				183BF3E7224A1DBD004DE115 /* Info.plist */,
+				C3267B2C251489C1007CADFC /* LM.entitlements */,
 				183BF3E8224A1DBD004DE115 /* main.m */,
 				189A5DEB225C92AD001E8A9D /* version.json */,
 			);
