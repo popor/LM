@@ -196,12 +196,17 @@
 
 
 - (void)openFolderAction {
+#if TARGET_OS_MACCATALYST
     //NSURL * url = [NSURL fileURLWithPath:@"file:///Users/popor/Desktop/demo/"];
     NSURL * url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"file://%@", [FileTool getAppDocPath]]];
     
     [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
         
     }];
+#else
+    
+#endif
+    
 }
 
 - (void)setFolderAction {
