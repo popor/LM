@@ -26,6 +26,7 @@ target 'LM' do
   pod 'PoporImageBrower'
   pod 'PoporAFN', '~>1.07'
   #pod 'PoporNetRecord'
+  pod 'PoporSegmentView'
   
   pod 'Masonry'
   pod 'YYModel'

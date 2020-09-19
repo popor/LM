@@ -405,8 +405,21 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 }
 
 - (void)updateProgressSectionFrame {
-    self.timeDurationL.right = self.width -self.timeCurrentL.x;
-    self.slider.frame        = CGRectMake(self.timeCurrentL.right +5, self.slider.y, self.timeDurationL.left -self.timeCurrentL.right - 10, 20);
+    if (self.timeDurationL.right == self.width -self.timeCurrentL.x) { // 如果相同, 有可能是进去了全屏模式
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self updateProgressSectionFrame];
+        });
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [UIView animateWithDuration:0.15 animations:^{
+//                self.timeDurationL.right = self.width -self.timeCurrentL.x;
+//                self.slider.frame        = CGRectMake(self.timeCurrentL.right +5, self.slider.y, self.timeDurationL.left -self.timeCurrentL.right - 10, 20);
+//            }];
+//        });
+        
+    } else {
+        self.timeDurationL.right = self.width -self.timeCurrentL.x;
+        self.slider.frame        = CGRectMake(self.timeCurrentL.right +5, self.slider.y, self.timeDurationL.left -self.timeCurrentL.right - 10, 20);
+    }
 }
 
 - (void)playTempArray:(NSArray *)itemArray at:(NSInteger)index {

@@ -111,28 +111,57 @@
         cell.textLabel.text = RootMoreArray[indexPath.row];
         
         return cell;
-    }else{
-        static NSString * CellID = @"CellIDInfo";
-        MusicListCell * cell = [tableView dequeueReusableCellWithIdentifier:CellID];
-        if (!cell) {
-            cell = [[MusicListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
-            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-            cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
-            cell.tintColor      = ColorThemeBlue1;
+    } else {
+        switch (tableView.tag) {
+            case 0: {
+                static NSString * CellID = @"CellIDInfo0";
+                MusicListCell * cell = [tableView dequeueReusableCellWithIdentifier:CellID];
+                if (!cell) {
+                    cell = [[MusicListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
+                    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+                    cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
+                    cell.tintColor      = ColorThemeBlue1;
+                }
+                MusicPlayListEntity * list = MpltShare.list.array[indexPath.row];
+                cell.cellData = list;
+                cell.titelL.text = [NSString stringWithFormat:@"%@ (%li)", list.name, list.array.count];
+                
+                if(self.mplt.config.indexList == indexPath.row){
+                    cell.rightIV.hidden = NO;
+                    cell.titelL.textColor = ColorThemeBlue1;
+                }else{
+                    cell.rightIV.hidden = YES;
+                    cell.titelL.textColor = [UIColor darkGrayColor];
+                }
+                
+                return cell;
+            }
+            case 1: {
+                static NSString * CellID = @"CellIDInf01";
+                MusicListCell * cell = [tableView dequeueReusableCellWithIdentifier:CellID];
+                if (!cell) {
+                    cell = [[MusicListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
+                    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+                    cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
+                    cell.tintColor      = ColorThemeBlue1;
+                }
+                MusicPlayListEntity * list = MpltShare.list.array[indexPath.row];
+                cell.cellData = list;
+                cell.titelL.text = [NSString stringWithFormat:@"%@ (%li)", list.name, list.array.count];
+                
+                if(self.mplt.config.indexList == indexPath.row){
+                    cell.rightIV.hidden = NO;
+                    cell.titelL.textColor = ColorThemeBlue1;
+                }else{
+                    cell.rightIV.hidden = YES;
+                    cell.titelL.textColor = [UIColor darkGrayColor];
+                }
+                
+                return cell;
+            }
+            default:
+                return nil;
         }
-        MusicPlayListEntity * list = MpltShare.list.array[indexPath.row];
-        cell.cellData = list;
-        cell.titelL.text = [NSString stringWithFormat:@"%@ (%li)", list.name, list.array.count];
-        
-        if(self.mplt.config.indexList == indexPath.row){
-            cell.rightIV.hidden = NO;
-            cell.titelL.textColor = ColorThemeBlue1;
-        }else{
-            cell.rightIV.hidden = YES;
-            cell.titelL.textColor = [UIColor darkGrayColor];
-        }
-        
-        return cell;
     }
 }
 

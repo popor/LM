@@ -11,6 +11,8 @@
 #import <PoporAlertBubbleView/AlertBubbleView.h>
 
 #import "MusicPlayBar.h"
+#import <PoporSegmentView/PoporSegmentView.h>
+#import <PoporMasonry/PoporMasonry.h>
 
 #define RootMoreArray       @[@"新增歌单", @"Wifi添加歌曲", @"查看本地歌曲", @"编辑歌单", @"检查更新"]
 #define RootMoreCheckUpdate 4
@@ -24,12 +26,16 @@
 
 // MARK: 自己的
 @property (nonatomic, weak  ) MusicPlayBar    * playbar;
+@property (nonatomic, copy  ) NSArray         * titleArray;
+@property (nonatomic, strong) NSMutableArray  * tvArray;
 @property (nonatomic, strong) UITableView     * infoTV;
+@property (nonatomic, strong) UITableView     * localTV;
 
 @property (nonatomic, strong) AlertBubbleView * alertBubbleView;
 @property (nonatomic, strong) UITableView     * alertBubbleTV;
 @property (nonatomic, strong) UIColor         * alertBubbleTVColor;
-
+@property (nonatomic, strong) PoporSegmentView * segmentView;
+@property (nonatomic, strong) UIScrollView    * tvSV;
 
 // MARK: 外部注入的
 

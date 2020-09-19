@@ -72,8 +72,13 @@ PODS:
   - PoporImageBrower (0.0.23):
     - MBProgressHUD
     - SDWebImage
+  - PoporMasonry (0.0.01):
+    - Masonry
   - PoporPopNormalNC (1.01):
     - PoporUI/UIViewController
+  - PoporSegmentView (1.12):
+    - Masonry
+    - PoporMasonry
   - PoporUI (1.22):
     - PoporUI/IToast (= 1.22)
     - PoporUI/ProgressView (= 1.22)
@@ -139,6 +144,7 @@ DEPENDENCIES:
   - PoporFoundation
   - PoporImageBrower
   - PoporPopNormalNC
+  - PoporSegmentView
   - PoporUI
   - ReactiveObjC
   - StepSlider
@@ -155,7 +161,9 @@ SPEC REPOS:
     - PoporAlertBubbleView
     - PoporFoundation
     - PoporImageBrower
+    - PoporMasonry
     - PoporPopNormalNC
+    - PoporSegmentView
     - PoporUI
     - ReactiveObjC
     - SDWebImage
@@ -172,7 +180,9 @@ SPEC CHECKSUMS:
   PoporAlertBubbleView: 8a02b8b3331534eef503adaa83f77f8867fb74a4
   PoporFoundation: dc0999db26642dd31bde8629dd641da498713d36
   PoporImageBrower: 5ee21d4c5391fae11d44e4df27888c8212138717
+  PoporMasonry: 158a9af8b88b596707e6da0b1718a9dc20ddca36
   PoporPopNormalNC: bd272185aba7156e91dcd399a0a9c744a5a02e36
+  PoporSegmentView: 89a0e1065f68e512289bc195f246c36c19b2c3fd
   PoporUI: 0d9fab9eba7348b92d333cfec11a188271acb690
   ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
   SDWebImage: a990c053fff71e388a10f3357edb0be17929c9c5
@@ -180,6 +190,6 @@ SPEC CHECKSUMS:
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 7be3714d143ebcb9d1bbb3741c4abdb642e6305d
+PODFILE CHECKSUM: 3177ce621a03596d580705034183e3b429b4ec91
 
 COCOAPODS: 1.10.0.beta.2
