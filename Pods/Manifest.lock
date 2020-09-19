@@ -139,7 +139,7 @@ DEPENDENCIES:
   - PoporFoundation
   - PoporImageBrower
   - PoporPopNormalNC
-  - PoporUI (~> 1.22)
+  - PoporUI
   - ReactiveObjC
   - StepSlider
   - YYCache
@@ -180,6 +180,6 @@ SPEC CHECKSUMS:
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: e0177acb08de1ee75a5d016b49a335eb2d23678a
+PODFILE CHECKSUM: 7be3714d143ebcb9d1bbb3741c4abdb642e6305d
 
 COCOAPODS: 1.10.0.beta.2
