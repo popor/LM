@@ -115,6 +115,11 @@
         NSMutableDictionary *songInfo = [ [NSMutableDictionary alloc] init];
         {
             UIImage * coverImage = [MusicPlayTool imageOfUrl:self.audioPlayer.url];
+            
+            // UIColor * color = [self.defaultCoverImage colorAtPixel:CGPointMake(10, 10)];
+            // 0.2 0.752941 0.745098 1
+            // NSLog(@"1");
+            
             if (coverImage) {
                 CGSize size = CGSizeMake(self.mpb.coverIV.size.width*[UIScreen mainScreen].scale, self.mpb.coverIV.size.height*[UIScreen mainScreen].scale);
                 self.mpb.coverIV.image = [UIImage imageFromImage:coverImage size:size];
