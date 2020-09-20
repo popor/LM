@@ -23,6 +23,10 @@
 @property (nonatomic, weak  ) MusicPlayBar * mpb;
 @property (nonatomic, weak  ) MusicInfoCell * lastCell;
 
+@property (nonatomic, copy  ) UIImage * addImageGray;
+@property (nonatomic, copy  ) UIImage * addImageBlack;
+//[UIImage imageNamed:@"add_gray"]
+
 @end
 
 @implementation LocalMusicVCPresenter
@@ -30,7 +34,9 @@
 - (id)init {
     if (self = [super init]) {
         self.mpb = MpbShare;
-        
+        UIImage * originImage = [UIImage imageNamed:@"add_gray"];
+        self.addImageGray  = [UIImage imageFromImage:originImage changecolor:[UIColor grayColor]];;
+        self.addImageBlack = [UIImage imageFromImage:originImage changecolor:[UIColor blackColor]];
     }
     return self;
 }
@@ -129,9 +135,9 @@
             cell = [[MusicInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID type:MusicInfoCellTypeAdd];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             if (!self.view.itemArray) {
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            }else{
-                cell.accessoryType = UITableViewCellAccessoryNone;
+                
+            } else {
+                
             }
             
             @weakify(self);
@@ -140,24 +146,37 @@
                 @strongify(self);
                 @strongify(cell);
                 
-                FileEntity * entity     = (FileEntity *)cell.cellData;
-                self.selectFileEntity   = entity;
-                
-                [self addMusicPlistFile:entity];
+                FileEntity * entity = (FileEntity *)cell.cellData;
+                if (entity.itemArray.count != 0) {
+                    self.selectFileEntity = entity;
+                    [self addMusicPlistFile:entity];
+                }
             }];
         }
         
         FileEntity * entity;
         if (self.view.isSearchType) {
             entity = self.view.searchArray[indexPath.row];
-        }else{
+        } else {
             entity = self.interactor.infoArray[indexPath.row];
         }
         
         if (entity.isFolder) {
             cell.titelL.text = entity.fileName;
             cell.timeL.text  = [NSString stringWithFormat:@"%li首", entity.itemArray.count];
-        }else{
+            
+            if (entity.itemArray.count == 0) {
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                cell.titelL.textColor = [UIColor grayColor];
+                [cell.addBt setImage:self.addImageGray forState:UIControlStateNormal];
+            } else {
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                cell.titelL.textColor = [UIColor blackColor];
+                [cell.addBt setImage:self.addImageBlack forState:UIControlStateNormal];
+            }
+        } else {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            
             cell.titelL.text = [NSString stringWithFormat:@"%li: %@", indexPath.row+1, entity.musicTitle];
             cell.timeL.text  = entity.musicAuthor;
             
@@ -181,7 +200,7 @@
         return cell;
     }
     
-    else{
+    else {
         static NSString * CellID = @"CellMusicList";
         UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellID];
         if (!cell) {
@@ -228,9 +247,11 @@
         }
         
         if (fileEntity.isFolder) {
-            NSDictionary * dic = @{@"title":fileEntity.fileName, @"itemArray":fileEntity.itemArray};
-            [self.view.vc.navigationController pushViewController:[[LocalMusicVC alloc] initWithDic:dic] animated:YES];
-        }else{
+            if (fileEntity.itemArray.count > 0) {
+                NSDictionary * dic = @{@"title":fileEntity.fileName, @"itemArray":fileEntity.itemArray};
+                [self.view.vc.navigationController pushViewController:[[LocalMusicVC alloc] initWithDic:dic] animated:YES];
+            }
+        } else {
             // 播放本地列表的时候, 需要清空播放记录
             self.mpb.mplt.config.indexList = -1;
             self.mpb.mplt.config.indexItem = -1;
