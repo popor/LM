@@ -211,8 +211,9 @@
         
         // 颜色
         segmentView.backgroundColor = [UIColor clearColor];
-        segmentView.btTitleNColor = PColorBlack;
-        segmentView.btTitleSColor = ColorThemeBlue1;
+        
+        segmentView.btTitleNColor = App_textNColor;
+        segmentView.btTitleSColor = App_textSColor;
         segmentView.btTitleColorGradualChange = YES;
         
         segmentView.btTitleNFont  = PFONT16;
@@ -227,14 +228,12 @@
 
 - (void)addSVs {
     
-    NSLogInt(self.navigationController.navigationBar.translucent);
-    
     if (!self.tvArray) {
         self.tvArray = [NSMutableArray new];
     }
     if (!self.tvSV) {
         UIScrollView_pPanGR * sv = [UIScrollView_pPanGR new];
-        sv.backgroundColor = [UIColor whiteColor];
+        sv.backgroundColor = App_bgColor1;
         sv.pagingEnabled = YES;
         sv.showsHorizontalScrollIndicator = NO;
         [sv.panGestureRecognizer requireGestureRecognizerToFail:self.navigationController.interactivePopGestureRecognizer];
@@ -303,5 +302,26 @@
         return 20;
     }
 }
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    if ([ThemeColor share].userInterfaceStyle != previousTraitCollection.userInterfaceStyle) {
+        [ThemeColor share].userInterfaceStyle = previousTraitCollection.userInterfaceStyle;
+        //NSLog(@"修改系统颜色!");
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            for (UIButton * bt in self.segmentView.btArray) {
+                if (bt.tag != self.segmentView.currentPage) {
+                    [bt setTitleColor:self.segmentView.btTitleNColor forState:UIControlStateNormal];
+                }
+            }
+        });
+        
+    }
+    
+    //self.view.tag = self.view.tag +1;
+    //NSLogInteger(self.view.tag);
+}
+
 
 @end

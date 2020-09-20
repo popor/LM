@@ -41,7 +41,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     if (self = [super init]) {
         self.mpt  = MptShare;
         self.mplt = MpltShare;
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = App_bgColor1;
         [self addViews];
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -75,9 +75,11 @@ static CGFloat MPBTimeLabelWidth1 = 57;
             UISlider * slider = [UISlider new];
             slider.maximumValue   = 1.0;
             slider.minimumValue   = 0.0;
-            slider.tintColor      = ColorThemeBlue1;
+            slider.tintColor      = App_themeColor;
+            slider.minimumTrackTintColor = App_themeColor;
+            slider.maximumTrackTintColor = App_separatorColor;
             
-            //slider.thumbTintColor = ColorThemeBlue1;
+            // slider.thumbTintColor = [UIColor redColor];
             UIImage *image = [UIImage imageFromColor:ColorThemeBlue1 size:CGSizeMake(self.sliderImageWH, self.sliderImageWH) corner:self.sliderImageWH/2];
             [slider setThumbImage:image forState:UIControlStateNormal];
             
@@ -244,7 +246,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     });
     {
         self.lineView = [UIView new];
-        self.lineView.backgroundColor = PColorBlackC;// ColorTV_separator;
+        self.lineView.backgroundColor = App_separatorColor;
         
         [self addSubview:self.lineView];
         [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
