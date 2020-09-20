@@ -396,21 +396,21 @@
 		1856158B224DBEF7004BE073 /* MusicPalyList */ = {
 			isa = PBXGroup;
 			children = (
-				1856158C224DBF0E004BE073 /* MusicPlayList.h */,
-				1856158D224DBF0E004BE073 /* MusicPlayList.m */,
 				18DE13902251BD5F009920D7 /* MusicPlayListTool.h */,
 				18DE13912251BD5F009920D7 /* MusicPlayListTool.m */,
+				C3D58B6D25174A4600A40108 /* list */,
+				18561592224DC077004BE073 /* config */,
 			);
 			path = MusicPalyList;
 			sourceTree = "<group>";
 		};
-		18561592224DC077004BE073 /* MusicConfig */ = {
+		18561592224DC077004BE073 /* config */ = {
 			isa = PBXGroup;
 			children = (
 				18561593224DC089004BE073 /* MusicConfig.h */,
 				18561594224DC089004BE073 /* MusicConfig.m */,
 			);
-			path = MusicConfig;
+			path = config;
 			sourceTree = "<group>";
 		};
 		18561596224DC1D0004BE073 /* WifiAddFileVC */ = {
@@ -604,12 +604,20 @@
 			isa = PBXGroup;
 			children = (
 				180E33BE224E1194008C176D /* FileTool */,
-				18561592224DC077004BE073 /* MusicConfig */,
 				1856158B224DBEF7004BE073 /* MusicPalyList */,
 				184CD1CC224CB99400241B9C /* MusicPlayTool */,
 				184CD1C8224CA60600241B9C /* MusicPlayBar */,
 			);
 			path = MusicPlay;
+			sourceTree = "<group>";
+		};
+		C3D58B6D25174A4600A40108 /* list */ = {
+			isa = PBXGroup;
+			children = (
+				1856158C224DBF0E004BE073 /* MusicPlayList.h */,
+				1856158D224DBF0E004BE073 /* MusicPlayList.m */,
+			);
+			path = list;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

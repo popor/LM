@@ -442,8 +442,8 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 }
 
 - (void)playMusicPlayListEntity:(MusicPlayListEntity *)listEntity at:(NSInteger)index {
-    if (self.mplt.currentWeakList != listEntity.array) {
-        self.mplt.currentWeakList = listEntity.array;
+    if (self.mplt.currentWeakList != listEntity.itemArray) {
+        self.mplt.currentWeakList = listEntity.itemArray;
     }
     self.playBT.selected     = YES;
     if (self.isPlaySearchLocalItem) {
@@ -451,12 +451,12 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         //AlertToastTitle(@"退出 [搜索歌单] 模式");
     }
     
-    if (listEntity.array.count > 0) {
+    if (listEntity.itemArray.count > 0) {
         self.currentItem = self.mplt.currentWeakList[index];
         [self.mpt playItem:self.currentItem autoPlay:YES];
     }
     
-    NSInteger currentListIndex = [self.mplt.list.array indexOfObject:listEntity];
+    NSInteger currentListIndex = [self.mplt.list.songListArray indexOfObject:listEntity];
     if (self.mplt.config.indexList != currentListIndex) {
         self.mplt.config.indexList = currentListIndex;
         if (self.freshBlockRootVC) {
@@ -470,10 +470,10 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 
 // 恢复上次播放记录
 - (void)resumeMusicPlayListEntity:(MusicPlayListEntity *)listEntity at:(NSInteger)index {
-    if (self.mplt.currentWeakList != listEntity.array) {
-        self.mplt.currentWeakList = listEntity.array;
+    if (self.mplt.currentWeakList != listEntity.itemArray) {
+        self.mplt.currentWeakList = listEntity.itemArray;
     }
-    if (listEntity.array.count > 0) {
+    if (listEntity.itemArray.count > 0) {
         self.currentItem = self.mplt.currentWeakList[index];
         [self.mpt playItem:self.currentItem autoPlay:NO];
     }
@@ -586,8 +586,8 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     if (self.isPlaySearchLocalItem) {
         // 假如播放的是搜索或者本地 音乐的话
         if (self.mplt.config.indexList >= 0) {
-            MusicPlayListEntity * le = self.mplt.list.array[self.mplt.config.indexList];
-            itemIndex = [le.array indexOfObject:self.currentItem];
+            MusicPlayListEntity * le = self.mplt.list.songListArray[self.mplt.config.indexList];
+            itemIndex = [le.itemArray indexOfObject:self.currentItem];
             
             if (itemIndex != INTMAX_MAX && itemIndex >= 0) {
                 self.mplt.config.indexItem = itemIndex;
@@ -613,8 +613,8 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     self.playSearchLocalItem = NO;
     
     if (self.mplt.config.indexList >= 0) {
-        MusicPlayListEntity * le = self.mplt.list.array[self.mplt.config.indexList];
-        NSInteger row = [le.array indexOfObject:self.currentItem];
+        MusicPlayListEntity * le = self.mplt.list.songListArray[self.mplt.config.indexList];
+        NSInteger row = [le.itemArray indexOfObject:self.currentItem];
         if (row != INTMAX_MAX) {
             [self playMusicPlayListEntity:le at:row];
             AlertToastTitle(@"退出 [搜索歌单] 模式");
@@ -636,8 +636,8 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 #pragma mark - 恢复上次数据
 - (void)resumeLastStatus{
     
-    if (self.mplt.config.indexList >= 0 && self.mplt.list.array > 0) {
-        [self resumeMusicPlayListEntity:self.mplt.list.array[self.mplt.config.indexList]  at:self.mplt.config.indexItem];
+    if (self.mplt.config.indexList >= 0 && self.mplt.list.songListArray > 0) {
+        [self resumeMusicPlayListEntity:self.mplt.list.songListArray[self.mplt.config.indexList]  at:self.mplt.config.indexItem];
         
         //[self playMusicPlayListEntity:self.mplt.list.array[self.mplt.config.listIndex]  at:self.mplt.config.itemIndex];
     }

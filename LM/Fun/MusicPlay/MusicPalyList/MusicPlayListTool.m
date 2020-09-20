@@ -9,12 +9,7 @@
 #import "MusicPlayListTool.h"
 #import "FileTool.h"
 
-#import <YYCache/YYCache.h>
-#import <YYModel/YYModel.h>
-
 @interface MusicPlayListTool ()
-
-@property (nonatomic, strong) YYCache *yyCache;
 
 @end
 
@@ -33,32 +28,27 @@
 - (id)init {
     if (self = [super init]) {
         _docPath = [FileTool getAppDocPath]; //获得Document系统文件目录路径
-        _yyCache = [YYCache cacheWithName:LmCacheKey];
         
-        {
-            BOOL isContains = [_yyCache containsObjectForKey:LmPlayListKey];
-            if (isContains) {
-                id value    = [_yyCache objectForKey:LmPlayListKey];
-                _list       = [MusicPlayList yy_modelWithJSON:value];
-            }else{
-                _list       = [MusicPlayList new];
-                _list.array = [NSMutableArray new];
-            }
-        }
-        {
-            BOOL isContains = [_yyCache containsObjectForKey:LmConfigKey];
-            if (isContains) {
-                id value    = [_yyCache objectForKey:LmConfigKey];
-                _config     = [MusicConfig yy_modelWithJSON:value];
-            }else{
-                _config     = [MusicConfig new];
-                _config.indexList = -1;
-                _config.indexItem = -1;
-            }
+        NSData * listData = [NSData dataWithContentsOfFile:self.listFilePath];
+        NSData * configData = [NSData dataWithContentsOfFile:self.configFilePath];
+        
+        if (listData) {
+            _list       = [[MusicPlayList alloc] initWithData:listData error:nil];
+        } else {
+            _list       = [MusicPlayList new];
+            _list.songListArray = [NSMutableArray new];
         }
         
-        if (!_list.array) {
-            _list.array = [NSMutableArray new];
+        if (configData) {
+            _config     = [[MusicConfig alloc] initWithData:configData error:nil];
+        } else {
+            _config     = [MusicConfig new];
+            _config.indexList = -1;
+            _config.indexItem = -1;
+        }
+        
+        if (!_list.songListArray) {
+            _list.songListArray = [NSMutableArray new];
         }
         _currentTempList = [NSMutableArray new];
     }
@@ -70,16 +60,25 @@
     MusicPlayListEntity * list = [MusicPlayListEntity new];
     list.name = name;
     list.viewOrder = -1;
-    self.list.array.add(list);
+    self.list.songListArray.add(list);
     [self updateList];
 }
 
 - (void)updateList {
-    [self.yyCache setObject:[self.list yy_modelToJSONString] forKey:LmPlayListKey];
+    [[self.list toJSONString] writeToFile:self.listFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
 
 - (void)updateConfig {
-    [self.yyCache setObject:[self.config yy_modelToJSONString] forKey:LmConfigKey];
+    [[self.config toJSONString] writeToFile:self.configFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+}
+
+
+- (NSString *)listFilePath {
+    return [NSString stringWithFormat:@"%@/%@", [FileTool getAppDocPath], LmPlayListKey];
+}
+
+- (NSString *)configFilePath {
+    return [NSString stringWithFormat:@"%@/%@", [FileTool getAppDocPath], LmConfigKey];
 }
 
 @end

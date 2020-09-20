@@ -1,0 +1,1 @@
+../../../PoporJsonModel/PoporJsonModel/Classes/JSONModel+pSafe.h

@@ -60,7 +60,7 @@
         if (self.view.isSearchType) {
             return self.view.searchArray.count;
         }else{
-            return self.view.listEntity.array.count;
+            return self.view.listEntity.itemArray.count;
         }
     }else{
         return MpViewOrderTitleArray.count;
@@ -113,7 +113,7 @@
         if (self.view.isSearchType) {
             item = self.view.searchArray[indexPath.row];
         }else{
-            item = self.view.listEntity.array[indexPath.row];
+            item = self.view.listEntity.itemArray[indexPath.row];
         }
         
         cell.titelL.text = [NSString stringWithFormat:@"%li: %@", indexPath.row+1, item.musicTitle];
@@ -187,7 +187,7 @@
     if (tableView == self.view.infoTV) {
         
         if (self.view.isSearchType) {
-            self.mpb.mplt.config.indexList = [self.mpb.mplt.list.array indexOfObject:self.view.listEntity];
+            self.mpb.mplt.config.indexList = [self.mpb.mplt.list.songListArray indexOfObject:self.view.listEntity];
             [MpbShare playTempArray:self.view.searchArray at:indexPath.row];
         }else{
             [MpbShare playMusicPlayListEntity:self.view.listEntity at:indexPath.row];
@@ -230,9 +230,9 @@
             [self.mpb.mplt updateList];
             
             // 更新数字配置
-            MusicPlayListEntity * le = self.mpb.mplt.list.array[self.mpb.mplt.config.indexList];
+            MusicPlayListEntity * le = self.mpb.mplt.list.songListArray[self.mpb.mplt.config.indexList];
             if (self.view.listEntity == le) {
-                NSUInteger itemIndex = [le.array indexOfObject:self.mpb.currentItem];
+                NSUInteger itemIndex = [le.itemArray indexOfObject:self.mpb.currentItem];
                 self.mpb.mplt.config.indexItem = itemIndex;
                 [self.mpb.mplt updateConfig];
             }
@@ -244,13 +244,13 @@
 // 这个回调实现了以后，就会出现更换位置的按钮，回调本身用来处理更换位置后的数据交换。
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     if (tableView == self.view.infoTV) {
-        MusicPlayItemEntity * ie0 = self.view.listEntity.array[sourceIndexPath.row];
-        MusicPlayItemEntity * ie1 = self.view.listEntity.array[destinationIndexPath.row];
+        MusicPlayItemEntity * ie0 = self.view.listEntity.itemArray[sourceIndexPath.row];
+        MusicPlayItemEntity * ie1 = self.view.listEntity.itemArray[destinationIndexPath.row];
         NSInteger i = ie0.index;
         ie0.index   = ie1.index;
         ie1.index   = i;
         
-        [self.view.listEntity.array exchangeObjectAtIndex:sourceIndexPath.row withObjectAtIndex:destinationIndexPath.row];
+        [self.view.listEntity.itemArray exchangeObjectAtIndex:sourceIndexPath.row withObjectAtIndex:destinationIndexPath.row];
     }else{
         
     }
@@ -285,7 +285,7 @@
                 @strongify(self);
                 
                 self.view.needUpdateSuperVC = YES;
-                [self.view.listEntity.array removeObjectAtIndex:indexPath.row];
+                [self.view.listEntity.itemArray removeObjectAtIndex:indexPath.row];
                 [MpltShare updateList];
                 
                 [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -427,7 +427,7 @@
 }
 
 - (void)aimAtCurrentItem:(UIButton *)bt {
-    MusicPlayListEntity * le = self.mpb.mplt.list.array[self.mpb.mplt.config.indexList];
+    MusicPlayListEntity * le = self.mpb.mplt.list.songListArray[self.mpb.mplt.config.indexList];
     if (!le) {
         return;
     }
@@ -483,7 +483,7 @@
 }
 
 - (void)listDeleteAction {
-    [MpltShare.list.array removeObject:self.view.listEntity];
+    [MpltShare.list.songListArray removeObject:self.view.listEntity];
     [MpltShare updateList];
     
     [self.view.vc.navigationController popViewControllerAnimated:YES];
@@ -493,7 +493,7 @@
 - (void)searchAction:(UISearchBar *)bar {
     [self.view.searchArray removeAllObjects];
     NSString * text = bar.text.lowercaseString;
-    for (MusicPlayItemEntity * item in self.view.listEntity.array) {
+    for (MusicPlayItemEntity * item in self.view.listEntity.itemArray) {
         if ([item.fileName.lowercaseString containsString:text]) {
             [self.view.searchArray addObject:item];
         }

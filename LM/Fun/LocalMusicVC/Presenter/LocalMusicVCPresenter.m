@@ -79,7 +79,7 @@
         }
         
     }else{
-        return  MAX(MpltShare.list.array.count, 1);
+        return  MAX(MpltShare.list.songListArray.count, 1);
     }
 }
 
@@ -225,7 +225,7 @@
             cell.backgroundColor = [UIColor clearColor];
             cell.textLabel.textColor = [UIColor whiteColor];
         }
-        MusicPlayListEntity * list = MpltShare.list.array[indexPath.row];
+        MusicPlayListEntity * list = MpltShare.list.songListArray[indexPath.row];
         if (list) {
             cell.textLabel.text = list.name;
         } else {
@@ -304,19 +304,19 @@
     }
     
     else {
-        MusicPlayListEntity * list = MpltShare.list.array[indexPath.row];
+        MusicPlayListEntity * list = MpltShare.list.songListArray[indexPath.row];
         if (list) {
             if (self.selectFileEntity.isFolder) {
                 for (FileEntity * fileEntity in self.selectFileEntity.itemArray) {
                     MusicPlayItemEntity * ie = [MusicPlayItemEntity initWithFileEntity:fileEntity];
                     ie.index = list.recoredNum++;
-                    list.array.add(ie);
+                    list.itemArray.add(ie);
                 }
             }else{
                 FileEntity * fileEntity    = self.selectFileEntity;
                 MusicPlayItemEntity * ie = [MusicPlayItemEntity initWithFileEntity:fileEntity];
                 ie.index = list.recoredNum++;
-                list.array.add(ie);
+                list.itemArray.add(ie);
             }
             [MpltShare updateList];
             

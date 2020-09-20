@@ -27,10 +27,11 @@ target 'LM' do
   pod 'PoporAFN', '~>1.07'
   #pod 'PoporNetRecord'
   pod 'PoporSegmentView'
+  pod 'PoporJsonModel'
   
   pod 'Masonry'
-  pod 'YYModel'
-  pod 'YYCache'
+  #  pod 'YYModel'
+  #  pod 'YYCache'
   pod 'GCDWebServer'
   #  pod 'KVOController'
   pod 'ReactiveObjC'

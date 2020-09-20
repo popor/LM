@@ -63,7 +63,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return MpltShare.list.array.count;
+    return MpltShare.list.songListArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -112,9 +112,9 @@
         cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
         cell.tintColor      = ColorThemeBlue1;
     }
-    MusicPlayListEntity * list = MpltShare.list.array[indexPath.row];
+    MusicPlayListEntity * list = MpltShare.list.songListArray[indexPath.row];
     cell.cellData = list;
-    cell.titelL.text = [NSString stringWithFormat:@"%@ (%li)", list.name, list.array.count];
+    cell.titelL.text = [NSString stringWithFormat:@"%@ (%li)", list.name, list.itemArray.count];
     
     if(self.mplt.config.indexList == indexPath.row){
         cell.rightIV.hidden = NO;
@@ -139,7 +139,7 @@
         [self.view.infoTV reloadData];
     };
     
-    MusicPlayListEntity * list = MpltShare.list.array[indexPath.row];
+    MusicPlayListEntity * list = MpltShare.list.songListArray[indexPath.row];
     NSDictionary * dic = @{@"title":list.name,
                            @"listEntity":list,
                            @"deallocBlock":deallocBlock,
@@ -166,7 +166,7 @@
 // 这个回调实现了以后，就会出现更换位置的按钮，回调本身用来处理更换位置后的数据交换。
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     if (tableView == self.view.infoTV) {
-        [MpltShare.list.array exchangeObjectAtIndex:sourceIndexPath.row withObjectAtIndex:destinationIndexPath.row];
+        [MpltShare.list.songListArray exchangeObjectAtIndex:sourceIndexPath.row withObjectAtIndex:destinationIndexPath.row];
         [MpltShare updateList];
     }else{
         
@@ -194,7 +194,7 @@
             UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:@"删除" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
                 @strongify(self);
                 
-                [MpltShare.list.array removeObjectAtIndex:indexPath.row];
+                [MpltShare.list.songListArray removeObjectAtIndex:indexPath.row];
                 [MpltShare updateList];
                 
                 [self.view.infoTV deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -257,7 +257,7 @@
 
 
 - (void)reListNameActionIndex:(NSIndexPath *)indexPath {
-    MusicPlayListEntity * list = MpltShare.list.array[indexPath.row];
+    MusicPlayListEntity * list = MpltShare.list.songListArray[indexPath.row];
     @weakify(self);
     {
         UIAlertController * oneAC = [UIAlertController alertControllerWithTitle:@"修改" message:nil preferredStyle:UIAlertControllerStyleAlert];
