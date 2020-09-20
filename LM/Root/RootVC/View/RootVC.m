@@ -21,13 +21,14 @@
 @synthesize playbar;
 @synthesize titleArray;
 @synthesize tvArray;
-@synthesize infoTV;
-@synthesize localTV;
+//@synthesize infoTV;
+//@synthesize localTV;
 @synthesize alertBubbleView;
 @synthesize alertBubbleTV;
 @synthesize alertBubbleTVColor;
 @synthesize segmentView;
 @synthesize tvSV;
+@synthesize songListVC;
 @synthesize localMusicVC;
 
 
@@ -125,7 +126,7 @@
         [self.playbar updateProgressSectionFrame];
         
         
-        [self.infoTV reloadData];
+        // [self.infoTV reloadData];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             self.tvSV.contentSize = CGSizeMake(ceil(self.tvSV.width +1)*2, self.tvSV.height); // mac 全屏之后, 不+1的话, 会导致滑动失效.
@@ -156,36 +157,11 @@
         make.height.mas_equalTo(self.playbar.height);
     }];
     self.playbar.freshBlockRootVC = ^{
-        [self.infoTV reloadRowsAtIndexPaths:self.infoTV.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationNone];
+        // [self.infoTV reloadRowsAtIndexPaths:self.infoTV.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationNone];
     };
 }
 
-- (UITableView *)addTVs {
-    UITableView * oneTV = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-    
-    oneTV.delegate   = self.present;
-    oneTV.dataSource = self.present;
-    
-    oneTV.allowsMultipleSelectionDuringEditing = YES;
-    oneTV.directionalLockEnabled = YES;
-    
-    oneTV.estimatedRowHeight           = 0;
-    oneTV.estimatedSectionHeaderHeight = 0;
-    oneTV.estimatedSectionFooterHeight = 0;
-    
-#if TARGET_OS_MACCATALYST
-    oneTV.backgroundColor = PColorTVBG;
-    oneTV.separatorColor  = [UIColor grayColor];
-    
-#else
-    
-#endif
-    
-    
-    [self.view addSubview:oneTV];
-    
-    return oneTV;
-}
+
 
 - (UITableView *)addAlertBubbleTV {
     UITableView * oneTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 130, RootMoreTvCellH * RootMoreArray.count) style:UITableViewStylePlain];
@@ -274,23 +250,41 @@
     }
     
     {
-        self.infoTV = ({
-            UITableView * oneTV = [self addTVs];
-            oneTV.tag = 0;
-            oneTV.backgroundColor = PColorTVBG;
-            [self.tvSV addSubview:oneTV];
+        //        self.infoTV = ({
+        //            UITableView * oneTV = [self addTVs];
+        //            oneTV.tag = 0;
+        //            oneTV.backgroundColor = PColorTVBG;
+        //            [self.tvSV addSubview:oneTV];
+        //
+        //            //[self setMJFreshSearchCV:oneTV];
+        //            [self.tvArray addObject:oneTV];
+        //
+        //            [oneTV mas_makeConstraints:^(MASConstraintMaker *make) {
+        //                make.top.mas_equalTo(0);
+        //                make.bottom.mas_equalTo(0);
+        //
+        //                make.width.mas_equalTo(self.tvSV);
+        //                make.height.mas_equalTo(self.tvSV);
+        //            }];
+        //            oneTV;
+        //        });
+        self.songListVC = ({
+            SongListVC * vc = [[SongListVC alloc] initWithDic:nil];
             
-            //[self setMJFreshSearchCV:oneTV];
-            [self.tvArray addObject:oneTV];
+            [self addChildViewController:vc];
+            [self.tvSV addSubview:vc.view];
             
-            [oneTV mas_makeConstraints:^(MASConstraintMaker *make) {
+            [self.tvArray addObject:vc.view];
+            
+            [vc.view mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.mas_equalTo(0);
                 make.bottom.mas_equalTo(0);
                 
                 make.width.mas_equalTo(self.tvSV);
                 make.height.mas_equalTo(self.tvSV);
             }];
-            oneTV;
+            
+            vc;
         });
         
         self.localMusicVC = ({

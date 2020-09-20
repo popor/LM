@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (UIViewController *)vc;
 
 // MARK: 自己的
+@property (nonatomic, strong) UITableView * infoTV;
 
 // MARK: 外部注入的
 

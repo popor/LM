@@ -9,7 +9,7 @@
 #import "SongListVCProtocol.h"
 
 // 处理和View事件
-@interface SongListVCPresenter : NSObject <SongListVCEventHandler, SongListVCDataSource>
+@interface SongListVCPresenter : NSObject <SongListVCEventHandler, SongListVCDataSource, UITableViewDelegate, UITableViewDataSource>
 
 - (void)setMyInteractor:(id)interactor;
 

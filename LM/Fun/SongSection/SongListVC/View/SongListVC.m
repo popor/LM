@@ -16,12 +16,11 @@
 @end
 
 @implementation SongListVC
+@synthesize infoTV;
 
 - (instancetype)initWithDic:(NSDictionary *)dic {
     if (self = [super init]) {
-        if (dic) {
-            self.title = dic[@"title"];
-        }
+//        [nsass]
     }
     return self;
 }
@@ -66,7 +65,7 @@
 }
 
 - (void)addViews {
-    
+    self.infoTV = [self addTVs];
     
 }
 
@@ -78,6 +77,31 @@
 
 // -----------------------------------------------------------------------------
 
-
+- (UITableView *)addTVs {
+    UITableView * oneTV = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    
+    oneTV.delegate   = self.present;
+    oneTV.dataSource = self.present;
+    
+    oneTV.allowsMultipleSelectionDuringEditing = YES;
+    oneTV.directionalLockEnabled = YES;
+    
+    oneTV.estimatedRowHeight           = 0;
+    oneTV.estimatedSectionHeaderHeight = 0;
+    oneTV.estimatedSectionFooterHeight = 0;
+    
+#if TARGET_OS_MACCATALYST
+    oneTV.backgroundColor = PColorTVBG;
+    oneTV.separatorColor  = [UIColor grayColor];
+    
+#else
+    
+#endif
+    
+    
+    [self.view addSubview:oneTV];
+    
+    return oneTV;
+}
 
 @end
