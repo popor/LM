@@ -11,9 +11,9 @@
 #import "MusicPlayTool.h"
 #import "MusicPlayListTool.h"
 
-#import "WifiAddFileVCRouter.h"
+#import "WifiAddFileVC.h"
 #import "LocalMusicVC.h"
-#import "SongListDetailVCRouter.h"
+#import "SongListDetailVC.h"
 
 #import "MusicListCell.h"
 #import "MusicPlayListTool.h"
@@ -30,11 +30,14 @@
 
 - (id)init {
     if (self = [super init]) {
-        [self initInteractors];
         self.mplt = MpltShare;
-        
     }
     return self;
+}
+
+- (void)setMyInteractor:(RootVCInteractor *)interactor {
+    self.interactor = interactor;
+    
 }
 
 - (void)setMyView:(id<RootVCProtocol>)view {
@@ -43,10 +46,10 @@
     [self.interactor autoCheckUpdateAtVC:self.view.vc];
 }
 
-- (void)initInteractors {
-    if (!self.interactor) {
-        self.interactor = [RootVCInteractor new];
-    }
+// 开始执行事件,比如获取网络数据
+- (void)startEvent {
+    
+    
 }
 
 #pragma mark - VC_DataSource
@@ -210,7 +213,7 @@
                                @"listEntity":list,
                                @"deallocBlock":deallocBlock,
                                };
-        [self.view.vc.navigationController pushViewController:[SongListDetailVCRouter vcWithDic:dic] animated:YES];
+        [self.view.vc.navigationController pushViewController:[[SongListDetailVC alloc] initWithDic:dic] animated:YES];
     }
     
 }
@@ -417,7 +420,7 @@
     };
     NSDictionary * dic = @{@"deallocBlock":deallocBlock};
     
-    [self.view.vc.navigationController pushViewController:[WifiAddFileVCRouter vcWithDic:dic] animated:YES];
+    [self.view.vc.navigationController pushViewController:[[WifiAddFileVC alloc] initWithDic:dic] animated:YES];
 }
 
 - (void)showLocalMusicVC {

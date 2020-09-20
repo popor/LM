@@ -7,7 +7,7 @@
 
 #import "WifiAddFileVC.h"
 #import "WifiAddFileVCPresenter.h"
-#import "WifiAddFileVCRouter.h"
+#import "WifiAddFileVCInteractor.h"
 
 #import "FileTool.h"
 
@@ -40,16 +40,13 @@
 }
 
 - (void)viewDidLoad {
+    [self assembleViper];
     [super viewDidLoad];
+    
     if (!self.title) {
         self.title = @"Wifi添加歌曲";
     }
     self.view.backgroundColor = [UIColor whiteColor];
-    if (!self.present) {
-        [WifiAddFileVCRouter setVCPresent:self];
-    }
-    
-    [self addViews];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -66,10 +63,22 @@
     return self;
 }
 
-- (void)setMyPresent:(id)present {
-    self.present = present;
+#pragma mark - viper views
+- (void)assembleViper {
+    if (!self.present) {
+        WifiAddFileVCPresenter * present = [WifiAddFileVCPresenter new];
+        WifiAddFileVCInteractor * interactor = [WifiAddFileVCInteractor new];
+        
+        self.present = present;
+        [present setMyInteractor:interactor];
+        [present setMyView:self];
+        
+        [self addViews];
+        [self startEvent];
+    }
 }
 
+// -----------------------------------------------------------------------------
 #pragma mark - views
 - (void)addViews {
     [self addServer];
@@ -88,6 +97,13 @@
         self.navigationItem.rightBarButtonItems = @[item1];
     }
 #endif
+    
+}
+
+
+// 开始执行事件,比如获取网络数据
+- (void)startEvent {
+    [self.present startEvent];
     
 }
 

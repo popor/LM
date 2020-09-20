@@ -29,20 +29,24 @@
     if (self = [super init]) {
         self.mpb = MpbShare;
         self.firstAimAt = YES;
-        [self initInteractors];
-        
     }
     return self;
 }
 
-- (void)setMyView:(id<SongListDetailVCProtocol>)view {
-    self.view = view;
+- (void)setMyInteractor:(SongListDetailVCInteractor *)interactor {
+    self.interactor = interactor;
+    
 }
 
-- (void)initInteractors {
-    if (!self.interactor) {
-        self.interactor = [SongListDetailVCInteractor new];
-    }
+- (void)setMyView:(id<SongListDetailVCProtocol>)view {
+    self.view = view;
+    
+}
+
+// 开始执行事件,比如获取网络数据
+- (void)startEvent {
+    
+    
 }
 
 #pragma mark - VC_DataSource

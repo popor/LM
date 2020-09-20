@@ -7,7 +7,7 @@
 
 #import "RootVC.h"
 #import "RootVCPresenter.h"
-#import "RootVCRouter.h"
+#import "RootVCInteractor.h"
 
 #import "UINavigationController+Jch.h"
 
@@ -30,6 +30,7 @@
 @synthesize tvSV;
 @synthesize localMusicVC;
 
+
 - (instancetype)initWithDic:(NSDictionary *)dic {
     if (self = [super init]) {
         [NSAssistant setVC:self dic:dic];
@@ -38,16 +39,13 @@
 }
 
 - (void)viewDidLoad {
+    [self assembleViper];
     [super viewDidLoad];
+    
     if (!self.title) {
-        self.title = @"LM";
+        self.title = @"SongListVC";
     }
     self.view.backgroundColor = [UIColor whiteColor];
-    if (!self.present) {
-        [RootVCRouter setVCPresent:self];
-    }
-    
-    [self addViews];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -64,10 +62,22 @@
     return self;
 }
 
-- (void)setMyPresent:(id)present {
-    self.present = present;
+#pragma mark - viper views
+- (void)assembleViper {
+    if (!self.present) {
+        RootVCPresenter * present = [RootVCPresenter new];
+        RootVCInteractor * interactor = [RootVCInteractor new];
+        
+        self.present = present;
+        [present setMyInteractor:interactor];
+        [present setMyView:self];
+        
+        [self addViews];
+        [self startEvent];
+    }
 }
 
+// -----------------------------------------------------------------------------
 #pragma mark - views
 - (void)addViews {
     [self addPlayboard];
@@ -124,6 +134,12 @@
 #else
     
 #endif
+    
+}
+
+// 开始执行事件,比如获取网络数据
+- (void)startEvent {
+    [self.present startEvent];
     
 }
 

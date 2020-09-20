@@ -7,7 +7,7 @@
 
 #import "SongListDetailVC.h"
 #import "SongListDetailVCPresenter.h"
-#import "SongListDetailVCRouter.h"
+#import "SongListDetailVCInteractor.h"
 
 #import "MusicPlayTool.h"
 #import <PoporUI/UIViewController+pTapEndEdit.h>
@@ -64,19 +64,15 @@
     [self stopMonitorTapEdit];
 }
 
+
 - (void)viewDidLoad {
+    [self assembleViper];
     [super viewDidLoad];
+    
     if (!self.title) {
-        self.title = @"歌单";
+        self.title = @"SongListVC";
     }
     self.view.backgroundColor = [UIColor whiteColor];
-    if (!self.present) {
-        [SongListDetailVCRouter setVCPresent:self];
-    }
-    
-    [self addViews];
-    
-    [self addTapEndEditGRAction];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -93,11 +89,21 @@
     return self;
 }
 
-- (void)setMyPresent:(id)present {
-    self.present = present;
+#pragma mark - viper views
+- (void)assembleViper {
+    if (!self.present) {
+        SongListDetailVCPresenter * present = [SongListDetailVCPresenter new];
+        SongListDetailVCInteractor * interactor = [SongListDetailVCInteractor new];
+        
+        self.present = present;
+        [present setMyInteractor:interactor];
+        [present setMyView:self];
+        
+        [self addViews];
+        [self startEvent];
+    }
 }
 
-#pragma mark - views
 - (void)addViews {
     self.playbar = [MusicPlayBar share];
     self.infoTV = [self addTVs];
@@ -130,8 +136,15 @@
         self.navigationItem.leftItemsSupplementBackButton = YES;
     }
 #else
-
+    
 #endif
+    
+    [self addTapEndEditGRAction];
+}
+
+// 开始执行事件,比如获取网络数据
+- (void)startEvent {
+    [self.present startEvent];
     
 }
 

@@ -11,7 +11,11 @@
 // 处理和View事件
 @interface WifiAddFileVCPresenter : NSObject <WifiAddFileVCEventHandler, WifiAddFileVCDataSource>
 
+- (void)setMyInteractor:(id)interactor;
+
 - (void)setMyView:(id)view;
-- (void)initInteractors;
+
+// 开始执行事件,比如获取网络数据
+- (void)startEvent;
 
 @end

@@ -19,20 +19,25 @@
 
 - (id)init {
     if (self = [super init]) {
-        [self initInteractors];
         
     }
     return self;
 }
 
-- (void)setMyView:(id<WifiAddFileVCProtocol>)view {
-    self.view = view;
+- (void)setMyInteractor:(WifiAddFileVCInteractor *)interactor {
+    self.interactor = interactor;
+    
 }
 
-- (void)initInteractors {
-    if (!self.interactor) {
-        self.interactor = [WifiAddFileVCInteractor new];
-    }
+- (void)setMyView:(id<WifiAddFileVCProtocol>)view {
+    self.view = view;
+    
+}
+
+// 开始执行事件,比如获取网络数据
+- (void)startEvent {
+    
+    
 }
 
 #pragma mark - VC_DataSource

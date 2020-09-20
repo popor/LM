@@ -23,7 +23,6 @@
 @protocol RootVCProtocol <NSObject>
 
 - (UIViewController *)vc;
-- (void)setMyPresent:(id)present;
 
 // MARK: 自己的
 @property (nonatomic, weak  ) MusicPlayBar    * playbar;
