@@ -342,11 +342,6 @@
 			isa = PBXGroup;
 			children = (
 				C3AD51692517307F00746FA2 /* Color */,
-				180E33BE224E1194008C176D /* FileTool */,
-				18561592224DC077004BE073 /* MusicConfig */,
-				1856158B224DBEF7004BE073 /* MusicPalyList */,
-				184CD1CC224CB99400241B9C /* MusicPlayTool */,
-				184CD1C8224CA60600241B9C /* MusicPlayBar */,
 				183BF42C224A263A004DE115 /* NC */,
 			);
 			path = Public;
@@ -390,6 +385,7 @@
 		184F370E224B26A100FEB57B /* Fun */ = {
 			isa = PBXGroup;
 			children = (
+				C3D58B6B2517470C00A40108 /* MusicPlay */,
 				C3AD50F82516EE1100746FA2 /* SongSection */,
 				180E33A4224DE7E5008C176D /* LocalMusicVC */,
 				18561596224DC1D0004BE073 /* WifiAddFileVC */,
@@ -602,6 +598,18 @@
 				C3AD516B2517310900746FA2 /* ThemeColor.m */,
 			);
 			path = Color;
+			sourceTree = "<group>";
+		};
+		C3D58B6B2517470C00A40108 /* MusicPlay */ = {
+			isa = PBXGroup;
+			children = (
+				180E33BE224E1194008C176D /* FileTool */,
+				18561592224DC077004BE073 /* MusicConfig */,
+				1856158B224DBEF7004BE073 /* MusicPalyList */,
+				184CD1CC224CB99400241B9C /* MusicPlayTool */,
+				184CD1C8224CA60600241B9C /* MusicPlayBar */,
+			);
+			path = MusicPlay;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
