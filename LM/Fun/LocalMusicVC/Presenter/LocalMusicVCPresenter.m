@@ -83,18 +83,10 @@
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView == self.view.infoTV) {
-        return MusicInfoCellH;
-    }else{
-        return  50;
-    }
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (tableView == self.view.infoTV) {
         if (self.view.isRoot) {
-            return 10;
+            return 40;
         }else{
             return self.view.searchBar.height;
         }
@@ -106,7 +98,23 @@
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (tableView == self.view.infoTV) {
         if (self.view.isRoot) {
-            return nil;
+            LocalMusicHeadView * head = (LocalMusicHeadView *)[tableView dequeueReusableHeaderFooterViewWithIdentifier:@"headerView"];
+            if (!head) {
+                head = ({
+                    LocalMusicHeadView * head = [LocalMusicHeadView new];
+                    
+#if TARGET_OS_MACCATALYST
+                    head.openBT.hidden = NO;
+                    [head.openBT addTarget:self action:@selector(openDocFolderAction) forControlEvents:UIControlEventTouchUpInside];
+#else
+                    head.openBT.hidden = YES;
+#endif
+                    [head.freshBT addTarget:self action:@selector(freshLocalDataAction) forControlEvents:UIControlEventTouchUpInside];
+                    
+                    head;
+                });
+            }
+            return head;
         }else{
             return self.view.searchBar;
         }
@@ -124,6 +132,15 @@
         }
     }else{
         return 0.1;
+    }
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == self.view.infoTV) {
+        return MusicInfoCellH;
+    }else{
+        return  50;
     }
 }
 
@@ -355,6 +372,28 @@
         }
     }
     [self.view.infoTV reloadData];
+}
+
+- (void)openDocFolderAction {
+#if TARGET_OS_MACCATALYST
+    //NSURL * url = [NSURL fileURLWithPath:@"file:///Users/popor/Desktop/demo/"];
+    NSURL * url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"file://%@", [FileTool getAppDocPath]]];
+    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {}];
+    
+#else
+    
+#endif
+
+}
+
+- (void)freshLocalDataAction {
+    DMProgressHUD * hud = [DMProgressHUD showLoadingHUDAddedTo:self.view.vc.view];
+    __weak typeof(hud) weakHud = hud;
+    
+    [self.interactor initData];
+    [self.view.infoTV reloadData];
+    
+    [weakHud dismiss];
 }
 
 @end

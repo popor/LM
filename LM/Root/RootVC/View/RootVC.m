@@ -21,8 +21,6 @@
 @synthesize playbar;
 @synthesize titleArray;
 @synthesize tvArray;
-//@synthesize infoTV;
-//@synthesize localTV;
 @synthesize alertBubbleView;
 @synthesize alertBubbleTV;
 @synthesize alertBubbleTVColor;
@@ -44,7 +42,7 @@
     [super viewDidLoad];
     
     if (!self.title) {
-        self.title = @"SongListVC";
+        self.title = @"";
     }
     self.view.backgroundColor = [UIColor whiteColor];
 }
@@ -82,27 +80,15 @@
 #pragma mark - views
 - (void)addViews {
     [self addPlayboard];
-//
-//    self.infoTV = [self addTVs];
-//
-//    self.view.backgroundColor = self.infoTV.backgroundColor;
-//    //self.navigationController.view.backgroundColor = self.infoTV.backgroundColor;
-//
-//    [self.infoTV mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.mas_equalTo(0);
-//        make.left.mas_equalTo(0);
-//        make.right.mas_equalTo(0);
-//        make.bottom.mas_equalTo(-self.playbar.height);
-//    }];
     
     {
         self.alertBubbleTVColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
         self.alertBubbleTV = [self addAlertBubbleTV];
     }
-    {
-        UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithTitle:@"更多" style:UIBarButtonItemStylePlain target:self.present action:@selector(showTVAlertAction:event:)];
-        self.navigationItem.rightBarButtonItems = @[item1];
-    }
+    //    {
+    //        UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithTitle:@"更多" style:UIBarButtonItemStylePlain target:self.present action:@selector(showTVAlertAction:event:)];
+    //        self.navigationItem.rightBarButtonItems = @[item1];
+    //    }
     {
         self.navigationController.navigationBar.tintColor = ColorThemeBlue1;
     }
@@ -123,19 +109,33 @@
     [RACObserve(self.navigationController.view, frame) subscribeNext:^(id  _Nullable x) {
         @strongify(self);
         NSLog(@"刷新frame");
-        [self.playbar updateProgressSectionFrame];
-        
-        
-        // [self.infoTV reloadData];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.tvSV.contentSize = CGSizeMake(ceil(self.tvSV.width +1)*2, self.tvSV.height); // mac 全屏之后, 不+1的话, 会导致滑动失效.
-        });
+        [self reloadSubviewsFrame];
     }];
 #else
     
 #endif
     
+}
+
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    
+    [self reloadSubviewsFrame];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.segmentView.currentPage != 0) { // 主要用于 ios 旋转屏幕
+            CGRect rect = CGRectMake(self.tvSV.width *self.segmentView.currentPage, 0, self.tvSV.width, 1);
+            [self.tvSV scrollRectToVisible:rect animated:YES];
+        }
+    });
+}
+
+- (void)reloadSubviewsFrame {
+    [self.playbar updateProgressSectionFrame];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.tvSV.contentSize = CGSizeMake(ceil(self.tvSV.width +1)*2, self.tvSV.height); // mac 全屏之后, 不+1的话, 会导致滑动失效.
+    });
 }
 
 // 开始执行事件,比如获取网络数据
@@ -156,12 +156,14 @@
         make.bottom.mas_equalTo(0);
         make.height.mas_equalTo(self.playbar.height);
     }];
+    
+    @weakify(self);
     self.playbar.freshBlockRootVC = ^{
-        // [self.infoTV reloadRowsAtIndexPaths:self.infoTV.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationNone];
+        @strongify(self);
+        
+        [self.songListVC.infoTV reloadRowsAtIndexPaths:self.songListVC.infoTV.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationNone];
     };
 }
-
-
 
 - (UITableView *)addAlertBubbleTV {
     UITableView * oneTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 130, RootMoreTvCellH * RootMoreArray.count) style:UITableViewStylePlain];
@@ -187,13 +189,13 @@
     return oneTV;
 }
 
-//- (void)addNcBarSCs {
 - (void)addHeadSegmentViews {
     self.titleArray = @[@"歌单", @"文件夹"];
     self.segmentView = ({
         NSArray *titleAry = self.titleArray;
         
         PoporSegmentViewType type = titleAry.count > 4 ? PoporSegmentViewTypeScrollView : PoporSegmentViewTypeViewAuto;
+        type = PoporSegmentViewTypeView;
         PoporSegmentView * segmentView = [[PoporSegmentView alloc] initWithStyle:type];
         segmentView.frame = CGRectMake(0, 0, 200, 44);
         segmentView.layer.masksToBounds = YES;
@@ -250,24 +252,6 @@
     }
     
     {
-        //        self.infoTV = ({
-        //            UITableView * oneTV = [self addTVs];
-        //            oneTV.tag = 0;
-        //            oneTV.backgroundColor = PColorTVBG;
-        //            [self.tvSV addSubview:oneTV];
-        //
-        //            //[self setMJFreshSearchCV:oneTV];
-        //            [self.tvArray addObject:oneTV];
-        //
-        //            [oneTV mas_makeConstraints:^(MASConstraintMaker *make) {
-        //                make.top.mas_equalTo(0);
-        //                make.bottom.mas_equalTo(0);
-        //
-        //                make.width.mas_equalTo(self.tvSV);
-        //                make.height.mas_equalTo(self.tvSV);
-        //            }];
-        //            oneTV;
-        //        });
         self.songListVC = ({
             SongListVC * vc = [[SongListVC alloc] initWithDic:nil];
             
@@ -308,26 +292,6 @@
         
         [self.tvSV masSpacingHorizontallyWith:self.tvArray];
     }
-    //    for (int i = 0; i<self.titleArray.count; i++) {
-    //        UITableView * oneTV = [self addTVs];
-    //        oneTV.tag = i;
-    //        oneTV.backgroundColor = PColorTVBG;
-    //        [self.tvSV addSubview:oneTV];
-    //
-    //        //[self setMJFreshSearchCV:oneTV];
-    //        [self.tvArray addObject:oneTV];
-    //
-    //        [oneTV mas_makeConstraints:^(MASConstraintMaker *make) {
-    //            make.top.mas_equalTo(0);
-    //            make.bottom.mas_equalTo(0);
-    //
-    //            make.width.mas_equalTo(self.tvSV);
-    //            make.height.mas_equalTo(self.tvSV);
-    //        }];
-    //
-    //    }
-    
-    //    [self.tvSV masSpacingHorizontallyWith:self.tvArray];
  
 }
 

@@ -7,6 +7,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "SongListHeadView.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 // MARK: 对外接口

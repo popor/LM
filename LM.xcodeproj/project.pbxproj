@@ -40,6 +40,10 @@
 		C3AD50F32516EDDB00746FA2 /* SongListVCPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD50EA2516EDDB00746FA2 /* SongListVCPresenter.m */; };
 		C3AD50F42516EDDB00746FA2 /* SongListVCInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD50EE2516EDDB00746FA2 /* SongListVCInteractor.m */; };
 		C3AD50F52516EDDB00746FA2 /* SongListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD50F22516EDDB00746FA2 /* SongListVC.m */; };
+		C3AD51332516FC6900746FA2 /* MRouterConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD51312516FC6900746FA2 /* MRouterConfig.m */; };
+		C3AD51342516FC6900746FA2 /* MRouterUrlPrefix.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD51322516FC6900746FA2 /* MRouterUrlPrefix.m */; };
+		C3AD5139251700BF00746FA2 /* SongListHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD5138251700BF00746FA2 /* SongListHeadView.m */; };
+		C3AD513D2517161700746FA2 /* LocalMusicHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD513C2517161700746FA2 /* LocalMusicHeadView.m */; };
 		D4807A288BE4B56179FA77D5 /* libPods-LM.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7B2B70D60E892B2A452617D /* libPods-LM.a */; };
 /* End PBXBuildFile section */
 
@@ -138,6 +142,14 @@
 		C3AD50F02516EDDB00746FA2 /* SongListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongListVC.h; sourceTree = "<group>"; };
 		C3AD50F12516EDDB00746FA2 /* SongListVCProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongListVCProtocol.h; sourceTree = "<group>"; };
 		C3AD50F22516EDDB00746FA2 /* SongListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongListVC.m; sourceTree = "<group>"; };
+		C3AD512F2516FC6900746FA2 /* MRouterConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRouterConfig.h; sourceTree = "<group>"; };
+		C3AD51302516FC6900746FA2 /* MRouterUrlPrefix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRouterUrlPrefix.h; sourceTree = "<group>"; };
+		C3AD51312516FC6900746FA2 /* MRouterConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRouterConfig.m; sourceTree = "<group>"; };
+		C3AD51322516FC6900746FA2 /* MRouterUrlPrefix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRouterUrlPrefix.m; sourceTree = "<group>"; };
+		C3AD5137251700BF00746FA2 /* SongListHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SongListHeadView.h; sourceTree = "<group>"; };
+		C3AD5138251700BF00746FA2 /* SongListHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SongListHeadView.m; sourceTree = "<group>"; };
+		C3AD513B2517161700746FA2 /* LocalMusicHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocalMusicHeadView.h; sourceTree = "<group>"; };
+		C3AD513C2517161700746FA2 /* LocalMusicHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocalMusicHeadView.m; sourceTree = "<group>"; };
 		D517352033FD9281F808A739 /* Pods-LM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LM.release.xcconfig"; path = "Target Support Files/Pods-LM/Pods-LM.release.xcconfig"; sourceTree = "<group>"; };
 		D7B2B70D60E892B2A452617D /* libPods-LM.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LM.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9733473842C796E3D6C9304 /* libPods-LMUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LMUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -241,6 +253,7 @@
 			children = (
 				183BF40B224A1EF1004DE115 /* other */,
 				183BF42B224A25B0004DE115 /* Public */,
+				C3AD512D2516FC6900746FA2 /* AppConfig */,
 				183BF429224A24EF004DE115 /* App */,
 				184F3703224B25D000FEB57B /* Root */,
 				184F370E224B26A100FEB57B /* Fun */,
@@ -481,6 +494,8 @@
 			children = (
 				18DE13AD2251F78C009920D7 /* MusicInfoCell.h */,
 				18DE13AE2251F78C009920D7 /* MusicInfoCell.m */,
+				C3AD513B2517161700746FA2 /* LocalMusicHeadView.h */,
+				C3AD513C2517161700746FA2 /* LocalMusicHeadView.m */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -542,6 +557,8 @@
 			children = (
 				18E52ED12253050C00EF8BF6 /* MusicListCell.h */,
 				18E52ED22253050C00EF8BF6 /* MusicListCell.m */,
+				C3AD5137251700BF00746FA2 /* SongListHeadView.h */,
+				C3AD5138251700BF00746FA2 /* SongListHeadView.m */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -553,6 +570,25 @@
 				18DE13932251F380009920D7 /* SongListDetailVC */,
 			);
 			path = SongSection;
+			sourceTree = "<group>";
+		};
+		C3AD512D2516FC6900746FA2 /* AppConfig */ = {
+			isa = PBXGroup;
+			children = (
+				C3AD512E2516FC6900746FA2 /* MGJRouter */,
+			);
+			path = AppConfig;
+			sourceTree = "<group>";
+		};
+		C3AD512E2516FC6900746FA2 /* MGJRouter */ = {
+			isa = PBXGroup;
+			children = (
+				C3AD51302516FC6900746FA2 /* MRouterUrlPrefix.h */,
+				C3AD51322516FC6900746FA2 /* MRouterUrlPrefix.m */,
+				C3AD512F2516FC6900746FA2 /* MRouterConfig.h */,
+				C3AD51312516FC6900746FA2 /* MRouterConfig.m */,
+			);
+			path = MGJRouter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -686,10 +722,12 @@
 				183BF426224A22EC004DE115 /* RootVC.m in Sources */,
 				189A5DEE225C94A8001E8A9D /* AppNetRecordConfig.m in Sources */,
 				180E33BD224DE806008C176D /* LocalMusicVC.m in Sources */,
+				C3AD51342516FC6900746FA2 /* MRouterUrlPrefix.m in Sources */,
 				18DE13AC2251F40A009920D7 /* SongListDetailVCInteractor.m in Sources */,
 				185615AD224DC23A004BE073 /* WifiAddFileVCPresenter.m in Sources */,
 				18DE13A92251F40A009920D7 /* SongListDetailVC.m in Sources */,
 				180E33BA224DE806008C176D /* LocalMusicVCPresenter.m in Sources */,
+				C3AD5139251700BF00746FA2 /* SongListHeadView.m in Sources */,
 				183BF428224A22EC004DE115 /* RootVCPresenter.m in Sources */,
 				C3AD50F32516EDDB00746FA2 /* SongListVCPresenter.m in Sources */,
 				189A5DF1225C95E6001E8A9D /* AppVersionCheck.m in Sources */,
@@ -702,8 +740,10 @@
 				18E52ED32253050C00EF8BF6 /* MusicListCell.m in Sources */,
 				180E33C1224E11AF008C176D /* FileTool.m in Sources */,
 				180E33C4224E11F7008C176D /* FileEntity.m in Sources */,
+				C3AD513D2517161700746FA2 /* LocalMusicHeadView.m in Sources */,
 				183BF42F224A263A004DE115 /* UINavigationController+Jch.m in Sources */,
 				183BF427224A22EC004DE115 /* RootVCInteractor.m in Sources */,
+				C3AD51332516FC6900746FA2 /* MRouterConfig.m in Sources */,
 				18DE13AF2251F78C009920D7 /* MusicInfoCell.m in Sources */,
 				18561595224DC089004BE073 /* MusicConfig.m in Sources */,
 				18DE13922251BD5F009920D7 /* MusicPlayListTool.m in Sources */,

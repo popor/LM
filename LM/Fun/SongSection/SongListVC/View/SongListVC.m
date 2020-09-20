@@ -66,7 +66,12 @@
 
 - (void)addViews {
     self.infoTV = [self addTVs];
-    
+    [self.infoTV mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(0);
+        make.left.mas_equalTo(0);
+        make.bottom.mas_equalTo(-0);
+        make.right.mas_equalTo(-0);
+    }];
 }
 
 // 开始执行事件,比如获取网络数据

@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "MusicPlayBar.h"
 
+#import "LocalMusicHeadView.h"
 #import <PoporAlertBubbleView/AlertBubbleView.h>
 // MARK: 对外接口
 @protocol LocalMusicVCProtocol <NSObject>

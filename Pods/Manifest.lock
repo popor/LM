@@ -14,6 +14,7 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
+  - DMProgressHUD (0.0.6)
   - GCDWebServer (3.5.4):
     - GCDWebServer/Core (= 3.5.4)
   - GCDWebServer/Core (3.5.4)
@@ -23,6 +24,7 @@ PODS:
     - GCDWebServer/Core
   - Masonry (1.1.0)
   - MBProgressHUD (1.2.0)
+  - MGJRouter (0.10.0)
   - PoporAFN (1.07):
     - AFNetworking
   - PoporAlertBubbleView (1.02)
@@ -135,10 +137,12 @@ PODS:
   - YYModel (1.0.4)
 
 DEPENDENCIES:
+  - DMProgressHUD
   - GCDWebServer
   - GCDWebServer/WebDAV
   - GCDWebServer/WebUploader
   - Masonry
+  - MGJRouter
   - PoporAFN (~> 1.07)
   - PoporAlertBubbleView
   - PoporFoundation
@@ -154,9 +158,11 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - AFNetworking
+    - DMProgressHUD
     - GCDWebServer
     - Masonry
     - MBProgressHUD
+    - MGJRouter
     - PoporAFN
     - PoporAlertBubbleView
     - PoporFoundation
@@ -173,9 +179,11 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
+  DMProgressHUD: 08d99c8a3db0ae7a0c2d79c6939e8c32a5f8bfa1
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
+  MGJRouter: 15d94541eb2cc81eff7d577337288feb7ae9575f
   PoporAFN: ddce973b567ff5b8a26de6517326d74d39c4c3b3
   PoporAlertBubbleView: 8a02b8b3331534eef503adaa83f77f8867fb74a4
   PoporFoundation: dc0999db26642dd31bde8629dd641da498713d36
@@ -190,6 +198,6 @@ SPEC CHECKSUMS:
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 3177ce621a03596d580705034183e3b429b4ec91
+PODFILE CHECKSUM: 908b934dea86c7406c51b35ff3ab1084a843c401
 
 COCOAPODS: 1.10.0.beta.2

@@ -16,7 +16,7 @@
 #import "SongListVC.h"
 #import "LocalMusicVC.h"
 
-#define RootMoreArray       @[@"新增歌单", @"Wifi添加歌曲", @"查看本地歌曲", @"编辑歌单", @"检查更新"]
+#define RootMoreArray       @[@"新增歌单", @"Wifi添加歌曲", @"编辑歌单", @"检查更新"]
 #define RootMoreCheckUpdate 4
 #define RootMoreTvCellH     44
 

@@ -26,6 +26,9 @@
 
 @property (nonatomic, weak  ) MusicPlayListTool * mplt;
 
+@property (nonatomic, weak  ) SongListHeadView * headView;
+@property (nonatomic        ) BOOL edit;
+
 @end
 
 @implementation SongListVCPresenter
@@ -63,16 +66,41 @@
     return MpltShare.list.array.count;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 50;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 40;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 10;
+//#import <PoporUI/UILabel+pInsets.h>
+
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    SongListHeadView * head = (SongListHeadView *)[tableView dequeueReusableHeaderFooterViewWithIdentifier:@"headerView"];
+    if (!head) {
+        head = ({
+            SongListHeadView * head = [SongListHeadView new];
+            
+            [head.addBT addTarget:self action:@selector(addListAction) forControlEvents:UIControlEventTouchUpInside];
+            [head.editBT addTarget:self action:@selector(editAction:) forControlEvents:UIControlEventTouchUpInside];
+            
+            head;
+        });
+        
+        self.headView = head;
+    }
+    
+    head.editBT.selected = self.edit;
+    head.addBT.hidden    = self.edit;
+    
+    return head;
 }
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 10;
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 50;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -260,47 +288,6 @@
 }
 
 #pragma mark - VC_EventHandler
-//- (void)showTVAlertAction:(UIBarButtonItem *)sender event:(UIEvent *)event {
-//    //CGRect fromRect = [[event.allTouches anyObject] view].frame;
-//    UITouch * touch = [event.allTouches anyObject];
-//    //UIWindow * window = [[UIApplication sharedApplication] keyWindow];
-//
-//    //CGPoint point = [touch locationInView:window];
-//    //fromRect.origin = point;
-//
-//    CGRect fromRect = [touch.view.superview convertRect:touch.view.frame toView:self.view.vc.navigationController.view];
-//    fromRect.origin.y -= 8;
-//
-//    NSDictionary * dic = @{
-//        @"direction":@(AlertBubbleViewDirectionTop),
-//        @"baseView":self.view.vc.navigationController.view,
-//        @"borderLineColor":self.view.alertBubbleTVColor,
-//        @"borderLineWidth":@(1),
-//        @"corner":@(5),
-//        @"trangleHeight":@(8),
-//        @"trangleWidth":@(8),
-//
-//        @"borderInnerGap":@(10),
-//        @"customeViewInnerGap":@(0),
-//
-//        @"bubbleBgColor":self.view.alertBubbleTVColor,
-//        @"bgColor":[UIColor clearColor],
-//        @"showAroundRect":@(NO),
-//        @"showLogInfo":@(NO),
-//    };
-//
-//    AlertBubbleView * abView = [[AlertBubbleView alloc] initWithDic:dic];
-//
-//    [abView showCustomView:self.view.alertBubbleTV around:fromRect close:nil];
-//
-//    self.view.alertBubbleView = abView;
-//
-//    if (self.interactor.needFresh) {
-//        self.interactor.needFresh = NO;
-//        [self.view.alertBubbleTV reloadData];
-//    }
-//}
-
 //- (void)showWifiVC {
 //
 //    [UIView animateWithDuration:0.15 animations:^{
@@ -363,23 +350,15 @@
     }
 }
 
-- (void)startEditAction {
-    {
-        UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(endEditAction)];
-        self.view.vc.navigationItem.rightBarButtonItems = @[item1];
-    }
-    {
+- (void)editAction:(UIButton *)bt {
+    self.edit = !self.edit;
+    bt.selected = self.edit;
+    self.headView.addBT.hidden = self.edit;
+    
+    if (self.edit) {
         self.view.infoTV.allowsSelectionDuringEditing = NO;
         self.view.infoTV.editing = YES;
-    }
-}
-
-- (void)endEditAction {
-    {
-        UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithTitle:@"更多" style:UIBarButtonItemStylePlain target:self action:@selector(showTVAlertAction:event:)];
-        self.view.vc.navigationItem.rightBarButtonItems = @[item1];
-    }
-    {
+    } else {
         self.view.infoTV.editing = NO;
     }
 }
