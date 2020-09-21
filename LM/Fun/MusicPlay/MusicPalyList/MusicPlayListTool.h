@@ -11,9 +11,12 @@
 #import "MusicPlayList.h"
 #import "MusicConfig.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 #define MpltShare [MusicPlayListTool share]
 
-NS_ASSUME_NONNULL_BEGIN
+static NSString * RecordFolderName = @"record";
+static NSString * MusicFolderName  = @"music";
 
 @interface MusicPlayListTool : NSObject
 

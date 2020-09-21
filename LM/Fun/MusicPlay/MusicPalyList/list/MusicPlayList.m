@@ -56,7 +56,7 @@
 
 - (id)init {
     if (self = [super init]) {
-        _itemArray = [NSMutableArray new];
+        _itemArray = [NSMutableArray<MusicPlayItemEntity> new];
     }
     return self;
 }
@@ -148,5 +148,12 @@
 @end
 
 @implementation MusicPlayList
+
+- (id)init {
+    if (self = [super init]) {
+        _songListArray = [NSMutableArray<MusicPlayListEntity> new];
+    }
+    return self;
+}
 
 @end

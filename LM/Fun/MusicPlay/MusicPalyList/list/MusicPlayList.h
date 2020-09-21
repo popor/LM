@@ -24,6 +24,7 @@ typedef NS_ENUM(int, MpViewOrder) {
 #define MpViewOrderTitleArray    @[@"歌手名称: 正序", @"歌手名称: 倒序", @"歌曲名称: 正序", @"歌曲名称: 倒序", @"自定义: 正序", @"自定义: 倒序"]
 
 
+@protocol  MusicPlayItemEntity;
 @interface MusicPlayItemEntity : PoporJsonModel
 
 @property (nonatomic, strong) NSString * filePath;
@@ -42,23 +43,24 @@ typedef NS_ENUM(int, MpViewOrder) {
 
 @end
 
-
+@protocol  MusicPlayListEntity;
 @interface MusicPlayListEntity : PoporJsonModel
 
 @property (nonatomic, strong) NSString    * name;
 @property (nonatomic        ) MpViewOrder viewOrder;
 @property (nonatomic        ) NSInteger   recoredNum;//记录增加的个数
 
-@property (nonatomic, strong) NSMutableArray<MusicPlayItemEntity *> * itemArray;
+@property (nonatomic, strong) NSMutableArray<MusicPlayItemEntity> * itemArray;
 
 - (void)sortArray:(MpViewOrder)viewOrder;
 
 @end
 
 
+@protocol  MusicPlayList;
 @interface MusicPlayList : PoporJsonModel
 
-@property (nonatomic, strong) NSMutableArray<MusicPlayListEntity *> * songListArray;
+@property (nonatomic, strong) NSMutableArray<MusicPlayListEntity> * songListArray;
 
 @property (nonatomic        ) BOOL lastPlayLocal; // 最后播放的是否是本地文件夹.
 @property (nonatomic, copy  ) NSString * lastPlayLocalFolderName; // 最后播放文件夹名称

@@ -7,6 +7,7 @@
 
 #import "LocalMusicVCInteractor.h"
 #import "FileTool.h"
+#import "MusicPlayListTool.h"
 
 @interface LocalMusicVCInteractor ()
 
@@ -24,7 +25,7 @@
 }
 
 - (void)initData {
-    self.folderArray = [FileTool getArrayAtPath:nil type:FileTypeFolder];
+    self.folderArray = [FileTool getArrayAtPath:MusicFolderName type:FileTypeFolder];
     for (FileEntity * folderEntity in self.folderArray) {
         folderEntity.itemArray = [FileTool getArrayAtPath:[NSString stringWithFormat:@"%@/%@", folderEntity.folderName, folderEntity.fileName] type:FileTypeItem];
     }

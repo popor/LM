@@ -377,7 +377,8 @@
 - (void)openDocFolderAction {
 #if TARGET_OS_MACCATALYST
     //NSURL * url = [NSURL fileURLWithPath:@"file:///Users/popor/Desktop/demo/"];
-    NSURL * url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"file://%@", [FileTool getAppDocPath]]];
+    NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@/%@", [FileTool getAppDocPath], MusicFolderName]];
+    // [NSURL fileURLWithPath:[NSString stringWithFormat:@"file://%@/%@", [FileTool getAppDocPath], MusicFolderName]];
     [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {}];
     
 #else

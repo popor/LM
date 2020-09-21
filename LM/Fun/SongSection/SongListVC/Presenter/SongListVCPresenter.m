@@ -140,9 +140,10 @@
     };
     
     MusicPlayListEntity * list = MpltShare.list.songListArray[indexPath.row];
-    NSDictionary * dic = @{@"title":list.name,
-                           @"listEntity":list,
-                           @"deallocBlock":deallocBlock,
+    NSDictionary * dic =
+    @{@"title":list.name,
+      @"listEntity":list,
+      @"deallocBlock":deallocBlock,
     };
     [self.view.vc.navigationController pushViewController:[[SongListDetailVC alloc] initWithDic:dic] animated:YES];
     
