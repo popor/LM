@@ -116,7 +116,7 @@
     cell.cellData = list;
     cell.titelL.text = [NSString stringWithFormat:@"%@ (%li)", list.name, list.itemArray.count];
     
-    if(self.mplt.config.indexList == indexPath.row){
+    if(self.mplt.config.songIndexList == indexPath.row){
         cell.rightIV.hidden = NO;
         cell.titelL.textColor = ColorThemeBlue1;
     }else{

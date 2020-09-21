@@ -59,7 +59,7 @@
 }
 
 - (void)playItem:(MusicPlayItemEntity *)item autoPlay:(BOOL)autoPlay {
-    NSString * path = [NSString stringWithFormat:@"%@/%@", MpltShare.docPath, item.filePath];
+    NSString * path = [NSString stringWithFormat:@"%@/%@", FT_docPath, item.filePath];
     NSURL * url     = [NSURL fileURLWithPath:path];
     //self.musicTitle = item.fileName;
     self.musicItem  = item;

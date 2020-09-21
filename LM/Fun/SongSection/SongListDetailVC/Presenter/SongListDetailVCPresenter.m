@@ -187,7 +187,7 @@
     if (tableView == self.view.infoTV) {
         
         if (self.view.isSearchType) {
-            self.mpb.mplt.config.indexList = [self.mpb.mplt.list.songListArray indexOfObject:self.view.listEntity];
+            self.mpb.mplt.config.songIndexList = [self.mpb.mplt.list.songListArray indexOfObject:self.view.listEntity];
             [MpbShare playTempArray:self.view.searchArray at:indexPath.row];
         }else{
             [MpbShare playMusicPlayListEntity:self.view.listEntity at:indexPath.row];
@@ -230,10 +230,10 @@
             [self.mpb.mplt updateList];
             
             // 更新数字配置
-            MusicPlayListEntity * le = self.mpb.mplt.list.songListArray[self.mpb.mplt.config.indexList];
+            MusicPlayListEntity * le = self.mpb.mplt.list.songListArray[self.mpb.mplt.config.songIndexList];
             if (self.view.listEntity == le) {
                 NSUInteger itemIndex = [le.itemArray indexOfObject:self.mpb.currentItem];
-                self.mpb.mplt.config.indexItem = itemIndex;
+                self.mpb.mplt.config.songIndexItem = itemIndex;
                 [self.mpb.mplt updateConfig];
             }
         });
@@ -427,7 +427,7 @@
 }
 
 - (void)aimAtCurrentItem:(UIButton *)bt {
-    MusicPlayListEntity * le = self.mpb.mplt.list.songListArray[self.mpb.mplt.config.indexList];
+    MusicPlayListEntity * le = self.mpb.mplt.list.songListArray[self.mpb.mplt.config.songIndexList];
     if (!le) {
         return;
     }
@@ -438,8 +438,8 @@
             animation = NO;
         }
         
-        if ([self.view.infoTV.dataSource tableView:self.view.infoTV numberOfRowsInSection:0] > self.mpb.mplt.config.indexItem) {
-            [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.mpb.mplt.config.indexItem inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:animation];
+        if ([self.view.infoTV.dataSource tableView:self.view.infoTV numberOfRowsInSection:0] > self.mpb.mplt.config.songIndexItem) {
+            [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.mpb.mplt.config.songIndexItem inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:animation];
         }
     }else{
         if (self.firstAimAt) {

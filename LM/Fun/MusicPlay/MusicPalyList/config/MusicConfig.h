@@ -20,9 +20,15 @@ typedef NS_ENUM(int, McPlayOrder) {
 
 @interface MusicConfig : PoporJsonModel
 
-@property (nonatomic        ) NSInteger indexList;// 歌单位置
-@property (nonatomic        ) NSInteger indexItem;// 歌曲位置
-@property (nonatomic        ) McPlayOrder playOrder;
+@property (nonatomic        ) McPlayOrder playOrder;  // 播放顺序, 随机还是顺序
+
+// 歌单部分
+@property (nonatomic        ) NSInteger songIndexList;// 歌单位置
+@property (nonatomic        ) NSInteger songIndexItem;// 歌曲位置
+
+// 本地部分
+@property (nonatomic, copy  ) NSString * localFolderName;
+@property (nonatomic, copy  ) NSString * localMusicName;
 
 @end
 

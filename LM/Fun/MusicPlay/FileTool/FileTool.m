@@ -11,7 +11,11 @@
 @implementation FileTool
 
 + (NSString *)getAppDocPath {
-    return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    static NSString * path;
+    if (!path) {
+        path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    }
+    return path;
 }
 
 //+ (NSString *)getAppDocPath {
@@ -41,7 +45,7 @@
     NSFileManager *fileManager = [NSFileManager defaultManager];
     //下面是指定沙盒的路径。我要读取pc上的，所以就用自己pc上的路径
     NSString * folderName;
-    NSString * docPath = [self getAppDocPath];
+    NSString * docPath = FT_docPath;
     if (!path) {
         path       = docPath;
         folderName = @"";

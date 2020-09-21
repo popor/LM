@@ -16,6 +16,7 @@
 #import "MRouterConfig.h"
 #import <DMProgressHUD/DMProgressHUD.h>
 #import "ThemeColor.h"
+#import "FileTool.h"
 
 static NSString * LmCacheKey    = @"LmCache";
 static NSString * LmPlayListKey = @"list";

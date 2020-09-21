@@ -25,7 +25,7 @@
 }
 
 - (UIImage *)coverImage {
-    NSString * path = [NSString stringWithFormat:@"%@/%@", MpltShare.docPath, self.filePath];
+    NSString * path = [NSString stringWithFormat:@"%@/%@", FT_docPath, self.filePath];
     NSURL * url     = [NSURL fileURLWithPath:path];
     UIImage * coverImage;
     
@@ -152,6 +152,7 @@
 - (id)init {
     if (self = [super init]) {
         _songListArray = [NSMutableArray<MusicPlayListEntity> new];
+        //_localItemArray = [NSMutableArray<MusicPlayListEntity> new];
     }
     return self;
 }

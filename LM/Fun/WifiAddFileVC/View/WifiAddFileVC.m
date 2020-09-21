@@ -120,7 +120,7 @@
     }
 #if !TARGET_OS_MACCATALYST
     if (!self.webUploader) {
-        self.webUploader = [[GCDWebUploader alloc] initWithUploadDirectory:[FileTool getAppDocPath]];
+        self.webUploader = [[GCDWebUploader alloc] initWithUploadDirectory:FT_docPath];
         //[self.webUploader start];
         [self.webUploader startWithPort:[self getPort] bonjourName:@""];
     }
@@ -157,7 +157,7 @@
         [att addString:@"\n3.只支持1层文件夹，暂不支持多层。\n 根目录只支持文件夹，一级目录只支持mp3文件。" font:font1 color:[UIColor redColor]];
         [att addString:@"\n4.上传文件过程中，请勿关闭本页面、误锁屏。" font:font1 color:[UIColor redColor]];
     } else {
-        [att addString:[NSString stringWithFormat:@"\n1.请将音乐文件夹复制到: %@。", [FileTool getAppDocPath]] font:font1 color:[UIColor blackColor]];
+        [att addString:[NSString stringWithFormat:@"\n1.请将音乐文件夹复制到: %@。", FT_docPath] font:font1 color:[UIColor blackColor]];
     }
     
     self.infoL.attributedText = att;
@@ -214,7 +214,7 @@
 - (void)openFolderAction {
 #if TARGET_OS_MACCATALYST
     //NSURL * url = [NSURL fileURLWithPath:@"file:///Users/popor/Desktop/demo/"];
-    NSURL * url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"file://%@", [FileTool getAppDocPath]]];
+    NSURL * url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"file://%@", FT_docPath]];
     
     [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
         

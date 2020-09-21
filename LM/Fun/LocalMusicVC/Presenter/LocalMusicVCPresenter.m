@@ -270,8 +270,8 @@
             }
         } else {
             // 播放本地列表的时候, 需要清空播放记录
-            self.mpb.mplt.config.indexList = -1;
-            self.mpb.mplt.config.indexItem = -1;
+            self.mpb.mplt.config.songIndexList = -1;
+            self.mpb.mplt.config.songIndexItem = -1;
             [self.mpb.mplt updateConfig];
             
             NSArray * array = @[[MusicPlayItemEntity initWithFileEntity:fileEntity]];
@@ -377,8 +377,8 @@
 - (void)openDocFolderAction {
 #if TARGET_OS_MACCATALYST
     //NSURL * url = [NSURL fileURLWithPath:@"file:///Users/popor/Desktop/demo/"];
-    NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@/%@", [FileTool getAppDocPath], MusicFolderName]];
-    // [NSURL fileURLWithPath:[NSString stringWithFormat:@"file://%@/%@", [FileTool getAppDocPath], MusicFolderName]];
+    NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@/%@", FT_docPath, MusicFolderName]];
+    // [NSURL fileURLWithPath:[NSString stringWithFormat:@"file://%@/%@", FT_docPath, MusicFolderName]];
     [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {}];
     
 #else

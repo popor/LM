@@ -27,11 +27,10 @@
 
 - (id)init {
     if (self = [super init]) {
-        _docPath = [FileTool getAppDocPath]; //获得Document系统文件目录路径
         
-        [[NSFileManager defaultManager] createDirectoryAtPath:[NSString stringWithFormat:@"%@/%@", _docPath, RecordFolderName]
+        [[NSFileManager defaultManager] createDirectoryAtPath:[NSString stringWithFormat:@"%@/%@", FT_docPath, RecordFolderName]
                                   withIntermediateDirectories:YES attributes:nil error:nil];
-        [[NSFileManager defaultManager] createDirectoryAtPath:[NSString stringWithFormat:@"%@/%@", _docPath, MusicFolderName]
+        [[NSFileManager defaultManager] createDirectoryAtPath:[NSString stringWithFormat:@"%@/%@", FT_docPath, MusicFolderName]
                                   withIntermediateDirectories:YES attributes:nil error:nil];
         
         
@@ -50,8 +49,8 @@
             _config     = [[MusicConfig alloc] initWithData:configData error:nil];
         } else {
             _config     = [MusicConfig new];
-            _config.indexList = -1;
-            _config.indexItem = -1;
+            _config.songIndexList = -1;
+            _config.songIndexItem = -1;
         }
         if (!_list) {
             _list = [MusicPlayList new];
@@ -88,11 +87,11 @@
 
 
 - (NSString *)listFilePath {
-    return [NSString stringWithFormat:@"%@/%@/%@.json", [FileTool getAppDocPath], RecordFolderName, LmPlayListKey];
+    return [NSString stringWithFormat:@"%@/%@/%@.json", FT_docPath, RecordFolderName, LmPlayListKey];
 }
 
 - (NSString *)configFilePath {
-    return [NSString stringWithFormat:@"%@/%@/%@.json", [FileTool getAppDocPath], RecordFolderName, LmConfigKey];
+    return [NSString stringWithFormat:@"%@/%@/%@.json", FT_docPath, RecordFolderName, LmConfigKey];
 }
 
 @end

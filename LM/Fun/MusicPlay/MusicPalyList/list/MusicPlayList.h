@@ -62,9 +62,7 @@ typedef NS_ENUM(int, MpViewOrder) {
 
 @property (nonatomic, strong) NSMutableArray<MusicPlayListEntity> * songListArray;
 
-@property (nonatomic        ) BOOL lastPlayLocal; // 最后播放的是否是本地文件夹.
-@property (nonatomic, copy  ) NSString * lastPlayLocalFolderName; // 最后播放文件夹名称
-@property (nonatomic, copy  ) NSString * lastPlayLocalMusicName;  // 最后播放音乐名称
+//@property (nonatomic, strong) NSMutableArray<MusicPlayItemEntity> * localItemArray;
 
 
 @end

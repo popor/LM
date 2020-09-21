@@ -457,14 +457,14 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     }
     
     NSInteger currentListIndex = [self.mplt.list.songListArray indexOfObject:listEntity];
-    if (self.mplt.config.indexList != currentListIndex) {
-        self.mplt.config.indexList = currentListIndex;
+    if (self.mplt.config.songIndexList != currentListIndex) {
+        self.mplt.config.songIndexList = currentListIndex;
         if (self.freshBlockRootVC) {
             self.freshBlockRootVC();
         }
     }
     
-    self.mplt.config.indexItem = index;
+    self.mplt.config.songIndexItem = index;
     [self.mplt updateConfig];
 }
 
@@ -585,18 +585,18 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 - (void)updateConfigIndex:(NSInteger)itemIndex {
     if (self.isPlaySearchLocalItem) {
         // 假如播放的是搜索或者本地 音乐的话
-        if (self.mplt.config.indexList >= 0) {
-            MusicPlayListEntity * le = self.mplt.list.songListArray[self.mplt.config.indexList];
+        if (self.mplt.config.songIndexList >= 0) {
+            MusicPlayListEntity * le = self.mplt.list.songListArray[self.mplt.config.songIndexList];
             itemIndex = [le.itemArray indexOfObject:self.currentItem];
             
             if (itemIndex != INTMAX_MAX && itemIndex >= 0) {
-                self.mplt.config.indexItem = itemIndex;
+                self.mplt.config.songIndexItem = itemIndex;
                 [self.mplt updateConfig];
             }
         }
         //AlertToastTitle(@"当前播放歌单为: 搜索结果");
     }else{
-        self.mplt.config.indexItem = itemIndex;
+        self.mplt.config.songIndexItem = itemIndex;
         [self.mplt updateConfig];
     }
 }
@@ -612,8 +612,8 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 - (void)exitPlaySearchLocalBTAction {
     self.playSearchLocalItem = NO;
     
-    if (self.mplt.config.indexList >= 0) {
-        MusicPlayListEntity * le = self.mplt.list.songListArray[self.mplt.config.indexList];
+    if (self.mplt.config.songIndexList >= 0) {
+        MusicPlayListEntity * le = self.mplt.list.songListArray[self.mplt.config.songIndexList];
         NSInteger row = [le.itemArray indexOfObject:self.currentItem];
         if (row != INTMAX_MAX) {
             [self playMusicPlayListEntity:le at:row];
@@ -636,8 +636,8 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 #pragma mark - 恢复上次数据
 - (void)resumeLastStatus{
     
-    if (self.mplt.config.indexList >= 0 && self.mplt.list.songListArray > 0) {
-        [self resumeMusicPlayListEntity:self.mplt.list.songListArray[self.mplt.config.indexList]  at:self.mplt.config.indexItem];
+    if (self.mplt.config.songIndexList >= 0 && self.mplt.list.songListArray > 0) {
+        [self resumeMusicPlayListEntity:self.mplt.list.songListArray[self.mplt.config.songIndexList]  at:self.mplt.config.songIndexItem];
         
         //[self playMusicPlayListEntity:self.mplt.list.array[self.mplt.config.listIndex]  at:self.mplt.config.itemIndex];
     }
