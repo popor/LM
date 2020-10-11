@@ -11,13 +11,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 //....................................................................................
-#define ColorThemeBlue1 [UIColor colorWithRed:0.2 green:0.752941 blue:0.745098 alpha:1] //0.2 0.752941 0.745098 1
-
+#define ColorThemeBlue1              [UIColor colorWithRed:0.2 green:0.752941 blue:0.745098 alpha:1] //0.2 0.752941 0.745098 1
 #define LmImageThemeBlue1(imageName) [UIImage imageFromImage:[UIImage imageNamed:imageName] changecolor:ColorThemeBlue1]
-
-#define LmImageLightGray(imageName) [UIImage imageFromImage:[UIImage imageNamed:imageName] changecolor:[UIColor lightGrayColor]]
-
-#define LmImageRed(imageName) [UIImage imageFromImage:[UIImage imageNamed:imageName] changecolor:[UIColor redColor]]
+#define LmImageLightGray(imageName)  [UIImage imageFromImage:[UIImage imageNamed:imageName] changecolor:[UIColor lightGrayColor]]
+#define LmImageRed(imageName)        [UIImage imageFromImage:[UIImage imageNamed:imageName] changecolor:[UIColor redColor]]
 
 //....................................................................................
 
@@ -39,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ThemeColor : UIColor
 
-//@property (nonatomic        ) UIUserInterfaceStyle userInterfaceStyle;
+@property (nonatomic        ) UIUserInterfaceStyle previousUserInterfaceStyle;
 
 @property (nonatomic, strong) UIColor * themeColor;
 

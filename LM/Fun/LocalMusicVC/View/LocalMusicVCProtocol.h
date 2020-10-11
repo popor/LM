@@ -44,5 +44,6 @@
 @protocol LocalMusicVCEventHandler <NSObject>
 
 - (void)searchAction:(UISearchBar *)bar;
+- (void)reloadImageColor;
 
 @end
