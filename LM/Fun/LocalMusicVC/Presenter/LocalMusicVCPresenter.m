@@ -25,7 +25,8 @@
 
 @property (nonatomic, copy  ) UIImage * addImageGray;
 @property (nonatomic, copy  ) UIImage * addImageBlack;
-//[UIImage imageNamed:@"add_gray"]
+
+@property (nonatomic        ) UIUserInterfaceStyle userInterfaceStyle;
 
 @end
 
@@ -34,9 +35,8 @@
 - (id)init {
     if (self = [super init]) {
         self.mpb = MpbShare;
-        UIImage * originImage = [UIImage imageNamed:@"add_gray"];
-        self.addImageGray  = [UIImage imageFromImage:originImage changecolor:[UIColor grayColor]];;
-        self.addImageBlack = [UIImage imageFromImage:originImage changecolor:[UIColor blackColor]];
+        self.userInterfaceStyle = -1;
+        [self reloadImageColor];
     }
     return self;
 }
@@ -151,11 +151,6 @@
         if (!cell) {
             cell = [[MusicInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID type:MusicInfoCellTypeAdd];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            if (!self.view.itemArray) {
-                
-            } else {
-                
-            }
             
             @weakify(self);
             @weakify(cell);
@@ -359,6 +354,28 @@
         
     }];
     
+}
+
+- (void)reloadImageColor {
+    UIUserInterfaceStyle userInterfaceStyle = [UITraitCollection currentTraitCollection].userInterfaceStyle;
+    if (self.userInterfaceStyle != userInterfaceStyle) {
+        self.userInterfaceStyle = userInterfaceStyle;
+        UIImage * originImage = [UIImage imageNamed:@"add_gray"];
+        switch (self.userInterfaceStyle) {
+            case UIUserInterfaceStyleLight:
+                self.addImageGray  = [UIImage imageFromImage:originImage changecolor:[UIColor grayColor]];
+                self.addImageBlack = [UIImage imageFromImage:originImage changecolor:[UIColor blackColor]];
+                break;
+                
+            case UIUserInterfaceStyleDark:
+                self.addImageGray  = [UIImage imageFromImage:originImage changecolor:App_textNColor];
+                self.addImageBlack = [UIImage imageFromImage:originImage changecolor:App_textNColor2];
+                break;
+            default:
+                
+                return;;
+        }
+    }
 }
 
 #pragma mark - Interactor_EventHandler

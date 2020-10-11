@@ -15,9 +15,9 @@
     static ThemeColor * instance;
     dispatch_once(&once, ^{
         instance = [ThemeColor new];
-        //        if (@available(iOS 13, *)) {
-        //            instance.userInterfaceStyle = [UITraitCollection currentTraitCollection].userInterfaceStyle;
-        //        }
+        if (@available(iOS 13, *)) {
+            instance.previousUserInterfaceStyle = [UITraitCollection currentTraitCollection].userInterfaceStyle;
+        }
         
         [instance initData];
     });

@@ -306,9 +306,9 @@
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
     if (@available(iOS 13, *)) {
-        if ([ThemeColor share].userInterfaceStyle != previousTraitCollection.userInterfaceStyle) {
-            [ThemeColor share].userInterfaceStyle = previousTraitCollection.userInterfaceStyle;
-            //NSLog(@"修改系统颜色!");
+        if ([ThemeColor share].previousUserInterfaceStyle != previousTraitCollection.userInterfaceStyle) {
+            [ThemeColor share].previousUserInterfaceStyle = previousTraitCollection.userInterfaceStyle;
+            NSLog(@"修改系统颜色!");
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 for (UIButton * bt in self.segmentView.btArray) {
