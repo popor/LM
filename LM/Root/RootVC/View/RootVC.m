@@ -98,7 +98,7 @@
     @weakify(self);
     [RACObserve(self.navigationController.view, frame) subscribeNext:^(id  _Nullable x) {
         @strongify(self);
-        NSLog(@"刷新frame");
+        // NSLog(@"刷新frame");
         [self reloadSubviewsFrame];
     }];
 #else
