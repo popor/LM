@@ -23,6 +23,7 @@
 @property (nonatomic, weak  ) id<RootVCProtocol> view;
 @property (nonatomic, strong) RootVCInteractor * interactor;
 @property (nonatomic, weak  ) MusicPlayListTool * mplt;
+@property (nonatomic        ) NSInteger recordDepartment;
 
 @end
 
@@ -49,132 +50,27 @@
 // 开始执行事件,比如获取网络数据
 - (void)startEvent {
     
+    self.recordDepartment = [self.interactor get__playDepartment];
+    @weakify(self);
+    [MRouterC registerURL:MUrl_savePlayDepartment toHandel:^(NSDictionary *routerParameters){
+        @strongify(self);
+        
+        if (self.view.segmentView.currentPage != self.recordDepartment) {
+            [self.interactor save__playDepartment:self.view.segmentView.currentPage];
+        }
+    }];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.recordDepartment != 0) {
+            [self.view.segmentView updateLineViewToBT:self.view.segmentView.btArray[self.recordDepartment]];
+        }
+    });
     
 }
 
 #pragma mark - VC_DataSource
-#pragma mark - TV_Delegate
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return RootMoreArray.count;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0.1;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.1;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView == self.view.alertBubbleTV) {
-        static NSString * CellID = @"CellIDAlert";
-        UITableViewCell * cell   = [tableView dequeueReusableCellWithIdentifier:CellID];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
-            cell.selectionStyle  = UITableViewCellSelectionStyleDefault;
-            cell.backgroundColor = [UIColor clearColor];
-            cell.textLabel.font  = [UIFont systemFontOfSize:15];
-            cell.textLabel.textColor = [UIColor whiteColor];
-        }
-        if (indexPath.row == RootMoreCheckUpdate) {
-            if (self.interactor.needUpdate) {
-                cell.accessoryType = UITableViewCellAccessoryDetailButton;
-                cell.tintColor     = [UIColor whiteColor];
-            }else{
-                cell.accessoryType = UITableViewCellAccessoryNone;
-            }
-        }else{
-            cell.accessoryType = UITableViewCellAccessoryNone;
-        }
-        cell.textLabel.text = RootMoreArray[indexPath.row];
-        
-        return cell;
-    } else {
-        
-        return nil;
-    }
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    if (tableView == self.view.alertBubbleTV) {
-        [self.view.alertBubbleView closeEvent];
-        switch (indexPath.row) {
-            case 0:{
-                [self addListAction];
-                break;
-            }
-            case 1:{
-                [self showWifiVC];
-                break;
-            }
-            case 2:{
-                [self startEditAction];
-                break;
-            }
-            case 3:{
-                [self checkVersion];
-                break;
-            }
-            default:
-                break;
-        }
-        
-    }
-    
-}
 
 #pragma mark - VC_EventHandler
-- (void)showTVAlertAction:(UIBarButtonItem *)sender event:(UIEvent *)event {
-    //CGRect fromRect = [[event.allTouches anyObject] view].frame;
-    UITouch * touch = [event.allTouches anyObject];
-    //UIWindow * window = [[UIApplication sharedApplication] keyWindow];
-    
-    //CGPoint point = [touch locationInView:window];
-    //fromRect.origin = point;
-    
-    CGRect fromRect = [touch.view.superview convertRect:touch.view.frame toView:self.view.vc.navigationController.view];
-    fromRect.origin.y -= 8;
-    
-    NSDictionary * dic = @{
-                           @"direction":@(AlertBubbleViewDirectionTop),
-                           @"baseView":self.view.vc.navigationController.view,
-                           @"borderLineColor":self.view.alertBubbleTVColor,
-                           @"borderLineWidth":@(1),
-                           @"corner":@(5),
-                           @"trangleHeight":@(8),
-                           @"trangleWidth":@(8),
-                           
-                           @"borderInnerGap":@(10),
-                           @"customeViewInnerGap":@(0),
-                           
-                           @"bubbleBgColor":self.view.alertBubbleTVColor,
-                           @"bgColor":[UIColor clearColor],
-                           @"showAroundRect":@(NO),
-                           @"showLogInfo":@(NO),
-                           };
-    
-    AlertBubbleView * abView = [[AlertBubbleView alloc] initWithDic:dic];
-    
-    [abView showCustomView:self.view.alertBubbleTV around:fromRect close:nil];
-    
-    self.view.alertBubbleView = abView;
-    
-    if (self.interactor.needFresh) {
-        self.interactor.needFresh = NO;
-        [self.view.alertBubbleTV reloadData];
-    }
-}
 
 - (void)showWifiVC {
     

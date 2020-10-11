@@ -36,7 +36,6 @@
 		18DE13AC2251F40A009920D7 /* SongListDetailVCInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE13A72251F40A009920D7 /* SongListDetailVCInteractor.m */; };
 		18DE13AF2251F78C009920D7 /* MusicInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE13AE2251F78C009920D7 /* MusicInfoCell.m */; };
 		18E52ED32253050C00EF8BF6 /* MusicListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E52ED22253050C00EF8BF6 /* MusicListCell.m */; };
-		18E94AAD22609076009A6C8C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 18E94AAC22609076009A6C8C /* README.md */; };
 		C3AD50F32516EDDB00746FA2 /* SongListVCPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD50EA2516EDDB00746FA2 /* SongListVCPresenter.m */; };
 		C3AD50F42516EDDB00746FA2 /* SongListVCInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD50EE2516EDDB00746FA2 /* SongListVCInteractor.m */; };
 		C3AD50F52516EDDB00746FA2 /* SongListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD50F22516EDDB00746FA2 /* SongListVC.m */; };
@@ -128,11 +127,11 @@
 		18DE13AE2251F78C009920D7 /* MusicInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicInfoCell.m; sourceTree = "<group>"; };
 		18E52ED12253050C00EF8BF6 /* MusicListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicListCell.h; sourceTree = "<group>"; };
 		18E52ED22253050C00EF8BF6 /* MusicListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicListCell.m; sourceTree = "<group>"; };
-		18E94AAC22609076009A6C8C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		29BA81301DB9758FD1B2E469 /* libPods-LMTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LMTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BD68A1A6DDCAC558466342A /* Pods-LMTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMTests.debug.xcconfig"; path = "Target Support Files/Pods-LMTests/Pods-LMTests.debug.xcconfig"; sourceTree = "<group>"; };
 		767D491D9049577971B2EEE5 /* Pods-LMUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMUITests.debug.xcconfig"; path = "Target Support Files/Pods-LMUITests/Pods-LMUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		80F3B930C3AFCB09C6C2E77B /* Pods-LMUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMUITests.release.xcconfig"; path = "Target Support Files/Pods-LMUITests/Pods-LMUITests.release.xcconfig"; sourceTree = "<group>"; };
+		C31062B52532FF7000B5A7E6 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		C32678F725145FB9007CADFC /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		C32678F925145FB9007CADFC /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		C3267B2C251489C1007CADFC /* LM.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LM.entitlements; sourceTree = "<group>"; };
@@ -235,7 +234,6 @@
 		183BF3CD224A1DBB004DE115 = {
 			isa = PBXGroup;
 			children = (
-				18E94AAC22609076009A6C8C /* README.md */,
 				183BF3D8224A1DBB004DE115 /* LM */,
 				183BF3D7224A1DBB004DE115 /* Products */,
 				87C314330D17CE51241C552F /* Pods */,
@@ -254,6 +252,7 @@
 		183BF3D8224A1DBB004DE115 /* LM */ = {
 			isa = PBXGroup;
 			children = (
+				C31062B52532FF7000B5A7E6 /* README.md */,
 				183BF40B224A1EF1004DE115 /* other */,
 				183BF42B224A25B0004DE115 /* Public */,
 				C3AD512D2516FC6900746FA2 /* AppConfig */,
@@ -689,7 +688,6 @@
 			files = (
 				183BF3E6224A1DBD004DE115 /* LaunchScreen.storyboard in Resources */,
 				183BF3E3224A1DBD004DE115 /* Assets.xcassets in Resources */,
-				18E94AAD22609076009A6C8C /* README.md in Resources */,
 				183BF3E1224A1DBB004DE115 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

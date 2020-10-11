@@ -41,4 +41,16 @@
     }];
 }
 
+
+- (void)save__playDepartment:(NSInteger)department {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%li", department] forKey:@"department"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSInteger)get__playDepartment {
+    NSString * info = [[NSUserDefaults standardUserDefaults] objectForKey:@"department"];
+    return [info integerValue];
+}
+
+
 @end

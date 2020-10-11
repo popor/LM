@@ -38,6 +38,14 @@
     return YES;
 }
 
+//- (void)applicationDidEnterBackground:(UIApplication *)application {
+//    [MGJRouter openURL:MUrl_savePlayDepartment];
+//}
+
+- (void)applicationWillTerminate:(UIApplication *)application {
+    [MGJRouter openURL:MUrl_savePlayDepartment];
+}
+
 // ios 9.1 以前的方案
 //    // 接受系统锁屏控制
 //    [self becomeFirstResponder];

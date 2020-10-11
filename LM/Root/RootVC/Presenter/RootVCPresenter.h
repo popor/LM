@@ -9,7 +9,7 @@
 #import "RootVCProtocol.h"
 
 // 处理和View事件
-@interface RootVCPresenter : NSObject <RootVCEventHandler, RootVCDataSource, UITableViewDelegate, UITableViewDataSource>
+@interface RootVCPresenter : NSObject <RootVCEventHandler, RootVCDataSource>
 
 - (void)setMyInteractor:(id)interactor;
 

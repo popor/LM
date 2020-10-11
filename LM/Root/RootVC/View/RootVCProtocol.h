@@ -30,9 +30,6 @@
 @property (nonatomic, copy  ) NSArray         * titleArray;
 @property (nonatomic, strong) NSMutableArray  * tvArray;
 
-@property (nonatomic, strong) AlertBubbleView * alertBubbleView;
-@property (nonatomic, strong) UITableView     * alertBubbleTV;
-@property (nonatomic, strong) UIColor         * alertBubbleTVColor;
 @property (nonatomic, strong) PoporSegmentView * segmentView;
 @property (nonatomic, strong) UIScrollView    * tvSV;
 @property (nonatomic, strong) SongListVC      * songListVC;

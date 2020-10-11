@@ -10,7 +10,6 @@
 
 @implementation MRouterUrlPrefix
 
-NSString * const MUrl_videoBlwLive       = @"video/blw/live";
-NSString * const MUrl_videoBlwLiveStatus = @"video/blw/live/status";
+NSString * const MUrl_savePlayDepartment = @"savePlayDepartment";
 
 @end

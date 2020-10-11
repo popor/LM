@@ -21,9 +21,7 @@
 @synthesize playbar;
 @synthesize titleArray;
 @synthesize tvArray;
-@synthesize alertBubbleView;
-@synthesize alertBubbleTV;
-@synthesize alertBubbleTVColor;
+
 @synthesize segmentView;
 @synthesize tvSV;
 @synthesize songListVC;
@@ -81,10 +79,6 @@
 - (void)addViews {
     [self addPlayboard];
     
-    {
-        self.alertBubbleTVColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-        self.alertBubbleTV = [self addAlertBubbleTV];
-    }
     {
         self.navigationController.navigationBar.tintColor = ColorThemeBlue1;
     }

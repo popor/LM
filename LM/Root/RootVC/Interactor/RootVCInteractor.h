@@ -18,4 +18,7 @@
 
 - (void)autoCheckUpdateAtVC:(UIViewController *)vc;
 
+- (void)save__playDepartment:(NSInteger)department;
+- (NSInteger)get__playDepartment;
+
 @end
