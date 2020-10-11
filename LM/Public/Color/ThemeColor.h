@@ -32,26 +32,29 @@ NS_ASSUME_NONNULL_BEGIN
 #define App_labelColor     [ThemeColor share].labelColor
 
 #define App_textNColor     [ThemeColor share].textNColor
+#define App_textNColor2    [ThemeColor share].textNColor2
 #define App_textSColor     [ThemeColor share].textSColor
 
 //....................................................................................
 
 @interface ThemeColor : UIColor
 
-@property (nonatomic        ) UIUserInterfaceStyle userInterfaceStyle;
+//@property (nonatomic        ) UIUserInterfaceStyle userInterfaceStyle;
 
 @property (nonatomic, strong) UIColor * themeColor;
 
-@property (nonatomic, strong) UIColor * bgColor1;
-@property (nonatomic, strong) UIColor * bgColor2;
-@property (nonatomic, strong) UIColor * bgColor3;
+@property (nonatomic, strong) UIColor *  _Nullable bgColor1;
+@property (nonatomic, strong) UIColor *  _Nullable bgColor2;
+@property (nonatomic, strong) UIColor *  _Nullable bgColor3;
+ 
+@property (nonatomic, strong) UIColor *  _Nullable separatorColor;
+ 
+@property (nonatomic, strong) UIColor *  _Nullable labelColor;
+ 
+@property (nonatomic, strong) UIColor *  _Nullable textNColor;
+@property (nonatomic, strong) UIColor *  _Nullable textNColor2;
 
-@property (nonatomic, strong) UIColor * separatorColor;
-
-@property (nonatomic, strong) UIColor * labelColor;
-
-@property (nonatomic, strong) UIColor * textNColor;
-@property (nonatomic, strong) UIColor * textSColor;
+@property (nonatomic, strong) UIColor *  _Nullable textSColor;
 
 + (instancetype)share;
 

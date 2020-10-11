@@ -190,7 +190,7 @@
 }
 
 - (void)addHeadSegmentViews {
-    self.titleArray = @[@"歌单", @"文件夹"];
+    self.titleArray = @[@"歌单", @"本地"];
     self.segmentView = ({
         NSArray *titleAry = self.titleArray;
         
@@ -305,18 +305,20 @@
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
-    if ([ThemeColor share].userInterfaceStyle != previousTraitCollection.userInterfaceStyle) {
-        [ThemeColor share].userInterfaceStyle = previousTraitCollection.userInterfaceStyle;
-        //NSLog(@"修改系统颜色!");
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            for (UIButton * bt in self.segmentView.btArray) {
-                if (bt.tag != self.segmentView.currentPage) {
-                    [bt setTitleColor:self.segmentView.btTitleNColor forState:UIControlStateNormal];
+    if (@available(iOS 13, *)) {
+        if ([ThemeColor share].userInterfaceStyle != previousTraitCollection.userInterfaceStyle) {
+            [ThemeColor share].userInterfaceStyle = previousTraitCollection.userInterfaceStyle;
+            //NSLog(@"修改系统颜色!");
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                for (UIButton * bt in self.segmentView.btArray) {
+                    if (bt.tag != self.segmentView.currentPage) {
+                        [bt setTitleColor:self.segmentView.btTitleNColor forState:UIControlStateNormal];
+                    }
                 }
-            }
-        });
-        
+            });
+            
+        }
     }
     
     //self.view.tag = self.view.tag +1;

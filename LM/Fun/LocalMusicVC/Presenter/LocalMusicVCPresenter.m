@@ -184,11 +184,11 @@
             
             if (entity.itemArray.count == 0) {
                 cell.accessoryType = UITableViewCellAccessoryNone;
-                cell.titelL.textColor = [UIColor grayColor];
+                cell.titelL.textColor = App_textNColor;
                 [cell.addBt setImage:self.addImageGray forState:UIControlStateNormal];
             } else {
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                cell.titelL.textColor = [UIColor blackColor];
+                cell.titelL.textColor = App_textNColor;
                 [cell.addBt setImage:self.addImageBlack forState:UIControlStateNormal];
             }
         } else {
@@ -203,8 +203,8 @@
                 
                 self.lastCell = cell;
             }else{
-                cell.titelL.textColor = [UIColor blackColor];
-                cell.timeL.textColor  = [UIColor grayColor];
+                cell.titelL.textColor = App_textNColor;
+                cell.timeL.textColor  = App_textNColor2;
             }
             
             if (self.view.isSearchType) {
@@ -278,8 +278,8 @@
             [self.mpb playTempArray:array at:0];
             
             if (self.lastCell) {
-                self.lastCell.titelL.textColor = [UIColor blackColor];
-                self.lastCell.timeL.textColor  = [UIColor grayColor];
+                self.lastCell.titelL.textColor = App_textNColor;
+                self.lastCell.timeL.textColor  = App_textNColor2;
                 
                 // 刷新搜索状态
                 if (self.view.isSearchType) {
