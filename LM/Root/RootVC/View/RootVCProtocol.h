@@ -29,8 +29,6 @@
 @property (nonatomic, weak  ) MusicPlayBar    * playbar;
 @property (nonatomic, copy  ) NSArray         * titleArray;
 @property (nonatomic, strong) NSMutableArray  * tvArray;
-//@property (nonatomic, strong) UITableView     * infoTV;
-//@property (nonatomic, strong) UITableView     * localTV;
 
 @property (nonatomic, strong) AlertBubbleView * alertBubbleView;
 @property (nonatomic, strong) UITableView     * alertBubbleTV;

@@ -85,10 +85,6 @@
         self.alertBubbleTVColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
         self.alertBubbleTV = [self addAlertBubbleTV];
     }
-    //    {
-    //        UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithTitle:@"更多" style:UIBarButtonItemStylePlain target:self.present action:@selector(showTVAlertAction:event:)];
-    //        self.navigationItem.rightBarButtonItems = @[item1];
-    //    }
     {
         self.navigationController.navigationBar.tintColor = ColorThemeBlue1;
     }
