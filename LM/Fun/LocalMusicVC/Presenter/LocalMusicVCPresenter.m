@@ -360,6 +360,7 @@
     UIUserInterfaceStyle userInterfaceStyle = [UITraitCollection currentTraitCollection].userInterfaceStyle;
     if (self.userInterfaceStyle != userInterfaceStyle) {
         self.userInterfaceStyle = userInterfaceStyle;
+        
         UIImage * originImage = [UIImage imageNamed:@"add_gray"];
         switch (self.userInterfaceStyle) {
             case UIUserInterfaceStyleLight:
@@ -371,8 +372,8 @@
                 self.addImageGray  = [UIImage imageFromImage:originImage changecolor:App_textNColor];
                 self.addImageBlack = [UIImage imageFromImage:originImage changecolor:App_textNColor2];
                 break;
-            default:
                 
+            default:
                 return;;
         }
     }
