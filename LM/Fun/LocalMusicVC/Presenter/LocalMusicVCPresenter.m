@@ -14,6 +14,7 @@
 #import "MusicPlayListTool.h"
 #import "MusicPlayBar.h"
 
+API_AVAILABLE(ios(12.0))
 @interface LocalMusicVCPresenter ()
 
 @property (nonatomic, weak  ) id<LocalMusicVCProtocol> view;
@@ -104,10 +105,11 @@
                     LocalMusicHeadView * head = [LocalMusicHeadView new];
                     
 #if TARGET_OS_MACCATALYST
-                    head.openBT.hidden = NO;
+                    //head.openBT.hidden = NO;
                     [head.openBT addTarget:self action:@selector(openDocFolderAction) forControlEvents:UIControlEventTouchUpInside];
 #else
-                    head.openBT.hidden = YES;
+                    //head.openBT.hidden = YES;
+                    [head.openBT addTarget:self action:@selector(openWifiVC) forControlEvents:UIControlEventTouchUpInside];
 #endif
                     [head.freshBT addTarget:self action:@selector(freshLocalDataAction) forControlEvents:UIControlEventTouchUpInside];
                     
@@ -358,21 +360,23 @@
 }
 
 - (void)reloadImageColor {
-    UIUserInterfaceStyle userInterfaceStyle = [UITraitCollection currentTraitCollection].userInterfaceStyle;
-    if (self.userInterfaceStyle != userInterfaceStyle) {
-        self.userInterfaceStyle = userInterfaceStyle;
-        
-        static UIImage * imageN1;
-        static UIImage * imageN2;
-        static UIImage * imageS1;
-        
-        if (!imageN1) {
-            UIImage * originImage = [UIImage imageNamed:@"add_gray"];
+    static UIImage * imageN1;
+    static UIImage * imageN2;
+    static UIImage * imageS1;
+    
+    if (@available(iOS 13, *)) {
+        UIUserInterfaceStyle userInterfaceStyle = [UITraitCollection currentTraitCollection].userInterfaceStyle;
+        if (self.userInterfaceStyle != userInterfaceStyle) {
+            self.userInterfaceStyle = userInterfaceStyle;
             
-            imageN1 = [UIImage imageFromImage:originImage changecolor:[UIColor blackColor]];
-            imageS1 = [UIImage imageFromImage:originImage changecolor:[UIColor grayColor]];
-            
-            imageN2 = [UIImage imageFromImage:originImage changecolor:[UIColor whiteColor]];
+            if (!imageN1) {
+                UIImage * originImage = [UIImage imageNamed:@"add_gray"];
+                
+                imageN1 = [UIImage imageFromImage:originImage changecolor:[UIColor blackColor]];
+                imageS1 = [UIImage imageFromImage:originImage changecolor:[UIColor grayColor]];
+                
+                imageN2 = [UIImage imageFromImage:originImage changecolor:[UIColor whiteColor]];
+            }
         }
         
         switch (self.userInterfaceStyle) {
@@ -389,6 +393,16 @@
             default:
                 return;;
         }
+    } else {
+        if (!imageN1) {
+            UIImage * originImage = [UIImage imageNamed:@"add_gray"];
+            
+            imageN1 = [UIImage imageFromImage:originImage changecolor:[UIColor blackColor]];
+            imageS1 = [UIImage imageFromImage:originImage changecolor:[UIColor grayColor]];
+        }
+        
+        self.addImageBlack = imageN1;
+        self.addImageGray  = imageS1;
     }
 }
 
@@ -416,6 +430,10 @@
     
 #endif
 
+}
+
+- (void)openWifiVC {
+    [MGJRouter openURL:MUrl_wifiAddFileVC];
 }
 
 - (void)freshLocalDataAction {

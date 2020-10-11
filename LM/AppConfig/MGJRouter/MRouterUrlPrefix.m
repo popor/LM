@@ -11,5 +11,6 @@
 @implementation MRouterUrlPrefix
 
 NSString * const MUrl_savePlayDepartment = @"savePlayDepartment";
+NSString * const MUrl_wifiAddFileVC      = @"wifiAddFileVC";
 
 @end

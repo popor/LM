@@ -60,6 +60,13 @@
         }
     }];
     
+    [MRouterC registerURL:MUrl_wifiAddFileVC toHandel:^(NSDictionary *routerParameters){
+        @strongify(self);
+        
+        [self showWifiVC];
+    }];
+    
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self.recordDepartment != 0) {
             [self.view.segmentView updateLineViewToBT:self.view.segmentView.btArray[self.recordDepartment]];
