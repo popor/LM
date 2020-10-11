@@ -191,6 +191,7 @@
             
             cell.titelL.text = [NSString stringWithFormat:@"%li: %@", indexPath.row+1, entity.musicTitle];
             cell.timeL.text  = entity.musicAuthor;
+            [cell.addBt setImage:self.addImageBlack forState:UIControlStateNormal];
             
             if ([entity.filePath isEqualToString:self.mpb.currentItem.filePath]) {
                 cell.titelL.textColor = ColorThemeBlue1;
@@ -360,19 +361,32 @@
     UIUserInterfaceStyle userInterfaceStyle = [UITraitCollection currentTraitCollection].userInterfaceStyle;
     if (self.userInterfaceStyle != userInterfaceStyle) {
         self.userInterfaceStyle = userInterfaceStyle;
-        UIImage * originImage = [UIImage imageNamed:@"add_gray"];
+        
+        static UIImage * imageN1;
+        static UIImage * imageN2;
+        static UIImage * imageS1;
+        
+        if (!imageN1) {
+            UIImage * originImage = [UIImage imageNamed:@"add_gray"];
+            
+            imageN1 = [UIImage imageFromImage:originImage changecolor:[UIColor blackColor]];
+            imageS1 = [UIImage imageFromImage:originImage changecolor:[UIColor grayColor]];
+            
+            imageN2 = [UIImage imageFromImage:originImage changecolor:[UIColor whiteColor]];
+        }
+        
         switch (self.userInterfaceStyle) {
             case UIUserInterfaceStyleLight:
-                self.addImageGray  = [UIImage imageFromImage:originImage changecolor:[UIColor grayColor]];
-                self.addImageBlack = [UIImage imageFromImage:originImage changecolor:[UIColor blackColor]];
+                self.addImageBlack = imageN1;
+                self.addImageGray  = imageS1;
                 break;
                 
             case UIUserInterfaceStyleDark:
-                self.addImageGray  = [UIImage imageFromImage:originImage changecolor:App_textNColor];
-                self.addImageBlack = [UIImage imageFromImage:originImage changecolor:App_textNColor2];
+                self.addImageBlack =  imageN2;
+                self.addImageGray  =  imageN2;
                 break;
-            default:
                 
+            default:
                 return;;
         }
     }
