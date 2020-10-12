@@ -211,11 +211,11 @@ API_AVAILABLE(ios(12.0))
                 
                 if (self.mplt.config.playType == McPlayType_songList
                     || self.mplt.config.playType == McPlayType_searchSongList) {
-                                        
+                    
                     cell.rightIV.hidden   = YES;
                     cell.titelL.textColor = App_textNColor;
                 } else {
-                                        
+                    
                     if (entity.itemArray.count == 0) {
                         cell.accessoryType = UITableViewCellAccessoryNone;
                         cell.titelL.textColor = App_textNColor2;
@@ -225,7 +225,7 @@ API_AVAILABLE(ios(12.0))
                         //cell.titelL.textColor = App_textNColor;
                         [cell.addBt setImage:self.addImageBlack forState:UIControlStateNormal];
                         
-                        if([self.mplt.config.localFolderName isEqualToString:entity.folderName]){
+                        if([self.mplt.config.localFolderName isEqualToString:entity.fileName]){
                             cell.rightIV.hidden = NO;
                             cell.titelL.textColor = ColorThemeBlue1;
                         }else{
@@ -237,7 +237,7 @@ API_AVAILABLE(ios(12.0))
                     
                 }
                 
-               
+                
             } else {
                 cell.accessoryType = UITableViewCellAccessoryNone;
                 
@@ -420,17 +420,17 @@ API_AVAILABLE(ios(12.0))
     
     UIColor * color = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     NSDictionary * dic = @{
-                           @"direction":@(AlertBubbleViewDirectionTop),
-                           @"baseView":self.view.vc.navigationController.view,
-                           @"borderLineColor":color,
-                           @"borderLineWidth":@(1),
-                           @"corner":@(10),
-                           
-                           @"bubbleBgColor":color,
-                           @"bgColor":[UIColor clearColor],
-                           @"showAroundRect":@(NO),
-                           @"showLogInfo":@(NO),
-                           };
+        @"direction":@(AlertBubbleViewDirectionTop),
+        @"baseView":self.view.vc.navigationController.view,
+        @"borderLineColor":color,
+        @"borderLineWidth":@(1),
+        @"corner":@(10),
+        
+        @"bubbleBgColor":color,
+        @"bgColor":[UIColor clearColor],
+        @"showAroundRect":@(NO),
+        @"showLogInfo":@(NO),
+    };
     
     AlertBubbleView * abView = [[AlertBubbleView alloc] initWithDic:dic];
     
@@ -522,7 +522,6 @@ API_AVAILABLE(ios(12.0))
     //NSURL * url = [NSURL fileURLWithPath:@"file:///Users/popor/Desktop/demo/"];
     NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@/%@", FT_docPath, MusicFolderName]];
     [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {}];
-
 }
 
 - (void)openWifiVC {
