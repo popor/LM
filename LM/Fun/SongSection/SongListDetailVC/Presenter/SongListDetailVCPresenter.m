@@ -125,8 +125,8 @@
             cell.rightIV.hidden   = NO;
             self.lastCell = cell;
         }else{
-            cell.titelL.textColor = [UIColor blackColor];
-            cell.timeL.textColor  = [UIColor grayColor];
+            cell.titelL.textColor = App_textNColor;
+            cell.timeL.textColor  = App_textNColor2;
             cell.rightIV.hidden   = YES;
         }
         if (self.view.isSearchType) {
@@ -193,8 +193,8 @@
             [MpbShare playMusicPlayListEntity:self.view.listEntity at:indexPath.row];
         }
         if (self.lastCell) {
-            self.lastCell.titelL.textColor = [UIColor blackColor];
-            self.lastCell.timeL.textColor  = [UIColor grayColor];
+            self.lastCell.titelL.textColor = App_textNColor;
+            self.lastCell.timeL.textColor  = App_textNColor2;
             self.lastCell.rightIV.hidden   = YES;
             
             // 刷新搜索状态

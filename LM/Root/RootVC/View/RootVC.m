@@ -155,30 +155,6 @@
     };
 }
 
-- (UITableView *)addAlertBubbleTV {
-    UITableView * oneTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 130, RootMoreTvCellH * RootMoreArray.count) style:UITableViewStylePlain];
-    
-    oneTV.delegate   = self.present;
-    oneTV.dataSource = self.present;
-    
-    oneTV.allowsMultipleSelectionDuringEditing = YES;
-    oneTV.directionalLockEnabled = YES;
-    
-    oneTV.estimatedRowHeight           = 0;
-    oneTV.estimatedSectionHeaderHeight = 0;
-    oneTV.estimatedSectionFooterHeight = 0;
-    
-    oneTV.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    
-    oneTV.backgroundColor = [UIColor clearColor];
-    
-    oneTV.layer.cornerRadius = 4;
-    oneTV.clipsToBounds      = YES;
-    oneTV.scrollEnabled      = NO;
-    
-    return oneTV;
-}
-
 - (void)addHeadSegmentViews {
     self.titleArray = @[@"歌单", @"本地"];
     self.segmentView = ({

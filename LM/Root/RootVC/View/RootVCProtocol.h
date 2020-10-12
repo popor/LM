@@ -47,7 +47,6 @@
 // MARK: UI事件
 @protocol RootVCEventHandler <NSObject>
 
-- (void)showTVAlertAction:(UIBarButtonItem *)sender event:(UIEvent *)event;
 - (void)showWifiVC;
 
 @end

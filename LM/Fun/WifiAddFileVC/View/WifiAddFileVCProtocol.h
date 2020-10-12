@@ -20,7 +20,6 @@
 @protocol WifiAddFileVCProtocol <NSObject>
 
 - (UIViewController *)vc;
-- (void)setMyPresent:(id)present;
 
 // MARK: 自己的
 @property (nonatomic, strong) GCDWebUploader * webUploader;

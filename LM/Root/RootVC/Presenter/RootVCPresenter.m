@@ -145,27 +145,6 @@
     }
 }
 
-- (void)startEditAction {
-//    {
-//        UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(endEditAction)];
-//        self.view.vc.navigationItem.rightBarButtonItems = @[item1];
-//    }
-//    {
-//        self.view.infoTV.allowsSelectionDuringEditing = NO;
-//        self.view.infoTV.editing = YES;
-//    }
-}
-
-- (void)endEditAction {
-//    {
-//        UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithTitle:@"更多" style:UIBarButtonItemStylePlain target:self action:@selector(showTVAlertAction:event:)];
-//        self.view.vc.navigationItem.rightBarButtonItems = @[item1];
-//    }
-//    {
-//        self.view.infoTV.editing = NO;
-//    }
-}
-
 - (void)checkVersion {
     [self.interactor oneCheckUpdateAtVC:self.view.vc];
 }

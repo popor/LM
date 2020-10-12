@@ -123,11 +123,12 @@
             cell.titelL.textColor = ColorThemeBlue1;
         }else{
             cell.rightIV.hidden = YES;
-            cell.titelL.textColor = [UIColor darkGrayColor];
+            cell.titelL.textColor = App_textNColor;
         }
     } else {
         cell.cellData = list;
         cell.titelL.text = @"请新增歌单";
+        cell.titelL.textColor = App_textNColor;
         cell.accessoryType  = UITableViewCellAccessoryNone;
         cell.rightIV.hidden = YES;
     }
