@@ -458,21 +458,23 @@ API_AVAILABLE(ios(12.0))
                 
                 imageN2 = [UIImage imageFromImage:originImage changecolor:[UIColor whiteColor]];
             }
-        }
-        
-        switch (self.userInterfaceStyle) {
-            case UIUserInterfaceStyleLight:
-                self.addImageBlack = imageN1;
-                self.addImageGray  = imageS1;
-                break;
-                
-            case UIUserInterfaceStyleDark:
-                self.addImageBlack =  imageN2;
-                self.addImageGray  =  imageN2;
-                break;
-                
-            default:
-                return;;
+            
+            switch (self.userInterfaceStyle) {
+                case UIUserInterfaceStyleLight:
+                    self.addImageBlack = imageN1;
+                    self.addImageGray  = imageS1;
+                    break;
+                    
+                case UIUserInterfaceStyleDark:
+                    self.addImageBlack =  imageN2;
+                    self.addImageGray  =  imageN2;
+                    break;
+                    
+                default:
+                    return;;
+            }
+            [self.view.infoTV reloadData];
+            
         }
     } else {
         if (!imageN1) {
@@ -485,6 +487,8 @@ API_AVAILABLE(ios(12.0))
         self.addImageBlack = imageN1;
         self.addImageGray  = imageS1;
     }
+    
+    
 }
 
 - (void)freshTVVisiableCellEvent {
