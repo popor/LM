@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 #define App_bgColor1       [ThemeColor share].bgColor1
 #define App_bgColor2       [ThemeColor share].bgColor2
 #define App_bgColor3       [ThemeColor share].bgColor3
+#define App_bgColor4       [ThemeColor share].bgColor4
 
 #define App_separatorColor [ThemeColor share].separatorColor
 
@@ -43,6 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIColor *  _Nullable bgColor1;
 @property (nonatomic, strong) UIColor *  _Nullable bgColor2;
 @property (nonatomic, strong) UIColor *  _Nullable bgColor3;
+@property (nonatomic, strong) UIColor *  _Nullable bgColor4;
  
 @property (nonatomic, strong) UIColor *  _Nullable separatorColor;
  

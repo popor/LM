@@ -24,7 +24,7 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier type:(MusicInfoCellType)type {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         _type = type;
-        self.contentView.backgroundColor = App_bgColor2;
+        self.contentView.backgroundColor = App_bgColor4;
         [self addViews];
     }
     return self;

@@ -25,7 +25,7 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
-        self.contentView.backgroundColor = App_bgColor2;
+        self.contentView.backgroundColor = App_bgColor4;
         [self addViews];
     }
     return self;

@@ -33,6 +33,8 @@
         self.bgColor2       = [UIColor secondarySystemGroupedBackgroundColor];
         self.bgColor3       = [UIColor tertiarySystemGroupedBackgroundColor];
         
+        self.bgColor4       = [UIColor systemBackgroundColor];
+        
         self.separatorColor = [UIColor separatorColor];
         
         self.labelColor     = [UIColor labelColor];
@@ -44,6 +46,7 @@
         self.bgColor1       = [UIColor whiteColor];
         self.bgColor2       = [UIColor whiteColor];
         self.bgColor3       = [UIColor whiteColor];
+        self.bgColor4       = [UIColor whiteColor];
         
         self.separatorColor = nil;
         
