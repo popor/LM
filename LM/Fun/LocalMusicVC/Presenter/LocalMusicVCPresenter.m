@@ -191,9 +191,13 @@ API_AVAILABLE(ios(12.0))
                 @strongify(cell);
                 
                 FileEntity * entity = (FileEntity *)cell.cellData;
-                if (entity.itemArray.count != 0) {
-                    self.selectFileEntity = entity;
-                    [self addMusicPlistFile:entity];
+                self.selectFileEntity = entity;
+                if (entity.isFolder) {
+                    if (entity.itemArray.count != 0) {
+                        [self addMusicPlistFile];
+                    }
+                } else {
+                    [self addMusicPlistFile];
                 }
             }];
         }
@@ -410,14 +414,7 @@ API_AVAILABLE(ios(12.0))
 }
 
 #pragma mark - VC_EventHandler
-- (void)addMusicPlistFile:(FileEntity *)entity {
-    //    NSString * title;
-    //    if (entity.isFolder) {
-    //        title = [NSString stringWithFormat:@"添加整个文件夹《%@》", entity.fileName];
-    //    }else{
-    //        title = [NSString stringWithFormat:@"添加文件《%@》", entity.fileName];
-    //    }
-    
+- (void)addMusicPlistFile {
     UIColor * color = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     NSDictionary * dic = @{
         @"direction":@(AlertBubbleViewDirectionTop),
