@@ -186,12 +186,15 @@
     //NSMutableArray * array = self.view.listEntity;
     if (tableView == self.view.infoTV) {
         
+        // 播放音频
         if (self.view.isSearchType) {
             self.mpb.mplt.config.songIndexList = [self.mpb.mplt.list.songListArray indexOfObject:self.view.listEntity];
             [MpbShare playTempArray:self.view.searchArray at:indexPath.row];
         }else{
             [MpbShare playMusicPlayListEntity:self.view.listEntity at:indexPath.row];
         }
+        
+        // 刷新UI
         if (self.lastCell) {
             self.lastCell.titelL.textColor = App_textNColor;
             self.lastCell.timeL.textColor  = App_textNColor2;

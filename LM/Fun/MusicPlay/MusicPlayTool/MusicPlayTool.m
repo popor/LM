@@ -9,6 +9,7 @@
 #import "MusicPlayTool.h"
 #import "MusicPlayBar.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "MusicPlayListTool.h"
 
 @interface MusicPlayTool() <AVAudioPlayerDelegate>
 
@@ -59,7 +60,7 @@
 }
 
 - (void)playItem:(MusicPlayItemEntity *)item autoPlay:(BOOL)autoPlay {
-    NSString * path = [NSString stringWithFormat:@"%@/%@", FT_docPath, item.filePath];
+    NSString * path = [NSString stringWithFormat:@"%@/%@/%@", FT_docPath, MusicFolderName, item.filePath];
     NSURL * url     = [NSURL fileURLWithPath:path];
     //self.musicTitle = item.fileName;
     self.musicItem  = item;
