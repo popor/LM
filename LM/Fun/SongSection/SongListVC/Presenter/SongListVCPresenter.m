@@ -63,7 +63,8 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return MpltShare.list.songListArray.count;
+    NSInteger count = MpltShare.list.songListArray.count;
+    return MAX(1, count);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -109,21 +110,27 @@
     if (!cell) {
         cell = [[MusicListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-        cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
         cell.tintColor      = ColorThemeBlue1;
     }
     MusicPlayListEntity * list = MpltShare.list.songListArray[indexPath.row];
-    cell.cellData = list;
-    cell.titelL.text = [NSString stringWithFormat:@"%@ (%li)", list.name, list.itemArray.count];
-    
-    if(self.mplt.config.songIndexList == indexPath.row){
-        cell.rightIV.hidden = NO;
-        cell.titelL.textColor = ColorThemeBlue1;
-    }else{
+    if (list) {
+        cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
+        cell.cellData = list;
+        cell.titelL.text = [NSString stringWithFormat:@"%@ (%li)", list.name, list.itemArray.count];
+        
+        if(self.mplt.config.songIndexList == indexPath.row){
+            cell.rightIV.hidden = NO;
+            cell.titelL.textColor = ColorThemeBlue1;
+        }else{
+            cell.rightIV.hidden = YES;
+            cell.titelL.textColor = [UIColor darkGrayColor];
+        }
+    } else {
+        cell.cellData = list;
+        cell.titelL.text = @"请新增歌单";
+        cell.accessoryType  = UITableViewCellAccessoryNone;
         cell.rightIV.hidden = YES;
-        cell.titelL.textColor = [UIColor darkGrayColor];
     }
-    
     return cell;
 }
 
@@ -133,20 +140,23 @@
     if (self.view.infoTV.isEditing) {
         return;
     }
-    @weakify(self);
-    BlockPBool deallocBlock = ^(BOOL value){
-        @strongify(self);
-        [self.view.infoTV reloadData];
-    };
-    
     MusicPlayListEntity * list = MpltShare.list.songListArray[indexPath.row];
-    NSDictionary * dic =
-    @{@"title":list.name,
-      @"listEntity":list,
-      @"deallocBlock":deallocBlock,
-    };
-    [self.view.vc.navigationController pushViewController:[[SongListDetailVC alloc] initWithDic:dic] animated:YES];
-    
+    if (list) {
+        @weakify(self);
+        BlockPBool deallocBlock = ^(BOOL value){
+            @strongify(self);
+            [self.view.infoTV reloadData];
+        };
+        
+        NSDictionary * dic =
+        @{@"title":list.name,
+          @"listEntity":list,
+          @"deallocBlock":deallocBlock,
+        };
+        [self.view.vc.navigationController pushViewController:[[SongListDetailVC alloc] initWithDic:dic] animated:YES];
+    } else {
+        [self addListAction];
+    }
 }
 
 #pragma mark - 编辑tv
