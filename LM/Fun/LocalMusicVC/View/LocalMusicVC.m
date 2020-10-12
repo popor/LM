@@ -113,8 +113,12 @@
         make.top.mas_equalTo(0);
         make.left.mas_equalTo(0);
         make.right.mas_equalTo(0);
-        //make.bottom.mas_equalTo(-self.playbar.height);
-        make.bottom.mas_equalTo(0);
+        
+        if (self.itemArray) { // 子页面
+            make.bottom.mas_equalTo(-self.playbar.height);
+        } else { // 首页面
+            make.bottom.mas_equalTo(0);
+        }
     }];
     
     [self addTapEndEditGRAction];
