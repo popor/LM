@@ -31,7 +31,7 @@
 @property (nonatomic, readonly, getter=isRoot) BOOL root;
 
 // MARK: 外部注入的
-@property (nonatomic, copy  ) BlockPVoid   deallocBlock;
+
 
 @end
 
@@ -45,5 +45,6 @@
 
 - (void)searchAction:(UISearchBar *)bar;
 - (void)reloadImageColor;
+- (void)freshTVVisiableCellEvent;
 
 @end

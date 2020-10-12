@@ -37,7 +37,6 @@
 
 // MARK: 外部注入的
 @property (nonatomic, weak  ) MusicPlayListEntity * listEntity;
-@property (nonatomic, copy  ) BlockPBool      deallocBlock;
 
 @end
 

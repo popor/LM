@@ -44,6 +44,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     [MGJRouter openURL:MUrl_savePlayDepartment];
+    [MGJRouter openURL:MUrl_savePlayConfig];
 }
 
 // ios 9.1 以前的方案

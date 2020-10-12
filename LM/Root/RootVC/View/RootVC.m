@@ -35,6 +35,16 @@
     return self;
 }
 
+- (void)addMRouterC {
+    @weakify(self);
+    [MRouterC registerURL:MUrl_freshRootTV toHandel:^(NSDictionary *routerParameters){
+        @strongify(self);
+        
+        [self.songListVC.infoTV reloadData];
+        [self.localMusicVC.infoTV reloadData];
+    }];
+}
+
 - (void)viewDidLoad {
     [self assembleViper];
     [super viewDidLoad];
@@ -113,6 +123,7 @@
     
 #endif
     
+    [self addMRouterC];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -155,12 +166,6 @@
         make.height.mas_equalTo(self.playbar.height);
     }];
     
-    @weakify(self);
-    self.playbar.freshBlockRootVC = ^{
-        @strongify(self);
-        
-        [self.songListVC.infoTV reloadRowsAtIndexPaths:self.songListVC.infoTV.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationNone];
-    };
 }
 
 - (void)addHeadSegmentViews {

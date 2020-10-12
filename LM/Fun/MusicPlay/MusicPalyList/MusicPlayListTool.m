@@ -56,20 +56,31 @@
             _list = [MusicPlayList new];
         }
         _currentTempList = [NSMutableArray new];
+        
+        [self addMgjrouter];
     }
     return self;
 }
 
+
+- (void)addMgjrouter {
+    @weakify(self);
+    [MRouterC registerURL:MUrl_savePlayConfig toHandel:^(NSDictionary *routerParameters){
+        @strongify(self);
+        
+        [self updateConfig];
+    }];
+}
 
 - (void)addListName:(NSString *)name {
     MusicPlayListEntity * list = [MusicPlayListEntity new];
     list.name = name;
     list.viewOrder = -1;
     self.list.songListArray.add(list);
-    [self updateList];
+    [self updateSongList];
 }
 
-- (void)updateList {
+- (void)updateSongList {
     [self.list.toJSONData writeToFile:self.listFilePath atomically:YES];
 
     //    NSString * path = [self listFilePath];

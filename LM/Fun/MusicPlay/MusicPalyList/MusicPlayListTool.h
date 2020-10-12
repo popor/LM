@@ -28,14 +28,9 @@ static NSString * MusicFolderName  = @"music";
 @property (nonatomic, strong) NSMutableArray * currentTempList; // 针对本地歌单
 @property (nonatomic, weak  ) NSMutableArray * currentWeakList; // 针对保存的歌单
 
-@property (nonatomic        ) BOOL lastPlayLocal; // 最后播放的是否是本地文件夹.
-@property (nonatomic, copy  ) NSString * lastPlayLocalFolderName; // 最后播放文件夹名称
-@property (nonatomic, copy  ) NSString * lastPlayLocalMusicName;  // 最后播放音乐名称
-
 - (void)addListName:(NSString *)name;
 
-- (void)updateList;
-- (void)updateConfig;
+- (void)updateSongList;
 
 @end
 

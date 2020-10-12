@@ -112,19 +112,27 @@
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
         cell.tintColor      = ColorThemeBlue1;
     }
-    MusicPlayListEntity * list = MpltShare.list.songListArray[indexPath.row];
+    MusicPlayListEntity * list = self.mplt.list.songListArray[indexPath.row];
     if (list) {
         cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
         cell.cellData = list;
         cell.titelL.text = [NSString stringWithFormat:@"%@ (%li)", list.name, list.itemArray.count];
         
-        if(self.mplt.config.songIndexList == indexPath.row){
-            cell.rightIV.hidden = NO;
-            cell.titelL.textColor = ColorThemeBlue1;
-        }else{
+        if (self.mplt.config.playType == McPlayType_songList
+            || self.mplt.config.playType == McPlayType_searchSongList) {
+            
+            if(self.mplt.config.songIndexList == indexPath.row){
+                cell.rightIV.hidden = NO;
+                cell.titelL.textColor = ColorThemeBlue1;
+            }else{
+                cell.rightIV.hidden = YES;
+                cell.titelL.textColor = App_textNColor;
+            }
+        } else {
             cell.rightIV.hidden = YES;
             cell.titelL.textColor = App_textNColor;
         }
+        
     } else {
         cell.cellData = list;
         cell.titelL.text = @"请新增歌单";
@@ -143,16 +151,9 @@
     }
     MusicPlayListEntity * list = MpltShare.list.songListArray[indexPath.row];
     if (list) {
-        @weakify(self);
-        BlockPBool deallocBlock = ^(BOOL value){
-            @strongify(self);
-            [self.view.infoTV reloadData];
-        };
-        
         NSDictionary * dic =
         @{@"title":list.name,
           @"listEntity":list,
-          @"deallocBlock":deallocBlock,
         };
         [self.view.vc.navigationController pushViewController:[[SongListDetailVC alloc] initWithDic:dic] animated:YES];
     } else {
@@ -179,7 +180,7 @@
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     if (tableView == self.view.infoTV) {
         [MpltShare.list.songListArray exchangeObjectAtIndex:sourceIndexPath.row withObjectAtIndex:destinationIndexPath.row];
-        [MpltShare updateList];
+        [MpltShare updateSongList];
     }else{
         
     }
@@ -207,7 +208,7 @@
                 @strongify(self);
                 
                 [MpltShare.list.songListArray removeObjectAtIndex:indexPath.row];
-                [MpltShare updateList];
+                [MpltShare updateSongList];
                 
                 [self.view.infoTV deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                 
@@ -286,7 +287,7 @@
             UITextField * nameTF = oneAC.textFields[0];
             if (nameTF.text.length > 0) {
                 list.name = nameTF.text;
-                [MpltShare updateList];
+                [MpltShare updateSongList];
                 [self.view.infoTV reloadData];
             }
         }];

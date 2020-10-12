@@ -13,6 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MRouterUrlPrefix : NSObject
 
 UIKIT_EXTERN NSString * const MUrl_savePlayDepartment;
+UIKIT_EXTERN NSString * const MUrl_savePlayConfig;
+UIKIT_EXTERN NSString * const MUrl_resumePlayItem_local;
+UIKIT_EXTERN NSString * const MUrl_freshRootTV;
+
 UIKIT_EXTERN NSString * const MUrl_wifiAddFileVC;
 
 @end

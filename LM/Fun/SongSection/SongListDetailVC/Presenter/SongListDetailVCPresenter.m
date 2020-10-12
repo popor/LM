@@ -189,9 +189,9 @@
         // 播放音频
         if (self.view.isSearchType) {
             self.mpb.mplt.config.songIndexList = [self.mpb.mplt.list.songListArray indexOfObject:self.view.listEntity];
-            [MpbShare playTempArray:self.view.searchArray at:indexPath.row];
+            [MpbShare playLocalListArray:self.view.searchArray folder:nil type:McPlayType_searchSongList at:indexPath.row];
         }else{
-            [MpbShare playMusicPlayListEntity:self.view.listEntity at:indexPath.row];
+            [MpbShare playSongListEntity:self.view.listEntity at:indexPath.row];
         }
         
         // 刷新UI
@@ -230,14 +230,13 @@
             [self.view.alertBubbleTV reloadData];
             
             // 更新列表
-            [self.mpb.mplt updateList];
+            [self.mpb.mplt updateSongList];
             
             // 更新数字配置
             MusicPlayListEntity * le = self.mpb.mplt.list.songListArray[self.mpb.mplt.config.songIndexList];
             if (self.view.listEntity == le) {
                 NSUInteger itemIndex = [le.itemArray indexOfObject:self.mpb.currentItem];
                 self.mpb.mplt.config.songIndexItem = itemIndex;
-                [self.mpb.mplt updateConfig];
             }
         });
     }
@@ -289,7 +288,7 @@
                 
                 self.view.needUpdateSuperVC = YES;
                 [self.view.listEntity.itemArray removeObjectAtIndex:indexPath.row];
-                [MpltShare updateList];
+                [MpltShare updateSongList];
                 
                 [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                 
@@ -403,7 +402,7 @@
 - (void)endEditAction {
     [self defaultNcRightItem];
     self.view.infoTV.editing = NO;
-    [self.mpb.mplt updateList];
+    [self.mpb.mplt updateSongList];
 }
 
 - (void)defaultNcRightItem {
@@ -472,7 +471,7 @@
             UITextField * nameTF = oneAC.textFields[0];
             if (nameTF.text.length > 0) {
                 list.name = nameTF.text;
-                [MpltShare updateList];
+                [MpltShare updateSongList];
                 
                 self.view.vc.title = nameTF.text;
             }
@@ -487,7 +486,7 @@
 
 - (void)listDeleteAction {
     [MpltShare.list.songListArray removeObject:self.view.listEntity];
-    [MpltShare updateList];
+    [MpltShare updateSongList];
     
     [self.view.vc.navigationController popViewControllerAnimated:YES];
 }

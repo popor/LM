@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak  ) UINavigationController * rootNC;
 
 @property (nonatomic, strong) UIView  * lineView;
-@property (nonatomic, strong) UILabel * nameL;
+@property (nonatomic, strong) UILabel * songInfoL;
 @property (nonatomic, strong) UILabel * timeCurrentL;
 @property (nonatomic, strong) UILabel * timeDurationL;
 
@@ -32,8 +32,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UISlider * slider;
 @property (nonatomic, getter=isSliderSelected) BOOL sliderSelected;
 @property (nonatomic, strong) UILabel  * sliderTimeL;
-
-@property (nonatomic, copy  ) BlockPVoid freshBlockRootVC;
 
 @property (nonatomic, strong) UIImageView * coverIV;
 @property (nonatomic, strong) UIButton * playBT;
@@ -56,13 +54,11 @@ NS_ASSUME_NONNULL_BEGIN
 // 是否在播放搜索或本地音乐.
 @property (nonatomic, getter=isPlaySearchLocalItem) BOOL playSearchLocalItem;
 
-
 // 播放临时数组
-- (void)playTempArray:(NSArray *)itemArray at:(NSInteger)index;
+- (void)playLocalListArray:(NSArray *)itemArray folder:(NSString * _Nullable)folderName type:(McPlayType)playType at:(NSInteger)index;
 
 // 播放歌单列表
-- (void)playMusicPlayListEntity:(MusicPlayListEntity *)listEntity at:(NSInteger)index;
-//- (void)resumeMusicPlayListEntity:(MusicPlayListEntity *)listEntity at:(NSInteger)index;
+- (void)playSongListEntity:(MusicPlayListEntity *)listEntity at:(NSInteger)index;
 
 - (void)playEvent;
 - (void)pauseEvent;

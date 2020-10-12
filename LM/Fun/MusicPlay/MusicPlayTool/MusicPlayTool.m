@@ -157,7 +157,7 @@
         self.mpb.timeDurationL.text = [self stringFromTime:time];
         [self.mpb updateTimeDurationFrameTime:time];
         
-        self.mpb.nameL.text         = [NSString stringWithFormat:@"%@ - %@", self.musicItem.musicAuthor, self.musicItem.musicTitle];
+        self.mpb.songInfoL.text     = [NSString stringWithFormat:@"%@ - %@", self.musicItem.musicAuthor, self.musicItem.musicTitle];
         
     }else{
         [mpic setNowPlayingInfo:nil];

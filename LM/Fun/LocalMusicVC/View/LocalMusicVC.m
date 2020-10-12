@@ -21,7 +21,6 @@
 @synthesize musicListTV;
 @synthesize playbar;
 @synthesize itemArray;
-@synthesize deallocBlock;
 
 @synthesize searchBar;
 @synthesize searchCoverView;
@@ -32,9 +31,8 @@
 @synthesize root;
 
 - (void)dealloc {
-    if (self.deallocBlock) {
-        self.deallocBlock();
-    }
+    [MGJRouter openURL:MUrl_freshRootTV];
+    MptShare.nextMusicBlock_SongListDetailVC = nil;
 }
 
 - (instancetype)initWithDic:(NSDictionary *)dic {
@@ -120,6 +118,13 @@
             make.bottom.mas_equalTo(0);
         }
     }];
+    
+    if (self.itemArray) {
+        __weak typeof(self) weakSelf = self;
+        MptShare.nextMusicBlock_SongListDetailVC = ^(void) {
+            [weakSelf.present freshTVVisiableCellEvent];
+        };
+    }
     
     [self addTapEndEditGRAction];
 }

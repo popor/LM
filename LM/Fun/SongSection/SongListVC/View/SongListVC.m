@@ -20,7 +20,7 @@
 
 - (instancetype)initWithDic:(NSDictionary *)dic {
     if (self = [super init]) {
-//        [nsass]
+        
     }
     return self;
 }

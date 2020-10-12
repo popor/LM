@@ -135,7 +135,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
             case 0:{
                 oneL.font = [UIFont systemFontOfSize:14];
                 oneL.text = @"请通过wifi添加音乐文件，新建歌单。"; //欢迎使用：
-                self.nameL = oneL;
+                self.songInfoL = oneL;
                 break;
             }
             case 1:{
@@ -272,7 +272,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     
     self.rewindBT.hidden = YES;
     self.forwardBT.hidden = YES;
-    [self.nameL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.songInfoL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.slider.bottom +10);
         make.left.mas_equalTo(15);
         make.height.mas_equalTo(20);
@@ -280,7 +280,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     }];
     // 退出播放搜素结果列表
     [self.exitPlaySearchLocalBT mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(self.nameL.mas_centerY);
+        make.centerY.mas_equalTo(self.songInfoL.mas_centerY);
         make.size.mas_equalTo(CGSizeZero);
         make.right.mas_equalTo(-15);
     }];
@@ -308,7 +308,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     
     [self.coverIV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(15);
-        make.top.mas_equalTo(self.nameL.mas_bottom).mas_offset(7);
+        make.top.mas_equalTo(self.songInfoL.mas_bottom).mas_offset(7);
         make.width.height.mas_equalTo(60);
     }];
     
@@ -418,7 +418,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     }
 }
 
-- (void)playTempArray:(NSArray *)itemArray at:(NSInteger)index {
+- (void)playLocalListArray:(NSArray *)itemArray folder:(NSString * _Nullable)folderName type:(McPlayType)playType at:(NSInteger)index {
     [self.mplt.currentTempList removeAllObjects];
     [self.mplt.currentTempList addObjectsFromArray:itemArray];
     
@@ -433,9 +433,17 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     
     // 刷新item
     [self updateConfigIndex:index];
+    
+    self.mplt.config.playType = McPlayType_local;
+    
+    // 当folderName为空的时候, 可能是搜索的播放, 则不进行任何记录
+    if (folderName.length > 0) {
+        self.mplt.config.localFolderName = folderName;
+        self.mplt.config.localMusicName  = self.currentItem.fileName;
+    }
 }
 
-- (void)playMusicPlayListEntity:(MusicPlayListEntity *)listEntity at:(NSInteger)index {
+- (void)playSongListEntity:(MusicPlayListEntity *)listEntity at:(NSInteger)index {
     if (self.mplt.currentWeakList != listEntity.itemArray) {
         self.mplt.currentWeakList = listEntity.itemArray;
     }
@@ -453,24 +461,10 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     NSInteger currentListIndex = [self.mplt.list.songListArray indexOfObject:listEntity];
     if (self.mplt.config.songIndexList != currentListIndex) {
         self.mplt.config.songIndexList = currentListIndex;
-        if (self.freshBlockRootVC) {
-            self.freshBlockRootVC();
-        }
     }
     
+    self.mplt.config.playType      = McPlayType_songList;
     self.mplt.config.songIndexItem = index;
-    [self.mplt updateConfig];
-}
-
-// 恢复上次播放记录
-- (void)resumeMusicPlayListEntity:(MusicPlayListEntity *)listEntity at:(NSInteger)index {
-    if (self.mplt.currentWeakList != listEntity.itemArray) {
-        self.mplt.currentWeakList = listEntity.itemArray;
-    }
-    if (listEntity.itemArray.count > 0) {
-        self.currentItem = self.mplt.currentWeakList[index];
-        [self.mpt playItem:self.currentItem autoPlay:NO];
-    }
 }
 
 - (void)playBTEvent {
@@ -585,13 +579,11 @@ static CGFloat MPBTimeLabelWidth1 = 57;
             
             if (itemIndex != INTMAX_MAX && itemIndex >= 0) {
                 self.mplt.config.songIndexItem = itemIndex;
-                [self.mplt updateConfig];
             }
         }
         //AlertToastTitle(@"当前播放歌单为: 搜索结果");
     }else{
         self.mplt.config.songIndexItem = itemIndex;
-        [self.mplt updateConfig];
     }
 }
 
@@ -610,7 +602,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         MusicPlayListEntity * le = self.mplt.list.songListArray[self.mplt.config.songIndexList];
         NSInteger row = [le.itemArray indexOfObject:self.currentItem];
         if (row != INTMAX_MAX) {
-            [self playMusicPlayListEntity:le at:row];
+            [self playSongListEntity:le at:row];
             AlertToastTitle(@"退出 [搜索歌单] 模式");
         }else{
             AlertToastTitle(@"未在当前个当中找到 当前音乐");
@@ -624,16 +616,42 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     self.mplt.config.playOrder = (self.mplt.config.playOrder + 1)%McPlayOrderImageArray.count;
     
     [self.orderBT setImage:LmImageThemeBlue1(McPlayOrderImageArray[self.mplt.config.playOrder]) forState:UIControlStateNormal];
-    [self.mplt updateConfig];
 }
 
 #pragma mark - 恢复上次数据
-- (void)resumeLastStatus{
+- (void)resumeLastStatus {
     
-    if (self.mplt.config.songIndexList >= 0 && self.mplt.list.songListArray > 0) {
-        [self resumeMusicPlayListEntity:self.mplt.list.songListArray[self.mplt.config.songIndexList]  at:self.mplt.config.songIndexItem];
-        
-        //[self playMusicPlayListEntity:self.mplt.list.array[self.mplt.config.listIndex]  at:self.mplt.config.itemIndex];
+    switch (self.mplt.config.playType) {
+        case McPlayType_songList: {
+            if (self.mplt.config.songIndexList >= 0 && self.mplt.list.songListArray > 0) {
+                
+                MusicPlayListEntity * listEntity = self.mplt.list.songListArray[self.mplt.config.songIndexList];
+                NSInteger             index      = self.mplt.config.songIndexItem;
+                
+                if (self.mplt.currentWeakList != listEntity.itemArray) {
+                    self.mplt.currentWeakList = listEntity.itemArray;
+                }
+                if (listEntity.itemArray.count > 0) {
+                    self.currentItem = self.mplt.currentWeakList[index];
+                    [self.mpt playItem:self.currentItem autoPlay:NO];
+                }
+            }
+            break;
+        }
+        case McPlayType_local: {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [MGJRouter openURL:MUrl_resumePlayItem_local];
+            });
+            
+            break;
+        }
+        case McPlayType_searchLocal:
+        case McPlayType_searchSongList:{
+            
+            break;
+        }
+        default:
+            break;
     }
     
     [self.orderBT setImage:LmImageThemeBlue1(McPlayOrderImageArray[self.mplt.config.playOrder]) forState:UIControlStateNormal];
