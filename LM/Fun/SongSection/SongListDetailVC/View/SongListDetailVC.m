@@ -124,17 +124,13 @@
     
     [self.present defaultNcRightItem];
     
-#if TARGET_OS_MACCATALYST
     {
-        UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithTitle:@"重命名" style:UIBarButtonItemStylePlain target:self.present action:@selector(listRenameAction)];
+        UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithTitle:@"改名" style:UIBarButtonItemStylePlain target:self.present action:@selector(listRenameAction)];
         UIBarButtonItem *item2 = [[UIBarButtonItem alloc] initWithTitle:@"删除" style:UIBarButtonItemStylePlain target:self.present action:@selector(listDeleteAction)];
         
         self.navigationItem.leftBarButtonItems = @[item1, item2];
         self.navigationItem.leftItemsSupplementBackButton = YES;
     }
-#else
-    
-#endif
     
     [self addTapEndEditGRAction];
 }
