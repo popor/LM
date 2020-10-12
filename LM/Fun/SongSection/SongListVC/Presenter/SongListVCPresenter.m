@@ -210,8 +210,11 @@
                 [MpltShare.list.songListArray removeObjectAtIndex:indexPath.row];
                 [MpltShare updateSongList];
                 
-                [self.view.infoTV deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-                
+                if (MpltShare.list.songListArray.count == 0) {
+                    [self.view.infoTV reloadData];
+                } else {
+                    [self.view.infoTV deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                }
                 completionHandler(YES);
             }];
             //也可以设置图片
