@@ -60,7 +60,12 @@
 }
 
 - (void)playItem:(MusicPlayItemEntity *)item autoPlay:(BOOL)autoPlay {
+#if TARGET_OS_MACCATALYST
     NSString * path = [NSString stringWithFormat:@"%@/%@/%@", FT_docPath, MusicFolderName, item.filePath];
+#else
+    NSString * path = [NSString stringWithFormat:@"%@/%@", FT_docPath, item.filePath];
+#endif
+    
     NSURL * url     = [NSURL fileURLWithPath:path];
     //self.musicTitle = item.fileName;
     self.musicItem  = item;

@@ -25,7 +25,12 @@
 }
 
 - (void)initData {
+#if TARGET_OS_MACCATALYST
     self.folderArray = [FileTool getArrayAtPath:MusicFolderName type:FileTypeFolder];
+#else
+    self.folderArray = [FileTool getArrayAtPath:nil type:FileTypeFolder];
+#endif
+    
     for (FileEntity * folderEntity in self.folderArray) {
         folderEntity.itemArray = [FileTool getArrayAtPath:[NSString stringWithFormat:@"%@/%@", folderEntity.folderName, folderEntity.fileName] type:FileTypeItem];
     }

@@ -28,10 +28,16 @@
 - (id)init {
     if (self = [super init]) {
         
+#if TARGET_OS_MACCATALYST
         [[NSFileManager defaultManager] createDirectoryAtPath:[NSString stringWithFormat:@"%@/%@", FT_docPath, RecordFolderName]
                                   withIntermediateDirectories:YES attributes:nil error:nil];
         [[NSFileManager defaultManager] createDirectoryAtPath:[NSString stringWithFormat:@"%@/%@", FT_docPath, MusicFolderName]
                                   withIntermediateDirectories:YES attributes:nil error:nil];
+#else
+        
+#endif
+        
+  
         
         
         NSData * listData   = [NSData dataWithContentsOfFile:self.listFilePath];
@@ -98,11 +104,19 @@
 
 
 - (NSString *)listFilePath {
+#if TARGET_OS_MACCATALYST
     return [NSString stringWithFormat:@"%@/%@/%@.json", FT_docPath, RecordFolderName, LmPlayListKey];
+#else
+    return [NSString stringWithFormat:@"%@/%@.json", FT_docPath, LmPlayListKey];
+#endif
 }
 
 - (NSString *)configFilePath {
+#if TARGET_OS_MACCATALYST
     return [NSString stringWithFormat:@"%@/%@/%@.json", FT_docPath, RecordFolderName, LmConfigKey];
+#else
+    return [NSString stringWithFormat:@"%@/%@.json", FT_docPath, LmConfigKey];
+#endif
 }
 
 @end

@@ -399,6 +399,8 @@ API_AVAILABLE(ios(12.0))
             }
             [MpltShare updateSongList];
             
+            [MGJRouter openURL:MUrl_freshRootTV];
+            
             AlertToastTitle(@"增加成功");
         } else {
             AlertToastTitle(@"请在首页 新增歌单");
@@ -519,7 +521,6 @@ API_AVAILABLE(ios(12.0))
 - (void)openDocFolderAction {
     //NSURL * url = [NSURL fileURLWithPath:@"file:///Users/popor/Desktop/demo/"];
     NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@/%@", FT_docPath, MusicFolderName]];
-    // [NSURL fileURLWithPath:[NSString stringWithFormat:@"file://%@/%@", FT_docPath, MusicFolderName]];
     [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {}];
 
 }
