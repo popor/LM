@@ -47,6 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak  ) MusicPlayItemEntity * currentItem;
 
+@property (nonatomic, copy  ) NSDictionary * _Nullable musicLyricDic;
+
 //明天处理逻辑.
 //退出该页面或者点击了完成,就退出搜索结果?
 //当在播放搜索音乐的时候,每次播放下一首,就刷新当前页面歌单config?

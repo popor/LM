@@ -35,6 +35,9 @@
 		18DE13AC2251F40A009920D7 /* SongListDetailVCInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE13A72251F40A009920D7 /* SongListDetailVCInteractor.m */; };
 		18DE13AF2251F78C009920D7 /* MusicInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE13AE2251F78C009920D7 /* MusicInfoCell.m */; };
 		18E52ED32253050C00EF8BF6 /* MusicListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E52ED22253050C00EF8BF6 /* MusicListCell.m */; };
+		C30D896E25354CBA009BFB45 /* LrcListEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C30D896D25354CBA009BFB45 /* LrcListEntity.m */; };
+		C30D897A25354EAE009BFB45 /* LrcFetch.m in Sources */ = {isa = PBXBuildFile; fileRef = C30D897925354EAE009BFB45 /* LrcFetch.m */; };
+		C30D897F25354F6D009BFB45 /* NetService.m in Sources */ = {isa = PBXBuildFile; fileRef = C30D897D25354F6D009BFB45 /* NetService.m */; };
 		C3AD50F32516EDDB00746FA2 /* SongListVCPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD50EA2516EDDB00746FA2 /* SongListVCPresenter.m */; };
 		C3AD50F42516EDDB00746FA2 /* SongListVCInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD50EE2516EDDB00746FA2 /* SongListVCInteractor.m */; };
 		C3AD50F52516EDDB00746FA2 /* SongListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD50F22516EDDB00746FA2 /* SongListVC.m */; };
@@ -128,6 +131,12 @@
 		4BD68A1A6DDCAC558466342A /* Pods-LMTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMTests.debug.xcconfig"; path = "Target Support Files/Pods-LMTests/Pods-LMTests.debug.xcconfig"; sourceTree = "<group>"; };
 		767D491D9049577971B2EEE5 /* Pods-LMUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMUITests.debug.xcconfig"; path = "Target Support Files/Pods-LMUITests/Pods-LMUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		80F3B930C3AFCB09C6C2E77B /* Pods-LMUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMUITests.release.xcconfig"; path = "Target Support Files/Pods-LMUITests/Pods-LMUITests.release.xcconfig"; sourceTree = "<group>"; };
+		C30D896C25354CBA009BFB45 /* LrcListEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LrcListEntity.h; sourceTree = "<group>"; };
+		C30D896D25354CBA009BFB45 /* LrcListEntity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LrcListEntity.m; sourceTree = "<group>"; };
+		C30D897825354EAE009BFB45 /* LrcFetch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LrcFetch.h; sourceTree = "<group>"; };
+		C30D897925354EAE009BFB45 /* LrcFetch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LrcFetch.m; sourceTree = "<group>"; };
+		C30D897D25354F6D009BFB45 /* NetService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetService.m; sourceTree = "<group>"; };
+		C30D897E25354F6D009BFB45 /* NetService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetService.h; sourceTree = "<group>"; };
 		C31062B52532FF7000B5A7E6 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = LM/README.md; sourceTree = SOURCE_ROOT; };
 		C32678F725145FB9007CADFC /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		C32678F925145FB9007CADFC /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -371,6 +380,7 @@
 		184F370E224B26A100FEB57B /* Fun */ = {
 			isa = PBXGroup;
 			children = (
+				C30D896625354B6D009BFB45 /* lyric */,
 				C3D58B6B2517470C00A40108 /* MusicPlay */,
 				C3AD50F82516EE1100746FA2 /* SongSection */,
 				180E33A4224DE7E5008C176D /* LocalMusicVC */,
@@ -499,6 +509,26 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		C30D896625354B6D009BFB45 /* lyric */ = {
+			isa = PBXGroup;
+			children = (
+				C30D897825354EAE009BFB45 /* LrcFetch.h */,
+				C30D897925354EAE009BFB45 /* LrcFetch.m */,
+				C30D896C25354CBA009BFB45 /* LrcListEntity.h */,
+				C30D896D25354CBA009BFB45 /* LrcListEntity.m */,
+			);
+			path = lyric;
+			sourceTree = "<group>";
+		};
+		C30D897C25354F6D009BFB45 /* NetService */ = {
+			isa = PBXGroup;
+			children = (
+				C30D897E25354F6D009BFB45 /* NetService.h */,
+				C30D897D25354F6D009BFB45 /* NetService.m */,
+			);
+			path = NetService;
+			sourceTree = "<group>";
+		};
 		C3AD50E02516EDC200746FA2 /* SongListVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -561,6 +591,7 @@
 		C3AD512D2516FC6900746FA2 /* AppConfig */ = {
 			isa = PBXGroup;
 			children = (
+				C30D897C25354F6D009BFB45 /* NetService */,
 				C3AD512E2516FC6900746FA2 /* MGJRouter */,
 			);
 			path = AppConfig;
@@ -743,6 +774,8 @@
 				18DE13A92251F40A009920D7 /* SongListDetailVC.m in Sources */,
 				180E33BA224DE806008C176D /* LocalMusicVCPresenter.m in Sources */,
 				C3AD5139251700BF00746FA2 /* SongListHeadView.m in Sources */,
+				C30D897F25354F6D009BFB45 /* NetService.m in Sources */,
+				C30D896E25354CBA009BFB45 /* LrcListEntity.m in Sources */,
 				183BF428224A22EC004DE115 /* RootVCPresenter.m in Sources */,
 				C3AD50F32516EDDB00746FA2 /* SongListVCPresenter.m in Sources */,
 				189A5DF1225C95E6001E8A9D /* AppVersionCheck.m in Sources */,
@@ -754,6 +787,7 @@
 				185615AF224DC23A004BE073 /* WifiAddFileVC.m in Sources */,
 				18E52ED32253050C00EF8BF6 /* MusicListCell.m in Sources */,
 				180E33C1224E11AF008C176D /* FileTool.m in Sources */,
+				C30D897A25354EAE009BFB45 /* LrcFetch.m in Sources */,
 				180E33C4224E11F7008C176D /* FileEntity.m in Sources */,
 				C3AD513D2517161700746FA2 /* LocalMusicHeadView.m in Sources */,
 				183BF427224A22EC004DE115 /* RootVCInteractor.m in Sources */,

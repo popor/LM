@@ -7,6 +7,7 @@
 //
 
 #import "MusicPlayBar.h"
+#import "LrcFetch.h"
 
 #import "MusicPlayTool.h"
 #import "MusicPlayListTool.h"
@@ -435,7 +436,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     
     if (itemArray.count > 0) {
         self.currentItem = self.mplt.currentWeakList[index];
-        [self.mpt playItem:self.currentItem autoPlay:YES];
+        [self playItem:self.currentItem autoPlay:YES];
     }
     
     // 刷新item
@@ -462,7 +463,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     
     if (listEntity.itemArray.count > 0) {
         self.currentItem = self.mplt.currentWeakList[index];
-        [self.mpt playItem:self.currentItem autoPlay:YES];
+        [self playItem:self.currentItem autoPlay:YES];
     }
     
     NSInteger currentListIndex = [self.mplt.list.songListArray indexOfObject:listEntity];
@@ -486,9 +487,9 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     if (self.mplt.currentWeakList.count>0) {
         if (!self.currentItem) {
             self.currentItem = self.mplt.currentWeakList[0];
-            [self.mpt playItem:self.currentItem autoPlay:YES];
+            [self playItem:self.currentItem autoPlay:YES];
         }else{
-            [self.mpt playItem:self.currentItem autoPlay:YES];
+            [self playItem:self.currentItem autoPlay:YES];
         }
     }
     self.playBT.selected = YES;
@@ -503,7 +504,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     if (self.mplt.currentWeakList.count>0) {
         NSInteger index = [self getPreviousIndex];
         self.currentItem = self.mplt.currentWeakList[index];
-        [self.mpt playItem:self.currentItem autoPlay:YES];
+        [self playItem:self.currentItem autoPlay:YES];
         
         self.playBT.selected = YES;
         
@@ -521,7 +522,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     if (self.mplt.currentWeakList.count>0) {
         NSInteger index = [self getNextIndex];
         self.currentItem = self.mplt.currentWeakList[index];
-        [self.mpt playItem:self.currentItem autoPlay:YES];
+        [self playItem:self.currentItem autoPlay:YES];
         
         self.playBT.selected = YES;
         
@@ -640,7 +641,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
                 }
                 if (listEntity.itemArray.count > 0) {
                     self.currentItem = self.mplt.currentWeakList[index];
-                    [self.mpt playItem:self.currentItem autoPlay:NO];
+                    [self playItem:self.currentItem autoPlay:NO];
                 }
             }
             break;
@@ -664,6 +665,31 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     [self.orderBT setImage:LmImageThemeBlue1(McPlayOrderImageArray[self.mplt.config.playOrder]) forState:UIControlStateNormal];
     
 }
+
+- (void)playItem:(MusicPlayItemEntity *)item autoPlay:(BOOL)autoPlay {
+    [self updateLyric];
+    [self.mpt playItem:self.currentItem autoPlay:autoPlay];
+}
+
+- (void)updateLyric {
+    self.musicLyricDic = nil;
+    
+    //NSString * musicName = @"世界第一等";
+    NSString * musicName = self.currentItem.musicTitle;
+    @weakify(self);
+    [LrcFetch getLrcList:musicName finish:^(LrcListEntity * _Nullable listEntity) {
+        if (listEntity.result.count > 0) {
+            LrcListUnitEntity * ue = listEntity.result.firstObject;
+            [LrcFetch getLrcDetail:musicName url:ue.lrc finish:^(NSString *string) {
+                @strongify(self);
+                self.musicLyricDic = [LrcFetch parselrc:string];
+            }];
+        }
+    }];
+    
+    
+}
+
 
 - (void)showBigIVAction {
     if (!self.mpt.audioPlayer) {
