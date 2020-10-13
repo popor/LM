@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #define MpltShare [MusicPlayListTool share]
 
-static NSString * RecordFolderName = @"record";
+static NSString * ConfigFolderName = @"config";
 static NSString * MusicFolderName  = @"music";
 
 @interface MusicPlayListTool : NSObject

@@ -18,8 +18,7 @@
 #import "ThemeColor.h"
 #import "FileTool.h"
 
-static NSString * LmCacheKey    = @"LmCache";
-static NSString * LmPlayListKey = @"list";
+static NSString * LmPlayListKey = @"songList";
 static NSString * LmConfigKey   = @"config";
 
 #endif /* AppPrefix_h */

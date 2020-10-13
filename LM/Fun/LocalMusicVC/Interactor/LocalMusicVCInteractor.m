@@ -9,6 +9,9 @@
 #import "FileTool.h"
 #import "MusicPlayListTool.h"
 
+#import "LrcFetch.h"
+#import "MusicPlayListTool.h"
+
 @interface LocalMusicVCInteractor ()
 
 @property (nonatomic, strong) NSMutableArray * folderArray;
@@ -31,8 +34,21 @@
     self.folderArray = [FileTool getArrayAtPath:nil type:FileTypeFolder];
 #endif
     
-    for (FileEntity * folderEntity in self.folderArray) {
+    for (NSInteger i = 0; i<self.folderArray.count;) {
+        FileEntity * folderEntity = self.folderArray[i];
+#if TARGET_OS_MACCATALYST
+        
+#else
+        if ([folderEntity.fileName isEqualToString:LrcFolderName]
+            || [folderEntity.fileName isEqualToString:LrcListFolderName]
+            || [folderEntity.fileName isEqualToString:ConfigFolderName]) {
+            // ios 忽略3个文件夹
+            [self.folderArray removeObject:folderEntity];
+            continue;
+        }
+#endif
         folderEntity.itemArray = [FileTool getArrayAtPath:[NSString stringWithFormat:@"%@/%@", folderEntity.folderName, folderEntity.fileName] type:FileTypeItem];
+        i++;
     }
     self.infoArray = self.folderArray;
 }

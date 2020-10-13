@@ -19,6 +19,7 @@
         [[NSFileManager defaultManager] createDirectoryAtPath:[NSString stringWithFormat:@"%@/%@", FT_docPath, LrcListFolderName]
                                   withIntermediateDirectories:YES attributes:nil error:nil];
         
+        NSLog(@"path: %@", FT_docPath);
     });
 }
 
