@@ -89,6 +89,7 @@
 - (void)addViews {
     [self addPlayboard];
     
+    @weakify(self);
     {
         self.navigationController.navigationBar.tintColor = ColorThemeBlue1;
     }
@@ -105,17 +106,13 @@
     
 #if TARGET_OS_MACCATALYST
     // mac 模式下需要监听用户缩放frame
-    @weakify(self);
     [RACObserve(self.navigationController.view, frame) subscribeNext:^(id  _Nullable x) {
         @strongify(self);
         // NSLog(@"刷新frame");
         if (fabs(self.playbar.timeDurationL.right -self.view.width) > 5) {
-            // NSLog(@"刷新frame, 全屏");
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self reloadSubviewsFrame];
-            });
+            [self reloadTv_PlayBarFrame_sync];
         } else {
-            [self reloadSubviewsFrame];
+            [self reloadTv_PlayBarFrame_sync];
         }
         
     }];
@@ -124,12 +121,18 @@
 #endif
     
     [self addMRouterC];
+    
+    [[self.navigationController rac_signalForSelector:@selector(viewWillLayoutSubviews)] subscribeNext:^(RACTuple * _Nullable x) {
+        @strongify(self);
+        
+        [self reloadPlayBarFrame];
+    }];
 }
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     
-    [self reloadSubviewsFrame];
+    [self reloadTvFrame];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self.segmentView.currentPage != 0) { // 主要用于 ios 旋转屏幕
@@ -139,12 +142,22 @@
     });
 }
 
-- (void)reloadSubviewsFrame {
-    [self.playbar updateProgressSectionFrame];
-    
+- (void)reloadTvFrame {
     dispatch_async(dispatch_get_main_queue(), ^{
         self.tvSV.contentSize = CGSizeMake(ceil(self.tvSV.width +1)*2, self.tvSV.height); // mac 全屏之后, 不+1的话, 会导致滑动失效.
     });
+}
+
+- (void)reloadPlayBarFrame {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.playbar updateProgressSectionFrame];
+    });
+}
+
+// 这个主要用于mac同步执行
+- (void)reloadTv_PlayBarFrame_sync {
+    self.tvSV.contentSize = CGSizeMake(ceil(self.tvSV.width +1)*2, self.tvSV.height); // mac 全屏之后, 不+1的话, 会导致滑动失效.
+    [self.playbar updateProgressSectionFrame];
 }
 
 // 开始执行事件,比如获取网络数据
