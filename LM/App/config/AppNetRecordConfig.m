@@ -11,8 +11,6 @@
 //#import <PoporNetRecord/PoporNetRecord.h>
 #import <AFNetworking/AFHTTPSessionManager.h>
 
-#import "UINavigationController+Jch.h"
-
 @implementation AppNetRecordConfig
 
 + (void)showNetRecord {

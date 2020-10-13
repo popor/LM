@@ -20,7 +20,6 @@
 		183BF426224A22EC004DE115 /* RootVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 183BF41E224A22EC004DE115 /* RootVC.m */; };
 		183BF427224A22EC004DE115 /* RootVCInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 183BF420224A22EC004DE115 /* RootVCInteractor.m */; };
 		183BF428224A22EC004DE115 /* RootVCPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 183BF423224A22EC004DE115 /* RootVCPresenter.m */; };
-		183BF42F224A263A004DE115 /* UINavigationController+Jch.m in Sources */ = {isa = PBXBuildFile; fileRef = 183BF42E224A263A004DE115 /* UINavigationController+Jch.m */; };
 		184CD1CB224CA66800241B9C /* MusicPlayBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 184CD1CA224CA66800241B9C /* MusicPlayBar.m */; };
 		1856158E224DBF0E004BE073 /* MusicPlayList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1856158D224DBF0E004BE073 /* MusicPlayList.m */; };
 		18561595224DC089004BE073 /* MusicConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 18561594224DC089004BE073 /* MusicConfig.m */; };
@@ -90,8 +89,6 @@
 		183BF421224A22EC004DE115 /* RootVCInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootVCInteractor.h; sourceTree = "<group>"; };
 		183BF423224A22EC004DE115 /* RootVCPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootVCPresenter.m; sourceTree = "<group>"; };
 		183BF424224A22EC004DE115 /* RootVCPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootVCPresenter.h; sourceTree = "<group>"; };
-		183BF42D224A263A004DE115 /* UINavigationController+Jch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Jch.h"; sourceTree = "<group>"; };
-		183BF42E224A263A004DE115 /* UINavigationController+Jch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Jch.m"; sourceTree = "<group>"; };
 		184CD1C9224CA66800241B9C /* MusicPlayBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicPlayBar.h; sourceTree = "<group>"; };
 		184CD1CA224CA66800241B9C /* MusicPlayBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicPlayBar.m; sourceTree = "<group>"; };
 		1856158C224DBF0E004BE073 /* MusicPlayList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicPlayList.h; sourceTree = "<group>"; };
@@ -341,18 +338,8 @@
 			isa = PBXGroup;
 			children = (
 				C3AD51692517307F00746FA2 /* Color */,
-				183BF42C224A263A004DE115 /* NC */,
 			);
 			path = Public;
-			sourceTree = "<group>";
-		};
-		183BF42C224A263A004DE115 /* NC */ = {
-			isa = PBXGroup;
-			children = (
-				183BF42D224A263A004DE115 /* UINavigationController+Jch.h */,
-				183BF42E224A263A004DE115 /* UINavigationController+Jch.m */,
-			);
-			path = NC;
 			sourceTree = "<group>";
 		};
 		184CD1C8224CA60600241B9C /* MusicPlayBar */ = {
@@ -769,7 +756,6 @@
 				180E33C1224E11AF008C176D /* FileTool.m in Sources */,
 				180E33C4224E11F7008C176D /* FileEntity.m in Sources */,
 				C3AD513D2517161700746FA2 /* LocalMusicHeadView.m in Sources */,
-				183BF42F224A263A004DE115 /* UINavigationController+Jch.m in Sources */,
 				183BF427224A22EC004DE115 /* RootVCInteractor.m in Sources */,
 				C3AD51332516FC6900746FA2 /* MRouterConfig.m in Sources */,
 				18DE13AF2251F78C009920D7 /* MusicInfoCell.m in Sources */,

@@ -9,8 +9,6 @@
 #import "RootVCPresenter.h"
 #import "RootVCInteractor.h"
 
-#import "UINavigationController+Jch.h"
-
 @interface RootVC ()
 
 @property (nonatomic, strong) RootVCPresenter * present;
