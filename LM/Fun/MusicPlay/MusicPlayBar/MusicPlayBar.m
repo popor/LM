@@ -52,7 +52,12 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 }
 
 - (void)addViews {
+#if TARGET_OS_MACCATALYST
+    int bottomMargin = 10;
+#else
     int bottomMargin = [UIDevice safeBottomMargin];
+#endif
+    
     self.frame = CGRectMake(0, 0, PSCREEN_SIZE.width, 130 + bottomMargin);
     
     {
