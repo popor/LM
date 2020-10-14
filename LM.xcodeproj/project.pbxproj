@@ -38,6 +38,7 @@
 		C30D896E25354CBA009BFB45 /* LrcListEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C30D896D25354CBA009BFB45 /* LrcListEntity.m */; };
 		C30D897A25354EAE009BFB45 /* LrcFetch.m in Sources */ = {isa = PBXBuildFile; fileRef = C30D897925354EAE009BFB45 /* LrcFetch.m */; };
 		C30D897F25354F6D009BFB45 /* NetService.m in Sources */ = {isa = PBXBuildFile; fileRef = C30D897D25354F6D009BFB45 /* NetService.m */; };
+		C39396722536C88500409025 /* LrcDetailEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C39396712536C88500409025 /* LrcDetailEntity.m */; };
 		C3AD50F32516EDDB00746FA2 /* SongListVCPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD50EA2516EDDB00746FA2 /* SongListVCPresenter.m */; };
 		C3AD50F42516EDDB00746FA2 /* SongListVCInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD50EE2516EDDB00746FA2 /* SongListVCInteractor.m */; };
 		C3AD50F52516EDDB00746FA2 /* SongListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD50F22516EDDB00746FA2 /* SongListVC.m */; };
@@ -141,6 +142,8 @@
 		C32678F725145FB9007CADFC /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		C32678F925145FB9007CADFC /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		C3267B2C251489C1007CADFC /* LM.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LM.entitlements; sourceTree = "<group>"; };
+		C39396702536C88500409025 /* LrcDetailEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LrcDetailEntity.h; sourceTree = "<group>"; };
+		C39396712536C88500409025 /* LrcDetailEntity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LrcDetailEntity.m; sourceTree = "<group>"; };
 		C3AD50EA2516EDDB00746FA2 /* SongListVCPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongListVCPresenter.m; sourceTree = "<group>"; };
 		C3AD50EB2516EDDB00746FA2 /* SongListVCPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongListVCPresenter.h; sourceTree = "<group>"; };
 		C3AD50ED2516EDDB00746FA2 /* SongListVCInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongListVCInteractor.h; sourceTree = "<group>"; };
@@ -516,6 +519,8 @@
 				C30D897925354EAE009BFB45 /* LrcFetch.m */,
 				C30D896C25354CBA009BFB45 /* LrcListEntity.h */,
 				C30D896D25354CBA009BFB45 /* LrcListEntity.m */,
+				C39396702536C88500409025 /* LrcDetailEntity.h */,
+				C39396712536C88500409025 /* LrcDetailEntity.m */,
 			);
 			path = lyric;
 			sourceTree = "<group>";
@@ -777,6 +782,7 @@
 				C30D897F25354F6D009BFB45 /* NetService.m in Sources */,
 				C30D896E25354CBA009BFB45 /* LrcListEntity.m in Sources */,
 				183BF428224A22EC004DE115 /* RootVCPresenter.m in Sources */,
+				C39396722536C88500409025 /* LrcDetailEntity.m in Sources */,
 				C3AD50F32516EDDB00746FA2 /* SongListVCPresenter.m in Sources */,
 				189A5DF1225C95E6001E8A9D /* AppVersionCheck.m in Sources */,
 				18DE13AB2251F40A009920D7 /* SongListDetailVCPresenter.m in Sources */,

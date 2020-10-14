@@ -10,6 +10,7 @@
 
 #import "MusicPlayListTool.h"
 #import "MusicPlayTool.h"
+#import "LrcDetailEntity.h"
 
 #define MpbShare [MusicPlayBar share]
 
@@ -48,6 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak  ) MusicPlayItemEntity * currentItem;
 
 @property (nonatomic, copy  ) NSDictionary * _Nullable musicLyricDic;
+@property (nonatomic, copy  ) NSArray * _Nullable musicLyricArray;
 
 //明天处理逻辑.
 //退出该页面或者点击了完成,就退出搜索结果?

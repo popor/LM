@@ -677,8 +677,9 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     if ([self.lastMusicTitle isEqualToString:self.currentItem.musicTitle] && self.musicLyricDic) {
         return;
     }
-    self.musicLyricDic = nil;
-    self.lastMusicTitle = self.currentItem.musicTitle;
+    self.musicLyricDic   = nil;
+    self.musicLyricArray = nil;
+    self.lastMusicTitle  = self.currentItem.musicTitle;
     
     //NSString * musicName = @"世界第一等";
     NSString * musicName = self.lastMusicTitle;
@@ -689,6 +690,32 @@ static CGFloat MPBTimeLabelWidth1 = 57;
             [LrcFetch getLrcDetail:musicName url:ue.lrc finish:^(NSString *string) {
                 @strongify(self);
                 self.musicLyricDic = [LrcFetch parselrc:string];
+                
+                NSMutableArray * originArray = [NSMutableArray new];
+                NSArray * timeTextArray = self.musicLyricDic.allKeys;
+                for (NSString * timeText in timeTextArray) {
+                    
+                    LrcDetailEntity * entity = [LrcDetailEntity new];
+                    entity.timeText = timeText;
+                    entity.lrc      = self.musicLyricDic[timeText];;
+                    
+                    NSRange range = [timeText rangeOfString:@":"];
+                    NSInteger mm  = [timeText substringToIndex:range.location].integerValue;
+                    NSInteger ss  = [timeText substringFromIndex:range.location +1].integerValue;
+                    entity.time   = mm*60 +ss;
+                    
+                    [originArray addObject:entity];
+                }
+                
+                self.musicLyricArray = [originArray sortedArrayUsingComparator:^NSComparisonResult(LrcDetailEntity * obj1, LrcDetailEntity * obj2) {
+                    //return [obj1.time compare:obj2.time]; //升序
+                    return obj1.time<obj2.time ? NSOrderedAscending:NSOrderedDescending;
+                }];
+                
+                // for (LrcDetailEntity * entity in self.musicLyricArray) {
+                //     [NSAssistant NSLogEntity:entity];
+                //     NSLog(@"\n ");
+                // }
             }];
         }
     }];
