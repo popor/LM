@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LrcDetailEntity : NSObject
 
+@property (nonatomic        ) NSInteger row;
 @property (nonatomic        ) CGFloat time;
 @property (nonatomic, copy  ) NSString * timeText;
 @property (nonatomic, copy  ) NSString * lrc;

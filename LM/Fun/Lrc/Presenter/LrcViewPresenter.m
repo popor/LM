@@ -13,6 +13,10 @@
 @property (nonatomic, weak  ) id<LrcViewProtocol> view;
 @property (nonatomic, strong) LrcViewInteractor * interactor;
 
+@property (nonatomic, copy  ) NSArray * lrcArray;
+@property (nonatomic        ) BOOL tvDrag;
+@property (nonatomic        ) NSInteger playRow;
+
 @end
 
 @implementation LrcViewPresenter
@@ -47,7 +51,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.view.lrcArray.count;
+    return MAX(self.lrcArray.count, 1);
 }
 
 //- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -59,11 +63,11 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 10;
+    return 0.1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 10;
+    return 0.1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -75,9 +79,20 @@
         cell.contentView.backgroundColor = [UIColor clearColor];
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
     }
+    if (self.lrcArray.count == 0) {
+        cell.textLabel.text = @"暂无歌词";
+        cell.textLabel.textColor = App_textNColor;
+        
+    } else {
+        LrcDetailEntity * entity = self.lrcArray[indexPath.row];
+        cell.textLabel.text = entity.lrc;
+        if (self.playRow == indexPath.row) {
+            cell.textLabel.textColor = App_textSColor;
+        } else {
+            cell.textLabel.textColor = App_textNColor;
+        }
+    }
     
-    LrcDetailEntity * entity = self.view.lrcArray[indexPath.row];
-    cell.textLabel.text = entity.lrc;
     
     return cell;
 }
@@ -87,7 +102,53 @@
     
 }
 
+#pragma mark - tv drag
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    self.tvDrag = YES;
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.tvDrag = NO;
+    });
+}
+
 #pragma mark - VC_EventHandler
+- (void)updateLrcArray:(NSArray *)array {
+    self.lrcArray = array;
+    self.playRow  = 0;
+    [self.view.infoTV reloadData];
+}
+
+- (void)scrollToLrc:(LrcDetailEntity *)lyric {
+    self.playRow = lyric.row;
+    
+    if (self.tvDrag) {
+        
+    } else {
+        self.playRow = lyric.row;
+        
+        for (UITableViewCell * cell in self.view.infoTV.visibleCells) {
+            if (cell) {
+                NSIndexPath * ip = [self.view.infoTV indexPathForCell:cell];
+                if (ip.row == self.playRow) {
+                    cell.textLabel.textColor = App_textSColor;
+                } else {
+                    cell.textLabel.textColor = App_textNColor;
+                }
+            }
+        }
+        
+        self.view.infoTV.showsVerticalScrollIndicator = NO;
+        NSIndexPath * ip = [NSIndexPath indexPathForRow:lyric.row inSection:0];
+        
+        [self.view.infoTV scrollToRowAtIndexPath:ip atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.view.infoTV.showsVerticalScrollIndicator = YES;
+        });
+    }
+}
 
 #pragma mark - Interactor_EventHandler
 

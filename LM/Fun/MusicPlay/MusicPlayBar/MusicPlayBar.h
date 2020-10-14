@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak  ) MusicPlayItemEntity * currentItem;
 
-@property (nonatomic, copy  ) NSDictionary * _Nullable musicLyricDic;
+@property (nonatomic, copy  ) NSMutableDictionary * _Nullable musicLyricDic;
 @property (nonatomic, copy  ) NSArray * _Nullable musicLyricArray;
 
 //明天处理逻辑.

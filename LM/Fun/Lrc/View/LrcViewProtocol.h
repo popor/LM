@@ -15,14 +15,17 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol LrcViewProtocol <NSObject>
 
 - (UIView *)view;
+- (void)updateInfoTVContentInset;
 
 // MARK: 自己的
 @property (nonatomic, strong) UITableView * infoTV;
 @property (nonatomic, strong) UIButton    * closeBT;
 @property (nonatomic, getter=isShow) BOOL   show;
 
+@property (nonatomic, strong) UILabel  * timeL;
+@property (nonatomic, strong) UIButton * playBT;
+
 // MARK: 外部注入的
-@property (nonatomic, copy  ) NSArray * lrcArray;
 
 @end
 
@@ -33,6 +36,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 // MARK: UI事件
 @protocol LrcViewEventHandler <NSObject>
+
+- (void)updateLrcArray:(NSArray *)array;
+- (void)scrollToLrc:(LrcDetailEntity *)lrc;
 
 @end
 

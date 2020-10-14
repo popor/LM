@@ -57,7 +57,7 @@
                 [self.navigationController.view setNeedsUpdateConstraints];
                 
             } completion:^(BOOL finished) {
-                
+                [self.lrcView updateInfoTVContentInset];
             }];
         }
     }];
@@ -151,7 +151,7 @@
         } else {
             [self reloadTv_PlayBarFrame_sync];
         }
-        
+        [self.lrcView updateInfoTVContentInset];
     }];
 #else
     

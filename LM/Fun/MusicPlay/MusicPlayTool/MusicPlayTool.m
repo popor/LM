@@ -112,9 +112,12 @@
         self.mpb.timeCurrentL.text = [self stringFromTime:time];
         
         // 显示歌词
-        NSString * lyric = self.mpb.musicLyricDic[self.mpb.timeCurrentL.text];
+        LrcDetailEntity * lyric = self.mpb.musicLyricDic[self.mpb.timeCurrentL.text];
         if (lyric) {
-            self.mpb.songInfoL.text = lyric;
+            self.mpb.songInfoL.text = lyric.lrc;
+            
+            NSDictionary * dic = @{@"lyric":lyric};
+            [MGJRouter openURL:MUrl_updateLrcTime withUserInfo:dic completion:nil];
         }
         
     }];

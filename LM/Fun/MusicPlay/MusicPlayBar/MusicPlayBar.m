@@ -689,15 +689,15 @@ static CGFloat MPBTimeLabelWidth1 = 57;
             LrcListUnitEntity * ue = listEntity.result.firstObject;
             [LrcFetch getLrcDetail:musicName url:ue.lrc finish:^(NSString *string) {
                 @strongify(self);
-                self.musicLyricDic = [LrcFetch parselrc:string];
+                NSDictionary * originDic = [LrcFetch parselrc:string];
                 
                 NSMutableArray * originArray = [NSMutableArray new];
-                NSArray * timeTextArray = self.musicLyricDic.allKeys;
+                NSArray * timeTextArray = originDic.allKeys;
                 for (NSString * timeText in timeTextArray) {
                     
                     LrcDetailEntity * entity = [LrcDetailEntity new];
                     entity.timeText = timeText;
-                    entity.lrc      = self.musicLyricDic[timeText];;
+                    entity.lrc      = originDic[timeText];;
                     
                     NSRange range = [timeText rangeOfString:@":"];
                     NSInteger mm  = [timeText substringToIndex:range.location].integerValue;
@@ -712,6 +712,17 @@ static CGFloat MPBTimeLabelWidth1 = 57;
                     return obj1.time<obj2.time ? NSOrderedAscending:NSOrderedDescending;
                 }];
                 
+                
+                NSMutableDictionary * tempDic = [NSMutableDictionary new];
+                NSInteger count = self.musicLyricArray.count;
+                for (NSInteger row = 0; row<count; row++) {
+                    LrcDetailEntity * entity = self.musicLyricArray[row];
+                    entity.row = row;
+                    
+                    tempDic[entity.timeText] = entity;
+                }
+                self.musicLyricDic = tempDic;
+                
                 NSDictionary * dic = @{@"lrcArray":self.musicLyricArray};
                 [MGJRouter openURL:MUrl_updateLrcData withUserInfo:dic completion:nil];
                 
@@ -720,6 +731,8 @@ static CGFloat MPBTimeLabelWidth1 = 57;
                 //     NSLog(@"\n ");
                 // }
             }];
+        } else {
+            [MGJRouter openURL:MUrl_updateLrcData];
         }
     }];
     

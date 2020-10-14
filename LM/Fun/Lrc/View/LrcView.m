@@ -17,9 +17,10 @@
 
 @implementation LrcView
 @synthesize infoTV;
-@synthesize lrcArray;
 @synthesize closeBT;
 @synthesize show;
+@synthesize timeL;
+@synthesize playBT;
 
 - (instancetype)initWithDic:(NSDictionary *)dic {
     if (self = [super init]) {
@@ -115,10 +116,28 @@
         @strongify(self);
         
         NSMutableDictionary * dic = [MRouterC mixDic:routerParameters];
-        self.lrcArray = dic[@"lrcArray"];
+        [self.present updateLrcArray:dic[@"lrcArray"]];
+    }];
+    
+    [MRouterC registerURL:MUrl_updateLrcTime toHandel:^(NSDictionary *routerParameters){
+        @strongify(self);
         
-        [self.infoTV reloadData];
+        if (self.isShow) {
+            NSMutableDictionary * dic = [MRouterC mixDic:routerParameters];
+            LrcDetailEntity * lyric   = dic[@"lyric"];
+            
+            [self.present scrollToLrc:lyric];
+        }
     }];
 }
+
+- (void)updateInfoTVContentInset {
+    if (self.isShow) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.infoTV.contentInset = UIEdgeInsetsMake(self.infoTV.height/2, 0, self.infoTV.height/2, 0);
+        });
+    }
+}
+
 
 @end
