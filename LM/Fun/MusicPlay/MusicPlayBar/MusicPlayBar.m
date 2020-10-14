@@ -13,7 +13,7 @@
 #import "MusicPlayListTool.h"
 
 #import <PoporUI/UIDevice+pScreenSize.h>
-#import <PoporImageBrower/PoporImageBrower.h>
+//#import <PoporImageBrower/PoporImageBrower.h>
 
 static CGFloat MPBTimeLabelWidth0 = 38;
 static CGFloat MPBTimeLabelWidth1 = 57;
@@ -347,7 +347,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         //make.top.mas_equalTo(self.playBT.mas_top);
         make.centerY.mas_equalTo(self.coverIV.mas_centerY);
     }];
- 
+    
     // 顺序
     [self.orderBT mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(30);
@@ -369,9 +369,9 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     //                }];
     //                [self.exitPlaySearchLocalBT.superview layoutIfNeeded];
     //            } completion:^(BOOL finished) {
-    //                
+    //
     //            }];
-    //            
+    //
     //        }
     //    }else{
     //        [self.exitPlaySearchLocalBT mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -546,7 +546,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
             break;
         }
         case McPlayOrderNormal:
-            case McPlayOrderSingle:
+        case McPlayOrderSingle:
         default:{
             if (self.currentItem) {
                 index = [self.mplt.currentWeakList indexOfObject:self.currentItem] + 1;
@@ -723,35 +723,38 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     
 }
 
-
 - (void)showBigIVAction {
-    if (!self.mpt.audioPlayer) {
-        return;
-    }
-    UIImage * smallImage = self.coverIV.image;
-    UIImage * bigImage   = [MusicPlayTool imageOfUrl:self.mpt.audioPlayer.url];
-    NSMutableArray * imageArray = [NSMutableArray new];
     
-    {
-        PoporImageBrowerEntity * entity = [PoporImageBrowerEntity new];
-        entity.smallImage = smallImage;
-        entity.bigImage   = bigImage;
-        
-        [imageArray addObject:entity];
-    }
-    
-    
-    __weak typeof(self) weakSelf = self;
-    PoporImageBrower *photoBrower = [[PoporImageBrower alloc] initWithIndex:0 copyImageArray:imageArray presentVC:self.rootNC.topViewController originImageBlock:^UIImageView *(PoporImageBrower *browerController, NSInteger index) {
-        
-        return weakSelf.coverIV;
-    } disappearBlock:^(PoporImageBrower *browerController, NSInteger index) {
-        
-    } placeholderImageBlock:^UIImage *(PoporImageBrower *browerController) {
-        return nil;
-    }];
-    
-    [photoBrower show];
 }
+
+//- (void)showBigIVAction1 {
+//    if (!self.mpt.audioPlayer) {
+//        return;
+//    }
+//    UIImage * smallImage = self.coverIV.image;
+//    UIImage * bigImage   = [MusicPlayTool imageOfUrl:self.mpt.audioPlayer.url];
+//    NSMutableArray * imageArray = [NSMutableArray new];
+//
+//    {
+//        PoporImageBrowerEntity * entity = [PoporImageBrowerEntity new];
+//        entity.smallImage = smallImage;
+//        entity.bigImage   = bigImage;
+//
+//        [imageArray addObject:entity];
+//    }
+//
+//
+//    __weak typeof(self) weakSelf = self;
+//    PoporImageBrower *photoBrower = [[PoporImageBrower alloc] initWithIndex:0 copyImageArray:imageArray presentVC:self.rootNC.topViewController originImageBlock:^UIImageView *(PoporImageBrower *browerController, NSInteger index) {
+//
+//        return weakSelf.coverIV;
+//    } disappearBlock:^(PoporImageBrower *browerController, NSInteger index) {
+//
+//    } placeholderImageBlock:^UIImage *(PoporImageBrower *browerController) {
+//        return nil;
+//    }];
+//
+//    [photoBrower show];
+//}
 
 @end
