@@ -24,6 +24,8 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 @property (nonatomic, strong) NSArray * orderImageArray;
 @property (nonatomic        ) CGFloat sliderImageWH;
 
+@property (nonatomic, copy  ) NSString * lastMusicTitle;
+
 @end
 
 @implementation MusicPlayBar
@@ -672,12 +674,16 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 }
 
 - (void)updateLyric {
+    if ([self.lastMusicTitle isEqualToString:self.currentItem.musicTitle] && self.musicLyricDic) {
+        return;
+    }
     self.musicLyricDic = nil;
+    self.lastMusicTitle = self.currentItem.musicTitle;
     
     //NSString * musicName = @"世界第一等";
-    NSString * musicName = self.currentItem.musicTitle;
+    NSString * musicName = self.lastMusicTitle;
     @weakify(self);
-    [LrcFetch getLrcList:musicName finish:^(LrcListEntity * _Nullable listEntity) {
+    [LrcFetch getLrcList:self.lastMusicTitle finish:^(LrcListEntity * _Nullable listEntity) {
         if (listEntity.result.count > 0) {
             LrcListUnitEntity * ue = listEntity.result.firstObject;
             [LrcFetch getLrcDetail:musicName url:ue.lrc finish:^(NSString *string) {

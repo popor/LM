@@ -113,7 +113,7 @@
                     timerText = [timerText substringToIndex:range.location];
                 }
                 musicLrcDictionary[timerText] = word;
-                NSLog(@"%@ _ %@", timerText, word);
+                //NSLog(@"%@ _ %@", timerText, word);
             }
         }
     }
