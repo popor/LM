@@ -39,6 +39,9 @@
 		C30D897A25354EAE009BFB45 /* LrcFetch.m in Sources */ = {isa = PBXBuildFile; fileRef = C30D897925354EAE009BFB45 /* LrcFetch.m */; };
 		C30D897F25354F6D009BFB45 /* NetService.m in Sources */ = {isa = PBXBuildFile; fileRef = C30D897D25354F6D009BFB45 /* NetService.m */; };
 		C39396722536C88500409025 /* LrcDetailEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C39396712536C88500409025 /* LrcDetailEntity.m */; };
+		C39396F52536D3F400409025 /* LrcViewPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C39396EC2536D3F300409025 /* LrcViewPresenter.m */; };
+		C39396F62536D3F400409025 /* LrcView.m in Sources */ = {isa = PBXBuildFile; fileRef = C39396EF2536D3F300409025 /* LrcView.m */; };
+		C39396F72536D3F400409025 /* LrcViewInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = C39396F32536D3F300409025 /* LrcViewInteractor.m */; };
 		C3AD50F32516EDDB00746FA2 /* SongListVCPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD50EA2516EDDB00746FA2 /* SongListVCPresenter.m */; };
 		C3AD50F42516EDDB00746FA2 /* SongListVCInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD50EE2516EDDB00746FA2 /* SongListVCInteractor.m */; };
 		C3AD50F52516EDDB00746FA2 /* SongListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD50F22516EDDB00746FA2 /* SongListVC.m */; };
@@ -144,6 +147,13 @@
 		C3267B2C251489C1007CADFC /* LM.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LM.entitlements; sourceTree = "<group>"; };
 		C39396702536C88500409025 /* LrcDetailEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LrcDetailEntity.h; sourceTree = "<group>"; };
 		C39396712536C88500409025 /* LrcDetailEntity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LrcDetailEntity.m; sourceTree = "<group>"; };
+		C39396EC2536D3F300409025 /* LrcViewPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LrcViewPresenter.m; sourceTree = "<group>"; };
+		C39396ED2536D3F300409025 /* LrcViewPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LrcViewPresenter.h; sourceTree = "<group>"; };
+		C39396EF2536D3F300409025 /* LrcView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LrcView.m; sourceTree = "<group>"; };
+		C39396F02536D3F300409025 /* LrcViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LrcViewProtocol.h; sourceTree = "<group>"; };
+		C39396F12536D3F300409025 /* LrcView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LrcView.h; sourceTree = "<group>"; };
+		C39396F32536D3F300409025 /* LrcViewInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LrcViewInteractor.m; sourceTree = "<group>"; };
+		C39396F42536D3F300409025 /* LrcViewInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LrcViewInteractor.h; sourceTree = "<group>"; };
 		C3AD50EA2516EDDB00746FA2 /* SongListVCPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongListVCPresenter.m; sourceTree = "<group>"; };
 		C3AD50EB2516EDDB00746FA2 /* SongListVCPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongListVCPresenter.h; sourceTree = "<group>"; };
 		C3AD50ED2516EDDB00746FA2 /* SongListVCInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongListVCInteractor.h; sourceTree = "<group>"; };
@@ -383,7 +393,7 @@
 		184F370E224B26A100FEB57B /* Fun */ = {
 			isa = PBXGroup;
 			children = (
-				C30D896625354B6D009BFB45 /* lyric */,
+				C30D896625354B6D009BFB45 /* Lrc */,
 				C3D58B6B2517470C00A40108 /* MusicPlay */,
 				C3AD50F82516EE1100746FA2 /* SongSection */,
 				180E33A4224DE7E5008C176D /* LocalMusicVC */,
@@ -512,17 +522,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		C30D896625354B6D009BFB45 /* lyric */ = {
+		C30D896625354B6D009BFB45 /* Lrc */ = {
 			isa = PBXGroup;
 			children = (
-				C30D897825354EAE009BFB45 /* LrcFetch.h */,
-				C30D897925354EAE009BFB45 /* LrcFetch.m */,
-				C30D896C25354CBA009BFB45 /* LrcListEntity.h */,
-				C30D896D25354CBA009BFB45 /* LrcListEntity.m */,
-				C39396702536C88500409025 /* LrcDetailEntity.h */,
-				C39396712536C88500409025 /* LrcDetailEntity.m */,
+				C39396FA2536D40400409025 /* entity */,
+				C39396EE2536D3F300409025 /* View */,
+				C39396EB2536D3F300409025 /* Presenter */,
+				C39396F22536D3F300409025 /* Interactor */,
 			);
-			path = lyric;
+			path = Lrc;
 			sourceTree = "<group>";
 		};
 		C30D897C25354F6D009BFB45 /* NetService */ = {
@@ -532,6 +540,47 @@
 				C30D897D25354F6D009BFB45 /* NetService.m */,
 			);
 			path = NetService;
+			sourceTree = "<group>";
+		};
+		C39396EB2536D3F300409025 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				C39396ED2536D3F300409025 /* LrcViewPresenter.h */,
+				C39396EC2536D3F300409025 /* LrcViewPresenter.m */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		C39396EE2536D3F300409025 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C39396F12536D3F300409025 /* LrcView.h */,
+				C39396EF2536D3F300409025 /* LrcView.m */,
+				C39396F02536D3F300409025 /* LrcViewProtocol.h */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C39396F22536D3F300409025 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				C39396F42536D3F300409025 /* LrcViewInteractor.h */,
+				C39396F32536D3F300409025 /* LrcViewInteractor.m */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		C39396FA2536D40400409025 /* entity */ = {
+			isa = PBXGroup;
+			children = (
+				C30D897825354EAE009BFB45 /* LrcFetch.h */,
+				C30D897925354EAE009BFB45 /* LrcFetch.m */,
+				C30D896C25354CBA009BFB45 /* LrcListEntity.h */,
+				C30D896D25354CBA009BFB45 /* LrcListEntity.m */,
+				C39396702536C88500409025 /* LrcDetailEntity.h */,
+				C39396712536C88500409025 /* LrcDetailEntity.m */,
+			);
+			path = entity;
 			sourceTree = "<group>";
 		};
 		C3AD50E02516EDC200746FA2 /* SongListVC */ = {
@@ -767,7 +816,9 @@
 				183BF3E9224A1DBD004DE115 /* main.m in Sources */,
 				C3AD516C2517310900746FA2 /* ThemeColor.m in Sources */,
 				183BF3DB224A1DBB004DE115 /* AppDelegate.m in Sources */,
+				C39396F52536D3F400409025 /* LrcViewPresenter.m in Sources */,
 				185615AE224DC23A004BE073 /* WifiAddFileVCInteractor.m in Sources */,
+				C39396F62536D3F400409025 /* LrcView.m in Sources */,
 				184CD1CB224CA66800241B9C /* MusicPlayBar.m in Sources */,
 				1856158E224DBF0E004BE073 /* MusicPlayList.m in Sources */,
 				183BF426224A22EC004DE115 /* RootVC.m in Sources */,
@@ -775,6 +826,7 @@
 				180E33BD224DE806008C176D /* LocalMusicVC.m in Sources */,
 				C3AD51342516FC6900746FA2 /* MRouterUrlPrefix.m in Sources */,
 				18DE13AC2251F40A009920D7 /* SongListDetailVCInteractor.m in Sources */,
+				C39396F72536D3F400409025 /* LrcViewInteractor.m in Sources */,
 				185615AD224DC23A004BE073 /* WifiAddFileVCPresenter.m in Sources */,
 				18DE13A92251F40A009920D7 /* SongListDetailVC.m in Sources */,
 				180E33BA224DE806008C176D /* LocalMusicVCPresenter.m in Sources */,

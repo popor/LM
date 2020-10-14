@@ -15,6 +15,7 @@
 #import <PoporMasonry/PoporMasonry.h>
 #import "SongListVC.h"
 #import "LocalMusicVC.h"
+#import "LrcView.h"
 
 #define RootMoreArray       @[@"新增歌单", @"Wifi添加歌曲", @"编辑歌单", @"检查更新"]
 #define RootMoreCheckUpdate 4
@@ -34,6 +35,7 @@
 @property (nonatomic, strong) UIScrollView    * tvSV;
 @property (nonatomic, strong) SongListVC      * songListVC;
 @property (nonatomic, strong) LocalMusicVC    * localMusicVC;
+@property (nonatomic, strong) LrcView         * lrcView;
 
 // MARK: 外部注入的
 

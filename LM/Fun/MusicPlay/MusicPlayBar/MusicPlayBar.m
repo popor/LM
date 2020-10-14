@@ -712,6 +712,9 @@ static CGFloat MPBTimeLabelWidth1 = 57;
                     return obj1.time<obj2.time ? NSOrderedAscending:NSOrderedDescending;
                 }];
                 
+                NSDictionary * dic = @{@"lrcArray":self.musicLyricArray};
+                [MGJRouter openURL:MUrl_updateLrcData withUserInfo:dic completion:nil];
+                
                 // for (LrcDetailEntity * entity in self.musicLyricArray) {
                 //     [NSAssistant NSLogEntity:entity];
                 //     NSLog(@"\n ");
@@ -724,7 +727,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 }
 
 - (void)showBigIVAction {
-    
+    [MGJRouter openURL:MUrl_showLrc];
 }
 
 //- (void)showBigIVAction1 {

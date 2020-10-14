@@ -15,6 +15,12 @@ NSString * const MUrl_savePlayConfig       = @"savePlayConfig";
 NSString * const MUrl_resumePlayItem_local = @"resumePlayItem_local";
 NSString * const MUrl_freshRootTV          = @"freshRootTV";
 
+
+NSString * const MUrl_updateLrcData        = @"updateLrcData";
+NSString * const MUrl_showLrc              = @"showLrc";
+NSString * const MUrl_closeLrc             = @"closeLrc";
+
+
 NSString * const MUrl_wifiAddFileVC      = @"wifiAddFileVC";
 
 @end

@@ -17,6 +17,10 @@ UIKIT_EXTERN NSString * const MUrl_savePlayConfig;
 UIKIT_EXTERN NSString * const MUrl_resumePlayItem_local;
 UIKIT_EXTERN NSString * const MUrl_freshRootTV;
 
+UIKIT_EXTERN NSString * const MUrl_updateLrcData;
+UIKIT_EXTERN NSString * const MUrl_showLrc;
+UIKIT_EXTERN NSString * const MUrl_closeLrc;
+
 UIKIT_EXTERN NSString * const MUrl_wifiAddFileVC;
 
 @end

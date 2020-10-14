@@ -24,7 +24,7 @@
 @synthesize tvSV;
 @synthesize songListVC;
 @synthesize localMusicVC;
-
+@synthesize lrcView;
 
 - (instancetype)initWithDic:(NSDictionary *)dic {
     if (self = [super init]) {
@@ -40,6 +40,45 @@
         
         [self.songListVC.infoTV reloadData];
         [self.localMusicVC.infoTV reloadData];
+    }];
+    
+    [MRouterC registerURL:MUrl_showLrc toHandel:^(NSDictionary *routerParameters){
+        @strongify(self);
+        if (self.lrcView.isShow) {
+            [MGJRouter openURL:MUrl_closeLrc];
+        } else {
+            self.lrcView.alpha = 1;
+            self.lrcView.show = YES;
+            [UIView animateWithDuration:0.3 delay:0 options:0 animations:^{
+                [self.lrcView mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.top.mas_equalTo(0);
+                }];
+                
+                [self.navigationController.view setNeedsUpdateConstraints];
+                
+            } completion:^(BOOL finished) {
+                
+            }];
+        }
+    }];
+    
+    [MRouterC registerURL:MUrl_closeLrc toHandel:^(NSDictionary *routerParameters){
+        @strongify(self);
+        self.lrcView.show = NO;
+        
+        [UIView animateWithDuration:0.3 delay:0 options:0 animations:^{
+            [self.lrcView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.top.mas_equalTo(self.navigationController.view.height -self.playbar.height);
+            }];
+            
+            [self.navigationController.view setNeedsUpdateConstraints];
+        } completion:^(BOOL finished) {
+            [self.lrcView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.top.mas_equalTo(0);
+            }];
+            self.lrcView.alpha = 0;
+        }];
+        
     }];
 }
 
@@ -86,7 +125,7 @@
 #pragma mark - views
 - (void)addViews {
     [self addPlayboard];
-    
+    [self addLrcViews];
     @weakify(self);
     {
         self.navigationController.navigationBar.tintColor = ColorThemeBlue1;
@@ -176,7 +215,18 @@
         make.bottom.mas_equalTo(0);
         make.height.mas_equalTo(self.playbar.height);
     }];
-    
+}
+
+- (void)addLrcViews {
+    self.lrcView = [[LrcView alloc] initWithDic:nil];
+    [self.navigationController.view addSubview:self.lrcView];
+    [self.lrcView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(0);
+        make.right.mas_equalTo(0);
+        
+        //make.top.mas_equalTo(0);
+        make.bottom.mas_equalTo(-self.playbar.height);
+    }];
 }
 
 - (void)addHeadSegmentViews {
