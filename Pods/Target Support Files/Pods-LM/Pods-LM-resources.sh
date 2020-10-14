@@ -99,12 +99,10 @@ EOM
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "${PODS_ROOT}/DMProgressHUD/DMProgressHUD/DMProgressImgs.bundle"
   install_resource "${PODS_ROOT}/GCDWebServer/GCDWebUploader/GCDWebUploader.bundle"
-  install_resource "${PODS_ROOT}/PoporImageBrower/PoporImageBrower/Classes/PoporImageBrower.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "${PODS_ROOT}/DMProgressHUD/DMProgressHUD/DMProgressImgs.bundle"
   install_resource "${PODS_ROOT}/GCDWebServer/GCDWebUploader/GCDWebUploader.bundle"
-  install_resource "${PODS_ROOT}/PoporImageBrower/PoporImageBrower/Classes/PoporImageBrower.bundle"
 fi
 
 mkdir -p "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

@@ -23,7 +23,7 @@ target 'LM' do
   pod 'PoporFoundation' #, '~>1.21'
   pod 'PoporPopNormalNC'
   pod 'PoporAlertBubbleView'
-  pod 'PoporImageBrower'
+  #pod 'PoporImageBrower'
   pod 'PoporAFN', '~>1.07'
   #pod 'PoporNetRecord'
   pod 'PoporSegmentView'
