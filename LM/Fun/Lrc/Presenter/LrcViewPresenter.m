@@ -169,7 +169,9 @@
         self.view.infoTV.showsVerticalScrollIndicator = NO;
         NSIndexPath * ip = [NSIndexPath indexPathForRow:lyric.row inSection:0];
         
-        [self.view.infoTV scrollToRowAtIndexPath:ip atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+        [UIView animateWithDuration:0.2 animations:^{
+            [self.view.infoTV scrollToRowAtIndexPath:ip atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+        }];
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.view.infoTV.showsVerticalScrollIndicator = YES;
