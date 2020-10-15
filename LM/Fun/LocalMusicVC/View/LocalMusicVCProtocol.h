@@ -28,6 +28,8 @@
 @property (nonatomic, getter=isSearchType) BOOL searchType;// 显示搜索模式
 @property (nonatomic, strong) NSMutableArray<FileEntity> * searchArray;
 
+@property (nonatomic, strong) UIButton        * aimBT;
+
 @property (nonatomic, readonly, getter=isRoot) BOOL root;
 
 // MARK: 外部注入的
@@ -46,5 +48,7 @@
 - (void)searchAction:(UISearchBar *)bar;
 - (void)reloadImageColor;
 - (void)freshTVVisiableCellEvent;
+
+- (void)aimAtCurrentItem:(UIButton *)bt;
 
 @end

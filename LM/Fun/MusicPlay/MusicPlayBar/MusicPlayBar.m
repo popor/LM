@@ -451,6 +451,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     if (folderName.length > 0) {
         self.mplt.config.localFolderName = folderName;
         self.mplt.config.localMusicName  = self.currentItem.fileName;
+        self.mplt.config.localIndexItem  = index;
     }
 }
 
