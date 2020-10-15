@@ -40,7 +40,7 @@ typedef NS_ENUM(int, McPlayType) {
 @property (nonatomic, copy  ) NSString * localFolderName;
 @property (nonatomic, copy  ) NSString * localMusicName;
 
-@property (nonatomic        ) NSInteger  localIndexItem; // 用于aimBT定位使用
+@property (nonatomic        ) NSInteger  currentPlayIndexRow; // 用于aimBT定位使用
 
 @end
 

@@ -451,7 +451,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     if (folderName.length > 0) {
         self.mplt.config.localFolderName = folderName;
         self.mplt.config.localMusicName  = self.currentItem.fileName;
-        self.mplt.config.localIndexItem  = index;
+        self.mplt.config.currentPlayIndexRow = index;
     }
 }
 
@@ -507,6 +507,8 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 - (void)previousBTEvent {
     if (self.mplt.currentWeakList.count>0) {
         NSInteger index = [self getPreviousIndex];
+        self.mplt.config.currentPlayIndexRow = index;
+        
         self.currentItem = self.mplt.currentWeakList[index];
         [self playItem:self.currentItem autoPlay:YES];
         
@@ -525,6 +527,8 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 - (void)nextBTEvent {
     if (self.mplt.currentWeakList.count>0) {
         NSInteger index = [self getNextIndex];
+        self.mplt.config.currentPlayIndexRow = index;
+        
         self.currentItem = self.mplt.currentWeakList[index];
         [self playItem:self.currentItem autoPlay:YES];
         

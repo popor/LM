@@ -17,6 +17,7 @@
 @property (nonatomic, strong) SongListDetailVCInteractor * interactor;
 
 @property (nonatomic, weak  ) MusicPlayBar * mpb;
+@property (nonatomic, weak  ) MusicPlayListTool * mplt;
 @property (nonatomic, weak  ) MusicInfoCell * lastCell;
 
 @property (nonatomic        ) BOOL firstAimAt;
@@ -28,6 +29,7 @@
 - (id)init {
     if (self = [super init]) {
         self.mpb = MpbShare;
+        self.mplt = MpltShare;
         self.firstAimAt = YES;
     }
     return self;
@@ -426,6 +428,7 @@
 
 - (void)freshTVVisiableCellEvent {
     [self.view.infoTV reloadRowsAtIndexPaths:[self.view.infoTV indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+    [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.mplt.config.currentPlayIndexRow inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 }
 
 - (void)aimAtCurrentItem:(UIButton *)bt {

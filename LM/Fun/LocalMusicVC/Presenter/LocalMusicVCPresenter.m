@@ -498,6 +498,7 @@ API_AVAILABLE(ios(12.0))
 
 - (void)freshTVVisiableCellEvent {
     [self.view.infoTV reloadRowsAtIndexPaths:[self.view.infoTV indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+    [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.mplt.config.currentPlayIndexRow inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 }
 
 #pragma mark - Interactor_EventHandler
@@ -543,8 +544,8 @@ API_AVAILABLE(ios(12.0))
 
 - (void)aimAtCurrentItem:(UIButton *)bt {
     if ([self.mplt.config.localFolderName isEqualToString:self.view.vc.title]) {
-        if ([self.view.infoTV.dataSource tableView:self.view.infoTV numberOfRowsInSection:0] > self.mpb.mplt.config.localIndexItem) {
-            [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.mpb.mplt.config.localIndexItem inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+        if ([self.view.infoTV.dataSource tableView:self.view.infoTV numberOfRowsInSection:0] > self.mpb.mplt.config.currentPlayIndexRow) {
+            [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.mpb.mplt.config.currentPlayIndexRow inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
         }
     } else {
         AlertToastTitle(@"未播放该歌单");
