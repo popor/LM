@@ -174,21 +174,21 @@
             //[songInfo setObject:author forKey:MPMediaItemPropertyAlbumTitle];
             [mpic setNowPlayingInfo:songInfo];
 #endif
+            
+            // 播放进度 和 歌词信息, 一个循环只需要走一次
+            CGFloat time = self.audioPlayer.duration;
+            self.mpb.timeDurationL.text = [self stringFromTime:time];
+            
+            self.mpb.currentItem.musicDuration = time;
+            [self.mpb updateLyricKugou];
+            
+            [self.mpb updateTimeDurationFrameTime:time];
+            
+            self.mpb.songInfoL.text     = [NSString stringWithFormat:@"%@ - %@", self.musicItem.musicAuthor, self.musicItem.musicName];
         }
         
         self.mpb.slider.value       = self.audioPlayer.currentTime/self.audioPlayer.duration;
         self.mpb.timeCurrentL.text  = [self stringFromTime:self.audioPlayer.currentTime];
-        
-        //CGFloat time = self.audioPlayer.duration +7200;
-        CGFloat time = self.audioPlayer.duration;
-        self.mpb.timeDurationL.text = [self stringFromTime:time];
-        
-        self.mpb.currentItem.musicDuration = time;
-        [self.mpb updateLyricKugou];
-        
-        [self.mpb updateTimeDurationFrameTime:time];
-        
-        self.mpb.songInfoL.text     = [NSString stringWithFormat:@"%@ - %@", self.musicItem.musicAuthor, self.musicItem.musicName];
         
     }else{
         [mpic setNowPlayingInfo:nil];
@@ -298,7 +298,18 @@
     [self updateIosLockInfo];
     
     // 显示歌词2: 拖拽
+    // NSLog(@"拖拽时间: %@", self.mpb.timeCurrentL.text);
     LrcDetailEntity * lyric = self.mpb.musicLyricDic[self.mpb.timeCurrentL.text];
+    if (!lyric) {
+        NSInteger time = [LrcDetailEntity timeFromText:self.mpb.timeCurrentL.text];
+        for (NSInteger i = 0; i<self.mpb.musicLyricArray.count; i++) {
+            LrcDetailEntity * entity = self.mpb.musicLyricArray[i];
+            if (time < entity.time) {
+                lyric = entity;
+                break;
+            }
+        }
+    }
     if (lyric) {
         self.mpb.songInfoL.text = lyric.lrc;
         

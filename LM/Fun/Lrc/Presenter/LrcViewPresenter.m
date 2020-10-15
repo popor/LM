@@ -157,25 +157,32 @@
 }
 
 - (void)scrollToLrc:(LrcDetailEntity *)lyric {
-    self.playRow = lyric.row;
-    
     if (self.tvDrag) {
         
     } else {
-        self.playRow = lyric.row;
-        
-        [self freshVisiablCell];
-        
-        self.view.infoTV.showsVerticalScrollIndicator = NO;
-        NSIndexPath * ip = [NSIndexPath indexPathForRow:lyric.row inSection:0];
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            [self.view.infoTV scrollToRowAtIndexPath:ip atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
-        }];
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            self.view.infoTV.showsVerticalScrollIndicator = YES;
-        });
+        if (self.playRow != lyric.row) {
+            self.playRow = lyric.row;
+            //NSLog(@"歌词 time: %@", lyric.timeText);
+            
+            NSArray * ipArray = self.view.infoTV.indexPathsForVisibleRows;
+            NSIndexPath * ip0 = ipArray.firstObject;
+            NSIndexPath * ip1 = ipArray.lastObject;
+            if (ip0.row <= self.playRow && self.playRow <= ip1.row) {
+                // 假如拖拽范围少, 在屏幕显示内部, 则需要刷新可见范围cell.
+                [self freshVisiablCell];
+            }
+            
+            self.view.infoTV.showsVerticalScrollIndicator = NO;
+            NSIndexPath * ip = [NSIndexPath indexPathForRow:lyric.row inSection:0];
+            
+            [UIView animateWithDuration:0.2 animations:^{
+                [self.view.infoTV scrollToRowAtIndexPath:ip atScrollPosition:UITableViewScrollPositionNone animated:YES];
+            }];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                self.view.infoTV.showsVerticalScrollIndicator = YES;
+            });
+        }
     }
 }
 
