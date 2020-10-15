@@ -41,7 +41,7 @@
 //}
 
 
-+ (NSMutableArray *)getArrayAtPath:(NSString * _Nullable)path type:(FileType)type {
++ (NSMutableArray<FileEntity> *)getArrayAtPath:(NSString * _Nullable)path type:(FileType)type {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     //下面是指定沙盒的路径。我要读取pc上的，所以就用自己pc上的路径
     NSString * folderName;
@@ -55,7 +55,7 @@
     }
     //NSLog(@"filePath: %@", path);
     
-    NSMutableArray * files = [[NSMutableArray alloc] init];
+    NSMutableArray * files = [NSMutableArray<FileEntity> new];
     
     NSDirectoryEnumerator *direnum = [fileManager enumeratorAtPath:path]; //遍历目录
     NSString *fileName;

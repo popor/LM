@@ -27,8 +27,6 @@ NSString * const NetStatusNC_4G        = @"NetStatusNC_4G";
 NSString * const NetStatusNC_Available = @"NetStatusNC_available";
 NSString * const NetStatusNC_Null      = @"NetStatusNC_Null";
 
-static BOOL isLogoutProtect; // 防止自动退出短时间内执行多次
-
 @interface NetService ()
 
 //@property (nonatomic, strong) NSURLSessionDataTask * task;

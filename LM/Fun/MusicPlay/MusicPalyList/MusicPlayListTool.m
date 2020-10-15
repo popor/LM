@@ -58,7 +58,7 @@
         if (!_list) {
             _list = [MusicPlayList new];
         }
-        _currentTempList = [NSMutableArray new];
+        _currentTempList = [NSMutableArray<FileEntity> new];
         
         [self addMgjrouter];
     }

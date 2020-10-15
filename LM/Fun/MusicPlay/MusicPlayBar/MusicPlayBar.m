@@ -11,6 +11,7 @@
 
 #import "MusicPlayTool.h"
 #import "MusicPlayListTool.h"
+#import "LrcKuGou.h"
 
 #import <PoporUI/UIDevice+pScreenSize.h>
 //#import <PoporImageBrower/PoporImageBrower.h>
@@ -428,7 +429,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     }
 }
 
-- (void)playLocalListArray:(NSArray *)itemArray folder:(NSString * _Nullable)folderName type:(McPlayType)playType at:(NSInteger)index {
+- (void)playLocalListArray:(NSArray<FileEntity> *)itemArray folder:(NSString * _Nullable)folderName type:(McPlayType)playType at:(NSInteger)index {
     [self.mplt.currentTempList removeAllObjects];
     [self.mplt.currentTempList addObjectsFromArray:itemArray];
     
@@ -668,7 +669,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     
 }
 
-- (void)playItem:(MusicPlayItemEntity *)item autoPlay:(BOOL)autoPlay {
+- (void)playItem:(FileEntity *)item autoPlay:(BOOL)autoPlay {
     [self updateLyric];
     [self.mpt playItem:self.currentItem autoPlay:autoPlay];
 }
@@ -737,6 +738,10 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     }];
     
     
+}
+
+- (void)updateLyricKugou {
+    [LrcKuGou test:self.currentItem];
 }
 
 - (void)showBigIVAction {

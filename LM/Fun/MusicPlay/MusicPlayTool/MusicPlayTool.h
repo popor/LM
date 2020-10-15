@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSURL               * musicUrl;
 @property (nonatomic, strong) AVAudioPlayer       * audioPlayer;
-@property (nonatomic, weak  ) MusicPlayItemEntity * musicItem;
+@property (nonatomic, weak  ) FileEntity          * musicItem;
 
 @property (nonatomic, strong) UIImage             * defaultCoverImage;
 
@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (MusicPlayTool *)share;
 
-- (void)playItem:(MusicPlayItemEntity *)item autoPlay:(BOOL)autoPlay;
+- (void)playItem:(FileEntity *)item autoPlay:(BOOL)autoPlay;
 - (void)playAtTimeScale:(float)scale;
 
 - (void)pauseEvent;

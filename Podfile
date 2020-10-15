@@ -51,4 +51,6 @@ target 'LM' do
   pod 'MGJRouter' # 感觉MGJRouter命名规则更符合要求
   pod 'DMProgressHUD'
   
+  pod 'Base64'
+  
 end

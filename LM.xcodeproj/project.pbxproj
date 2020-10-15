@@ -38,6 +38,9 @@
 		C30D896E25354CBA009BFB45 /* LrcListEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C30D896D25354CBA009BFB45 /* LrcListEntity.m */; };
 		C30D897A25354EAE009BFB45 /* LrcFetch.m in Sources */ = {isa = PBXBuildFile; fileRef = C30D897925354EAE009BFB45 /* LrcFetch.m */; };
 		C30D897F25354F6D009BFB45 /* NetService.m in Sources */ = {isa = PBXBuildFile; fileRef = C30D897D25354F6D009BFB45 /* NetService.m */; };
+		C3560EC22537ED780062EFA8 /* LrcKuGou.m in Sources */ = {isa = PBXBuildFile; fileRef = C3560EC12537ED780062EFA8 /* LrcKuGou.m */; };
+		C3560EC62537F4F00062EFA8 /* LrcKugouListEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C3560EC52537F4F00062EFA8 /* LrcKugouListEntity.m */; };
+		C3560ECA2537F7C40062EFA8 /* LrcKugouDetailEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C3560EC92537F7C40062EFA8 /* LrcKugouDetailEntity.m */; };
 		C39396722536C88500409025 /* LrcDetailEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C39396712536C88500409025 /* LrcDetailEntity.m */; };
 		C39396F52536D3F400409025 /* LrcViewPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C39396EC2536D3F300409025 /* LrcViewPresenter.m */; };
 		C39396F62536D3F400409025 /* LrcView.m in Sources */ = {isa = PBXBuildFile; fileRef = C39396EF2536D3F300409025 /* LrcView.m */; };
@@ -145,6 +148,12 @@
 		C32678F725145FB9007CADFC /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		C32678F925145FB9007CADFC /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		C3267B2C251489C1007CADFC /* LM.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LM.entitlements; sourceTree = "<group>"; };
+		C3560EC02537ED780062EFA8 /* LrcKuGou.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LrcKuGou.h; sourceTree = "<group>"; };
+		C3560EC12537ED780062EFA8 /* LrcKuGou.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LrcKuGou.m; sourceTree = "<group>"; };
+		C3560EC42537F4F00062EFA8 /* LrcKugouListEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LrcKugouListEntity.h; sourceTree = "<group>"; };
+		C3560EC52537F4F00062EFA8 /* LrcKugouListEntity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LrcKugouListEntity.m; sourceTree = "<group>"; };
+		C3560EC82537F7C40062EFA8 /* LrcKugouDetailEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LrcKugouDetailEntity.h; sourceTree = "<group>"; };
+		C3560EC92537F7C40062EFA8 /* LrcKugouDetailEntity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LrcKugouDetailEntity.m; sourceTree = "<group>"; };
 		C39396702536C88500409025 /* LrcDetailEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LrcDetailEntity.h; sourceTree = "<group>"; };
 		C39396712536C88500409025 /* LrcDetailEntity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LrcDetailEntity.m; sourceTree = "<group>"; };
 		C39396EC2536D3F300409025 /* LrcViewPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LrcViewPresenter.m; sourceTree = "<group>"; };
@@ -525,6 +534,7 @@
 		C30D896625354B6D009BFB45 /* Lrc */ = {
 			isa = PBXGroup;
 			children = (
+				C3560ECC2537F8550062EFA8 /* LrcKugou */,
 				C39396FA2536D40400409025 /* entity */,
 				C39396EE2536D3F300409025 /* View */,
 				C39396EB2536D3F300409025 /* Presenter */,
@@ -540,6 +550,19 @@
 				C30D897D25354F6D009BFB45 /* NetService.m */,
 			);
 			path = NetService;
+			sourceTree = "<group>";
+		};
+		C3560ECC2537F8550062EFA8 /* LrcKugou */ = {
+			isa = PBXGroup;
+			children = (
+				C3560EC02537ED780062EFA8 /* LrcKuGou.h */,
+				C3560EC12537ED780062EFA8 /* LrcKuGou.m */,
+				C3560EC42537F4F00062EFA8 /* LrcKugouListEntity.h */,
+				C3560EC52537F4F00062EFA8 /* LrcKugouListEntity.m */,
+				C3560EC82537F7C40062EFA8 /* LrcKugouDetailEntity.h */,
+				C3560EC92537F7C40062EFA8 /* LrcKugouDetailEntity.m */,
+			);
+			path = LrcKugou;
 			sourceTree = "<group>";
 		};
 		C39396EB2536D3F300409025 /* Presenter */ = {
@@ -839,7 +862,9 @@
 				189A5DF1225C95E6001E8A9D /* AppVersionCheck.m in Sources */,
 				18DE13AB2251F40A009920D7 /* SongListDetailVCPresenter.m in Sources */,
 				C3AD50F42516EDDB00746FA2 /* SongListVCInteractor.m in Sources */,
+				C3560EC22537ED780062EFA8 /* LrcKuGou.m in Sources */,
 				18DE138F2251AAC9009920D7 /* MusicPlayTool.m in Sources */,
+				C3560EC62537F4F00062EFA8 /* LrcKugouListEntity.m in Sources */,
 				C3AD50F52516EDDB00746FA2 /* SongListVC.m in Sources */,
 				180E33BB224DE806008C176D /* LocalMusicVCInteractor.m in Sources */,
 				185615AF224DC23A004BE073 /* WifiAddFileVC.m in Sources */,
@@ -849,6 +874,7 @@
 				180E33C4224E11F7008C176D /* FileEntity.m in Sources */,
 				C3AD513D2517161700746FA2 /* LocalMusicHeadView.m in Sources */,
 				183BF427224A22EC004DE115 /* RootVCInteractor.m in Sources */,
+				C3560ECA2537F7C40062EFA8 /* LrcKugouDetailEntity.m in Sources */,
 				C3AD51332516FC6900746FA2 /* MRouterConfig.m in Sources */,
 				18DE13AF2251F78C009920D7 /* MusicInfoCell.m in Sources */,
 				18561595224DC089004BE073 /* MusicConfig.m in Sources */,

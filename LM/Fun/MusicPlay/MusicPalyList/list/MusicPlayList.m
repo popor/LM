@@ -12,51 +12,11 @@
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
 
-@implementation MusicPlayItemEntity
-
-+ (MusicPlayItemEntity *)initWithFileEntity:(FileEntity *)fileEntity {
-    MusicPlayItemEntity * item = [MusicPlayItemEntity new];
-    item.filePath    = fileEntity.filePath;
-    item.fileName    = fileEntity.fileName;
-    item.musicTitle  = fileEntity.musicTitle;
-    item.musicAuthor = fileEntity.musicAuthor;
-    
-    return item;
-}
-
-- (UIImage *)coverImage {
-    NSString * path = [NSString stringWithFormat:@"%@/%@", FT_docPath, self.filePath];
-    NSURL * url     = [NSURL fileURLWithPath:path];
-    UIImage * coverImage;
-    
-    AVURLAsset *avURLAsset = [[AVURLAsset alloc] initWithURL:url options:nil];
-    for (NSString * format in [avURLAsset availableMetadataFormats]){
-        for (AVMetadataItem *metadata in [avURLAsset metadataForFormat:format]){
-            // NSLog(@"metadata.commonKey: %@", metadata.commonKey);
-            // if([metadata.commonKey isEqualToString:@"title"]){
-            //     NSString *title = (NSString *)metadata.value;//提取歌曲名
-            // }
-            if([metadata.commonKey isEqualToString:@"artwork"]){
-                NSData*data = [metadata.value copyWithZone:nil];
-                coverImage = [UIImage imageWithData:data];
-                //MPMediaItemArtwork *media = [[MPMediaItemArtwork alloc] initWithImage:coverImage];
-                //[songInfo setObject:media forKey:MPMediaItemPropertyArtwork];
-            }//还可以提取其他所需的信息
-        }
-    }
-    if (!coverImage) {
-        coverImage = [UIImage imageNamed:@"music_placeholder"];
-    }
-    return coverImage;
-}
-
-@end
-
 @implementation MusicPlayListEntity
 
 - (id)init {
     if (self = [super init]) {
-        _itemArray = [NSMutableArray<MusicPlayItemEntity> new];
+        _itemArray = [NSMutableArray<FileEntity> new];
     }
     return self;
 }
@@ -95,8 +55,8 @@
 
 - (void)sortAuthorAscending:(BOOL)Ascending {
     NSArray * tArray = [self.itemArray sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        MusicPlayItemEntity * ie1 = obj1;
-        MusicPlayItemEntity * ie2 = obj2;
+        FileEntity * ie1 = obj1;
+        FileEntity * ie2 = obj2;
         if (Ascending) {
             return [ie1.musicAuthor localizedCompare:ie2.musicAuthor];
         }else{
@@ -114,8 +74,8 @@
 
 - (void)sortTitleAscending:(BOOL)Ascending  {
     NSArray * tArray = [self.itemArray sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        MusicPlayItemEntity * ie1 = obj1;
-        MusicPlayItemEntity * ie2 = obj2;
+        FileEntity * ie1 = obj1;
+        FileEntity * ie2 = obj2;
         if (Ascending) {
             return [ie1.musicTitle localizedCompare:ie2.musicTitle];
         }else{
@@ -133,8 +93,8 @@
 
 - (void)sortCustomAscending:(BOOL)Ascending  {
     NSArray * tArray = [self.itemArray sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        MusicPlayItemEntity * ie1 = obj1;
-        MusicPlayItemEntity * ie2 = obj2;
+        FileEntity * ie1 = obj1;
+        FileEntity * ie2 = obj2;
         if (Ascending) {
             return ie1.index<ie2.index ? NSOrderedAscending : NSOrderedDescending;
         }else{

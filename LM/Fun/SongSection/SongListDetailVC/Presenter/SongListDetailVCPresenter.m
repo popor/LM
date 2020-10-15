@@ -109,7 +109,7 @@
             cell.addBt.userInteractionEnabled = NO;
             [cell.addBt setImage:nil forState:UIControlStateNormal];
         }
-        MusicPlayItemEntity * item;
+        FileEntity * item;
         if (self.view.isSearchType) {
             item = self.view.searchArray[indexPath.row];
         }else{
@@ -246,8 +246,8 @@
 // 这个回调实现了以后，就会出现更换位置的按钮，回调本身用来处理更换位置后的数据交换。
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     if (tableView == self.view.infoTV) {
-        MusicPlayItemEntity * ie0 = self.view.listEntity.itemArray[sourceIndexPath.row];
-        MusicPlayItemEntity * ie1 = self.view.listEntity.itemArray[destinationIndexPath.row];
+        FileEntity * ie0 = self.view.listEntity.itemArray[sourceIndexPath.row];
+        FileEntity * ie1 = self.view.listEntity.itemArray[destinationIndexPath.row];
         NSInteger i = ie0.index;
         ie0.index   = ie1.index;
         ie1.index   = i;
@@ -495,7 +495,7 @@
 - (void)searchAction:(UISearchBar *)bar {
     [self.view.searchArray removeAllObjects];
     NSString * text = bar.text.lowercaseString;
-    for (MusicPlayItemEntity * item in self.view.listEntity.itemArray) {
+    for (FileEntity * item in self.view.listEntity.itemArray) {
         if ([item.fileName.lowercaseString containsString:text]) {
             [self.view.searchArray addObject:item];
         }

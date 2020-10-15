@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak  ) MusicPlayTool       * mpt;
 @property (nonatomic, weak  ) MusicPlayListTool   * mplt;
 
-@property (nonatomic, weak  ) MusicPlayItemEntity * currentItem;
+@property (nonatomic, weak  ) FileEntity * currentItem;
 
 @property (nonatomic, copy  ) NSMutableDictionary * _Nullable musicLyricDic;
 @property (nonatomic, copy  ) NSArray * _Nullable musicLyricArray;
@@ -59,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, getter=isPlaySearchLocalItem) BOOL playSearchLocalItem;
 
 // 播放临时数组
-- (void)playLocalListArray:(NSArray *)itemArray folder:(NSString * _Nullable)folderName type:(McPlayType)playType at:(NSInteger)index;
+- (void)playLocalListArray:(NSArray<FileEntity> *)itemArray folder:(NSString * _Nullable)folderName type:(McPlayType)playType at:(NSInteger)index;
 
 // 播放歌单列表
 - (void)playSongListEntity:(MusicPlayListEntity *)listEntity at:(NSInteger)index;
@@ -77,6 +77,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateTimeDurationFrameTime:(CGFloat)widthTag;
 
 - (void)updateProgressSectionFrame;
+
+- (void)updateLyricKugou;
 
 @end
 

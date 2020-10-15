@@ -74,7 +74,7 @@
     }];
 }
 
-- (void)playItem:(MusicPlayItemEntity *)item autoPlay:(BOOL)autoPlay {
+- (void)playItem:(FileEntity *)item autoPlay:(BOOL)autoPlay {
 #if TARGET_OS_MACCATALYST
     NSString * path = [NSString stringWithFormat:@"%@/%@/%@", FT_docPath, MusicFolderName, item.filePath];
 #else
@@ -185,6 +185,10 @@
         //CGFloat time = self.audioPlayer.duration +7200;
         CGFloat time = self.audioPlayer.duration;
         self.mpb.timeDurationL.text = [self stringFromTime:time];
+        
+        self.mpb.currentItem.musicDuration = time;
+        [self.mpb updateLyricKugou];
+        
         [self.mpb updateTimeDurationFrameTime:time];
         
         self.mpb.songInfoL.text     = [NSString stringWithFormat:@"%@ - %@", self.musicItem.musicAuthor, self.musicItem.musicTitle];

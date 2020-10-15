@@ -334,7 +334,7 @@ API_AVAILABLE(ios(12.0))
     
     if (tableView == self.view.infoTV) {
         FileEntity * fileEntity;
-        NSMutableArray * itemArray;
+        NSMutableArray<FileEntity> * itemArray;
         McPlayType playType;
         if (self.view.isSearchType) {
             fileEntity = self.view.searchArray[indexPath.row];
@@ -391,15 +391,15 @@ API_AVAILABLE(ios(12.0))
         if (list) {
             if (self.selectFileEntity.isFolder) {
                 for (FileEntity * fileEntity in self.selectFileEntity.itemArray) {
-                    MusicPlayItemEntity * ie = [MusicPlayItemEntity initWithFileEntity:fileEntity];
-                    ie.index = list.recoredNum++;
-                    list.itemArray.add(ie);
+                    FileEntity * nEntity = [[FileEntity alloc] initWithDictionary:[fileEntity toDictionary] error:nil];
+                    nEntity.index = list.recoredNum++;
+                    list.itemArray.add(nEntity);
                 }
             }else{
-                FileEntity * fileEntity    = self.selectFileEntity;
-                MusicPlayItemEntity * ie = [MusicPlayItemEntity initWithFileEntity:fileEntity];
-                ie.index = list.recoredNum++;
-                list.itemArray.add(ie);
+                FileEntity * fileEntity = self.selectFileEntity;
+                FileEntity * nEntity = [[FileEntity alloc] initWithDictionary:[fileEntity toDictionary] error:nil];
+                nEntity.index = list.recoredNum++;
+                list.itemArray.add(nEntity);
             }
             [MpltShare updateSongList];
             

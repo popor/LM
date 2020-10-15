@@ -24,25 +24,6 @@ typedef NS_ENUM(int, MpViewOrder) {
 #define MpViewOrderTitleArray    @[@"歌手名称: 正序", @"歌手名称: 倒序", @"歌曲名称: 正序", @"歌曲名称: 倒序", @"自定义: 正序", @"自定义: 倒序"]
 
 
-@protocol  MusicPlayItemEntity;
-@interface MusicPlayItemEntity : PoporJsonModel
-
-@property (nonatomic, strong) NSString * filePath;
-@property (nonatomic, strong) NSString * fileName;
-@property (nonatomic, strong) NSString * musicTitle;
-@property (nonatomic, strong) NSString * musicAuthor;
-
-@property (nonatomic, strong) UIImage  * musicCover;
-@property (nonatomic        ) NSInteger index;
-
-@property (nonatomic, getter=isAvailable) BOOL available; // 是否还存在
-
-+ (MusicPlayItemEntity *)initWithFileEntity:(FileEntity *)fileEntity;
-
-- (UIImage *)coverImage;
-
-@end
-
 @protocol  MusicPlayListEntity;
 @interface MusicPlayListEntity : PoporJsonModel
 
@@ -50,7 +31,7 @@ typedef NS_ENUM(int, MpViewOrder) {
 @property (nonatomic        ) MpViewOrder viewOrder;
 @property (nonatomic        ) NSInteger   recoredNum;//记录增加的个数
 
-@property (nonatomic, strong) NSMutableArray<MusicPlayItemEntity> * itemArray;
+@property (nonatomic, strong) NSMutableArray<FileEntity> * itemArray;
 
 - (void)sortArray:(MpViewOrder)viewOrder;
 

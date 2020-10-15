@@ -14,6 +14,7 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
+  - Base64 (1.1.2)
   - DMProgressHUD (0.0.6)
   - GCDWebServer (3.5.4):
     - GCDWebServer/Core (= 3.5.4)
@@ -132,6 +133,7 @@ PODS:
   - StepSlider (1.2.1)
 
 DEPENDENCIES:
+  - Base64
   - DMProgressHUD
   - GCDWebServer
   - GCDWebServer/WebDAV
@@ -151,6 +153,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - AFNetworking
+    - Base64
     - DMProgressHUD
     - GCDWebServer
     - JSONModel
@@ -169,6 +172,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
+  Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   DMProgressHUD: 08d99c8a3db0ae7a0c2d79c6939e8c32a5f8bfa1
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   JSONModel: 02ab723958366a3fd27da57ea2af2113658762e9
@@ -185,6 +189,6 @@ SPEC CHECKSUMS:
   ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
   StepSlider: e1c9b8f3363cf87224e19c000abe9f5146f80dd1
 
-PODFILE CHECKSUM: 489f5dbfa3e116458a24ac0edb5fcdd0bfa23971
+PODFILE CHECKSUM: 68db18c2e670b1b7e516ed83ff58147fcab7cb36
 
-COCOAPODS: 1.10.0.beta.2
+COCOAPODS: 1.10.0.rc.1

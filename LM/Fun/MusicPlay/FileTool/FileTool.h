@@ -25,7 +25,7 @@ typedef NS_ENUM(int, FileType) {
 
 + (NSString *)getAppDocPath;
 
-+ (NSMutableArray *)getArrayAtPath:(NSString *_Nullable)path type:(FileType)type;
++ (NSMutableArray<FileEntity> *)getArrayAtPath:(NSString *_Nullable)path type:(FileType)type;
 
 @end
 
