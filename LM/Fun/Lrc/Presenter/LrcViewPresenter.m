@@ -15,6 +15,9 @@
 
 @property (nonatomic, copy  ) NSArray * lrcArray;
 @property (nonatomic        ) BOOL tvDrag;
+@property (nonatomic        ) NSInteger dragTime;
+@property (nonatomic        ) NSInteger dragRow;
+
 @property (nonatomic        ) NSInteger playRow;
 
 @end
@@ -77,7 +80,10 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.contentView.backgroundColor = [UIColor clearColor];
+        cell.backgroundColor = [UIColor clearColor];
+        
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        cell.textLabel.font = [UIFont systemFontOfSize:15];
     }
     if (self.lrcArray.count == 0) {
         cell.textLabel.text = @"暂无歌词";
@@ -86,6 +92,7 @@
     } else {
         LrcDetailEntity * entity = self.lrcArray[indexPath.row];
         cell.textLabel.text = entity.lrc;
+        //cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", entity.timeText, entity.lrc];
         if (self.playRow == indexPath.row) {
             cell.textLabel.textColor = App_textSColor;
         } else {
@@ -103,14 +110,41 @@
 }
 
 #pragma mark - tv drag
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (self.tvDrag) {
+        if (self.lrcArray.count > 0) {
+            NSIndexPath * indexPath = [self.view.infoTV indexPathForRowAtPoint:CGPointMake(1, self.view.infoTV.height/2 +scrollView.contentOffset.y)];
+            LrcDetailEntity * entity = self.lrcArray[indexPath.row];
+            // NSLog(@"%i %@", (int)indexPath.row, entity.timeText);
+            self.view.timeL.text = entity.timeText;
+            self.dragTime = entity.time;
+            self.dragRow  = entity.row;
+        }
+    }
+}
+
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     self.tvDrag = YES;
+    self.view.timeL.hidden     = NO;
+    self.view.playBT.hidden    = NO;
+    self.view.lineView1.hidden = NO;
+    self.view.lineView2.hidden = NO;
+    
+    [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(endDragDelay) object:nil];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.tvDrag = NO;
-    });
+    
+    [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(endDragDelay) object:nil];
+    [self performSelector:@selector(endDragDelay) withObject:nil afterDelay:3];
+}
+
+- (void)endDragDelay {
+    self.tvDrag = NO;
+    self.view.timeL.hidden     = YES;
+    self.view.playBT.hidden    = YES;
+    self.view.lineView1.hidden = YES;
+    self.view.lineView2.hidden = YES;
 }
 
 #pragma mark - VC_EventHandler
@@ -128,16 +162,7 @@
     } else {
         self.playRow = lyric.row;
         
-        for (UITableViewCell * cell in self.view.infoTV.visibleCells) {
-            if (cell) {
-                NSIndexPath * ip = [self.view.infoTV indexPathForCell:cell];
-                if (ip.row == self.playRow) {
-                    cell.textLabel.textColor = App_textSColor;
-                } else {
-                    cell.textLabel.textColor = App_textNColor;
-                }
-            }
-        }
+        [self freshVisiablCell];
         
         self.view.infoTV.showsVerticalScrollIndicator = NO;
         NSIndexPath * ip = [NSIndexPath indexPathForRow:lyric.row inSection:0];
@@ -148,6 +173,29 @@
             self.view.infoTV.showsVerticalScrollIndicator = YES;
         });
     }
+}
+
+- (void)freshVisiablCell {
+    for (UITableViewCell * cell in self.view.infoTV.visibleCells) {
+        if (cell) {
+            NSIndexPath * ip = [self.view.infoTV indexPathForCell:cell];
+            if (ip.row == self.playRow) {
+                cell.textLabel.textColor = App_textSColor;
+            } else {
+                cell.textLabel.textColor = App_textNColor;
+            }
+        }
+    }
+}
+
+- (void)playBTAction {
+    NSDictionary * dic = @{@"time":@(self.dragTime)};
+    [MGJRouter openURL:MUrl_playAtTime withUserInfo:dic completion:nil];
+    
+    self.playRow = self.dragRow;
+    [self freshVisiablCell];
+    
+    [self endDragDelay];
 }
 
 #pragma mark - Interactor_EventHandler

@@ -22,6 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIButton    * closeBT;
 @property (nonatomic, getter=isShow) BOOL   show;
 
+@property (nonatomic, strong) UIImageView   * lineView1;
+@property (nonatomic, strong) UIImageView   * lineView2;
+
 @property (nonatomic, strong) UILabel  * timeL;
 @property (nonatomic, strong) UIButton * playBT;
 
@@ -39,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateLrcArray:(NSArray *)array;
 - (void)scrollToLrc:(LrcDetailEntity *)lrc;
+- (void)playBTAction;
 
 @end
 

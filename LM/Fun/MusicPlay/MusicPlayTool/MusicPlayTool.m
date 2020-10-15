@@ -55,8 +55,23 @@
             instance.mpb = MpbShare;
         });
         
+        [instance addMgjrouter];
     });
     return instance;
+}
+
+- (void)addMgjrouter {
+    @weakify(self);
+    [MRouterC registerURL:MUrl_playAtTime toHandel:^(NSDictionary *routerParameters){
+        @strongify(self);
+        
+        NSMutableDictionary * dic = [MRouterC mixDic:routerParameters];
+        NSString * time = dic[@"time"];
+        
+        self.audioPlayer.currentTime = time.floatValue;
+        // 拖拽进度条后,需要刷新锁屏信息
+        [self updateIosLockInfo];
+    }];
 }
 
 - (void)playItem:(MusicPlayItemEntity *)item autoPlay:(BOOL)autoPlay {

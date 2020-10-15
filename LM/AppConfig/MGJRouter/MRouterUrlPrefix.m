@@ -20,7 +20,7 @@ NSString * const MUrl_updateLrcData        = @"updateLrcData";
 NSString * const MUrl_showLrc              = @"showLrc";
 NSString * const MUrl_closeLrc             = @"closeLrc";
 NSString * const MUrl_updateLrcTime        = @"updateLrcTime";
-
+NSString * const MUrl_playAtTime           = @"playAtTime";
 
 NSString * const MUrl_wifiAddFileVC      = @"wifiAddFileVC";
 
