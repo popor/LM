@@ -27,7 +27,7 @@
 @synthesize searchType;
 @synthesize searchTypeOld;
 @synthesize searchArray;
-
+@synthesize aimBT;
 @synthesize root;
 
 - (void)dealloc {
@@ -120,6 +120,8 @@
             [weakSelf.present freshTVVisiableCellEvent];
         };
     }
+    
+    [self addAimBTs];
     
     [self addTapEndEditGRAction];
 }
@@ -288,5 +290,31 @@
     }
 }
 
+#pragma mark - aimBT
+- (void)addAimBTs {
+    if (self.isRoot) {
+        return;
+    }
+    self.aimBT = ({
+        UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setImage:LmImageThemeBlue1(@"aim") forState:UIControlStateNormal];
+        button.imageView.contentMode = UIViewContentModeCenter;
+        
+        [self.view addSubview:button];
+        
+        [button addTarget:self.present action:@selector(aimAtCurrentItem:) forControlEvents:UIControlEventTouchUpInside];
+        
+        button;
+    });
+    [self.aimBT mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(self.infoTV.mas_bottom).mas_offset(0);
+        make.right.mas_equalTo(-5);
+        make.size.mas_equalTo(CGSizeMake(50, 50));
+    }];
+    
+    //    dispatch_async(dispatch_get_main_queue(), ^{
+    //        [self.present aimAtCurrentItem:self.aimBT];
+    //    });
+}
 
 @end

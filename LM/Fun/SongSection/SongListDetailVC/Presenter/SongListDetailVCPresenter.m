@@ -441,7 +441,7 @@
         }
         
         if ([self.view.infoTV.dataSource tableView:self.view.infoTV numberOfRowsInSection:0] > self.mpb.mplt.config.songIndexItem) {
-            [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.mpb.mplt.config.songIndexItem inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:animation];
+            [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.mpb.mplt.config.songIndexItem inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:animation];
         }
     }else{
         if (self.firstAimAt) {

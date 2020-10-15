@@ -30,6 +30,8 @@ API_AVAILABLE(ios(12.0))
 
 @property (nonatomic        ) UIUserInterfaceStyle userInterfaceStyle;
 
+@property (nonatomic        ) BOOL firstAimAt;
+
 @end
 
 @implementation LocalMusicVCPresenter
@@ -294,7 +296,7 @@ API_AVAILABLE(ios(12.0))
         return cell;
     }
     
-    else {
+    else if (tableView == self.view.musicListTV) {
         static NSString * CellID = @"CellMusicList";
         UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellID];
         if (!cell) {
@@ -310,6 +312,10 @@ API_AVAILABLE(ios(12.0))
         }
         
         return cell;
+    }
+    
+    else {
+        return nil;
     }
 }
 
@@ -533,6 +539,16 @@ API_AVAILABLE(ios(12.0))
     [self.view.infoTV reloadData];
     
     [weakHud dismiss];
+}
+
+- (void)aimAtCurrentItem:(UIButton *)bt {
+    if ([self.mplt.config.localFolderName isEqualToString:self.view.vc.title]) {
+        if ([self.view.infoTV.dataSource tableView:self.view.infoTV numberOfRowsInSection:0] > self.mpb.mplt.config.localIndexItem) {
+            [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.mpb.mplt.config.localIndexItem inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+        }
+    } else {
+        AlertToastTitle(@"未播放该歌单");
+    }
 }
 
 @end
