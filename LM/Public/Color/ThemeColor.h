@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ThemeColor : UIColor
 
-@property (nonatomic        ) UIUserInterfaceStyle previousUserInterfaceStyle;
+@property (nonatomic        ) UIUserInterfaceStyle previousUserInterfaceStyle API_AVAILABLE(ios(12.0));
 
 @property (nonatomic, strong) UIColor * themeColor;
 

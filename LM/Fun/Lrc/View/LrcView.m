@@ -94,8 +94,22 @@
 }
 
 - (void)addBTs {
+    CGFloat btWidth = 50;
     self.closeBT = ({
-        UIButton * oneBT = [UIButton buttonWithType:UIButtonTypeClose];
+        UIButton * oneBT;
+        if (@available(iOS 13.0, *)) {
+            oneBT=  [UIButton buttonWithType:UIButtonTypeClose];
+        } else {
+            oneBT = [UIButton buttonWithType:UIButtonTypeCustom];
+            [oneBT setTitle:@"X" forState:UIControlStateNormal];
+            [oneBT setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            
+            oneBT.titleLabel.font = [UIFont systemFontOfSize:17];
+            [oneBT setBackgroundImage:[UIImage imageFromColor:PRGB16(0XEFEFF0) size:CGSizeMake(1, 1)] forState:UIControlStateNormal];
+            
+            oneBT.layer.cornerRadius = btWidth/2;
+            oneBT.clipsToBounds = YES;
+        }
         
         [self.view addSubview:oneBT];
         oneBT;
@@ -105,7 +119,7 @@
         make.top.mas_equalTo(40);
         make.right.mas_equalTo(-10);
         
-        make.size.mas_equalTo(CGSizeMake(40, 40));
+        make.size.mas_equalTo(CGSizeMake(btWidth, btWidth));
     }];
     
     [[self.closeBT rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {

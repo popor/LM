@@ -525,7 +525,11 @@ API_AVAILABLE(ios(12.0))
 - (void)openDocFolderAction {
     //NSURL * url = [NSURL fileURLWithPath:@"file:///Users/popor/Desktop/demo/"];
     NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@/%@", FT_docPath, MusicFolderName]];
-    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {}];
+    if (@available(iOS 10.0, *)) {
+        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {}];
+    } else {
+        // Fallback on earlier versions
+    }
 }
 
 - (void)openWifiVC {
