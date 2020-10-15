@@ -22,6 +22,9 @@
 
 @property (nonatomic, strong) MusicConfig * racSlideOB; // 为rac 充当监控的东西
 
+@property (nonatomic, copy  ) NSString * lastImageUrl;
+//@property (nonatomic, copy  ) UIImage  * lastImage;
+
 @end
 
 @implementation MusicPlayTool
@@ -126,7 +129,7 @@
         [self.mpb updateTimeCurrentFrameTime:time];
         self.mpb.timeCurrentL.text = [self stringFromTime:time];
         
-        // 显示歌词
+        // 显示歌词1: 实时的
         LrcDetailEntity * lyric = self.mpb.musicLyricDic[self.mpb.timeCurrentL.text];
         if (lyric) {
             self.mpb.songInfoL.text = lyric.lrc;
@@ -143,42 +146,36 @@
     MPNowPlayingInfoCenter * mpic = [MPNowPlayingInfoCenter defaultCenter];
     
     if (ap.duration > 0) {
-        NSMutableDictionary *songInfo = [ [NSMutableDictionary alloc] init];
-        {
-            UIImage * coverImage = [MusicPlayTool imageOfUrl:self.audioPlayer.url];
+        if (![self.audioPlayer.url.absoluteString isEqualToString:self.lastImageUrl]) {
+            self.lastImageUrl = self.audioPlayer.url.absoluteString;
             
-            // UIColor * color = [self.defaultCoverImage colorAtPixel:CGPointMake(10, 10)];
-            // 0.2 0.752941 0.745098 1
-            // NSLog(@"1");
+            UIImage * coverImage = [MusicPlayTool imageOfUrl:self.audioPlayer.url];
             
             if (coverImage) {
                 CGSize size = CGSizeMake(self.mpb.coverIV.size.width*[UIScreen mainScreen].scale, self.mpb.coverIV.size.height*[UIScreen mainScreen].scale);
                 self.mpb.coverIV.image = [UIImage imageFromImage:coverImage size:size];
-                
-                MPMediaItemArtwork *media;
-#if TARGET_OS_MACCATALYST
-                media = [[MPMediaItemArtwork alloc] initWithBoundsSize:size requestHandler:^UIImage * _Nonnull(CGSize size) {
-                    return coverImage;
-                }];
-#else
-                media = [[MPMediaItemArtwork alloc] initWithImage:coverImage];
-#endif
-                [songInfo setObject:media forKey:MPMediaItemPropertyArtwork];
-                
-            }else{
+            } else {
                 self.mpb.coverIV.image = self.defaultCoverImage;
             }
-            coverImage = nil;
+            
+#if TARGET_OS_MACCATALYST
+#else
+            NSMutableDictionary *songInfo = [ [NSMutableDictionary alloc] init];
+            
+            MPMediaItemArtwork * media = [[MPMediaItemArtwork alloc] initWithImage:coverImage ? :self.defaultCoverImage];
+            [songInfo setObject:media forKey:MPMediaItemPropertyArtwork];
+            
+            //锁屏标题
+            [songInfo setObject:[NSNumber numberWithFloat:self.audioPlayer.duration] forKey:MPMediaItemPropertyPlaybackDuration];
+            [songInfo setObject:[NSNumber numberWithFloat:self.audioPlayer.currentTime] forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
+            
+            [songInfo setObject:self.musicItem.musicName forKey:MPMediaItemPropertyTitle];
+            [songInfo setObject:self.musicItem.musicAuthor forKey:MPMediaItemPropertyArtist];
+            //[songInfo setObject:author forKey:MPMediaItemPropertyAlbumTitle];
+            [mpic setNowPlayingInfo:songInfo];
+#endif
         }
-        //锁屏标题
-        [songInfo setObject:[NSNumber numberWithFloat:self.audioPlayer.duration] forKey:MPMediaItemPropertyPlaybackDuration];
-        [songInfo setObject:[NSNumber numberWithFloat:self.audioPlayer.currentTime] forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
         
-        [songInfo setObject:self.musicItem.musicName forKey:MPMediaItemPropertyTitle];
-        [songInfo setObject:self.musicItem.musicAuthor forKey:MPMediaItemPropertyArtist];
-        //[songInfo setObject:author forKey:MPMediaItemPropertyAlbumTitle];
-        [mpic setNowPlayingInfo:songInfo];
-
         self.mpb.slider.value       = self.audioPlayer.currentTime/self.audioPlayer.duration;
         self.mpb.timeCurrentL.text  = [self stringFromTime:self.audioPlayer.currentTime];
         
@@ -299,6 +296,15 @@
     self.audioPlayer.currentTime = self.audioPlayer.duration * scale;
     // 拖拽进度条后,需要刷新锁屏信息
     [self updateIosLockInfo];
+    
+    // 显示歌词2: 拖拽
+    LrcDetailEntity * lyric = self.mpb.musicLyricDic[self.mpb.timeCurrentL.text];
+    if (lyric) {
+        self.mpb.songInfoL.text = lyric.lrc;
+        
+        NSDictionary * dic = @{@"lyric":lyric};
+        [MGJRouter openURL:MUrl_updateLrcTime withUserInfo:dic completion:nil];
+    }
 }
 
 - (void)pauseEvent {

@@ -8,7 +8,7 @@
 #import "LocalMusicVCInteractor.h"
 #import "FileTool.h"
 #import "MusicPlayListTool.h"
-
+#import "LrcPrefix.h"
 #import "MusicPlayListTool.h"
 
 @interface LocalMusicVCInteractor ()
