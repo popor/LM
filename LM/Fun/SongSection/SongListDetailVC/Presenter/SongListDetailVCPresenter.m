@@ -116,7 +116,7 @@
             item = self.view.listEntity.itemArray[indexPath.row];
         }
         
-        cell.titelL.text = [NSString stringWithFormat:@"%li: %@", indexPath.row+1, item.musicTitle];
+        cell.titelL.text = [NSString stringWithFormat:@"%li: %@", indexPath.row+1, item.musicName];
         cell.timeL.text  = item.musicAuthor;
         
         if ([item.filePath isEqualToString:self.mpb.currentItem.filePath]) {

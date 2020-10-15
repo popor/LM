@@ -9,7 +9,6 @@
 #import "FileTool.h"
 #import "MusicPlayListTool.h"
 
-#import "LrcFetch.h"
 #import "MusicPlayListTool.h"
 
 @interface LocalMusicVCInteractor ()

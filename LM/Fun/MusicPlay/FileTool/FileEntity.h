@@ -15,14 +15,15 @@ static NSString * WFIgnoreFile = @".DS_Store";
 @protocol FileEntity;
 @interface FileEntity : PoporJsonModel
 
-@property (nonatomic, strong) NSString * folderName;
-@property (nonatomic, strong) NSString * fileName;
-@property (nonatomic, strong) NSString * filePath;
-@property (nonatomic, strong) NSMutableArray<FileEntity, Ignore> * itemArray;
+@property (nonatomic, copy  ) NSString * folderName;
+@property (nonatomic, copy  ) NSString * fileName;
+@property (nonatomic, copy  ) NSString * fileNameDeleteExtension;
+@property (nonatomic, copy  ) NSString * filePath;
+@property (nonatomic, copy  ) NSMutableArray<FileEntity, Ignore> * itemArray;
 
-//----- 音乐文件
-@property (nonatomic, strong) NSString * musicAuthor;
-@property (nonatomic, strong) NSString * musicTitle;
+//----- 音乐文件;
+@property (nonatomic, copy  ) NSString * musicAuthor;
+@property (nonatomic, copy  ) NSString * musicName;
 @property (nonatomic        ) CGFloat    musicDuration;
 @property (nonatomic, copy  ) UIImage  * musicCover;
 

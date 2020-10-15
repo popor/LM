@@ -245,7 +245,7 @@ API_AVAILABLE(ios(12.0))
             } else {
                 cell.accessoryType = UITableViewCellAccessoryNone;
                 
-                cell.titelL.text = [NSString stringWithFormat:@"%li: %@", indexPath.row+1, entity.musicTitle];
+                cell.titelL.text = [NSString stringWithFormat:@"%li: %@", indexPath.row+1, entity.musicName];
                 cell.timeL.text  = entity.musicAuthor;
                 [cell.addBt setImage:self.addImageBlack forState:UIControlStateNormal];
                 

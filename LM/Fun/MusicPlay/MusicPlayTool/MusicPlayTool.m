@@ -174,7 +174,7 @@
         [songInfo setObject:[NSNumber numberWithFloat:self.audioPlayer.duration] forKey:MPMediaItemPropertyPlaybackDuration];
         [songInfo setObject:[NSNumber numberWithFloat:self.audioPlayer.currentTime] forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
         
-        [songInfo setObject:self.musicItem.musicTitle forKey:MPMediaItemPropertyTitle];
+        [songInfo setObject:self.musicItem.musicName forKey:MPMediaItemPropertyTitle];
         [songInfo setObject:self.musicItem.musicAuthor forKey:MPMediaItemPropertyArtist];
         //[songInfo setObject:author forKey:MPMediaItemPropertyAlbumTitle];
         [mpic setNowPlayingInfo:songInfo];
@@ -191,7 +191,7 @@
         
         [self.mpb updateTimeDurationFrameTime:time];
         
-        self.mpb.songInfoL.text     = [NSString stringWithFormat:@"%@ - %@", self.musicItem.musicAuthor, self.musicItem.musicTitle];
+        self.mpb.songInfoL.text     = [NSString stringWithFormat:@"%@ - %@", self.musicItem.musicAuthor, self.musicItem.musicName];
         
     }else{
         [mpic setNowPlayingInfo:nil];

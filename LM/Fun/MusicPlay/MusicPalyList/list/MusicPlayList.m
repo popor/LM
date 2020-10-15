@@ -77,9 +77,9 @@
         FileEntity * ie1 = obj1;
         FileEntity * ie2 = obj2;
         if (Ascending) {
-            return [ie1.musicTitle localizedCompare:ie2.musicTitle];
+            return [ie1.musicName localizedCompare:ie2.musicName];
         }else{
-           return [ie2.musicTitle localizedCompare:ie1.musicTitle];
+           return [ie2.musicName localizedCompare:ie1.musicName];
         }
         //return [ie1.musicTitle localizedCompare:ie2.musicTitle] ? NSOrderedAscending : NSOrderedDescending;
     }];

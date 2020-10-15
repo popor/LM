@@ -77,17 +77,20 @@
         }else{
             entity.folder = NO;
             if (fileName.pathExtension.length > 0) {
-                fileName = [fileName substringToIndex:fileName.length - fileName.pathExtension.length - 1];
+                entity.fileNameDeleteExtension = [fileName substringToIndex:fileName.length - fileName.pathExtension.length - 1];
+            } else {
+                entity.fileNameDeleteExtension = fileName;
             }
-            NSRange range = [fileName rangeOfString:@"-"];
+            
+            NSRange range = [entity.fileNameDeleteExtension rangeOfString:@"-"];
             if (range.location > 0 && range.length > 0) {
-                entity.musicTitle  = [fileName substringFromIndex:range.location + range.length];
-                entity.musicAuthor = [fileName substringToIndex:range.location];
+                entity.musicName  = [entity.fileNameDeleteExtension substringFromIndex:range.location + range.length];
+                entity.musicAuthor = [entity.fileNameDeleteExtension substringToIndex:range.location];
                 
-                entity.musicTitle  = [entity.musicTitle replaceWithREG:@"^\\s+" newString:@""];
+                entity.musicName  = [entity.musicName replaceWithREG:@"^\\s+" newString:@""];
                 entity.musicAuthor = [entity.musicAuthor replaceWithREG:@"\\s+$" newString:@""];
             }else{
-                entity.musicTitle  = fileName;
+                entity.musicName  = entity.fileNameDeleteExtension;
                 entity.musicAuthor = @"";
             }
         }

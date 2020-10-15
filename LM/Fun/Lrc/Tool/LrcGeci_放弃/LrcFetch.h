@@ -8,12 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+#import "LrcPrefix.h"
 #import "LrcListEntity.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
-static NSString * LrcFolderName = @"lrc";
-static NSString * LrcListFolderName = @"lrcList";
 
 typedef void(^BlockPLrcListEntity) (LrcListEntity * _Nullable listEntity);
 
@@ -22,8 +20,6 @@ typedef void(^BlockPLrcListEntity) (LrcListEntity * _Nullable listEntity);
 + (void)getLrcList:(NSString *)musicName finish:(BlockPLrcListEntity)finish;
 
 + (void)getLrcDetail:(NSString *)musicName url:(NSString *)url finish:(BlockPString)finish;
-
-+ (NSMutableDictionary*)parselrc:(NSString*)content;
 
 @end
 

@@ -7,6 +7,7 @@
 //
 
 #import "PoporJsonModel.h"
+#import "LrcKugouListEntity.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
