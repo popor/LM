@@ -23,7 +23,8 @@
     }
     NSString * savePath = [LrcTool lycListPath:item.fileNameDeleteExtension];
     
-    {
+    BOOL isNeedSaveLrcList = NO;
+    if (isNeedSaveLrcList) {
         NSData * data = [NSData dataWithContentsOfFile:savePath];
         LrcKugouListEntity * entity = [[LrcKugouListEntity alloc] initWithData:data error:nil];
         
@@ -38,7 +39,9 @@
     [NetService title:nil url:url method:PoporMethodGet parameters:nil success:^(NSString * _Nonnull url, NSData * _Nullable data, NSDictionary * _Nullable dic) {
         if (dic) {
             LrcKugouListEntity * entity = [[LrcKugouListEntity alloc] initWithDictionary:dic error:nil];
-            [data writeToFile:savePath atomically:YES];
+            if (isNeedSaveLrcList) {
+                [data writeToFile:savePath atomically:YES];
+            }
             if (entity.lrcArray.count > 0) {
                 finish(entity);
             } else {
@@ -57,9 +60,9 @@
         return;
     }
     NSString * savePath = [LrcTool lycPath:item.fileNameDeleteExtension];
-    BOOL isNeedSaveList = NO;
     
-    if (isNeedSaveList) {
+    BOOL isNeedSaveLrc = YES;
+    if (isNeedSaveLrc) {
         NSData   * data = [NSData dataWithContentsOfFile:savePath];
         NSString * str  = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         
@@ -76,7 +79,7 @@
             NSData  * originData = [MF_Base64Codec dataFromBase64String:le.content];
             NSString * str       = [[NSString alloc] initWithData:originData encoding:NSUTF8StringEncoding];
             //NSLog(@"%@", str);
-            if (isNeedSaveList) {
+            if (isNeedSaveLrc) {
                 [originData writeToFile:savePath atomically:YES];
             }
             finish(str);
