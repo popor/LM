@@ -13,7 +13,7 @@
 
 @interface LocalMusicVCInteractor ()
 
-@property (nonatomic, strong) NSMutableArray * folderArray;
+@property (nonatomic, strong) NSMutableArray<FileEntity> * folderArray;
 
 @end
 

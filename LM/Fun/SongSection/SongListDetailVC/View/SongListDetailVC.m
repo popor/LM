@@ -44,7 +44,7 @@
 - (instancetype)initWithDic:(NSDictionary *)dic {
     if (self = [super init]) {
         [NSAssistant setVC:self dic:dic];
-        self.searchArray = [NSMutableArray new];
+        self.searchArray = [NSMutableArray<FileEntity> new];
     }
     return self;
 }

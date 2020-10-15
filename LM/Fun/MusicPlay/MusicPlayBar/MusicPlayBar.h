@@ -59,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, getter=isPlaySearchLocalItem) BOOL playSearchLocalItem;
 
 // 播放临时数组
-- (void)playLocalListArray:(NSArray<FileEntity> *)itemArray folder:(NSString * _Nullable)folderName type:(McPlayType)playType at:(NSInteger)index;
+- (void)playLocalListArray:(NSMutableArray<FileEntity> *)itemArray folder:(NSString * _Nullable)folderName type:(McPlayType)playType at:(NSInteger)index;
 
 // 播放歌单列表
 - (void)playSongListEntity:(MusicPlayListEntity *)listEntity at:(NSInteger)index;

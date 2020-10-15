@@ -20,7 +20,7 @@
 @property (nonatomic, weak  ) MusicPlayBar    * playbar;
 @property (nonatomic, strong) UITableView     * infoTV;
 @property (nonatomic, strong) UITableView     * musicListTV;
-@property (nonatomic, weak  ) NSMutableArray  * itemArray;
+@property (nonatomic, weak  ) NSMutableArray<FileEntity> * itemArray;
 
 @property (nonatomic, strong) UISearchBar     * searchBar;
 @property (nonatomic, strong) UIView          * searchCoverView;

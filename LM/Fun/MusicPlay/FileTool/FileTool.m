@@ -18,29 +18,6 @@
     return path;
 }
 
-//+ (NSString *)getAppDocPath {
-//#if !TARGET_OS_MACCATALYST
-//    return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-//#else
-//    return [self getFileToolDoc];
-//#endif
-//}
-//
-//+ (void)saveFileToolDoc:(NSString *)fileToolDoc {
-//    [[NSUserDefaults standardUserDefaults] setObject:fileToolDoc forKey:@"fileToolDoc"];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
-//}
-//
-//+ (NSString *)getFileToolDoc {
-//    NSString * info = [[NSUserDefaults standardUserDefaults] objectForKey:@"fileToolDoc"];
-//    if (!info) {
-//        info = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-//        [self saveFileToolDoc:info];
-//    }
-//    return info;
-//}
-
-
 + (NSMutableArray<FileEntity> *)getArrayAtPath:(NSString * _Nullable)path type:(FileType)type {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     //下面是指定沙盒的路径。我要读取pc上的，所以就用自己pc上的路径
@@ -55,7 +32,7 @@
     }
     //NSLog(@"filePath: %@", path);
     
-    NSMutableArray * files = [NSMutableArray<FileEntity> new];
+    NSMutableArray<FileEntity> * fileArray = [NSMutableArray<FileEntity> new];
     
     NSDirectoryEnumerator *direnum = [fileManager enumeratorAtPath:path]; //遍历目录
     NSString *fileName;
@@ -97,30 +74,28 @@
         switch (type) {
             case FileTypeFolder:{
                 if (entity.isFolder) {
-                    [files addObject:entity];
+                    [fileArray addObject:entity];
                 }
                 break;
             }
             case FileTypeItem:{
                 if (!entity.isFolder) {
-                    [files addObject:entity];
+                    [fileArray addObject:entity];
                 }
                 break;
             }
             case FileTypeAll:{
-                [files addObject:entity];
+                [fileArray addObject:entity];
                 break;
             }
             default:{
-                [files addObject:entity];
+                [fileArray addObject:entity];
                 break;
             }
         }
     }
     if (type == FileTypeAll) {
-        [files sortUsingComparator:^NSComparisonResult(id _Nonnull obj1, id _Nonnull obj2) {
-            FileEntity * entity1 = (FileEntity *)obj1;
-            FileEntity * entity2 = (FileEntity *)obj2;
+        [fileArray sortUsingComparator:^NSComparisonResult(FileEntity * entity1, FileEntity * entity2) {
             if (entity1.isFolder != entity2.isFolder) {
                 return entity1.isFolder ? NSOrderedAscending:NSOrderedDescending;
             }else{
@@ -129,7 +104,7 @@
         }];
     }
     
-    return files;
+    return fileArray;
 }
 
 @end

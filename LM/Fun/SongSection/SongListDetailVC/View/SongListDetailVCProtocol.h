@@ -33,7 +33,7 @@
 @property (nonatomic, strong) UIView      * searchCoverView; // 弹出searchBar的时候,遮住infoTV的view.
 @property (nonatomic, getter=isSearchTypeOld) BOOL searchTypeOld;// 显示搜索模式
 @property (nonatomic, getter=isSearchType) BOOL searchType;// 显示搜索模式
-@property (nonatomic, strong) NSMutableArray * searchArray;
+@property (nonatomic, strong) NSMutableArray<FileEntity> * searchArray;
 
 // MARK: 外部注入的
 @property (nonatomic, weak  ) MusicPlayListEntity * listEntity;

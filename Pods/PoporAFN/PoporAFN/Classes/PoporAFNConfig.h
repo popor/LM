@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PoporAFNConfig : NSObject
 
 typedef void(^PoporAFNFinishBlock)(NSString *url, NSData * _Nullable data, NSDictionary * _Nullable dic);
-typedef void(^PoporAFNFailureBlock)(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error);
+typedef void(^PoporAFNFailureBlock)(NSURLSessionDataTask * _Nullable task, NSError * _Nullable error);
 
 typedef NS_ENUM(NSInteger, PoporMethod) {
     PoporMethodGet,
