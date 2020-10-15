@@ -11,6 +11,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static CGFloat LrcViewTvCellDefaultH = 40;
+
 // MARK: 对外接口
 @protocol LrcViewProtocol <NSObject>
 

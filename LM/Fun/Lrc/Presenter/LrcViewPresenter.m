@@ -57,12 +57,8 @@
     return MAX(self.lrcArray.count, 1);
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return 44;
-//}
-
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 40;
+    return LrcViewTvCellDefaultH;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -124,19 +120,23 @@
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    self.tvDrag = YES;
-    self.view.timeL.hidden     = NO;
-    self.view.playBT.hidden    = NO;
-    self.view.lineView1.hidden = NO;
-    self.view.lineView2.hidden = NO;
-    
+    if (self.lrcArray.count > 0) {
+        self.tvDrag = YES;
+        self.view.timeL.hidden     = NO;
+        self.view.playBT.hidden    = NO;
+        self.view.lineView1.hidden = NO;
+        self.view.lineView2.hidden = NO;
+    } else {
+        [self endDragDelay];
+    }
     [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(endDragDelay) object:nil];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    
-    [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(endDragDelay) object:nil];
-    [self performSelector:@selector(endDragDelay) withObject:nil afterDelay:3];
+    if (self.lrcArray.count > 0) {
+        [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(endDragDelay) object:nil];
+        [self performSelector:@selector(endDragDelay) withObject:nil afterDelay:5];
+    }
 }
 
 - (void)endDragDelay {
@@ -151,6 +151,8 @@
 - (void)updateLrcArray:(NSArray *)array {
     self.lrcArray = array;
     self.playRow  = 0;
+    
+    [self endDragDelay];
     [self.view.infoTV reloadData];
 }
 

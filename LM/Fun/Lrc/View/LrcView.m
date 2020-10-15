@@ -155,15 +155,19 @@
         }];
     }
     {
-        CGSize size = CGSizeMake(160, 1);
+        CGSize size = CGSizeMake(20, 1);
         self.lineView1 = ({
             UIImageView * view = [UIImageView new];
+            view.contentMode = UIViewContentModeScaleToFill;
+            
             [self.view addSubview:view];
             [self.view sendSubviewToBack:view];
             view;
         });
         self.lineView2 = ({
             UIImageView * view = [UIImageView new];
+            view.contentMode = UIViewContentModeScaleToFill;
+            
             [self.view addSubview:view];
             [self.view sendSubviewToBack:view];
             view;
@@ -172,13 +176,15 @@
             make.centerY.mas_equalTo(0);
             make.left.mas_equalTo(self.timeL.mas_right);
             
-            make.size.mas_equalTo(size);
+            make.height.mas_equalTo(size.height);
         }];
         [self.lineView2 mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(0);
             make.right.mas_equalTo(self.playBT.mas_left);
             
-            make.size.mas_equalTo(size);
+            make.height.mas_equalTo(size.height);
+            make.width.mas_equalTo(self.lineView1.mas_width);
+            make.left.mas_equalTo(self.lineView1.mas_right).mas_offset(80);
         }];
         
         UIColor * whiteColor = PRGBF(255, 255, 255, 1);
@@ -218,7 +224,8 @@
 - (void)updateInfoTVContentInset {
     if (self.isShow) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            self.infoTV.contentInset = UIEdgeInsetsMake(self.infoTV.height/2, 0, self.infoTV.height/2, 0);
+            self.infoTV.contentInset = UIEdgeInsetsMake(self.infoTV.height/2 -LrcViewTvCellDefaultH, 0, self.infoTV.height/2 -LrcViewTvCellDefaultH, 0);
+            //self.infoTV.contentInset = UIEdgeInsetsMake((self.infoTV.height -LrcViewTvCellDefaultH)/2, 0, (self.infoTV.height -LrcViewTvCellDefaultH)/2, 0);
         });
     }
 }
