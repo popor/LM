@@ -57,8 +57,9 @@
         return;
     }
     NSString * savePath = [LrcTool lycPath:item.fileNameDeleteExtension];
+    BOOL isNeedSaveList = NO;
     
-    {
+    if (isNeedSaveList) {
         NSData   * data = [NSData dataWithContentsOfFile:savePath];
         NSString * str  = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         
@@ -75,8 +76,9 @@
             NSData  * originData = [MF_Base64Codec dataFromBase64String:le.content];
             NSString * str       = [[NSString alloc] initWithData:originData encoding:NSUTF8StringEncoding];
             //NSLog(@"%@", str);
-            [originData writeToFile:savePath atomically:YES];
-            
+            if (isNeedSaveList) {
+                [originData writeToFile:savePath atomically:YES];
+            }
             finish(str);
         } else {
             finish(nil);
