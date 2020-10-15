@@ -785,11 +785,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         LrcDetailEntity * entity = [LrcDetailEntity new];
         entity.timeText = timeText;
         entity.lrc      = originDic[timeText];;
-        
-        NSRange range = [timeText rangeOfString:@":"];
-        NSInteger mm  = [timeText substringToIndex:range.location].integerValue;
-        NSInteger ss  = [timeText substringFromIndex:range.location +1].integerValue;
-        entity.time   = mm*60 +ss;
+        entity.time     = [LrcDetailEntity timeFromText:entity.timeText];
         
         [originArray addObject:entity];
     }

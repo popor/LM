@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy  ) NSString * timeText;
 @property (nonatomic, copy  ) NSString * lrc;
 
++ (NSInteger)timeFromText:(NSString *)timeText;
+
 @end
 
 NS_ASSUME_NONNULL_END
