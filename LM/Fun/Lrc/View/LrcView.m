@@ -283,6 +283,7 @@
            
             [self.present scrollToTopIfNeed];
         });
+        self.coverIV.frame = CGRectMake(0, 0, self.width, self.height);
     }
 }
 
