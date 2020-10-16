@@ -118,31 +118,32 @@
 }
 
 - (void)addBTs {
-    CGFloat btWidth = 50;
+    CGFloat btWidth = 40;
     self.closeBT = ({
         UIButton * oneBT;
-        if (@available(iOS 13.0, *)) {
-            oneBT=  [UIButton buttonWithType:UIButtonTypeClose];
-        } else {
-            oneBT = [UIButton buttonWithType:UIButtonTypeCustom];
-            [oneBT setTitle:@"X" forState:UIControlStateNormal];
-            [oneBT setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            
-            oneBT.titleLabel.font = [UIFont systemFontOfSize:17];
-            [oneBT setBackgroundImage:[UIImage imageFromColor:PRGB16(0XEFEFF0) size:CGSizeMake(1, 1)] forState:UIControlStateNormal];
-            
-            oneBT.layer.cornerRadius = btWidth/2;
-            oneBT.clipsToBounds = YES;
-        }
+        oneBT = [UIButton buttonWithType:UIButtonTypeCustom];
+        [oneBT setTitle:@"X" forState:UIControlStateNormal];
+        [oneBT setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        
+        oneBT.titleLabel.font = [UIFont systemFontOfSize:22];
+        //[oneBT setBackgroundImage:[UIImage imageFromColor:PRGB16(0XEFEFF0) size:CGSizeMake(1, 1)] forState:UIControlStateNormal];
+        [oneBT setBackgroundImage:[UIImage imageFromColor:PRGB16(0XB1B1B1) size:CGSizeMake(1, 1)] forState:UIControlStateNormal];
+        
+        oneBT.layer.cornerRadius = btWidth/2;
+        oneBT.clipsToBounds = YES;
         
         [self.view addSubview:oneBT];
         oneBT;
     });
     
     [self.closeBT mas_makeConstraints:^(MASConstraintMaker *make) {
+#if TARGET_OS_MACCATALYST
         make.top.mas_equalTo(40);
-        make.right.mas_equalTo(-10);
+#else
+        make.top.mas_equalTo(20);
+#endif
         
+        make.right.mas_equalTo(-10);
         make.size.mas_equalTo(CGSizeMake(btWidth, btWidth));
     }];
     
@@ -244,11 +245,13 @@
         @strongify(self);
         
         UIImage * coverImage = [MusicPlayTool imageOfUrl:self.mpt.audioPlayer.url];
-        self.coverIV.image = coverImage ? : self.mpt.defaultCoverImage;
+        coverImage = coverImage ? : self.mpt.defaultCoverImage;
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSLogRect(self.coverIV.frame);
-        });
+        //UIColor *tintColor = [UIColor colorWithWhite:0.0 alpha:0.1];
+        //coverImage = [coverImage applyBlurWithRadius:5 tintColor:tintColor saturationDeltaFactor:1.8 maskImage:nil];
+        
+        coverImage = [coverImage applyDarkEffect];
+        self.coverIV.image = coverImage;
         
         NSMutableDictionary * dic = [MRouterC mixDic:routerParameters];
         [self.present updateLrcArray:dic[@"lrcArray"]];

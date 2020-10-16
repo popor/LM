@@ -20,13 +20,17 @@
 
 @property (nonatomic        ) NSInteger playRow;
 
+@property (nonatomic, copy  ) UIColor * cellTextColorN;
+@property (nonatomic, copy  ) UIColor * cellTextColorS;
+
 @end
 
 @implementation LrcViewPresenter
 
 - (id)init {
     if (self = [super init]) {
-        
+        self.cellTextColorN = [UIColor whiteColor];
+        self.cellTextColorS = App_textSColor;
     }
     return self;
 }
@@ -79,20 +83,21 @@
         cell.backgroundColor = [UIColor clearColor];
         
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
-        cell.textLabel.font = [UIFont systemFontOfSize:17];
+        cell.textLabel.font = [UIFont systemFontOfSize:18];
+        cell.textLabel.numberOfLines = 0;
     }
     if (self.lrcArray.count == 0) {
         cell.textLabel.text = @"暂无歌词";
-        cell.textLabel.textColor = App_textNColor;
+        cell.textLabel.textColor = self.cellTextColorN;
         
     } else {
         LrcDetailEntity * entity = self.lrcArray[indexPath.row];
         cell.textLabel.text = entity.lrc;
         //cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", entity.timeText, entity.lrc];
         if (self.playRow == indexPath.row) {
-            cell.textLabel.textColor = App_textSColor;
+            cell.textLabel.textColor = self.cellTextColorS;
         } else {
-            cell.textLabel.textColor = App_textNColor;
+            cell.textLabel.textColor = self.cellTextColorN;
         }
     }
     
@@ -189,9 +194,9 @@
         if (cell) {
             NSIndexPath * ip = [self.view.infoTV indexPathForCell:cell];
             if (ip.row == self.playRow) {
-                cell.textLabel.textColor = App_textSColor;
+                cell.textLabel.textColor = self.cellTextColorS;
             } else {
-                cell.textLabel.textColor = App_textNColor;
+                cell.textLabel.textColor = self.cellTextColorN;
             }
         }
     }
