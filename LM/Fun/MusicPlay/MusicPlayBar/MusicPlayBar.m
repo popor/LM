@@ -756,6 +756,8 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 
 - (void)showBigIVAction {
     [MGJRouter openURL:MUrl_showLrc];
+    
+    self.songInfoL.text = self.mpt.musicItem.fileNameDeleteExtension;
 }
 
 //- (void)showBigIVAction1 {

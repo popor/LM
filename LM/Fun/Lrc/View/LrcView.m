@@ -46,6 +46,11 @@
     return self;
 }
 
+- (void)setShow:(BOOL)show1 {
+    show = show1;
+    self.mpb.showLrc = show;
+}
+
 #pragma mark - viper views
 - (void)assembleViper {
     if (!self.present) {

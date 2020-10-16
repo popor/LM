@@ -50,6 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy  ) NSMutableDictionary * _Nullable musicLyricDic;
 @property (nonatomic, copy  ) NSArray * _Nullable musicLyricArray;
+@property (nonatomic, getter=isShowLrc) BOOL showLrc;
 
 //明天处理逻辑.
 //退出该页面或者点击了完成,就退出搜索结果?

@@ -132,7 +132,9 @@
         // 显示歌词1: 实时的
         LrcDetailEntity * lyric = self.mpb.musicLyricDic[self.mpb.timeCurrentL.text];
         if (lyric) {
-            self.mpb.songInfoL.text = lyric.lrc;
+            if (!self.mpb.isShowLrc) {
+                self.mpb.songInfoL.text = lyric.lrc;
+            }
             
             NSDictionary * dic = @{@"lyric":lyric};
             [MGJRouter openURL:MUrl_updateLrcTime withUserInfo:dic completion:nil];
@@ -184,7 +186,8 @@
             
             [self.mpb updateTimeDurationFrameTime:time];
             
-            self.mpb.songInfoL.text     = [NSString stringWithFormat:@"%@ - %@", self.musicItem.musicAuthor, self.musicItem.musicName];
+            self.mpb.songInfoL.text = self.musicItem.fileNameDeleteExtension;
+            // [NSString stringWithFormat:@"%@ - %@", self.musicItem.musicAuthor, self.musicItem.musicName];
         }
         
         self.mpb.slider.value       = self.audioPlayer.currentTime/self.audioPlayer.duration;
@@ -311,7 +314,9 @@
         }
     }
     if (lyric) {
-        self.mpb.songInfoL.text = lyric.lrc;
+        if (!self.mpb.isShowLrc) {
+            self.mpb.songInfoL.text = lyric.lrc;
+        }
         
         NSDictionary * dic = @{@"lyric":lyric};
         [MGJRouter openURL:MUrl_updateLrcTime withUserInfo:dic completion:nil];
