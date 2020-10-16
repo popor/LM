@@ -83,8 +83,14 @@
         cell.backgroundColor = [UIColor clearColor];
         
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
-        cell.textLabel.font = [UIFont systemFontOfSize:18];
         cell.textLabel.numberOfLines = 0;
+        
+#if TARGET_OS_MACCATALYST
+        cell.textLabel.font = [UIFont systemFontOfSize:22];
+#else
+        cell.textLabel.font = [UIFont systemFontOfSize:18];
+#endif
+        
     }
     if (self.lrcArray.count == 0) {
         cell.textLabel.text = @"暂无歌词";
