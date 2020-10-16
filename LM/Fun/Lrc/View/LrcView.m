@@ -87,6 +87,12 @@
     [self addFillBts];
     [self addTapGrs];
     [self addMgjrouter];
+    
+    
+    {
+        [self.view insertSubview:self.lineView1 belowSubview:self.infoTV];
+        [self.view insertSubview:self.lineView2 belowSubview:self.infoTV];
+    }
 }
 
 // 开始执行事件,比如获取网络数据
@@ -203,7 +209,6 @@
             view.contentMode = UIViewContentModeScaleToFill;
             
             [self.view addSubview:view];
-            [self.view sendSubviewToBack:view];
             view;
         });
         self.lineView2 = ({
@@ -211,7 +216,6 @@
             view.contentMode = UIViewContentModeScaleToFill;
             
             [self.view addSubview:view];
-            [self.view sendSubviewToBack:view];
             view;
         });
         [self.lineView1 mas_makeConstraints:^(MASConstraintMaker *make) {
