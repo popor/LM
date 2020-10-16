@@ -30,6 +30,7 @@ static CGFloat LrcViewTvCellDefaultH = 40;
 
 @property (nonatomic, strong) UILabel  * timeL;
 @property (nonatomic, strong) UIButton * playBT;
+@property (nonatomic, strong) UITapGestureRecognizer * tapGR;
 
 // MARK: 外部注入的
 

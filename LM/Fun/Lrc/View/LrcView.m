@@ -13,12 +13,13 @@
 #import "MusicPlayListTool.h"
 #import "MusicPlayTool.h"
 
-@interface LrcView ()
+@interface LrcView () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) LrcViewPresenter * present;
 @property (nonatomic, weak  ) MusicPlayBar * mpb;
 @property (nonatomic, weak  ) MusicPlayListTool * mplt;
 @property (nonatomic, weak  ) MusicPlayTool * mpt;
+@property (nonatomic        ) BOOL showBlurImage_lrc;
 
 @end
 
@@ -31,6 +32,7 @@
 @synthesize playBT;
 @synthesize lineView1;
 @synthesize lineView2;
+@synthesize tapGR;
 
 - (instancetype)initWithDic:(NSDictionary *)dic {
     if (self = [super init]) {
@@ -67,7 +69,7 @@
 }
 
 - (void)addViews {
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor blackColor];
     self.mpb  = MpbShare;
     self.mplt = MpltShare;
     self.mpt  = MptShare;
@@ -76,6 +78,7 @@
     
     self.infoTV = [self addTVs];
     [self addBTs];
+    [self addTapGrs];
     [self addMgjrouter];
 }
 
@@ -86,6 +89,7 @@
 }
 
 - (void)addIVs {
+    self.showBlurImage_lrc = YES;
     self.coverIV = ({
         UIImageView * oneIV = [UIImageView new];
         oneIV.contentMode = UIViewContentModeScaleAspectFill;
@@ -244,19 +248,36 @@
     self.lineView2.hidden = YES;
 }
 
+- (void)addTapGrs {
+    self.tapGR = [UITapGestureRecognizer new];
+    //self.tapGR.delegate = self;
+    [self.view addGestureRecognizer:self.tapGR];
+    
+    @weakify(self);
+    [[self.tapGR rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
+        @strongify(self);
+        self.showBlurImage_lrc = !self.showBlurImage_lrc;
+        [self showCoverBlurImage];
+    }];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if (gestureRecognizer == self.tapGR) {
+        if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
+            return YES;
+        }
+    }
+    
+    return  YES;
+}
+
 - (void)addMgjrouter {
     @weakify(self);
     [MRouterC registerURL:MUrl_updateLrcData toHandel:^(NSDictionary *routerParameters){
         @strongify(self);
         
-        UIImage * coverImage = [MusicPlayTool imageOfUrl:self.mpt.audioPlayer.url];
-        coverImage = coverImage ? : self.mpt.defaultCoverImage;
+        [self showCoverBlurImage];
         
-        //UIColor *tintColor = [UIColor colorWithWhite:0.0 alpha:0.1];
-        //coverImage = [coverImage applyBlurWithRadius:5 tintColor:tintColor saturationDeltaFactor:1.8 maskImage:nil];
-        
-        coverImage = [coverImage applyDarkEffect];
-        self.coverIV.image = coverImage;
         
         NSMutableDictionary * dic = [MRouterC mixDic:routerParameters];
         [self.present updateLrcArray:dic[@"lrcArray"]];
@@ -287,5 +308,20 @@
     }
 }
 
+- (void)showCoverBlurImage {
+    UIImage * coverImage = [MusicPlayTool imageOfUrl:self.mpt.audioPlayer.url];
+    coverImage = coverImage ? : self.mpt.defaultCoverImage;
+    
+    //UIColor *tintColor = [UIColor colorWithWhite:0.0 alpha:0.1];
+    //coverImage = [coverImage applyBlurWithRadius:5 tintColor:tintColor saturationDeltaFactor:1.8 maskImage:nil];
+    if (self.showBlurImage_lrc) {
+        coverImage = [coverImage applyDarkEffect];
+        self.infoTV.hidden = NO;
+    } else {
+        self.infoTV.hidden = YES;
+    }
+    
+    self.coverIV.image = coverImage;
+}
 
 @end
