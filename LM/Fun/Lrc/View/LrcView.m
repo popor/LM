@@ -207,6 +207,7 @@
         self.lineView1 = ({
             UIImageView * view = [UIImageView new];
             view.contentMode = UIViewContentModeScaleToFill;
+            view.backgroundColor = [UIColor clearColor];
             
             [self.view addSubview:view];
             view;
@@ -214,6 +215,7 @@
         self.lineView2 = ({
             UIImageView * view = [UIImageView new];
             view.contentMode = UIViewContentModeScaleToFill;
+            view.backgroundColor = [UIColor clearColor];
             
             [self.view addSubview:view];
             view;
@@ -230,12 +232,23 @@
             
             make.height.mas_equalTo(size.height);
             make.width.mas_equalTo(self.lineView1.mas_width);
-            make.left.mas_equalTo(self.lineView1.mas_right).mas_offset(80);
+            
+            CGFloat gap = 80;
+#if TARGET_OS_MACCATALYST
+            gap = 200;
+#else
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                gap = 400;
+            }
+#endif
+            make.left.mas_equalTo(self.lineView1.mas_right).mas_offset(gap);
         }];
         
-        UIColor * whiteColor = PRGBF(255, 255, 255, 1);
-        UIImage * image1 = [UIImage gradientImageWithBounds:CGRectMake(0, 0, size.width, size.height) andColors:@[ColorThemeBlue1, whiteColor] gradientHorizon:YES];
-        UIImage * image2 = [UIImage gradientImageWithBounds:CGRectMake(0, 0, size.width, size.height) andColors:@[whiteColor, ColorThemeBlue1] gradientHorizon:YES];
+        UIColor * c0 = [ColorThemeBlue1 colorWithAlphaComponent:1];
+        UIColor * c1 = [ColorThemeBlue1 colorWithAlphaComponent:0];
+        
+        UIImage * image1 = [UIImage gradientImageWithBounds:CGRectMake(0, 0, size.width, size.height) andColors:@[c0, c1] gradientHorizon:YES];
+        UIImage * image2 = [UIImage gradientImageWithBounds:CGRectMake(0, 0, size.width, size.height) andColors:@[c1, c0] gradientHorizon:YES];
         
         self.lineView1.image = image1;
         self.lineView2.image = image2;
