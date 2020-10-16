@@ -30,6 +30,9 @@
 @synthesize infoTV;
 @synthesize closeBT;
 @synthesize show;
+
+@synthesize coverFillBT;
+
 @synthesize timeL;
 @synthesize playBT;
 @synthesize lineView1;
@@ -79,7 +82,9 @@
     [self addCovers];
     
     self.infoTV = [self addTVs];
-    [self addBTs];
+    [self addDragBTs];
+    [self addCloseBts];
+    [self addFillBts];
     [self addTapGrs];
     [self addMgjrouter];
 }
@@ -106,11 +111,20 @@
     });
     self.coverIV = ({
         UIImageView * oneIV = [UIImageView new];
-        oneIV.contentMode = UIViewContentModeScaleAspectFill;
         
         [self.coverSV addSubview:oneIV];
         oneIV;
     });
+    
+    [self updateCoverIVContentMode];
+}
+
+- (void)updateCoverIVContentMode {
+    if ([self get__coverImageFull]) {
+        self.coverIV.contentMode = UIViewContentModeScaleAspectFill;
+    } else {
+        self.coverIV.contentMode = UIViewContentModeScaleAspectFit;
+    }
 }
 
 // -----------------------------------------------------------------------------
@@ -139,40 +153,7 @@
     return oneTV;
 }
 
-- (void)addBTs {
-    CGFloat btWidth = 40;
-    self.closeBT = ({
-        UIButton * oneBT;
-        oneBT = [UIButton buttonWithType:UIButtonTypeCustom];
-        [oneBT setTitle:@"X" forState:UIControlStateNormal];
-        [oneBT setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        
-        oneBT.titleLabel.font = [UIFont systemFontOfSize:22];
-        //[oneBT setBackgroundImage:[UIImage imageFromColor:PRGB16(0XEFEFF0) size:CGSizeMake(1, 1)] forState:UIControlStateNormal];
-        [oneBT setBackgroundImage:[UIImage imageFromColor:PRGB16(0XB1B1B1) size:CGSizeMake(1, 1)] forState:UIControlStateNormal];
-        
-        oneBT.layer.cornerRadius = btWidth/2;
-        oneBT.clipsToBounds = YES;
-        
-        [self.view addSubview:oneBT];
-        oneBT;
-    });
-    
-    [self.closeBT mas_makeConstraints:^(MASConstraintMaker *make) {
-#if TARGET_OS_MACCATALYST
-        make.top.mas_equalTo(40);
-#else
-        make.top.mas_equalTo(20);
-#endif
-        
-        make.right.mas_equalTo(-10);
-        make.size.mas_equalTo(CGSizeMake(btWidth, btWidth));
-    }];
-    
-    [[self.closeBT rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        [MGJRouter openURL:MUrl_closeLrc];
-    }];
-    
+- (void)addDragBTs {
     {
         self.timeL = ({
             UILabel * oneL = [UILabel new];
@@ -259,6 +240,82 @@
     self.playBT.hidden    = YES;
     self.lineView1.hidden = YES;
     self.lineView2.hidden = YES;
+}
+
+- (void)addCloseBts {
+    CGFloat btWidth = 40;
+    self.closeBT = ({
+        UIButton * oneBT;
+        oneBT = [UIButton buttonWithType:UIButtonTypeCustom];
+        [oneBT setTitle:@"X" forState:UIControlStateNormal];
+        [oneBT setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        
+        oneBT.titleLabel.font = [UIFont systemFontOfSize:22];
+        //[oneBT setBackgroundImage:[UIImage imageFromColor:PRGB16(0XEFEFF0) size:CGSizeMake(1, 1)] forState:UIControlStateNormal];
+        [oneBT setBackgroundImage:[UIImage imageFromColor:PRGB16(0XB1B1B1) size:CGSizeMake(1, 1)] forState:UIControlStateNormal];
+        
+        oneBT.layer.cornerRadius = btWidth/2;
+        oneBT.clipsToBounds = YES;
+        
+        [self.view addSubview:oneBT];
+        oneBT;
+    });
+    
+    [self.closeBT mas_makeConstraints:^(MASConstraintMaker *make) {
+#if TARGET_OS_MACCATALYST
+        make.top.mas_equalTo(40);
+#else
+        make.top.mas_equalTo(20);
+#endif
+        
+        make.right.mas_equalTo(-15);
+        make.size.mas_equalTo(CGSizeMake(btWidth, btWidth));
+    }];
+    
+    [[self.closeBT rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        [MGJRouter openURL:MUrl_closeLrc];
+    }];
+}
+
+- (void)addFillBts {
+    CGFloat btWidth = 40;
+    self.coverFillBT = ({
+        UIButton * oneBT;
+        oneBT = [UIButton buttonWithType:UIButtonTypeCustom];
+        // https://www.iconfont.cn/search/index?q=屏&page=7
+        [oneBT setImage:[UIImage imageNamed:@"全屏"] forState:UIControlStateSelected];
+        [oneBT setImage:[UIImage imageNamed:@"半屏"] forState:UIControlStateNormal];
+        
+        [oneBT setBackgroundImage:[UIImage imageFromColor:PRGB16F(0XB1B1B1, 0.7) size:CGSizeMake(1, 1)] forState:UIControlStateNormal];
+        
+        oneBT.layer.cornerRadius = btWidth/2;
+        oneBT.layer.cornerRadius = 4;
+        oneBT.clipsToBounds = YES;
+        
+        [self.view addSubview:oneBT];
+        oneBT;
+    });
+    
+    if ([self get__coverImageFull]) {
+        self.coverFillBT.selected = YES;
+    }
+    
+    [self.coverFillBT mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(-20);
+        make.right.mas_equalTo(-20);
+        make.size.mas_equalTo(CGSizeMake(btWidth, btWidth));
+    }];
+    
+    @weakify(self);
+    [[self.coverFillBT rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        //[MGJRouter openURL:MUrl_closeLrc];
+        @strongify(self);
+        
+        self.coverFillBT.selected = !self.coverFillBT.isSelected;
+        [self save__coverImageFull:self.coverFillBT.isSelected];
+        
+        [self updateCoverIVContentMode];
+    }];
 }
 
 - (void)addTapGrs {
@@ -348,5 +405,17 @@
     
     self.coverIV.image = coverImage;
 }
+
+
+- (void)save__coverImageFull:(BOOL)coverImageFull {
+    [[NSUserDefaults standardUserDefaults] setObject:@(coverImageFull) forKey:@"coverImageFull"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (BOOL)get__coverImageFull {
+    NSString * info = [[NSUserDefaults standardUserDefaults] objectForKey:@"coverImageFull"];
+    return [info boolValue];
+}
+
 
 @end

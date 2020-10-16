@@ -28,6 +28,8 @@ static CGFloat LrcViewTvCellDefaultH = 40;
 @property (nonatomic, strong) UIButton    * closeBT;
 @property (nonatomic, getter=isShow) BOOL   show;
 
+@property (nonatomic, strong) UIButton    * coverFillBT;
+
 @property (nonatomic, strong) UIImageView   * lineView1;
 @property (nonatomic, strong) UIImageView   * lineView2;
 

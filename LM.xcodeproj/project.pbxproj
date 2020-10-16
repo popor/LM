@@ -53,6 +53,10 @@
 		C3AD513D2517161700746FA2 /* LocalMusicHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD513C2517161700746FA2 /* LocalMusicHeadView.m */; };
 		C3AD516C2517310900746FA2 /* ThemeColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD516B2517310900746FA2 /* ThemeColor.m */; };
 		C3F31AD825395D3F00621878 /* UINavigationController+pAutorotate.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F31AD625395D3F00621878 /* UINavigationController+pAutorotate.m */; };
+		C3F31AE02539709100621878 /* 全屏@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F31ADC2539709100621878 /* 全屏@3x.png */; };
+		C3F31AE12539709100621878 /* 全屏@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F31ADD2539709100621878 /* 全屏@2x.png */; };
+		C3F31AE22539709100621878 /* 半屏@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F31ADE2539709100621878 /* 半屏@2x.png */; };
+		C3F31AE32539709100621878 /* 半屏@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F31ADF2539709100621878 /* 半屏@3x.png */; };
 		D4807A288BE4B56179FA77D5 /* libPods-LM.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7B2B70D60E892B2A452617D /* libPods-LM.a */; };
 /* End PBXBuildFile section */
 
@@ -181,6 +185,10 @@
 		C3AD516B2517310900746FA2 /* ThemeColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThemeColor.m; sourceTree = "<group>"; };
 		C3F31AD625395D3F00621878 /* UINavigationController+pAutorotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+pAutorotate.m"; sourceTree = "<group>"; };
 		C3F31AD725395D3F00621878 /* UINavigationController+pAutorotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+pAutorotate.h"; sourceTree = "<group>"; };
+		C3F31ADC2539709100621878 /* 全屏@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "全屏@3x.png"; sourceTree = "<group>"; };
+		C3F31ADD2539709100621878 /* 全屏@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "全屏@2x.png"; sourceTree = "<group>"; };
+		C3F31ADE2539709100621878 /* 半屏@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "半屏@2x.png"; sourceTree = "<group>"; };
+		C3F31ADF2539709100621878 /* 半屏@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "半屏@3x.png"; sourceTree = "<group>"; };
 		D517352033FD9281F808A739 /* Pods-LM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LM.release.xcconfig"; path = "Target Support Files/Pods-LM/Pods-LM.release.xcconfig"; sourceTree = "<group>"; };
 		D7B2B70D60E892B2A452617D /* libPods-LM.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LM.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9733473842C796E3D6C9304 /* libPods-LMUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LMUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -536,6 +544,7 @@
 		C30D896625354B6D009BFB45 /* Lrc */ = {
 			isa = PBXGroup;
 			children = (
+				C3F31ADB2539709100621878 /* image */,
 				C32A17CB25381E8C00BD830B /* Tool */,
 				C39396EE2536D3F300409025 /* View */,
 				C39396EB2536D3F300409025 /* Presenter */,
@@ -724,6 +733,17 @@
 			path = NC;
 			sourceTree = "<group>";
 		};
+		C3F31ADB2539709100621878 /* image */ = {
+			isa = PBXGroup;
+			children = (
+				C3F31ADC2539709100621878 /* 全屏@3x.png */,
+				C3F31ADD2539709100621878 /* 全屏@2x.png */,
+				C3F31ADE2539709100621878 /* 半屏@2x.png */,
+				C3F31ADF2539709100621878 /* 半屏@3x.png */,
+			);
+			path = image;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -793,7 +813,11 @@
 			files = (
 				183BF3E6224A1DBD004DE115 /* LaunchScreen.storyboard in Resources */,
 				183BF3E3224A1DBD004DE115 /* Assets.xcassets in Resources */,
+				C3F31AE12539709100621878 /* 全屏@2x.png in Resources */,
+				C3F31AE02539709100621878 /* 全屏@3x.png in Resources */,
 				183BF3E1224A1DBB004DE115 /* Main.storyboard in Resources */,
+				C3F31AE22539709100621878 /* 半屏@2x.png in Resources */,
+				C3F31AE32539709100621878 /* 半屏@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
