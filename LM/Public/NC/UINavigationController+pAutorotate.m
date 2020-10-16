@@ -12,14 +12,11 @@
 
 // 默认不旋转 是否可以旋转
 - (BOOL)shouldAutorotate {
-#if TARGET_OS_MACCATALYST
-    return NO;
-#elif TARGET_OS_IPHONE
-    return NO;
-#elif TARGET_OS_IPAD
-    return YES;
-#endif
-    return YES;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 @end
