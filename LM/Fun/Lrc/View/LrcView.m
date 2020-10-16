@@ -268,11 +268,13 @@
 
 - (void)updateInfoTVContentInset {
     if (self.isShow) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.02 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.infoTV.contentInset = UIEdgeInsetsMake(self.infoTV.height/2 -LrcViewTvCellDefaultH, 0, self.infoTV.height/2 -LrcViewTvCellDefaultH, 0);
+            
+            self.coverIV.frame = CGRectMake(0, 0, self.width, self.height);
+           
+            [self.present scrollToTopIfNeed];
         });
-        
-        self.coverIV.frame = CGRectMake(0, 0, self.width, self.height);
     }
 }
 

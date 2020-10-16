@@ -45,6 +45,8 @@ static CGFloat LrcViewTvCellDefaultH = 40;
 
 - (void)updateLrcArray:(NSArray *)array;
 - (void)scrollToLrc:(LrcDetailEntity *)lrc;
+- (void)scrollToTopIfNeed;
+
 - (void)playBTAction;
 
 @end

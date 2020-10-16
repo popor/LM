@@ -157,6 +157,12 @@
     [self scrollToRow:0];
 }
 
+- (void)scrollToTopIfNeed {
+    if (self.playRow == 0) {
+        [self scrollToRow:0];
+    }
+}
+
 - (void)scrollToLrc:(LrcDetailEntity *)lyric {
     if (self.tvDrag) {
         
