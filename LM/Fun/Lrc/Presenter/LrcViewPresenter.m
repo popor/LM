@@ -86,7 +86,9 @@
         cell.textLabel.numberOfLines = 0;
         
 #if TARGET_OS_MACCATALYST
-        cell.textLabel.font = [UIFont systemFontOfSize:22];
+        cell.textLabel.font = [UIFont systemFontOfSize:26];
+#elif TARGET_OS_IPAD
+        cell.textLabel.font = [UIFont systemFontOfSize:26];
 #else
         cell.textLabel.font = [UIFont systemFontOfSize:18];
 #endif
