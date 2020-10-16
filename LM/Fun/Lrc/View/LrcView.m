@@ -8,14 +8,22 @@
 #import "LrcView.h"
 #import "LrcViewPresenter.h"
 #import "LrcViewInteractor.h"
+#import "MusicPlayListTool.h"
+#import "MusicPlayBar.h"
+#import "MusicPlayListTool.h"
+#import "MusicPlayTool.h"
 
 @interface LrcView ()
 
 @property (nonatomic, strong) LrcViewPresenter * present;
+@property (nonatomic, weak  ) MusicPlayBar * mpb;
+@property (nonatomic, weak  ) MusicPlayListTool * mplt;
+@property (nonatomic, weak  ) MusicPlayTool * mpt;
 
 @end
 
 @implementation LrcView
+@synthesize coverIV;
 @synthesize infoTV;
 @synthesize closeBT;
 @synthesize show;
@@ -55,6 +63,11 @@
 
 - (void)addViews {
     self.backgroundColor = [UIColor whiteColor];
+    self.mpb  = MpbShare;
+    self.mplt = MpltShare;
+    self.mpt  = MptShare;
+    
+    [self addIVs];
     
     self.infoTV = [self addTVs];
     [self addBTs];
@@ -65,6 +78,17 @@
 - (void)startEvent {
     [self.present startEvent];
     
+}
+
+- (void)addIVs {
+    self.coverIV = ({
+        UIImageView * oneIV = [UIImageView new];
+        oneIV.contentMode = UIViewContentModeScaleAspectFill;
+        oneIV.backgroundColor = [UIColor whiteColor];
+        
+        [self.view addSubview:oneIV];
+        oneIV;
+    });
 }
 
 // -----------------------------------------------------------------------------
@@ -219,6 +243,13 @@
     [MRouterC registerURL:MUrl_updateLrcData toHandel:^(NSDictionary *routerParameters){
         @strongify(self);
         
+        UIImage * coverImage = [MusicPlayTool imageOfUrl:self.mpt.audioPlayer.url];
+        self.coverIV.image = coverImage ? : self.mpt.defaultCoverImage;
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            NSLogRect(self.coverIV.frame);
+        });
+        
         NSMutableDictionary * dic = [MRouterC mixDic:routerParameters];
         [self.present updateLrcArray:dic[@"lrcArray"]];
     }];
@@ -239,8 +270,9 @@
     if (self.isShow) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.infoTV.contentInset = UIEdgeInsetsMake(self.infoTV.height/2 -LrcViewTvCellDefaultH, 0, self.infoTV.height/2 -LrcViewTvCellDefaultH, 0);
-            //self.infoTV.contentInset = UIEdgeInsetsMake((self.infoTV.height -LrcViewTvCellDefaultH)/2, 0, (self.infoTV.height -LrcViewTvCellDefaultH)/2, 0);
         });
+        
+        self.coverIV.frame = CGRectMake(0, 0, self.width, self.height);
     }
 }
 
