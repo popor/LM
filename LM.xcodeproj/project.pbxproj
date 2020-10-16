@@ -57,7 +57,6 @@
 		C3F31AE12539709100621878 /* 全屏@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F31ADD2539709100621878 /* 全屏@2x.png */; };
 		C3F31AE22539709100621878 /* 半屏@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F31ADE2539709100621878 /* 半屏@2x.png */; };
 		C3F31AE32539709100621878 /* 半屏@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F31ADF2539709100621878 /* 半屏@3x.png */; };
-		C3F31BC125398D1D00621878 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C3F31BC025398D1D00621878 /* README.md */; };
 		D4807A288BE4B56179FA77D5 /* libPods-LM.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7B2B70D60E892B2A452617D /* libPods-LM.a */; };
 /* End PBXBuildFile section */
 
@@ -189,7 +188,7 @@
 		C3F31ADD2539709100621878 /* 全屏@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "全屏@2x.png"; sourceTree = "<group>"; };
 		C3F31ADE2539709100621878 /* 半屏@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "半屏@2x.png"; sourceTree = "<group>"; };
 		C3F31ADF2539709100621878 /* 半屏@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "半屏@3x.png"; sourceTree = "<group>"; };
-		C3F31BC025398D1D00621878 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		C3F31BC425398F2300621878 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D517352033FD9281F808A739 /* Pods-LM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LM.release.xcconfig"; path = "Target Support Files/Pods-LM/Pods-LM.release.xcconfig"; sourceTree = "<group>"; };
 		D7B2B70D60E892B2A452617D /* libPods-LM.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LM.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9733473842C796E3D6C9304 /* libPods-LMUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LMUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -272,6 +271,7 @@
 		183BF3CD224A1DBB004DE115 = {
 			isa = PBXGroup;
 			children = (
+				C3F31BC425398F2300621878 /* README.md */,
 				183BF3D8224A1DBB004DE115 /* LM */,
 				183BF3D7224A1DBB004DE115 /* Products */,
 				87C314330D17CE51241C552F /* Pods */,
@@ -303,7 +303,6 @@
 		183BF40B224A1EF1004DE115 /* other */ = {
 			isa = PBXGroup;
 			children = (
-				C3F31BC025398D1D00621878 /* README.md */,
 				183BF3E2224A1DBD004DE115 /* Assets.xcassets */,
 				183BF40F224A20E0004DE115 /* AppPrefix.h */,
 				183BF3DF224A1DBB004DE115 /* Main.storyboard */,
@@ -818,7 +817,6 @@
 				C3F31AE02539709100621878 /* 全屏@3x.png in Resources */,
 				183BF3E1224A1DBB004DE115 /* Main.storyboard in Resources */,
 				C3F31AE22539709100621878 /* 半屏@2x.png in Resources */,
-				C3F31BC125398D1D00621878 /* README.md in Resources */,
 				C3F31AE32539709100621878 /* 半屏@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
