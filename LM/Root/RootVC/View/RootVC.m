@@ -140,22 +140,27 @@
         self.segmentView.weakLinkSV = self.tvSV;
         self.segmentView.weakLinkSV.delegate = self.segmentView;
     }
-    
+    BOOL needMonitorFrame = NO;
 #if TARGET_OS_MACCATALYST
-    // mac 模式下需要监听用户缩放frame
-    [RACObserve(self.navigationController.view, frame) subscribeNext:^(id  _Nullable x) {
-        @strongify(self);
-        // NSLog(@"刷新frame");
-        if (fabs(self.playbar.timeDurationL.right -self.view.width) > 5) {
-            [self reloadTv_PlayBarFrame_sync];
-        } else {
-            [self reloadTv_PlayBarFrame_sync];
-        }
-        [self.lrcView updateInfoTVContentInset];
-    }];
+    needMonitorFrame = YES;
 #else
-    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        needMonitorFrame = YES;
+    }
 #endif
+    if (needMonitorFrame) {
+        // 模式下需要监听用户缩放frame
+        [RACObserve(self.navigationController.view, frame) subscribeNext:^(id  _Nullable x) {
+            @strongify(self);
+            // NSLog(@"刷新frame");
+            if (fabs(self.playbar.timeDurationL.right -self.view.width) > 5) {
+                [self reloadTv_PlayBarFrame_sync];
+            } else {
+                [self reloadTv_PlayBarFrame_sync];
+            }
+            [self.lrcView updateInfoTVContentInset];
+        }];
+    }
     
     [self addMRouterC];
     
