@@ -10,6 +10,13 @@
 3.iPad和mac模式
 4.浅色和深色模式
 
+<img src="https://github.com/popor/LM/blob/master/ReadeImage/mac01.png" width="50%" height="50%"> 
+<img src="https://github.com/popor/LM/blob/master/ReadeImage/mac02.png" width="50%" height="50%"> 
+<img src="https://github.com/popor/LM/blob/master/ReadeImage/mac03.png" width="50%" height="50%"> 
+<img src="https://github.com/popor/LM/blob/master/ReadeImage/mac04.png" width="50%" height="50%"> 
+<img src="https://github.com/popor/LM/blob/master/ReadeImage/mac05.png" width="50%" height="50%"> 
+<img src="https://github.com/popor/LM/blob/master/ReadeImage/mac06.png" width="50%" height="50%"> 
+
 #### 1.X
 被微信语音打断后，可以自动恢复播放。
 
