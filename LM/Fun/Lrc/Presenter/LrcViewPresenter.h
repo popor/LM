@@ -9,7 +9,7 @@
 #import "LrcViewProtocol.h"
 
 // 处理和View事件
-@interface LrcViewPresenter : NSObject <LrcViewEventHandler, LrcViewDataSource, UITableViewDelegate, UITableViewDataSource>
+@interface LrcViewPresenter : NSObject <LrcViewEventHandler, LrcViewDataSource, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
 
 - (void)setMyInteractor:(id)interactor;
 

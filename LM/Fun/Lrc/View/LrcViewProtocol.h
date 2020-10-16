@@ -20,7 +20,10 @@ static CGFloat LrcViewTvCellDefaultH = 40;
 - (void)updateInfoTVContentInset;
 
 // MARK: 自己的
+// 图片缩放
+@property (nonatomic, strong) UIScrollView * coverSV;
 @property (nonatomic, strong) UIImageView * coverIV;
+
 @property (nonatomic, strong) UITableView * infoTV;
 @property (nonatomic, strong) UIButton    * closeBT;
 @property (nonatomic, getter=isShow) BOOL   show;

@@ -24,7 +24,9 @@
 @end
 
 @implementation LrcView
+@synthesize coverSV;
 @synthesize coverIV;
+
 @synthesize infoTV;
 @synthesize closeBT;
 @synthesize show;
@@ -74,7 +76,7 @@
     self.mplt = MpltShare;
     self.mpt  = MptShare;
     
-    [self addIVs];
+    [self addCovers];
     
     self.infoTV = [self addTVs];
     [self addBTs];
@@ -88,14 +90,25 @@
     
 }
 
-- (void)addIVs {
+- (void)addCovers {
     self.showBlurImage_lrc = YES;
+    
+    self.coverSV = ({
+        UIScrollView * sv = [UIScrollView new];
+        sv.backgroundColor = [UIColor blackColor];
+        sv.delegate = self.present;
+        
+        sv.minimumZoomScale = 0.25;
+        sv.maximumZoomScale = 2.0;
+        
+        [self.view addSubview:sv];
+        sv;
+    });
     self.coverIV = ({
         UIImageView * oneIV = [UIImageView new];
         oneIV.contentMode = UIViewContentModeScaleAspectFill;
-        oneIV.backgroundColor = [UIColor whiteColor];
         
-        [self.view addSubview:oneIV];
+        [self.coverSV addSubview:oneIV];
         oneIV;
     });
 }
@@ -276,8 +289,8 @@
     [MRouterC registerURL:MUrl_updateLrcData toHandel:^(NSDictionary *routerParameters){
         @strongify(self);
         
+        [self.coverSV setZoomScale:1];
         [self showCoverBlurImage];
-        
         
         NSMutableDictionary * dic = [MRouterC mixDic:routerParameters];
         [self.present updateLrcArray:dic[@"lrcArray"]];
@@ -300,11 +313,18 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.02 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.infoTV.contentInset = UIEdgeInsetsMake(self.infoTV.height/2 -LrcViewTvCellDefaultH, 0, self.infoTV.height/2 -LrcViewTvCellDefaultH, 0);
             
-            self.coverIV.frame = CGRectMake(0, 0, self.width, self.height);
-           
+#if TARGET_OS_MACCATALYST
+            self.coverSV.frame = CGRectMake(0, 20, self.width, self.height -20);
+#else
+            self.coverSV.frame = CGRectMake(0, 0, self.width, self.height -0);
+#endif
+            
+            self.coverIV.frame = self.coverSV.bounds;
+            
             [self.present scrollToTopIfNeed];
         });
-        self.coverIV.frame = CGRectMake(0, 0, self.width, self.height);
+        self.coverSV.frame = CGRectMake(0, 0, self.width, self.height);
+        self.coverIV.frame = self.coverSV.bounds;
     }
 }
 

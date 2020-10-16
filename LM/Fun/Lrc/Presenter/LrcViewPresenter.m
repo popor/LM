@@ -111,15 +111,15 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-}
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//
+//}
 
 #pragma mark - tv drag
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (self.tvDrag) {
-        if (self.lrcArray.count > 0) {
+    if (scrollView == self.view.infoTV) {
+        if (self.tvDrag && self.lrcArray.count > 0) {
             NSIndexPath * indexPath = [self.view.infoTV indexPathForRowAtPoint:CGPointMake(1, self.view.infoTV.height/2 +scrollView.contentOffset.y)];
             LrcDetailEntity * entity = self.lrcArray[indexPath.row];
             // NSLog(@"%i %@", (int)indexPath.row, entity.timeText);
@@ -128,26 +128,65 @@
             self.dragRow  = entity.row;
         }
     }
+    
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    if (self.lrcArray.count > 0) {
-        self.tvDrag = YES;
-        self.view.timeL.hidden     = NO;
-        self.view.playBT.hidden    = NO;
-        self.view.lineView1.hidden = NO;
-        self.view.lineView2.hidden = NO;
-    } else {
-        [self endDragDelay];
+    if (scrollView == self.view.infoTV) {
+        if (self.lrcArray.count > 0) {
+            self.tvDrag = YES;
+            self.view.timeL.hidden     = NO;
+            self.view.playBT.hidden    = NO;
+            self.view.lineView1.hidden = NO;
+            self.view.lineView2.hidden = NO;
+        } else {
+            [self endDragDelay];
+        }
+        [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(endDragDelay) object:nil];
     }
-    [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(endDragDelay) object:nil];
+   
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    if (self.lrcArray.count > 0) {
-        [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(endDragDelay) object:nil];
-        [self performSelector:@selector(endDragDelay) withObject:nil afterDelay:5];
+    if (scrollView == self.view.infoTV) {
+        if (self.lrcArray.count > 0) {
+            [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(endDragDelay) object:nil];
+            [self performSelector:@selector(endDragDelay) withObject:nil afterDelay:5];
+        }
     }
+    
+}
+
+#pragma mark - sv zoom
+- (UIView*)viewForZoomingInScrollView:(UIScrollView*)scrollView {
+    if (scrollView == self.view.coverSV) {
+        return self.view.coverIV;
+    }
+    
+    return nil;
+}
+
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView {
+    if (scrollView == self.view.coverSV) {
+
+        [self zoomSV:scrollView view:self.view.coverIV];
+    }
+}
+
+- (void)zoomSV:(UIScrollView *)sv view:(UIView *)zoomView {
+    CGRect zoomRect   = zoomView.frame;
+    
+    if (zoomRect.size.width < sv.bounds.size.width) {
+        zoomRect.origin.x = (sv.bounds.size.width - zoomRect.size.width) * 0.5;
+    } else {
+        zoomRect.origin.x = 0.0;
+    }
+    if (zoomRect.size.height < sv.bounds.size.height) {
+        zoomRect.origin.y = (sv.bounds.size.height - zoomRect.size.height) * 0.5;
+    } else {
+        zoomRect.origin.y = 0.0;
+    }
+    zoomView.frame = zoomRect;
 }
 
 - (void)endDragDelay {
