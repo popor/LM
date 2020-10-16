@@ -271,6 +271,7 @@
         @strongify(self);
         self.showBlurImage_lrc = !self.showBlurImage_lrc;
         [self showCoverBlurImage];
+        [self.present endDragDelay];
     }];
 }
 
@@ -323,7 +324,11 @@
             
             [self.present scrollToTopIfNeed];
         });
-        self.coverSV.frame = CGRectMake(0, 0, self.width, self.height);
+#if TARGET_OS_MACCATALYST
+        self.coverSV.frame = CGRectMake(0, 20, self.width, self.height -20);
+#else
+        self.coverSV.frame = CGRectMake(0, 0, self.width, self.height -0);
+#endif
         self.coverIV.frame = self.coverSV.bounds;
     }
 }
