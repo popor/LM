@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "LrcPrefix.h"
+#import "LrcDetailEntity.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,7 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)lycListPath:(NSString *)musicName;
 + (NSString *)lycPath:(NSString *)musicName;
 
-+ (NSMutableDictionary*)parselrc:(NSString*)content;
++ (NSMutableDictionary*)parselrc_1vsN:(NSString*)content;
+
++ (void)parselrc_1vs1:(NSString*)content finish:(void (^ __nullable)(NSMutableDictionary * musicDic, NSMutableArray<LrcDetailEntity *> * musicArray))block;
+
++ (NSInteger)timeFromText:(NSString *)timeText;
 
 @end
 

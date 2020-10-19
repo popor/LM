@@ -10,6 +10,7 @@
 #import "MusicPlayBar.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import "MusicPlayListTool.h"
+#import "LrcTool.h"
 
 @interface MusicPlayTool() <AVAudioPlayerDelegate>
 
@@ -133,7 +134,7 @@
         LrcDetailEntity * lyric = self.mpb.musicLyricDic[self.mpb.timeCurrentL.text];
         if (lyric) {
             if (!self.mpb.isShowLrc) {
-                self.mpb.songInfoL.text = lyric.lrc;
+                self.mpb.songInfoL.text = lyric.lrcText;
             }
             
             NSDictionary * dic = @{@"lyric":lyric};
@@ -304,7 +305,7 @@
     // NSLog(@"拖拽时间: %@", self.mpb.timeCurrentL.text);
     LrcDetailEntity * lyric = self.mpb.musicLyricDic[self.mpb.timeCurrentL.text];
     if (!lyric) {
-        NSInteger time = [LrcDetailEntity timeFromText:self.mpb.timeCurrentL.text];
+        NSInteger time = [LrcTool timeFromText:self.mpb.timeCurrentL.text];
         for (NSInteger i = 0; i<self.mpb.musicLyricArray.count; i++) {
             LrcDetailEntity * entity = self.mpb.musicLyricArray[i];
             if (time < entity.time) {
@@ -315,7 +316,7 @@
     }
     if (lyric) {
         if (!self.mpb.isShowLrc) {
-            self.mpb.songInfoL.text = lyric.lrc;
+            self.mpb.songInfoL.text = lyric.lrcText;
         }
         
         NSDictionary * dic = @{@"lyric":lyric};

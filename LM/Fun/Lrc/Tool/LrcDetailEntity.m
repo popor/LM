@@ -10,11 +10,4 @@
 
 @implementation LrcDetailEntity
 
-+ (NSInteger)timeFromText:(NSString *)timeText {
-    NSRange range = [timeText rangeOfString:@":"];
-    NSInteger mm  = [timeText substringToIndex:range.location].integerValue;
-    NSInteger ss  = [timeText substringFromIndex:range.location +1].integerValue;
-    NSInteger time = mm*60 +ss;
-    return time;
-}
 @end

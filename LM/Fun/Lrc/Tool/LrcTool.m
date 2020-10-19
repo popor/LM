@@ -31,7 +31,7 @@
 }
 
 // https://www.yuanmas.com/info/mZzgxv2oaK.html
-+ (NSMutableDictionary*)parselrc:(NSString*)content {
++ (NSMutableDictionary*)parselrc_1vsN:(NSString*)content {
     // 初始化一个字典
     NSMutableDictionary *musicLrcDictionary = [NSMutableDictionary new];
     NSArray *strlineArray = [content componentsSeparatedByString:@"\n"];
@@ -67,6 +67,78 @@
     
     //    在这里返回整个字典
     return musicLrcDictionary;
+}
+
+
++ (void)parselrc_1vs1:(NSString*)content finish:(void (^ __nullable)(NSMutableDictionary * musicDic, NSMutableArray<LrcDetailEntity *> * musicArray))block {
+    // 初始化一个字典
+    NSMutableDictionary * musicLrcDictionary = [NSMutableDictionary new];
+    NSMutableArray<LrcDetailEntity *> * musicArray = [NSMutableArray<LrcDetailEntity *> new];
+    
+    NSArray *strlineArray = [content componentsSeparatedByString:@"\n"];
+    
+    // 安行读取歌词歌词
+    for (NSInteger i=0; i<[strlineArray count]; i++) {
+        // 将时间和歌词分割
+        NSArray *lineComponents = [strlineArray[i] componentsSeparatedByString:@"]"];
+        
+        if (lineComponents.count == 2) {
+            NSString * word = lineComponents.lastObject;
+            word = [word stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            
+            NSString * timerText;
+            
+            if (word.length == 0) { // [by:XXXX]
+                timerText = [NSString stringWithFormat:@"00:00.%02i", (int)i*5];
+                
+                word = lineComponents.firstObject;
+                
+                if ([word hasPrefix:@"[ar"]) {
+                    word = [word substringFromIndex:4];
+                } else if ([word hasPrefix:@"[ti"]) {
+                    word = [word substringFromIndex:4];
+                }
+                else {
+                    continue;;
+                }
+                
+            } else { // 正常歌词
+                timerText = lineComponents.firstObject;
+                timerText = [timerText substringFromIndex:1];
+                if (timerText.length == 5) {
+                    timerText = [NSString stringWithFormat:@"%@.00", timerText];
+                }
+            }
+            
+            LrcDetailEntity * entity = [LrcDetailEntity new];
+
+            entity.time = [self timeFromText:timerText];
+            entity.timeText8 = timerText;
+            entity.timeText5 = [timerText substringToIndex:5];
+            
+            entity.lrcText = word;
+            entity.row = i;
+            
+            musicLrcDictionary[timerText] = entity;
+            [musicArray addObject:entity];
+        } else {
+            // 不处理
+            
+        }
+    }
+    
+    if (block) {
+        block(musicLrcDictionary, musicArray);
+    }
+}
+
+
++ (NSInteger)timeFromText:(NSString *)timeText {
+    NSRange range = [timeText rangeOfString:@":"];
+    NSInteger mm  = [timeText substringToIndex:range.location].integerValue;
+    NSInteger ss  = [timeText substringFromIndex:range.location +1].integerValue;
+    NSInteger time = mm*60 +ss;
+    return time;
 }
 
 @end

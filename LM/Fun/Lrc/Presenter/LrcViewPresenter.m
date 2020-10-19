@@ -100,7 +100,7 @@
         
     } else {
         LrcDetailEntity * entity = self.lrcArray[indexPath.row];
-        cell.textLabel.text = entity.lrc;
+        cell.textLabel.text = entity.lrcText;
         //cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", entity.timeText, entity.lrc];
         if (self.playRow == indexPath.row) {
             cell.textLabel.textColor = self.cellTextColorS;
@@ -125,7 +125,7 @@
             NSIndexPath * indexPath = [self.view.infoTV indexPathForRowAtPoint:CGPointMake(1, self.view.infoTV.height/2 +scrollView.contentOffset.y)];
             LrcDetailEntity * entity = self.lrcArray[indexPath.row];
             // NSLog(@"%i %@", (int)indexPath.row, entity.timeText);
-            self.view.timeL.text = entity.timeText;
+            self.view.timeL.text = entity.timeText5;
             self.dragTime = entity.time;
             self.dragRow  = entity.row;
         }

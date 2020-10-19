@@ -692,7 +692,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     NSData   * lrcData = [NSData dataWithContentsOfFile:lrcPath];
     if (lrcData) {
         NSString * lrc = [[NSString alloc] initWithData:lrcData encoding:NSUTF8StringEncoding];
-        [self parseLrc:lrc];
+        [self parseLrc_1vs1:lrc];
     } else {
         [self requestLrcKugou];
     }
@@ -706,7 +706,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
             LrcKugouListUnitEntity * ue = listEntity.lrcArray.firstObject;
             [LrcKuGou getLrcDetail:self.currentItem id:ue.id accesskey:ue.accesskey finish:^(NSString *string) {
                 @strongify(self);
-                [self parseLrc:string];
+                [self parseLrc_1vs1:string];
             }];
         } else {
             [MGJRouter openURL:MUrl_updateLrcData];
@@ -714,44 +714,55 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     }];
 }
 
-- (void)parseLrc:(NSString *)lrc {
-    NSDictionary * originDic = [LrcTool parselrc:lrc];
-    
-    NSMutableArray * originArray = [NSMutableArray new];
-    NSArray * timeTextArray = originDic.allKeys;
-    for (NSString * timeText in timeTextArray) {
+// 之前的lrc 一句歌词对应着多个时间点, 但是酷狗的歌词是一对一的, 所以不再使用该方法
+//- (void)parseLrc_1vsN:(NSString *)lrc {
+//    NSDictionary * originDic = [LrcTool parselrc_1vsN:lrc];
+//
+//    NSMutableArray * originArray = [NSMutableArray new];
+//    NSArray * timeTextArray = originDic.allKeys;
+//    for (NSString * timeText in timeTextArray) {
+//
+//        LrcDetailEntity * entity = [LrcDetailEntity new];
+//        entity.timeText8 = timeText;
+//        entity.lrcText  = originDic[timeText];;
+//        entity.time     = [LrcTool timeFromText:entity.timeText8];
+//
+//        [originArray addObject:entity];
+//    }
+//
+//    self.musicLyricArray = [originArray sortedArrayUsingComparator:^NSComparisonResult(LrcDetailEntity * obj1, LrcDetailEntity * obj2) {
+//        //return [obj1.time compare:obj2.time]; //升序
+//        return obj1.time<obj2.time ? NSOrderedAscending:NSOrderedDescending;
+//    }];
+//
+//
+//    NSMutableDictionary * tempDic = [NSMutableDictionary new];
+//    NSInteger count = self.musicLyricArray.count;
+//    for (NSInteger row = 0; row<count; row++) {
+//        LrcDetailEntity * entity = self.musicLyricArray[row];
+//        entity.row = row;
+//
+//        tempDic[entity.timeText8] = entity;
+//    }
+//    self.musicLyricDic = tempDic;
+//
+//    NSDictionary * dic = @{@"lrcArray":self.musicLyricArray};
+//    [MGJRouter openURL:MUrl_updateLrcData withUserInfo:dic completion:nil];
+//
+//    // for (LrcDetailEntity * entity in self.musicLyricArray) {
+//    //     [NSAssistant NSLogEntity:entity];
+//    //     NSLog(@"\n ");
+//    // }
+//}
+
+- (void)parseLrc_1vs1:(NSString *)lrc {
+    [LrcTool parselrc_1vs1:lrc finish:^(NSMutableDictionary * _Nonnull musicDic, NSMutableArray<LrcDetailEntity *> * _Nonnull musicArray) {
+        self.musicLyricDic   = musicDic;
+        self.musicLyricArray = musicArray;
         
-        LrcDetailEntity * entity = [LrcDetailEntity new];
-        entity.timeText = timeText;
-        entity.lrc      = originDic[timeText];;
-        entity.time     = [LrcDetailEntity timeFromText:entity.timeText];
-        
-        [originArray addObject:entity];
-    }
-    
-    self.musicLyricArray = [originArray sortedArrayUsingComparator:^NSComparisonResult(LrcDetailEntity * obj1, LrcDetailEntity * obj2) {
-        //return [obj1.time compare:obj2.time]; //升序
-        return obj1.time<obj2.time ? NSOrderedAscending:NSOrderedDescending;
+        NSDictionary * dic = @{@"lrcArray":self.musicLyricArray};
+        [MGJRouter openURL:MUrl_updateLrcData withUserInfo:dic completion:nil];
     }];
-    
-    
-    NSMutableDictionary * tempDic = [NSMutableDictionary new];
-    NSInteger count = self.musicLyricArray.count;
-    for (NSInteger row = 0; row<count; row++) {
-        LrcDetailEntity * entity = self.musicLyricArray[row];
-        entity.row = row;
-        
-        tempDic[entity.timeText] = entity;
-    }
-    self.musicLyricDic = tempDic;
-    
-    NSDictionary * dic = @{@"lrcArray":self.musicLyricArray};
-    [MGJRouter openURL:MUrl_updateLrcData withUserInfo:dic completion:nil];
-    
-    // for (LrcDetailEntity * entity in self.musicLyricArray) {
-    //     [NSAssistant NSLogEntity:entity];
-    //     NSLog(@"\n ");
-    // }
 }
 
 - (void)showBigIVAction {

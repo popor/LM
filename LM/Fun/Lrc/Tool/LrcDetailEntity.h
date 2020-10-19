@@ -14,10 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic        ) NSInteger row;
 @property (nonatomic        ) CGFloat time;
-@property (nonatomic, copy  ) NSString * timeText;
-@property (nonatomic, copy  ) NSString * lrc;
+@property (nonatomic, copy  ) NSString * timeText8; // 01:01.01
+@property (nonatomic, copy  ) NSString * timeText5; // 01:01
 
-+ (NSInteger)timeFromText:(NSString *)timeText;
+@property (nonatomic, copy  ) NSString * lrcText;
 
 @end
 
