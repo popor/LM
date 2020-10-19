@@ -429,17 +429,17 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     }
 }
 
-- (void)playLocalListArray:(NSMutableArray<FileEntity> *)itemArray folder:(NSString * _Nullable)folderName type:(McPlayType)playType at:(NSInteger)index {
+- (void)playLocalListArray:(NSMutableArray<FileEntity> *)itemArray folder:(NSString * _Nullable)folderName type:(McPlayType)playType at:(NSInteger)index autoPlay:(BOOL)autoPlay {
     [self.mplt.currentTempList removeAllObjects];
     [self.mplt.currentTempList addObjectsFromArray:itemArray];
     
     self.mplt.currentWeakList = self.mplt.currentTempList;
-    self.playBT.selected      = YES;
+    self.playBT.selected      = autoPlay;
     self.playSearchLocalItem  = YES;
     
     if (itemArray.count > 0) {
         self.currentItem = self.mplt.currentWeakList[index];
-        [self playItem:self.currentItem autoPlay:YES];
+        [self playItem:self.currentItem autoPlay:autoPlay];
     }
     
     // 刷新item

@@ -191,7 +191,7 @@
         // 播放音频
         if (self.view.isSearchType) {
             self.mpb.mplt.config.songIndexList = [self.mpb.mplt.list.songListArray indexOfObject:self.view.listEntity];
-            [MpbShare playLocalListArray:self.view.searchArray folder:nil type:McPlayType_searchSongList at:indexPath.row];
+            [MpbShare playLocalListArray:self.view.searchArray folder:nil type:McPlayType_searchSongList at:indexPath.row autoPlay:YES];
         }else{
             [MpbShare playSongListEntity:self.view.listEntity at:indexPath.row];
         }

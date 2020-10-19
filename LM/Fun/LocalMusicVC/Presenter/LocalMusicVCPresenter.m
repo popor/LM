@@ -78,18 +78,18 @@ API_AVAILABLE(ios(12.0))
     @weakify(self);
     [MRouterC registerURL:MUrl_resumePlayItem_local toHandel:^(NSDictionary *routerParameters){
         @strongify(self);
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             NSString * folderName = MpltShare.config.localFolderName;
             NSString * musicName  = MpltShare.config.localMusicName;
             
             for (NSInteger folderIndex = 0; folderIndex<self.interactor.infoArray.count; folderIndex++) {
                 FileEntity * folderEntity = self.interactor.infoArray[folderIndex];
-                if ([folderEntity.folderName isEqualToString:folderName]) {
+                if ([folderEntity.fileName isEqualToString:folderName]) {
                     for (NSInteger itemIndex = 0; itemIndex < folderEntity.itemArray.count; itemIndex++) {
                         FileEntity * itemEntity = folderEntity.itemArray[itemIndex];
                         
                         if ([itemEntity.fileName isEqualToString:musicName]) {
-                            [self.mpb playLocalListArray:folderEntity.itemArray folder:itemEntity.fileName type:McPlayType_local at:itemIndex];
+                            [self.mpb playLocalListArray:folderEntity.itemArray folder:itemEntity.fileName type:McPlayType_local at:itemIndex autoPlay:NO];
                             break;
                         }
                     }
@@ -358,7 +358,7 @@ API_AVAILABLE(ios(12.0))
                     [self.view.vc.navigationController pushViewController:[[LocalMusicVC alloc] initWithDic:dic] animated:YES];
                 }
             } else {
-                [self.mpb playLocalListArray:itemArray folder:fileEntity.folderName type:playType at:indexPath.row];
+                [self.mpb playLocalListArray:itemArray folder:fileEntity.folderName type:playType at:indexPath.row autoPlay:YES];
                 
                 if (self.lastCell) {
                     self.lastCell.titelL.textColor = App_textNColor;
