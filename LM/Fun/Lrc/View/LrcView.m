@@ -27,6 +27,7 @@
 @synthesize coverSV;
 @synthesize coverIV;
 
+@synthesize tvDrag;
 @synthesize infoTV;
 @synthesize closeBT;
 @synthesize show;
@@ -343,9 +344,14 @@
     @weakify(self);
     [[self.tapGR rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
         @strongify(self);
-        self.showBlurImage_lrc = !self.showBlurImage_lrc;
-        [self showCoverBlurImage];
-        [self.present endDragDelay];
+        
+        if (self.tvDrag) {
+            [self.present endDragDelay];
+        } else {
+            self.showBlurImage_lrc = !self.showBlurImage_lrc;
+            [self showCoverBlurImage];
+            [self.present endDragDelay];
+        }
     }];
 }
 

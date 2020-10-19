@@ -14,7 +14,6 @@
 @property (nonatomic, strong) LrcViewInteractor * interactor;
 
 @property (nonatomic, copy  ) NSArray * lrcArray;
-@property (nonatomic        ) BOOL tvDrag;
 @property (nonatomic        ) NSInteger dragTime;
 @property (nonatomic        ) NSInteger dragRow;
 
@@ -121,7 +120,7 @@
 #pragma mark - tv drag
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView == self.view.infoTV) {
-        if (self.tvDrag && self.lrcArray.count > 0) {
+        if (self.view.tvDrag && self.lrcArray.count > 0) {
             NSIndexPath * indexPath = [self.view.infoTV indexPathForRowAtPoint:CGPointMake(1, self.view.infoTV.height/2 +scrollView.contentOffset.y)];
             LrcDetailEntity * entity = self.lrcArray[indexPath.row];
             // NSLog(@"%i %@", (int)indexPath.row, entity.timeText);
@@ -136,7 +135,7 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     if (scrollView == self.view.infoTV) {
         if (self.lrcArray.count > 0) {
-            self.tvDrag = YES;
+            self.view.tvDrag = YES;
             self.view.timeL.hidden     = NO;
             self.view.playBT.hidden    = NO;
             self.view.lineView1.hidden = NO;
@@ -192,7 +191,7 @@
 }
 
 - (void)endDragDelay {
-    self.tvDrag = NO;
+    self.view.tvDrag = NO;
     self.view.timeL.hidden     = YES;
     self.view.playBT.hidden    = YES;
     self.view.lineView1.hidden = YES;
@@ -216,7 +215,7 @@
 }
 
 - (void)scrollToLrc:(LrcDetailEntity *)lyric {
-    if (self.tvDrag) {
+    if (self.view.tvDrag) {
         
     } else {
         if (self.playRow != lyric.row) {

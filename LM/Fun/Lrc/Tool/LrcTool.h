@@ -13,8 +13,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static BOOL LrcMonitor0_1S = YES; // 是否使用0.1秒的间隔还是0.01秒间隔
-
 @interface LrcTool : NSObject
 
 + (NSString *)lycListPath:(NSString *)musicName;

@@ -123,7 +123,8 @@
     [[[RACSignal interval:monitorTime onScheduler:[RACScheduler mainThreadScheduler]] takeUntil:self.racSlideOB.rac_willDeallocSignal] subscribeNext:^(id x) {
         @strongify(self);
         if (!self.mpb.isSliderSelected) {
-            self.mpb.slider.value = self.audioPlayer.currentTime/(float)self.audioPlayer.duration;
+            CGFloat value = self.audioPlayer.currentTime/(float)self.audioPlayer.duration;
+            self.mpb.slider.value = value;
         }
         //CGFloat time = self.audioPlayer.currentTime *59;
         CGFloat time = self.audioPlayer.currentTime;
