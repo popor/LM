@@ -89,7 +89,7 @@
             NSString * timerText;
             
             if (word.length == 0) {
-                timerText = [NSString stringWithFormat:@"00:00.%02i", (int)row*10];
+                timerText = [NSString stringWithFormat:@"00:00.%02i", (int)row*30];
                 
                 word = lineComponents.firstObject;
                 
