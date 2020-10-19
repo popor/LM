@@ -116,6 +116,7 @@
         [session setActive:YES error:nil];
     }
     
+    self.racSlideOB = nil;
     self.racSlideOB = [MusicConfig new];
     
     @weakify(self);
@@ -126,26 +127,22 @@
             CGFloat value = self.audioPlayer.currentTime/(float)self.audioPlayer.duration;
             self.mpb.slider.value = value;
         }
-        //CGFloat time = self.audioPlayer.currentTime *59;
         CGFloat time = self.audioPlayer.currentTime;
         
         [self.mpb updateTimeCurrentFrameTime:time];
         self.mpb.timeCurrentL.text = [self stringFromTime5:time];
         
+        // update 歌词页面
         NSString * timeText8 = [self stringFromTime8:time];
-        //NSLogString(timeText8);
         // 显示歌词1: 实时的
         LrcDetailEntity * lyric = self.mpb.musicLyricDic[timeText8];
         if (lyric) {
             if (!self.mpb.isShowLrc) {
                 self.mpb.songInfoL.text = lyric.lrcText;
             }
-            //NSLogString(timeText8);
-            //NSLogString(lyric.lrcText);
             NSDictionary * dic = @{@"lyric":lyric};
             [MGJRouter openURL:MUrl_updateLrcTime withUserInfo:dic completion:nil];
         }
-        
     }];
 }
 
@@ -209,10 +206,12 @@
 }
 
 - (NSString *)stringFromTime8:(CGFloat)time {
+    // floor 函数：“下取整”，或者说“向下舍入”，不大于 x 的最大整数
+    // fmod 对某个数字求余
     NSInteger hour = floor(time / 3600);
     CGFloat minute = fmod(floor(time/60), 60.0f);
     CGFloat second = fmod(time, 60.0f);
-    
+    NSInteger secondInt = floor(second);
     
     if (hour < 0 || minute < 0 || second < 0) {
         return @"00:00.00";
@@ -221,16 +220,16 @@
     if (LrcMonitor0_1S) {
         NSInteger secondPoint = (second - (int)second)*10;
         if (hour > 0) {
-            return [NSString stringWithFormat:@"%02li:%02.0f:%02.f.%01i0", hour, minute, second, (int)secondPoint];
+            return [NSString stringWithFormat:@"%02li:%02.0f:%02i.%01i0", hour, minute, (int)secondInt, (int)secondPoint];
         } else {
-            return [NSString stringWithFormat:@"%02.0f:%02.f.%01i0", minute, second, (int)secondPoint];
+            return [NSString stringWithFormat:@"%02.0f:%02i.%01i0", minute, (int)secondInt, (int)secondPoint];
         }
     } else {
         NSInteger secondPoint = (second - (int)second)*100;
         if (hour > 0) {
-            return [NSString stringWithFormat:@"%02li:%02.0f:%02.f.%02i", hour, minute, second, (int)secondPoint];
+            return [NSString stringWithFormat:@"%02li:%02.0f:%02i.%02i", hour, minute, (int)secondInt, (int)secondPoint];
         } else {
-            return [NSString stringWithFormat:@"%02.0f:%02.f.%02i", minute, second, (int)secondPoint];
+            return [NSString stringWithFormat:@"%02.0f:%02i.%02i", minute, (int)secondInt, (int)secondPoint];
         }
     }
 }

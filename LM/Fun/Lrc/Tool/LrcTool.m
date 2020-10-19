@@ -78,9 +78,9 @@
     NSArray *strlineArray = [content componentsSeparatedByString:@"\n"];
     
     // 安行读取歌词歌词
-    for (NSInteger i=0, row = 0; i<[strlineArray count]; i++) {
+    for (NSInteger lrcIndex=0, row = 0; lrcIndex<[strlineArray count]; lrcIndex++) {
         // 将时间和歌词分割
-        NSArray *lineComponents = [strlineArray[i] componentsSeparatedByString:@"]"];
+        NSArray *lineComponents = [strlineArray[lrcIndex] componentsSeparatedByString:@"]"];
         
         if (lineComponents.count == 2) {
             NSString * word = lineComponents.lastObject;
@@ -124,7 +124,6 @@
             entity.lrcText   = word;
             entity.row       = row++;
             
-            //NSLogString(timerText);
             musicLrcDictionary[entity.timeText8] = entity;
             [musicArray addObject:entity];
         } else {
