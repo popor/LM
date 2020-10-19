@@ -125,8 +125,8 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         [[self.slider rac_signalForControlEvents:UIControlEventValueChanged] subscribeNext:^(__kindof UIControl * _Nullable x) {
             @strongify(self);
             if (self.sliderSelected && self.mpt.audioPlayer.duration > 0) {
-                int time = self.mpt.audioPlayer.duration * self.slider.value;
-                self.sliderTimeL.text = [self.mpt stringFromTime:time];
+                CGFloat time = self.mpt.audioPlayer.duration * self.slider.value;
+                self.sliderTimeL.text = [self.mpt stringFromTime5:time];
                 
                 float x = self.slider.frame.origin.x  +self.sliderImageWH/2 +(self.slider.width -self.sliderImageWH) *self.slider.value;
                 self.sliderTimeL.center = CGPointMake(x, -40);

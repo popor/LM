@@ -119,7 +119,8 @@
     self.racSlideOB = [MusicConfig new];
     
     @weakify(self);
-    [[[RACSignal interval:0.1 onScheduler:[RACScheduler mainThreadScheduler]] takeUntil:self.racSlideOB.rac_willDeallocSignal] subscribeNext:^(id x) {
+    CGFloat monitorTime = LrcMonitor0_1S ? 0.1:0.01 ;
+    [[[RACSignal interval:monitorTime onScheduler:[RACScheduler mainThreadScheduler]] takeUntil:self.racSlideOB.rac_willDeallocSignal] subscribeNext:^(id x) {
         @strongify(self);
         if (!self.mpb.isSliderSelected) {
             self.mpb.slider.value = self.audioPlayer.currentTime/(float)self.audioPlayer.duration;
@@ -128,15 +129,18 @@
         CGFloat time = self.audioPlayer.currentTime;
         
         [self.mpb updateTimeCurrentFrameTime:time];
-        self.mpb.timeCurrentL.text = [self stringFromTime:time];
+        self.mpb.timeCurrentL.text = [self stringFromTime5:time];
         
+        NSString * timeText8 = [self stringFromTime8:time];
+        //NSLogString(timeText8);
         // 显示歌词1: 实时的
-        LrcDetailEntity * lyric = self.mpb.musicLyricDic[self.mpb.timeCurrentL.text];
+        LrcDetailEntity * lyric = self.mpb.musicLyricDic[timeText8];
         if (lyric) {
             if (!self.mpb.isShowLrc) {
                 self.mpb.songInfoL.text = lyric.lrcText;
             }
-            
+            //NSLogString(timeText8);
+            //NSLogString(lyric.lrcText);
             NSDictionary * dic = @{@"lyric":lyric};
             [MGJRouter openURL:MUrl_updateLrcTime withUserInfo:dic completion:nil];
         }
@@ -180,7 +184,7 @@
             
             // 播放进度 和 歌词信息, 一个循环只需要走一次
             CGFloat time = self.audioPlayer.duration;
-            self.mpb.timeDurationL.text = [self stringFromTime:time];
+            self.mpb.timeDurationL.text = [self stringFromTime5:time];
             
             self.mpb.currentItem.musicDuration = time;
             [self.mpb updateLyricKugou];
@@ -192,15 +196,42 @@
         }
         
         self.mpb.slider.value       = self.audioPlayer.currentTime/self.audioPlayer.duration;
-        self.mpb.timeCurrentL.text  = [self stringFromTime:self.audioPlayer.currentTime];
+        self.mpb.timeCurrentL.text  = [self stringFromTime5:self.audioPlayer.currentTime];
         
     }else{
         [mpic setNowPlayingInfo:nil];
     }
 }
 
-- (NSString *)stringFromTime:(int)time {
+- (NSString *)stringFromTime5:(CGFloat)time {
     return [NSDate clockText:time];
+}
+
+- (NSString *)stringFromTime8:(CGFloat)time {
+    NSInteger hour = floor(time / 3600);
+    CGFloat minute = fmod(floor(time/60), 60.0f);
+    CGFloat second = fmod(time, 60.0f);
+    
+    
+    if (hour < 0 || minute < 0 || second < 0) {
+        return @"00:00.00";
+    }
+    
+    if (LrcMonitor0_1S) {
+        NSInteger secondPoint = (second - (int)second)*10;
+        if (hour > 0) {
+            return [NSString stringWithFormat:@"%02li:%02.0f:%02.f.%01i0", hour, minute, second, (int)secondPoint];
+        } else {
+            return [NSString stringWithFormat:@"%02.0f:%02.f.%01i0", minute, second, (int)secondPoint];
+        }
+    } else {
+        NSInteger secondPoint = (second - (int)second)*100;
+        if (hour > 0) {
+            return [NSString stringWithFormat:@"%02li:%02.0f:%02.f.%02i", hour, minute, second, (int)secondPoint];
+        } else {
+            return [NSString stringWithFormat:@"%02.0f:%02.f.%02i", minute, second, (int)secondPoint];
+        }
+    }
 }
 
 - (void)initIosController  {

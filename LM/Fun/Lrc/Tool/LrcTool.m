@@ -78,7 +78,7 @@
     NSArray *strlineArray = [content componentsSeparatedByString:@"\n"];
     
     // 安行读取歌词歌词
-    for (NSInteger i=0; i<[strlineArray count]; i++) {
+    for (NSInteger i=0, row = 0; i<[strlineArray count]; i++) {
         // 将时间和歌词分割
         NSArray *lineComponents = [strlineArray[i] componentsSeparatedByString:@"]"];
         
@@ -88,8 +88,8 @@
             
             NSString * timerText;
             
-            if (word.length == 0) { // [by:XXXX]
-                timerText = [NSString stringWithFormat:@"00:00.%02i", (int)i*5];
+            if (word.length == 0) {
+                timerText = [NSString stringWithFormat:@"00:00.%02i", (int)row*10];
                 
                 word = lineComponents.firstObject;
                 
@@ -99,7 +99,7 @@
                     word = [word substringFromIndex:4];
                 }
                 else {
-                    continue;;
+                    continue;
                 }
                 
             } else { // 正常歌词
@@ -113,13 +113,19 @@
             LrcDetailEntity * entity = [LrcDetailEntity new];
 
             entity.time = [self timeFromText:timerText];
-            entity.timeText8 = timerText;
+            
+            // !!!: 为了节省资源 将8位的末尾号变为0
+            if (LrcMonitor0_1S) {
+                entity.timeText8 = [NSString stringWithFormat:@"%@0", [timerText substringToIndex:7]];
+            } else {
+                entity.timeText8 = timerText;
+            }
             entity.timeText5 = [timerText substringToIndex:5];
+            entity.lrcText   = word;
+            entity.row       = row++;
             
-            entity.lrcText = word;
-            entity.row = i;
-            
-            musicLrcDictionary[timerText] = entity;
+            //NSLogString(timerText);
+            musicLrcDictionary[entity.timeText8] = entity;
             [musicArray addObject:entity];
         } else {
             // 不处理
