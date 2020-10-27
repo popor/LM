@@ -48,7 +48,7 @@
         self.bgColor3       = [UIColor whiteColor];
         self.bgColor4       = [UIColor whiteColor];
         
-        self.separatorColor = nil;
+        self.separatorColor = [UIColor lightGrayColor];
         
         self.labelColor     = [UIColor blackColor];
         

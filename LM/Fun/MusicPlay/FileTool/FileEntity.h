@@ -22,7 +22,7 @@ static NSString * WFIgnoreFile = @".DS_Store";
 @property (nonatomic, copy  ) NSMutableArray<FileEntity, Ignore> * itemArray;
 
 //----- 音乐文件;
-@property (nonatomic, copy  ) NSString * musicAuthor;
+@property (nonatomic, copy  ) NSString * musicAuthor; // 本APP 的歌手和歌名, 并没有读取mp3的文件属性, 只是根据文件名字分析出来.
 @property (nonatomic, copy  ) NSString * musicName;
 @property (nonatomic        ) CGFloat    musicDuration;
 @property (nonatomic, copy  ) UIImage  * musicCover;
