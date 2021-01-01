@@ -51,4 +51,9 @@
 
 - (void)aimAtCurrentItem:(UIButton *)bt;
 
+
+// 长按手势
+- (void)cellGrEditFileNameAction;
+- (void)cellGrDeleteFileAction;
+
 @end

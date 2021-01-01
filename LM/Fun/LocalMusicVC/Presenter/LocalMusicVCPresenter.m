@@ -31,6 +31,7 @@ API_AVAILABLE(ios(12.0))
 @property (nonatomic        ) UIUserInterfaceStyle userInterfaceStyle;
 
 @property (nonatomic        ) BOOL firstAimAt;
+@property (nonatomic        ) NSInteger longPressIndexPathRow;
 
 @end
 
@@ -203,6 +204,10 @@ API_AVAILABLE(ios(12.0))
                     [self addMusicPlistFile];
                 }
             }];
+            
+            // 长按事件
+            [cell addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTap:)]];
+            
         }
         
         NSMutableArray * songArray = [self currentSongArray];
@@ -571,6 +576,100 @@ API_AVAILABLE(ios(12.0))
     } else {
         AlertToastTitle(@"未播放该歌单");
     }
+}
+
+#pragma mark - 长按事件
+
+-(void)longTap:(UILongPressGestureRecognizer *)longRecognizer {
+    if (longRecognizer.state==UIGestureRecognizerStateBegan) {
+        self.longPressIndexPathRow = [self.view.infoTV indexPathForCell:(UITableViewCell *)longRecognizer.view].row;
+        
+        [self.view.vc becomeFirstResponder];
+        UIMenuController *menu = [UIMenuController sharedMenuController];
+        UIMenuItem *copyItem   = [[UIMenuItem alloc] initWithTitle:@"修改" action:@selector(cellGrEditFileNameAction)];
+        UIMenuItem *resendItem = [[UIMenuItem alloc] initWithTitle:@"删除" action:@selector(cellGrDeleteFileAction)];
+        
+        [menu setMenuItems:[NSArray arrayWithObjects:copyItem,resendItem,nil]];
+        [menu setTargetRect:longRecognizer.view.frame inView:self.view.infoTV];
+        
+        [menu setMenuVisible:YES animated:YES];
+    }
+}
+
+#pragma mark method
+- (void)cellGrEditFileNameAction {
+    NSMutableArray * songArray = [self currentSongArray];
+    FileEntity * entity = songArray[self.longPressIndexPathRow];
+    
+    NSLog(@"entity: %@", entity.fileNameDeleteExtension);
+    if (entity.fileNameDeleteExtension.length > 0) {
+        // 音乐
+        
+    } else {
+        // 文件夹
+        
+    }
+}
+
+- (void)cellGrDeleteFileAction {
+    NSMutableArray * songArray = [self currentSongArray];
+    FileEntity * entity = songArray[self.longPressIndexPathRow];
+    
+    NSLog(@"entity: %@", entity.fileNameDeleteExtension);
+    if (entity.fileNameDeleteExtension.length > 0) {
+        // 音乐
+        [self deleteFileAction];
+    } else {
+        // 文件夹
+        [self deleteFolderAction];
+    }
+}
+
+- (void)deleteFileAction {
+    NSMutableArray * songArray = [self currentSongArray];
+    FileEntity * entity = songArray[self.longPressIndexPathRow];
+    
+    UIAlertController * oneAC = [UIAlertController alertControllerWithTitle:@"提醒" message:[NSString stringWithFormat:@"确认删除'%@'吗?", entity.fileNameDeleteExtension] preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction * cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        
+        NSString * path = [NSString stringWithFormat:@"%@/%@", FT_docPath, entity.filePath];
+        [NSFileManager deleteFile:path];
+        
+        [self.interactor.infoArray removeObject:entity];
+        [self.view.searchArray removeObject:entity];
+        [self.view.infoTV reloadData];
+        
+        AlertToastTitle(@"删除成功");
+    }];
+    
+    [oneAC addAction:cancleAction];
+    [oneAC addAction:okAction];
+    
+    [self.view.vc presentViewController:oneAC animated:YES completion:nil];
+}
+
+- (void)deleteFolderAction {
+    NSMutableArray * songArray = [self currentSongArray];
+    FileEntity * entity = songArray[self.longPressIndexPathRow];
+    
+    UIAlertController * oneAC = [UIAlertController alertControllerWithTitle:@"提醒" message:[NSString stringWithFormat:@"确认删除《%@》吗?\n包含%li个文件", entity.fileName, entity.itemArray.count] preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction * cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        NSString * path = [NSString stringWithFormat:@"%@/%@", FT_docPath, entity.fileName];
+        [NSFileManager deleteFile:path];
+        AlertToastTitle(@"删除成功");
+        
+        [self.interactor.infoArray removeObject:entity];
+        [self.view.infoTV reloadData];
+    }];
+    
+    [oneAC addAction:cancleAction];
+    [oneAC addAction:okAction];
+    
+    [self.view.vc presentViewController:oneAC animated:YES completion:nil];
 }
 
 @end

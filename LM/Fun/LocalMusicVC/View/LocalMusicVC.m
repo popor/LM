@@ -315,4 +315,29 @@
     //    });
 }
 
+
+#pragma mark 处理action事件
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender{
+    if(action ==@selector(cellGrEditFileNameAction)){
+        return YES;
+    } else if (action==@selector(cellGrDeleteFileAction)){
+        
+        return YES;
+    }
+    return [super canPerformAction:action withSender:sender];
+}
+
+- (void)cellGrEditFileNameAction {
+    [self.present cellGrEditFileNameAction];
+}
+
+- (void)cellGrDeleteFileAction {
+    [self.present cellGrDeleteFileAction];
+}
+
+#pragma mark 实现成为第一响应者方法
+- (BOOL)canBecomeFirstResponder{
+    return YES;
+}
+
 @end
