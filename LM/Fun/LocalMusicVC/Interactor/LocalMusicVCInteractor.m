@@ -46,9 +46,24 @@
             continue;
         }
 #endif
-        folderEntity.itemArray = [FileTool getArrayAtPath:[NSString stringWithFormat:@"%@/%@", folderEntity.folderName, folderEntity.fileName] type:FileTypeItem];
+        
+        NSMutableArray<FileEntity, Ignore> * itemArray = [FileTool getArrayAtPath:[NSString stringWithFormat:@"%@/%@", folderEntity.folderName, folderEntity.fileName] type:FileTypeItem];
+        
+        // 排序
+        NSArray *result = [itemArray sortedArrayUsingComparator:^NSComparisonResult(FileEntity * _Nonnull obj1, FileEntity * _Nonnull obj2) {
+            return [obj1.fileNameDeleteExtension compare:obj2.fileNameDeleteExtension]; //升序
+        }];
+        folderEntity.itemArray = result.mutableCopy;
+        
         i++;
     }
+    
+    NSArray *result = [self.folderArray sortedArrayUsingComparator:^NSComparisonResult(FileEntity * _Nonnull obj1, FileEntity * _Nonnull obj2) {
+        
+        return [obj1.fileNameDeleteExtension compare:obj2.fileNameDeleteExtension]; //升序
+    }];
+    self.folderArray = result.mutableCopy;
+    
     self.infoArray = self.folderArray;
 }
 
