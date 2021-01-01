@@ -48,4 +48,33 @@
     return coverImage;
 }
 
+- (void)updateFileFolder:(NSString *)folderName isFolder:(BOOL)isFolder FileName:(NSString *)fileName {
+    self.folderName = folderName;
+    self.fileName   = fileName;
+    self.folder     = isFolder;
+    self.filePath   = [NSString stringWithFormat:@"%@/%@", folderName, fileName];
+    
+    if (isFolder) {
+        
+    } else {
+        if (fileName.pathExtension.length > 0) {
+            self.fileNameDeleteExtension = [fileName substringToIndex:fileName.length - fileName.pathExtension.length - 1];
+        } else {
+            self.fileNameDeleteExtension = fileName;
+        }
+        
+        NSRange range = [self.fileNameDeleteExtension rangeOfString:@"-"];
+        if (range.location > 0 && range.length > 0) {
+            self.musicName   = [self.fileNameDeleteExtension substringFromIndex:range.location + range.length];
+            self.musicAuthor = [self.fileNameDeleteExtension substringToIndex:range.location];
+            
+            self.musicName   = [self.musicName replaceWithREG:@"^\\s+" newString:@""];
+            self.musicAuthor = [self.musicAuthor replaceWithREG:@"\\s+$" newString:@""];
+        }else{
+            self.musicName   = self.fileNameDeleteExtension;
+            self.musicAuthor = @"";
+        }
+    }
+}
+
 @end

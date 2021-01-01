@@ -604,18 +604,88 @@ API_AVAILABLE(ios(12.0))
     NSLog(@"entity: %@", entity.fileNameDeleteExtension);
     if (entity.fileNameDeleteExtension.length > 0) {
         // 音乐
-        
+        [self editFileAction];
     } else {
         // 文件夹
-        
+        [self editFolderAction];
     }
+}
+
+- (void)editFileAction {
+    NSMutableArray * songArray = [self currentSongArray];
+    FileEntity * entity = songArray[self.longPressIndexPathRow];
+    
+    UIAlertController * oneAC = [UIAlertController alertControllerWithTitle:@"修改文件名称" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    [oneAC addTextFieldWithConfigurationHandler:^(UITextField *textField){
+        
+        textField.placeholder = entity.fileName;
+        textField.text        = entity.fileName;
+    }];
+    
+    UIAlertAction * cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction * changeAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UITextField * nameTF = oneAC.textFields[0];
+        //NSLog(@"更新 name: %@", nameTF.text);
+        if (nameTF.text.length > 0) {
+            NSString * path0 = [NSString stringWithFormat:@"%@/%@", FT_docPath, entity.filePath];
+            NSString * path1 = [NSString stringWithFormat:@"%@/%@/%@", FT_docPath, entity.folderName, nameTF.text];
+            [NSFileManager moveFile:path0 to:path1];
+            
+            [entity updateFileFolder:entity.folderName isFolder:entity.folder FileName:nameTF.text];
+            
+            [self.view.infoTV reloadData];
+        }
+    }];
+    
+    [oneAC addAction:cancleAction];
+    [oneAC addAction:changeAction];
+    
+    [self.view.vc presentViewController:oneAC animated:YES completion:nil];
+}
+
+- (void)editFolderAction {
+    NSMutableArray * songArray = [self currentSongArray];
+    FileEntity * entity = songArray[self.longPressIndexPathRow];
+    
+    UIAlertController * oneAC = [UIAlertController alertControllerWithTitle:@"修改文件夹名称" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    [oneAC addTextFieldWithConfigurationHandler:^(UITextField *textField){
+        
+        textField.placeholder = entity.fileName;
+        textField.text        = entity.fileName;
+    }];
+    
+    UIAlertAction * cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction * changeAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UITextField * nameTF = oneAC.textFields[0];
+        //NSLog(@"更新 name: %@", nameTF.text);
+        if (nameTF.text.length > 0) {
+            NSString * path0 = [NSString stringWithFormat:@"%@/%@", FT_docPath, entity.fileName];
+            NSString * path1 = [NSString stringWithFormat:@"%@/%@", FT_docPath, nameTF.text];
+            [NSFileManager moveFile:path0 to:path1];
+            
+            [entity updateFileFolder:entity.folderName isFolder:entity.folder FileName:nameTF.text];
+            
+            for (FileEntity * fe in entity.itemArray) {
+                [fe updateFileFolder:entity.fileName isFolder:fe.folder FileName:fe.fileName];
+            }
+            
+            [self.view.infoTV reloadData];
+        }
+    }];
+    
+    [oneAC addAction:cancleAction];
+    [oneAC addAction:changeAction];
+    
+    [self.view.vc presentViewController:oneAC animated:YES completion:nil];
 }
 
 - (void)cellGrDeleteFileAction {
     NSMutableArray * songArray = [self currentSongArray];
     FileEntity * entity = songArray[self.longPressIndexPathRow];
     
-    NSLog(@"entity: %@", entity.fileNameDeleteExtension);
+    //NSLog(@"entity: %@", entity.fileNameDeleteExtension);
     if (entity.fileNameDeleteExtension.length > 0) {
         // 音乐
         [self deleteFileAction];

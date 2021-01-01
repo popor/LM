@@ -45,32 +45,12 @@
         BOOL folderFlag;
         [fileManager fileExistsAtPath:[NSString stringWithFormat:@"%@/%@", path, fileName] isDirectory:&folderFlag];
         FileEntity * entity = [FileEntity new];
-        entity.folderName = folderName;
-        entity.fileName   = fileName;
-        entity.filePath   = [NSString stringWithFormat:@"%@/%@", folderName, fileName];
-        if(folderFlag){
+        [entity updateFileFolder:folderName isFolder:folderFlag FileName:fileName];
+        
+        if (folderFlag) {
             [direnum skipDescendants];
-            entity.folder = YES;
-        }else{
-            entity.folder = NO;
-            if (fileName.pathExtension.length > 0) {
-                entity.fileNameDeleteExtension = [fileName substringToIndex:fileName.length - fileName.pathExtension.length - 1];
-            } else {
-                entity.fileNameDeleteExtension = fileName;
-            }
-            
-            NSRange range = [entity.fileNameDeleteExtension rangeOfString:@"-"];
-            if (range.location > 0 && range.length > 0) {
-                entity.musicName  = [entity.fileNameDeleteExtension substringFromIndex:range.location + range.length];
-                entity.musicAuthor = [entity.fileNameDeleteExtension substringToIndex:range.location];
-                
-                entity.musicName  = [entity.musicName replaceWithREG:@"^\\s+" newString:@""];
-                entity.musicAuthor = [entity.musicAuthor replaceWithREG:@"\\s+$" newString:@""];
-            }else{
-                entity.musicName  = entity.fileNameDeleteExtension;
-                entity.musicAuthor = @"";
-            }
         }
+        
         switch (type) {
             case FileTypeFolder:{
                 if (entity.isFolder) {

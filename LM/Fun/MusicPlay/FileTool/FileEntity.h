@@ -33,9 +33,9 @@ static NSString * WFIgnoreFile = @".DS_Store";
 
 @property (nonatomic, getter=isFolder) BOOL folder;
 
-
 + (UIImage *)mp3CoverImage:(NSString *)filePath;
 
+- (void)updateFileFolder:(NSString *)folderName isFolder:(BOOL)isFolder FileName:(NSString *)fileName;
 
 @end
 
