@@ -24,8 +24,8 @@
 
 @property (nonatomic, strong) UISearchBar     * searchBar;
 @property (nonatomic, strong) UIView          * searchCoverView;
-@property (nonatomic, getter=isSearchTypeOld) BOOL searchTypeOld;// 显示搜索模式
-@property (nonatomic, getter=isSearchType) BOOL searchType;// 显示搜索模式
+//@property (nonatomic, getter=isSearchTypeOld) BOOL searchTypeOld;// 显示搜索模式
+//@property (nonatomic, getter=isSearchType) BOOL searchType;// 显示搜索模式
 @property (nonatomic, strong) NSMutableArray<FileEntity> * searchArray;
 
 @property (nonatomic, strong) UIButton        * aimBT;

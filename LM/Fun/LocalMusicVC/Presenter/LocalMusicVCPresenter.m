@@ -111,10 +111,11 @@ API_AVAILABLE(ios(12.0))
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == self.view.infoTV) {
-        if (self.view.isSearchType) {
-            return self.view.searchArray.count;
+        NSMutableArray * array = [self currentSongArray];
+        if ([self isSearchArray]) {
+            return array.count;
         }else{
-            return MAX(self.interactor.infoArray.count, 1);
+            return MAX(array.count, 1);
         }
         
     }else{
@@ -204,12 +205,9 @@ API_AVAILABLE(ios(12.0))
             }];
         }
         
-        FileEntity * entity;
-        if (self.view.isSearchType) {
-            entity = self.view.searchArray[indexPath.row];
-        } else {
-            entity = self.interactor.infoArray[indexPath.row];
-        }
+        NSMutableArray * songArray = [self currentSongArray];
+        FileEntity * entity = songArray[indexPath.row];
+        
         if (entity) {
             if (entity.isFolder) {
                 cell.titelL.text = entity.fileName;
@@ -264,13 +262,13 @@ API_AVAILABLE(ios(12.0))
                     
                 }
                 
-                if (self.view.isSearchType) {
+                if ([self isSearchArray]) {
                     [self attLable:cell.titelL searchText:self.view.searchBar.text];
                     [self attLable:cell.timeL searchText:self.view.searchBar.text];
                 }
             }
         } else {
-            if (self.view.isSearchType) {
+            if ([self isSearchArray]) {
                 // 搜索的时候, 不会出现这种情况
             } else {
                 // 非搜索的时候, 可能出现
@@ -319,6 +317,22 @@ API_AVAILABLE(ios(12.0))
     }
 }
 
+- (BOOL)isSearchArray {
+    if (self.view.searchArray.count > 0) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (NSMutableArray *)currentSongArray {
+    if (self.view.searchArray.count > 0) {
+        return self.view.searchArray;
+    } else {
+        return self.interactor.infoArray;
+    }
+}
+
 - (void)attLable:(UILabel *)cellL searchText:(NSString *)searchText {
     if ([cellL.text.lowercaseString containsString:searchText.lowercaseString]) {
         NSMutableAttributedString * attBase = [NSMutableAttributedString new];
@@ -342,7 +356,7 @@ API_AVAILABLE(ios(12.0))
         FileEntity * fileEntity;
         NSMutableArray<FileEntity> * itemArray;
         McPlayType playType;
-        if (self.view.isSearchType) {
+        if ([self isSearchArray]) {
             fileEntity = self.view.searchArray[indexPath.row];
             itemArray  = self.view.searchArray;
             playType   = McPlayType_searchLocal;
@@ -366,7 +380,7 @@ API_AVAILABLE(ios(12.0))
                     self.lastCell.rightIV.hidden   = YES;
                     
                     // 刷新搜索状态
-                    if (self.view.isSearchType) {
+                    if ([self isSearchArray]) {
                         [self attLable:self.lastCell.titelL searchText:self.view.searchBar.text];
                         [self attLable:self.lastCell.timeL searchText:self.view.searchBar.text];
                     }
@@ -380,7 +394,7 @@ API_AVAILABLE(ios(12.0))
                     self.lastCell = cell;
                     
                     // 刷新搜索状态
-                    if (self.view.isSearchType) {
+                    if ([self isSearchArray]) {
                         [self attLable:self.lastCell.titelL searchText:self.view.searchBar.text];
                         [self attLable:self.lastCell.timeL searchText:self.view.searchBar.text];
                     }
@@ -506,11 +520,14 @@ API_AVAILABLE(ios(12.0))
 - (void)searchAction:(UISearchBar *)bar {
     [self.view.searchArray removeAllObjects];
     NSString * text = bar.text.lowercaseString;
+    //NSLog(@"搜索 : %@", text);
     for (FileEntity * fileEntity in self.interactor.infoArray) {
-        if ([fileEntity.fileName.lowercaseString containsString:text]) {
+        if ([fileEntity.fileNameDeleteExtension.lowercaseString containsString:text]) {
+            //NSLog(@"fileName: %@", fileEntity.fileNameDeleteExtension.lowercaseString);
             [self.view.searchArray addObject:fileEntity];
         }
     }
+    //NSLogIntegerTitle(self.view.searchArray.count, @"搜索数据");
     [self.view.infoTV reloadData];
 }
 

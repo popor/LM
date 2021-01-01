@@ -221,6 +221,7 @@
 		180E33A4224DE7E5008C176D /* LocalMusicVC */ = {
 			isa = PBXGroup;
 			children = (
+				18DE13B02251F790009920D7 /* cell */,
 				180E33B6224DE806008C176D /* View */,
 				180E33AD224DE806008C176D /* Presenter */,
 				180E33B0224DE806008C176D /* Interactor */,
@@ -249,7 +250,6 @@
 		180E33B6224DE806008C176D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				18DE13B02251F790009920D7 /* cell */,
 				180E33B9224DE806008C176D /* LocalMusicVC.h */,
 				180E33B8224DE806008C176D /* LocalMusicVC.m */,
 				180E33B7224DE806008C176D /* LocalMusicVCProtocol.h */,
@@ -1066,7 +1066,7 @@
 				DEVELOPMENT_TEAM = 7DUQZP3WD7;
 				GCC_PREFIX_HEADER = LM/AppPrefix.h;
 				INFOPLIST_FILE = LM/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1091,7 +1091,7 @@
 				DEVELOPMENT_TEAM = 7DUQZP3WD7;
 				GCC_PREFIX_HEADER = LM/AppPrefix.h;
 				INFOPLIST_FILE = LM/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

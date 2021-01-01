@@ -24,8 +24,6 @@
 
 @synthesize searchBar;
 @synthesize searchCoverView;
-@synthesize searchType;
-@synthesize searchTypeOld;
 @synthesize searchArray;
 @synthesize aimBT;
 @synthesize root;
@@ -273,20 +271,20 @@
     [self.view becomeFirstResponder];
    
     if (searchBar.text.length > 0) {
-        self.searchType = YES;
         [self.present searchAction:searchBar];
     }else{
         [self searchCancelAction];
     }
-    self.searchTypeOld = self.isSearchType;
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    [[self.present class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(searchAction:) object:nil];
+    [self.present performSelector:@selector(searchAction:) withObject:searchBar afterDelay:0.5];
 }
 
 - (void)searchCancelAction {
     if (searchBar.text.length == 0) {
-        self.searchType = NO;
-        if (self.isSearchTypeOld != self.isSearchType) {
-            [self.infoTV reloadData];
-        }
+        [self.infoTV reloadData];
     }
 }
 
