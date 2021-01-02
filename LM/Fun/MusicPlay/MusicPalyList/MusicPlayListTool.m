@@ -29,6 +29,8 @@
     if (self = [super init]) {
         [[NSFileManager defaultManager] createDirectoryAtPath:[NSString stringWithFormat:@"%@/%@", FT_docPath, ConfigFolderName]
                                   withIntermediateDirectories:YES attributes:nil error:nil];
+        [[NSFileManager defaultManager] createDirectoryAtPath:[NSString stringWithFormat:@"%@/%@", FT_docPath, ArtworkFolderName]
+                                  withIntermediateDirectories:YES attributes:nil error:nil];
         
 #if TARGET_OS_MACCATALYST
         [[NSFileManager defaultManager] createDirectoryAtPath:[NSString stringWithFormat:@"%@/%@", FT_docPath, MusicFolderName]
@@ -101,11 +103,28 @@
 
 
 - (NSString *)listFilePath {
-    return [NSString stringWithFormat:@"%@/%@/%@.json", FT_docPath, ConfigFolderName, LmPlayListKey];
+    static NSString * text;
+    if (!text) {
+        text = [NSString stringWithFormat:@"%@/%@/%@.json", FT_docPath, ConfigFolderName, LmPlayListKey];
+    }
+    return text;
 }
 
 - (NSString *)configFilePath {
-    return [NSString stringWithFormat:@"%@/%@/%@.json", FT_docPath, ConfigFolderName, LmConfigKey];
+    static NSString * text;
+    if (!text) {
+        text = [NSString stringWithFormat:@"%@/%@/%@.json", FT_docPath, ConfigFolderName, LmConfigKey];
+    }
+    return text;
+}
+
+// 插图路径
+- (NSString *)artworkFolderPath {
+    static NSString * text;
+    if (!text) {
+        text = [NSString stringWithFormat:@"%@/%@/%@.json", FT_docPath, ConfigFolderName, ArtworkFolderName];
+    }
+    return text;
 }
 
 @end

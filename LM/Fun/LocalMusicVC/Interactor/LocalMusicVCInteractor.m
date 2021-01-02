@@ -40,8 +40,10 @@
 #else
         if ([folderEntity.fileName isEqualToString:LrcFolderName]
             || [folderEntity.fileName isEqualToString:LrcListFolderName]
-            || [folderEntity.fileName isEqualToString:ConfigFolderName]) {
-            // ios 忽略3个文件夹
+            || [folderEntity.fileName isEqualToString:ConfigFolderName])
+            || [folderEntity.fileName isEqualToString:ArtworkFolderName])
+            {
+            // ios 忽略4个文件夹
             [self.folderArray removeObject:folderEntity];
             continue;
         }
