@@ -283,7 +283,7 @@
 #if TARGET_OS_MACCATALYST
         make.top.mas_equalTo(40);
 #else
-        make.top.mas_equalTo(20);
+        make.top.mas_equalTo([UIDevice statusBarHeight] +5);
 #endif
         
         make.right.mas_equalTo(-15);
