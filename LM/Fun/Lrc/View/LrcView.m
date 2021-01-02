@@ -34,6 +34,7 @@
 
 @synthesize coverFillBT;
 
+@synthesize dragLrcTimeView;
 @synthesize timeL;
 @synthesize playBT;
 @synthesize lineView1;
@@ -162,6 +163,26 @@
 
 - (void)addDragBTs {
     {
+        self.dragLrcTimeView = ({
+            UIView * oneView = [UIView new];
+            oneView.backgroundColor = UIColor.clearColor;
+            
+            [self.view addSubview:oneView];
+            oneView;
+        });
+        UITapGestureRecognizer * tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self.present action:@selector(playBTAction)];
+        [self.dragLrcTimeView addGestureRecognizer:tapGR];
+        
+        [self.dragLrcTimeView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.mas_equalTo(0);
+            make.left.mas_equalTo(0);
+            make.right.mas_equalTo(0);
+            make.height.mas_equalTo(40);
+            
+        }];
+    }
+    
+    {
         self.timeL = ({
             UILabel * oneL = [UILabel new];
             oneL.backgroundColor     = [UIColor clearColor]; // ios8 之前
@@ -169,8 +190,9 @@
             oneL.textColor           = App_textSColor;
             oneL.layer.masksToBounds = YES; // ios8 之后 lableLayer 问题
             oneL.numberOfLines       = 1;
+            oneL.userInteractionEnabled = NO;
             
-            [self.view addSubview:oneL];
+            [self.dragLrcTimeView addSubview:oneL];
             oneL;
         });
         [self.timeL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -188,11 +210,9 @@
             [oneBT setTitleColor:App_textSColor forState:UIControlStateNormal];
             [oneBT setBackgroundColor:[UIColor clearColor]];
             oneBT.titleLabel.font = [UIFont systemFontOfSize:30];
+            oneBT.userInteractionEnabled = NO;
             
-            [self.view addSubview:oneBT];
-            
-            [oneBT addTarget:self.present action:@selector(playBTAction) forControlEvents:UIControlEventTouchUpInside];
-            
+            [self.dragLrcTimeView addSubview:oneBT];
             oneBT;
         });
         
@@ -203,61 +223,61 @@
             make.size.mas_equalTo(CGSizeMake(40, 40));
         }];
     }
-    {
-        CGSize size = CGSizeMake(20, 1);
-        self.lineView1 = ({
-            UIImageView * view = [UIImageView new];
-            view.contentMode = UIViewContentModeScaleToFill;
-            view.backgroundColor = [UIColor clearColor];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        {
+            CGSize size = CGSizeMake(20, 1);
+            self.lineView1 = ({
+                UIImageView * view = [UIImageView new];
+                view.contentMode = UIViewContentModeScaleToFill;
+                view.backgroundColor = [UIColor clearColor];
+                
+                [self.dragLrcTimeView addSubview:view];
+                view;
+            });
+            self.lineView2 = ({
+                UIImageView * view = [UIImageView new];
+                view.contentMode = UIViewContentModeScaleToFill;
+                view.backgroundColor = [UIColor clearColor];
+                
+                [self.dragLrcTimeView addSubview:view];
+                view;
+            });
+            [self.lineView1 mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.mas_equalTo(0);
+                make.left.mas_equalTo(self.timeL.mas_right);
+                
+                make.height.mas_equalTo(size.height);
+            }];
+            [self.lineView2 mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.mas_equalTo(0);
+                make.right.mas_equalTo(self.playBT.mas_left);
+                
+                make.height.mas_equalTo(size.height);
+                make.width.mas_equalTo(self.lineView1.mas_width);
+                
+                CGFloat gap = 80;
+    #if TARGET_OS_MACCATALYST
+                gap = 200;
+    #else
+                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                    gap = 400;
+                }
+    #endif
+                make.left.mas_equalTo(self.lineView1.mas_right).mas_offset(gap);
+            }];
             
-            [self.view addSubview:view];
-            view;
-        });
-        self.lineView2 = ({
-            UIImageView * view = [UIImageView new];
-            view.contentMode = UIViewContentModeScaleToFill;
-            view.backgroundColor = [UIColor clearColor];
+            UIColor * c0 = [ColorThemeBlue1 colorWithAlphaComponent:1];
+            UIColor * c1 = [ColorThemeBlue1 colorWithAlphaComponent:0];
             
-            [self.view addSubview:view];
-            view;
-        });
-        [self.lineView1 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.mas_equalTo(0);
-            make.left.mas_equalTo(self.timeL.mas_right);
+            UIImage * image1 = [UIImage gradientImageWithBounds:CGRectMake(0, 0, size.width, size.height) andColors:@[c0, c1] gradientHorizon:YES];
+            UIImage * image2 = [UIImage gradientImageWithBounds:CGRectMake(0, 0, size.width, size.height) andColors:@[c1, c0] gradientHorizon:YES];
             
-            make.height.mas_equalTo(size.height);
-        }];
-        [self.lineView2 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.mas_equalTo(0);
-            make.right.mas_equalTo(self.playBT.mas_left);
-            
-            make.height.mas_equalTo(size.height);
-            make.width.mas_equalTo(self.lineView1.mas_width);
-            
-            CGFloat gap = 80;
-#if TARGET_OS_MACCATALYST
-            gap = 200;
-#else
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                gap = 400;
-            }
-#endif
-            make.left.mas_equalTo(self.lineView1.mas_right).mas_offset(gap);
-        }];
-        
-        UIColor * c0 = [ColorThemeBlue1 colorWithAlphaComponent:1];
-        UIColor * c1 = [ColorThemeBlue1 colorWithAlphaComponent:0];
-        
-        UIImage * image1 = [UIImage gradientImageWithBounds:CGRectMake(0, 0, size.width, size.height) andColors:@[c0, c1] gradientHorizon:YES];
-        UIImage * image2 = [UIImage gradientImageWithBounds:CGRectMake(0, 0, size.width, size.height) andColors:@[c1, c0] gradientHorizon:YES];
-        
-        self.lineView1.image = image1;
-        self.lineView2.image = image2;
-    }
-    self.timeL.hidden     = YES;
-    self.playBT.hidden    = YES;
-    self.lineView1.hidden = YES;
-    self.lineView2.hidden = YES;
+            self.lineView1.image = image1;
+            self.lineView2.image = image2;
+        }
+    });
+    
+    self.dragLrcTimeView.hidden = YES;
 }
 
 - (void)addCloseBts {

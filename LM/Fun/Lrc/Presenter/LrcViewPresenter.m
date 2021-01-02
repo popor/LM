@@ -136,10 +136,7 @@
     if (scrollView == self.view.infoTV) {
         if (self.lrcArray.count > 0) {
             self.view.tvDrag = YES;
-            self.view.timeL.hidden     = NO;
-            self.view.playBT.hidden    = NO;
-            self.view.lineView1.hidden = NO;
-            self.view.lineView2.hidden = NO;
+            self.view.dragLrcTimeView.hidden = NO;
         } else {
             [self endDragDelay];
         }
@@ -192,10 +189,7 @@
 
 - (void)endDragDelay {
     self.view.tvDrag = NO;
-    self.view.timeL.hidden     = YES;
-    self.view.playBT.hidden    = YES;
-    self.view.lineView1.hidden = YES;
-    self.view.lineView2.hidden = YES;
+    self.view.dragLrcTimeView.hidden = YES;
 }
 
 #pragma mark - VC_EventHandler
