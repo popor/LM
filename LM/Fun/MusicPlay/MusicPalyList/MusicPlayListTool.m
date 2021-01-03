@@ -32,6 +32,9 @@
         //[[NSFileManager defaultManager] createDirectoryAtPath:[NSString stringWithFormat:@"%@/%@", FT_docPath, ArtworkFolderName]
         //                          withIntermediateDirectories:YES attributes:nil error:nil];
         
+        [[NSFileManager defaultManager] createDirectoryAtPath:[NSString stringWithFormat:@"%@/%@", FT_docPath, DownloadFolderName]
+                                  withIntermediateDirectories:YES attributes:nil error:nil];
+        
 #if TARGET_OS_MACCATALYST
         [[NSFileManager defaultManager] createDirectoryAtPath:[NSString stringWithFormat:@"%@/%@", FT_docPath, MusicFolderName]
                                   withIntermediateDirectories:YES attributes:nil error:nil];
@@ -122,7 +125,15 @@
 - (NSString *)artworkFolderPath {
     static NSString * text;
     if (!text) {
-        text = [NSString stringWithFormat:@"%@/%@/%@.json", FT_docPath, ConfigFolderName, ArtworkFolderName];
+        text = [NSString stringWithFormat:@"%@/%@", FT_docPath, ArtworkFolderName];
+    }
+    return text;
+}
+
++ (NSString *)downloadFolderPath {
+    static NSString * text;
+    if (!text) {
+        text = [NSString stringWithFormat:@"%@/%@", FT_docPath, DownloadFolderName];
     }
     return text;
 }

@@ -24,6 +24,7 @@
 @synthesize tvSV;
 @synthesize songListVC;
 @synthesize localMusicVC;
+@synthesize netMusicVC;
 @synthesize lrcView;
 
 - (instancetype)initWithDic:(NSDictionary *)dic {
@@ -186,7 +187,7 @@
 
 - (void)reloadTvFrame {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.tvSV.contentSize = CGSizeMake(ceil(self.tvSV.width +1)*2, self.tvSV.height); // mac 全屏之后, 不+1的话, 会导致滑动失效.
+        self.tvSV.contentSize = CGSizeMake(ceil(self.tvSV.width +1)*self.titleArray.count, self.tvSV.height); // mac 全屏之后, 不+1的话, 会导致滑动失效.
     });
 }
 
@@ -198,7 +199,7 @@
 
 // 这个主要用于mac同步执行
 - (void)reloadTv_PlayBarFrame_sync {
-    self.tvSV.contentSize = CGSizeMake(ceil(self.tvSV.width +1)*2, self.tvSV.height); // mac 全屏之后, 不+1的话, 会导致滑动失效.
+    self.tvSV.contentSize = CGSizeMake(ceil(self.tvSV.width +1)*self.titleArray.count, self.tvSV.height); // mac 全屏之后, 不+1的话, 会导致滑动失效.
     [self.playbar updateProgressSectionFrame];
 }
 
@@ -235,7 +236,7 @@
 }
 
 - (void)addHeadSegmentViews {
-    self.titleArray = @[@"歌单", @"本地"];
+    self.titleArray = @[@"歌单", @"本地", @"网络"];
     self.segmentView = ({
         NSArray *titleAry = self.titleArray;
         
@@ -317,6 +318,24 @@
         
         self.localMusicVC = ({
             LocalMusicVC * vc = [[LocalMusicVC alloc] initWithDic:nil];
+            
+            [self addChildViewController:vc];
+            [self.tvSV addSubview:vc.view];
+            
+            [self.tvArray addObject:vc.view];
+            
+            [vc.view mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.mas_equalTo(0);
+                make.bottom.mas_equalTo(0);
+                
+                make.width.mas_equalTo(self.tvSV);
+                make.height.mas_equalTo(self.tvSV);
+            }];
+            
+            vc;
+        });
+        self.netMusicVC = ({
+            NetMusicVC * vc = [[NetMusicVC alloc] initWithDic:nil];
             
             [self addChildViewController:vc];
             [self.tvSV addSubview:vc.view];

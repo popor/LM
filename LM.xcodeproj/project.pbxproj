@@ -58,6 +58,10 @@
 		C3F31AE22539709100621878 /* 半屏@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F31ADE2539709100621878 /* 半屏@2x.png */; };
 		C3F31AE32539709100621878 /* 半屏@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F31ADF2539709100621878 /* 半屏@3x.png */; };
 		D4807A288BE4B56179FA77D5 /* libPods-LM.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7B2B70D60E892B2A452617D /* libPods-LM.a */; };
+		E431E50B25A19C3A0024C67B /* NetMusicVCInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = E431E50225A19C3A0024C67B /* NetMusicVCInteractor.m */; };
+		E431E50C25A19C3A0024C67B /* NetMusicVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E431E50625A19C3A0024C67B /* NetMusicVC.m */; };
+		E431E50D25A19C3A0024C67B /* NetMusicVCPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = E431E50A25A19C3A0024C67B /* NetMusicVCPresenter.m */; };
+		E431E51325A1A16C0024C67B /* FD_FileDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = E431E51125A1A16C0024C67B /* FD_FileDownload.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -191,6 +195,15 @@
 		C3F31BC425398F2300621878 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D517352033FD9281F808A739 /* Pods-LM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LM.release.xcconfig"; path = "Target Support Files/Pods-LM/Pods-LM.release.xcconfig"; sourceTree = "<group>"; };
 		D7B2B70D60E892B2A452617D /* libPods-LM.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LM.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E431E50225A19C3A0024C67B /* NetMusicVCInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetMusicVCInteractor.m; sourceTree = "<group>"; };
+		E431E50325A19C3A0024C67B /* NetMusicVCInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetMusicVCInteractor.h; sourceTree = "<group>"; };
+		E431E50525A19C3A0024C67B /* NetMusicVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetMusicVC.h; sourceTree = "<group>"; };
+		E431E50625A19C3A0024C67B /* NetMusicVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetMusicVC.m; sourceTree = "<group>"; };
+		E431E50725A19C3A0024C67B /* NetMusicVCProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetMusicVCProtocol.h; sourceTree = "<group>"; };
+		E431E50925A19C3A0024C67B /* NetMusicVCPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetMusicVCPresenter.h; sourceTree = "<group>"; };
+		E431E50A25A19C3A0024C67B /* NetMusicVCPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetMusicVCPresenter.m; sourceTree = "<group>"; };
+		E431E51125A1A16C0024C67B /* FD_FileDownload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FD_FileDownload.m; sourceTree = "<group>"; };
+		E431E51225A1A16C0024C67B /* FD_FileDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FD_FileDownload.h; sourceTree = "<group>"; };
 		F9733473842C796E3D6C9304 /* libPods-LMUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LMUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -377,6 +390,7 @@
 		183BF42B224A25B0004DE115 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				E431E51025A1A16C0024C67B /* FD_download */,
 				C3F31AD525395D3F00621878 /* NC */,
 				C3AD51692517307F00746FA2 /* Color */,
 			);
@@ -417,6 +431,7 @@
 				C3AD50F82516EE1100746FA2 /* SongSection */,
 				180E33A4224DE7E5008C176D /* LocalMusicVC */,
 				18561596224DC1D0004BE073 /* WifiAddFileVC */,
+				E431E4F925A19C0C0024C67B /* NetMusicVC */,
 			);
 			path = Fun;
 			sourceTree = "<group>";
@@ -744,6 +759,53 @@
 			path = image;
 			sourceTree = "<group>";
 		};
+		E431E4F925A19C0C0024C67B /* NetMusicVC */ = {
+			isa = PBXGroup;
+			children = (
+				E431E50425A19C3A0024C67B /* View */,
+				E431E50825A19C3A0024C67B /* Presenter */,
+				E431E50125A19C3A0024C67B /* Interactor */,
+			);
+			path = NetMusicVC;
+			sourceTree = "<group>";
+		};
+		E431E50125A19C3A0024C67B /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				E431E50325A19C3A0024C67B /* NetMusicVCInteractor.h */,
+				E431E50225A19C3A0024C67B /* NetMusicVCInteractor.m */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		E431E50425A19C3A0024C67B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E431E50525A19C3A0024C67B /* NetMusicVC.h */,
+				E431E50625A19C3A0024C67B /* NetMusicVC.m */,
+				E431E50725A19C3A0024C67B /* NetMusicVCProtocol.h */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E431E50825A19C3A0024C67B /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				E431E50925A19C3A0024C67B /* NetMusicVCPresenter.h */,
+				E431E50A25A19C3A0024C67B /* NetMusicVCPresenter.m */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		E431E51025A1A16C0024C67B /* FD_download */ = {
+			isa = PBXGroup;
+			children = (
+				E431E51125A1A16C0024C67B /* FD_FileDownload.m */,
+				E431E51225A1A16C0024C67B /* FD_FileDownload.h */,
+			);
+			path = FD_download;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -880,19 +942,23 @@
 				1856158E224DBF0E004BE073 /* MusicPlayList.m in Sources */,
 				183BF426224A22EC004DE115 /* RootVC.m in Sources */,
 				189A5DEE225C94A8001E8A9D /* AppNetRecordConfig.m in Sources */,
+				E431E50C25A19C3A0024C67B /* NetMusicVC.m in Sources */,
 				180E33BD224DE806008C176D /* LocalMusicVC.m in Sources */,
 				C3AD51342516FC6900746FA2 /* MRouterUrlPrefix.m in Sources */,
 				18DE13AC2251F40A009920D7 /* SongListDetailVCInteractor.m in Sources */,
 				C39396F72536D3F400409025 /* LrcViewInteractor.m in Sources */,
+				E431E50D25A19C3A0024C67B /* NetMusicVCPresenter.m in Sources */,
 				185615AD224DC23A004BE073 /* WifiAddFileVCPresenter.m in Sources */,
 				18DE13A92251F40A009920D7 /* SongListDetailVC.m in Sources */,
 				180E33BA224DE806008C176D /* LocalMusicVCPresenter.m in Sources */,
+				E431E50B25A19C3A0024C67B /* NetMusicVCInteractor.m in Sources */,
 				C3AD5139251700BF00746FA2 /* SongListHeadView.m in Sources */,
 				C30D897F25354F6D009BFB45 /* NetService.m in Sources */,
 				183BF428224A22EC004DE115 /* RootVCPresenter.m in Sources */,
 				C39396722536C88500409025 /* LrcDetailEntity.m in Sources */,
 				C3AD50F32516EDDB00746FA2 /* SongListVCPresenter.m in Sources */,
 				C32A17C925381E8000BD830B /* LrcTool.m in Sources */,
+				E431E51325A1A16C0024C67B /* FD_FileDownload.m in Sources */,
 				189A5DF1225C95E6001E8A9D /* AppVersionCheck.m in Sources */,
 				18DE13AB2251F40A009920D7 /* SongListDetailVCPresenter.m in Sources */,
 				C3AD50F42516EDDB00746FA2 /* SongListVCInteractor.m in Sources */,
