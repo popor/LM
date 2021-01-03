@@ -242,21 +242,21 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         
     }
     
-    self.coverIV = ({
-        UIImageView * iv = [UIImageView new];
-        iv.contentMode = UIViewContentModeScaleAspectFill;
-        iv.clipsToBounds = YES;
-        iv.image = [UIImage imageNamed:@"music_placeholder"];
-        iv.userInteractionEnabled = YES;
+    self.coverBT = ({
+        UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.contentMode = UIViewContentModeScaleAspectFill;
         
-        iv.layer.cornerRadius  = 5;
-        iv.layer.masksToBounds = YES;
+        button.layer.cornerRadius = 6;
+        button.layer.borderColor = PRGBF(0, 0, 0, 0.08).CGColor;
+        button.layer.borderWidth = 0.5;
+        button.clipsToBounds = YES;
         
-        UITapGestureRecognizer * tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showBigIVAction)];
-        [iv addGestureRecognizer:tapGR];
+        [button setImage:[UIImage imageNamed:@"music_placeholder"] forState:UIControlStateNormal];
+        [self addSubview:button];
         
-        [self addSubview:iv];
-        iv;
+        [button addTarget:self action:@selector(showBigIVAction) forControlEvents:UIControlEventTouchUpInside];
+        
+        button;
     });
     {
         self.lineView = [UIView new];
@@ -320,7 +320,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     //        make.centerY.mas_equalTo(self.nameL.mas_centerY);
     //    }];
     
-    [self.coverIV mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.coverBT mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(15);
         make.top.mas_equalTo(self.songInfoL.mas_bottom).mas_offset(7);
         make.width.height.mas_equalTo(60);
@@ -331,7 +331,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         make.height.mas_equalTo(height);
         
         make.centerX.mas_equalTo(0);
-        make.centerY.mas_equalTo(self.coverIV.mas_centerY);
+        make.centerY.mas_equalTo(self.coverBT.mas_centerY);
     }];
     
     [self.previousBT mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -340,7 +340,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         
         make.right.mas_equalTo(self.playBT.mas_left).mas_offset(-30);
         //make.top.mas_equalTo(self.playBT.mas_top);
-        make.centerY.mas_equalTo(self.coverIV.mas_centerY);
+        make.centerY.mas_equalTo(self.coverBT.mas_centerY);
     }];
     
     [self.nextBT mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -349,7 +349,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         
         make.left.mas_equalTo(self.playBT.mas_right).mas_offset(30);
         //make.top.mas_equalTo(self.playBT.mas_top);
-        make.centerY.mas_equalTo(self.coverIV.mas_centerY);
+        make.centerY.mas_equalTo(self.coverBT.mas_centerY);
     }];
     
     // 顺序
@@ -358,7 +358,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         make.height.mas_equalTo(30);
         
         make.right.mas_equalTo(-15);
-        make.centerY.mas_equalTo(self.coverIV.mas_centerY);
+        make.centerY.mas_equalTo(self.coverBT.mas_centerY);
     }];
 }
 
@@ -781,7 +781,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 //    if (!self.mpt.audioPlayer) {
 //        return;
 //    }
-//    UIImage * smallImage = self.coverIV.image;
+//    UIImage * smallImage = self.coverBT.image;
 //    UIImage * bigImage   = [MusicPlayTool imageOfUrl:self.mpt.audioPlayer.url];
 //    NSMutableArray * imageArray = [NSMutableArray new];
 //
@@ -797,7 +797,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 //    __weak typeof(self) weakSelf = self;
 //    PoporImageBrower *photoBrower = [[PoporImageBrower alloc] initWithIndex:0 copyImageArray:imageArray presentVC:self.rootNC.topViewController originImageBlock:^UIImageView *(PoporImageBrower *browerController, NSInteger index) {
 //
-//        return weakSelf.coverIV;
+//        return weakSelf.coverBT;
 //    } disappearBlock:^(PoporImageBrower *browerController, NSInteger index) {
 //
 //    } placeholderImageBlock:^UIImage *(PoporImageBrower *browerController) {

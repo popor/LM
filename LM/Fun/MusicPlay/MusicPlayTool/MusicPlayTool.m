@@ -187,10 +187,10 @@
         UIImage * coverImage = [MusicPlayTool imageOfUrl:self.audioPlayer.url];
         
         if (coverImage) {
-            CGSize size = CGSizeMake(self.mpb.coverIV.size.width*[UIScreen mainScreen].scale, self.mpb.coverIV.size.height*[UIScreen mainScreen].scale);
-            self.mpb.coverIV.image = [UIImage imageFromImage:coverImage size:size];
+            CGSize size = CGSizeMake(self.mpb.coverBT.size.width*[UIScreen mainScreen].scale, self.mpb.coverBT.size.height*[UIScreen mainScreen].scale);
+            [self.mpb.coverBT setImage:[UIImage imageFromImage:coverImage size:size] forState:UIControlStateNormal];
         } else {
-            self.mpb.coverIV.image = self.defaultCoverImage;
+            [self.mpb.coverBT setImage:self.defaultCoverImage forState:UIControlStateNormal];
         }
         
     #if TARGET_OS_MACCATALYST

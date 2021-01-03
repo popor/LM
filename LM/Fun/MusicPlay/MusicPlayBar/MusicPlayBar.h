@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, getter=isSliderSelected) BOOL sliderSelected;
 @property (nonatomic, strong) UILabel  * sliderTimeL;
 
-@property (nonatomic, strong) UIImageView * coverIV;
+@property (nonatomic, strong) UIButton * coverBT;
 @property (nonatomic, strong) UIButton * playBT;
 @property (nonatomic, strong) UIButton * previousBT;
 @property (nonatomic, strong) UIButton * nextBT;
