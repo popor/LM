@@ -249,6 +249,9 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         iv.image = [UIImage imageNamed:@"music_placeholder"];
         iv.userInteractionEnabled = YES;
         
+        iv.layer.cornerRadius  = 5;
+        iv.layer.masksToBounds = YES;
+        
         UITapGestureRecognizer * tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showBigIVAction)];
         [iv addGestureRecognizer:tapGR];
         
