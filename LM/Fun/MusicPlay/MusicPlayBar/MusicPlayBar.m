@@ -679,23 +679,26 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 }
 
 - (void)updateLyricKugou {
-    
-    if ([self.lastMusicTitle isEqualToString:self.currentItem.musicName] && self.musicLyricDic) {
-        return;
-    }
-    self.musicLyricDic   = nil;
-    self.musicLyricArray = nil;
-    self.lastMusicTitle  = self.currentItem.musicName;
-    
-    // 先排查是否有保存
-    NSString * lrcPath = [LrcTool lycPath:self.currentItem.fileNameDeleteExtension];
-    NSData   * lrcData = [NSData dataWithContentsOfFile:lrcPath];
-    if (lrcData) {
-        NSString * lrc = [[NSString alloc] initWithData:lrcData encoding:NSUTF8StringEncoding];
-        [self parseLrc_1vs1:lrc];
-    } else {
-        [self requestLrcKugou];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        if ([self.lastMusicTitle isEqualToString:self.currentItem.musicName] && self.musicLyricDic) {
+            return;
+        }
+        self.musicLyricDic   = nil;
+        self.musicLyricArray = nil;
+        self.lastMusicTitle  = self.currentItem.musicName;
+        
+        // 先排查是否有保存
+        NSString * lrcPath = [LrcTool lycPath:self.currentItem.fileNameDeleteExtension];
+        NSData   * lrcData = [NSData dataWithContentsOfFile:lrcPath];
+        if (lrcData) {
+            NSString * lrc = [[NSString alloc] initWithData:lrcData encoding:NSUTF8StringEncoding];
+            [self parseLrc_1vs1:lrc];
+        } else {
+            [self requestLrcKugou];
+        }
+        
+    });
 }
 
 - (void)requestLrcKugou {

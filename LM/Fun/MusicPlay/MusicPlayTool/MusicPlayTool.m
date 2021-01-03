@@ -148,57 +148,69 @@
 
 - (void)updateIosLockInfo {
     AVAudioPlayer * ap            = self.audioPlayer;
-    MPNowPlayingInfoCenter * mpic = [MPNowPlayingInfoCenter defaultCenter];
+    
     
     if (ap.duration > 0) {
         if (![self.audioPlayer.url.absoluteString isEqualToString:self.lastImageUrl]) {
             self.lastImageUrl = self.audioPlayer.url.absoluteString;
-            
-            UIImage * coverImage = [MusicPlayTool imageOfUrl:self.audioPlayer.url];
-            
-            if (coverImage) {
-                CGSize size = CGSizeMake(self.mpb.coverIV.size.width*[UIScreen mainScreen].scale, self.mpb.coverIV.size.height*[UIScreen mainScreen].scale);
-                self.mpb.coverIV.image = [UIImage imageFromImage:coverImage size:size];
-            } else {
-                self.mpb.coverIV.image = self.defaultCoverImage;
-            }
-            
-#if TARGET_OS_MACCATALYST
-#else
-            NSMutableDictionary *songInfo = [ [NSMutableDictionary alloc] init];
-            
-            MPMediaItemArtwork * media = [[MPMediaItemArtwork alloc] initWithImage:coverImage ? :self.defaultCoverImage];
-            [songInfo setObject:media forKey:MPMediaItemPropertyArtwork];
-            
-            //锁屏标题
-            [songInfo setObject:[NSNumber numberWithFloat:self.audioPlayer.duration] forKey:MPMediaItemPropertyPlaybackDuration];
-            [songInfo setObject:[NSNumber numberWithFloat:self.audioPlayer.currentTime] forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
-            
-            [songInfo setObject:self.musicItem.musicName forKey:MPMediaItemPropertyTitle];
-            [songInfo setObject:self.musicItem.musicAuthor forKey:MPMediaItemPropertyArtist];
-            //[songInfo setObject:author forKey:MPMediaItemPropertyAlbumTitle];
-            [mpic setNowPlayingInfo:songInfo];
-#endif
             
             // 播放进度 和 歌词信息, 一个循环只需要走一次
             CGFloat time = self.audioPlayer.duration;
             self.mpb.timeDurationL.text = [self stringFromTime5:time];
             
             self.mpb.currentItem.musicDuration = time;
-            [self.mpb updateLyricKugou];
-            
             [self.mpb updateTimeDurationFrameTime:time];
             
             self.mpb.songInfoL.text = self.musicItem.fileNameDeleteExtension;
             // [NSString stringWithFormat:@"%@ - %@", self.musicItem.musicAuthor, self.musicItem.musicName];
+            
+            // 歌词和cover
+            [self.mpb updateLyricKugou];
+            
+            // 系统控制器
+            [self addIosPlayContoller];
         }
         
         self.mpb.slider.value       = self.audioPlayer.currentTime/self.audioPlayer.duration;
         self.mpb.timeCurrentL.text  = [self stringFromTime5:self.audioPlayer.currentTime];
         
     }else{
+        MPNowPlayingInfoCenter * mpic = [MPNowPlayingInfoCenter defaultCenter];
         [mpic setNowPlayingInfo:nil];
     }
+}
+
+- (void)addIosPlayContoller {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        MPNowPlayingInfoCenter * mpic = [MPNowPlayingInfoCenter defaultCenter];
+        UIImage * coverImage = [MusicPlayTool imageOfUrl:self.audioPlayer.url];
+        
+        if (coverImage) {
+            CGSize size = CGSizeMake(self.mpb.coverIV.size.width*[UIScreen mainScreen].scale, self.mpb.coverIV.size.height*[UIScreen mainScreen].scale);
+            self.mpb.coverIV.image = [UIImage imageFromImage:coverImage size:size];
+        } else {
+            self.mpb.coverIV.image = self.defaultCoverImage;
+        }
+        
+    #if TARGET_OS_MACCATALYST
+    #else
+        NSMutableDictionary *songInfo = [ [NSMutableDictionary alloc] init];
+        
+        MPMediaItemArtwork * media = [[MPMediaItemArtwork alloc] initWithImage:coverImage ? :self.defaultCoverImage];
+        [songInfo setObject:media forKey:MPMediaItemPropertyArtwork];
+        
+        //锁屏标题
+        [songInfo setObject:[NSNumber numberWithFloat:self.audioPlayer.duration] forKey:MPMediaItemPropertyPlaybackDuration];
+        [songInfo setObject:[NSNumber numberWithFloat:self.audioPlayer.currentTime] forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
+        
+        [songInfo setObject:self.musicItem.musicName forKey:MPMediaItemPropertyTitle];
+        [songInfo setObject:self.musicItem.musicAuthor forKey:MPMediaItemPropertyArtist];
+        //[songInfo setObject:author forKey:MPMediaItemPropertyAlbumTitle];
+        [mpic setNowPlayingInfo:songInfo];
+    #endif
+        
+    });
 }
 
 - (NSString *)stringFromTime5:(CGFloat)time {
