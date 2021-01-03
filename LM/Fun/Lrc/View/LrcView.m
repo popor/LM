@@ -20,6 +20,7 @@
 @property (nonatomic, weak  ) MusicPlayListTool * mplt;
 @property (nonatomic, weak  ) MusicPlayTool * mpt;
 @property (nonatomic        ) BOOL showBlurImage_lrc;
+@property (nonatomic, copy  ) NSString * lastImageUrl;
 
 @end
 
@@ -139,7 +140,7 @@
 - (UITableView *)addTVs {
     UITableView * oneTV = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     
-    oneTV.backgroundColor = [UIColor clearColor];
+    oneTV.backgroundColor = PRGBF(0, 0, 0, 0.2);
     oneTV.separatorColor  = [UIColor clearColor];
     
     oneTV.delegate   = self.present;
@@ -434,19 +435,34 @@
 }
 
 - (void)showCoverBlurImage {
-    UIImage * coverImage = [MusicPlayTool imageOfUrl:self.mpt.audioPlayer.url];
-    coverImage = coverImage ? : self.mpt.defaultCoverImage;
+    if (![self.lastImageUrl isEqualToString:self.mpt.audioPlayer.url.absoluteString]) {
+        self.lastImageUrl = self.mpt.audioPlayer.url.absoluteString;
+        UIImage * coverImage = [MusicPlayTool imageOfUrl:self.mpt.audioPlayer.url];
+        coverImage = coverImage ? : self.mpt.defaultCoverImage;
+        
+        self.coverIV.image = coverImage;
+    }
+    [UIView animateWithDuration:0.3 animations:^{
+        if (self.showBlurImage_lrc) {
+            self.infoTV.alpha  = 1;
+            self.infoTV.hidden = NO;
+        } else {
+            self.infoTV.alpha  = 0;
+            self.infoTV.hidden = YES;
+        }
+    }];
     
+    // 生成蒙层图片非常消耗内存, 300-600MB, 老手机会非常卡顿, 所以移除了.
     //UIColor *tintColor = [UIColor colorWithWhite:0.0 alpha:0.1];
     //coverImage = [coverImage applyBlurWithRadius:5 tintColor:tintColor saturationDeltaFactor:1.8 maskImage:nil];
-    if (self.showBlurImage_lrc) {
-        coverImage = [coverImage applyDarkEffect];
-        self.infoTV.hidden = NO;
-    } else {
-        self.infoTV.hidden = YES;
-    }
+    //if (self.showBlurImage_lrc) {
+    //    coverImage = [coverImage applyDarkEffect];
+    //    self.infoTV.hidden = NO;
+    //} else {
+    //    self.infoTV.hidden = YES;
+    //}
     
-    self.coverIV.image = coverImage;
+    
 }
 
 
