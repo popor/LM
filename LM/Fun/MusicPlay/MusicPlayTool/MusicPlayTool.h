@@ -39,6 +39,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)stringFromTime5:(CGFloat)time;
 - (NSString *)stringFromTime8:(CGFloat)time;
 
+// 添加封面等信息
++ (BOOL)editAudioFileUrl1:(NSURL * _Nullable)audioFileURL1
+                inputUrl2:(NSURL * _Nullable)audioFileURL2
+                   output:(NSURL * _Nonnull)audioFileOutput
+                   artist:(NSString * _Nullable)artist         // 艺术家
+                 songName:(NSString * _Nullable)songName       // 歌名
+                    album:(NSString * _Nullable)album          // 专辑
+                  artwork:(NSData   * _Nullable)artworkImageData // 封面
+                 complete:(BlockPBool _Nullable)completeBlock;
+;
+
 @end
 
 NS_ASSUME_NONNULL_END

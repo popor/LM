@@ -52,7 +52,7 @@
         
         [instance initIosController];
         [instance initFormater];
-       
+        
         instance.defaultCoverImage = [UIImage imageNamed:@"music_placeholder"];
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -193,8 +193,8 @@
             [self.mpb.coverBT setImage:self.defaultCoverImage forState:UIControlStateNormal];
         }
         
-    #if TARGET_OS_MACCATALYST
-    #else
+#if TARGET_OS_MACCATALYST
+#else
         NSMutableDictionary *songInfo = [ [NSMutableDictionary alloc] init];
         
         MPMediaItemArtwork * media = [[MPMediaItemArtwork alloc] initWithImage:coverImage ? :self.defaultCoverImage];
@@ -208,7 +208,7 @@
         [songInfo setObject:self.musicItem.musicAuthor forKey:MPMediaItemPropertyArtist];
         //[songInfo setObject:author forKey:MPMediaItemPropertyAlbumTitle];
         [mpic setNowPlayingInfo:songInfo];
-    #endif
+#endif
         
     });
 }
@@ -464,6 +464,181 @@
     //    }
     //    coverImage = nil;
     
+}
+
+// https://stackoverflow.com/questions/24879939/how-to-add-artwork-in-audio-file-to-show-in-album-cover
++ (BOOL)editAudioFileUrl1:(NSURL * _Nullable)audioFileURL1
+                inputUrl2:(NSURL * _Nullable)audioFileURL2
+                   output:(NSURL * _Nonnull)audioFileOutput
+                   artist:(NSString * _Nullable)artist         // 艺术家
+                 songName:(NSString * _Nullable)songName       // 歌名
+                    album:(NSString * _Nullable)album          // 专辑
+                  artwork:(NSData   * _Nullable)artworkImageData // 封面
+                 complete:(BlockPBool _Nullable)completeBlock
+{
+    if ((!audioFileURL1 && !audioFileURL2)|| !audioFileOutput) {
+        return NO;
+    }
+    
+    // 删除之前的文件
+    [[NSFileManager defaultManager] removeItemAtURL:audioFileOutput error:NULL];
+    
+    //CMTime nextClipStartTime = kCMTimeZero;
+    AVMutableComposition *composition = [[AVMutableComposition alloc] init];
+    if (audioFileURL1) {
+        AVMutableCompositionTrack *compositionAudioTrack1 = [composition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
+        
+        CGFloat playbackDelayAfterTimeMix1 = 0;
+        CMTime nextClipStartTimeMix1;
+        if (playbackDelayAfterTimeMix1 > 0) {
+            nextClipStartTimeMix1 = CMTimeMake(playbackDelayAfterTimeMix1, 1);
+        }else{
+            nextClipStartTimeMix1 = kCMTimeZero;
+        }
+        
+        CGFloat playbackDelayMix1 = 0;
+        CMTime startTimeMix1;
+        if (playbackDelayMix1 > 0) {
+            startTimeMix1 = CMTimeMake(playbackDelayMix1, 1);
+        }else{
+            startTimeMix1 = kCMTimeZero;
+        }
+        
+        [compositionAudioTrack1 setPreferredVolume:1];
+        
+        NSURL *url1 = audioFileURL1; //[NSURL fileURLWithPath:soundOne];
+        AVAsset *avAsset = [AVURLAsset URLAssetWithURL:url1 options:nil];
+        NSArray *tracks = [avAsset tracksWithMediaType:AVMediaTypeAudio];
+        AVAssetTrack *clipAudioTrack;
+        if (tracks.count > 0) {
+            clipAudioTrack = [[avAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0];
+        }else{
+            return NO;
+        }
+        [compositionAudioTrack1 insertTimeRange:CMTimeRangeMake(startTimeMix1, avAsset.duration) ofTrack:clipAudioTrack atTime:nextClipStartTimeMix1 error:nil];
+    }
+    
+    if (audioFileURL2) {
+        //avAsset.commonMetadata
+        AVMutableCompositionTrack *compositionAudioTrack2 = [composition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
+        
+        CGFloat playbackDelayAfterTimeMix2 = 0;
+        CMTime nextClipStartTimeMix2;
+        if (playbackDelayAfterTimeMix2 > 0) {
+            nextClipStartTimeMix2 = CMTimeMake(playbackDelayAfterTimeMix2, 1);
+        }else{
+            nextClipStartTimeMix2 = kCMTimeZero;
+        }
+        
+        CGFloat playbackDelayMix2 = 0;
+        CMTime startTimeMix2;
+        if (playbackDelayMix2 > 0) {
+            startTimeMix2 = CMTimeMake(playbackDelayMix2, 1);
+        }else{
+            startTimeMix2 = kCMTimeZero;
+        }
+        
+        [compositionAudioTrack2 setPreferredVolume:1];
+        //NSString *soundOne1  =[[NSBundle mainBundle]pathForResource:@"test" ofType:@"caf"];
+        NSURL *url2 = audioFileURL2;  //[NSURL fileURLWithPath:soundOne1];
+        AVAsset *avAsset1 = [AVURLAsset URLAssetWithURL:url2 options:nil];
+        NSArray *tracks1 = [avAsset1 tracksWithMediaType:AVMediaTypeAudio];
+        AVAssetTrack *clipAudioTrack1;
+        if (tracks1.count > 0) {
+            clipAudioTrack1 = [[avAsset1 tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0];
+        }else{
+            return NO;
+        }
+        [compositionAudioTrack2 insertTimeRange:CMTimeRangeMake(startTimeMix2, avAsset1.duration) ofTrack:clipAudioTrack1 atTime:nextClipStartTimeMix2 error:nil];
+    }
+    /**
+     added MetadataItem
+     **/
+    NSMutableArray * metadataArray = [NSMutableArray new];
+    
+    if (artist.length > 0) { // 艺术家
+        AVMutableMetadataItem *artistMetadata = [[AVMutableMetadataItem alloc] init];
+        artistMetadata.key      = AVMetadataiTunesMetadataKeyArtist;
+        artistMetadata.keySpace = AVMetadataKeySpaceiTunes;
+        artistMetadata.locale   = [NSLocale currentLocale];
+        artistMetadata.value    = artist;
+        
+        [metadataArray addObject:artistMetadata];
+    }
+    
+    if (album.length > 0) { // 专辑
+        AVMutableMetadataItem *albumMetadata = [[AVMutableMetadataItem alloc] init];
+        albumMetadata.key      = AVMetadataiTunesMetadataKeyAlbum;
+        albumMetadata.keySpace = AVMetadataKeySpaceiTunes;
+        albumMetadata.locale   = [NSLocale currentLocale];
+        albumMetadata.value    = album;
+        
+        [metadataArray addObject:albumMetadata];
+    }
+    
+    if (songName.length > 0) { // 歌名
+        AVMutableMetadataItem *songMetadata = [[AVMutableMetadataItem alloc] init];
+        songMetadata.key = AVMetadataiTunesMetadataKeySongName;
+        songMetadata.keySpace = AVMetadataKeySpaceiTunes;
+        songMetadata.locale = [NSLocale currentLocale];
+        songMetadata.value = songName;
+        
+        [metadataArray addObject:songMetadata];
+    }
+    
+    if (artworkImageData.length > 0) { // 设置封面
+        AVMutableMetadataItem *imageMetadata = [[AVMutableMetadataItem alloc] init];
+        imageMetadata.key = AVMetadataiTunesMetadataKeyCoverArt;
+        imageMetadata.keySpace = AVMetadataKeySpaceiTunes;
+        imageMetadata.locale = [NSLocale currentLocale];
+        imageMetadata.value = artworkImageData; //imageData is NSData of UIImage.
+        
+        [metadataArray addObject:imageMetadata];
+    }
+    
+    AVAssetExportSession *exportSession = [AVAssetExportSession exportSessionWithAsset:composition presetName:AVAssetExportPresetAppleM4A];
+    if (nil == exportSession) {
+        return NO;
+    }
+    
+    exportSession.metadata  = metadataArray;
+    exportSession.outputURL = audioFileOutput;
+    exportSession.outputFileType = AVFileTypeAppleM4A;
+    
+    [exportSession exportAsynchronouslyWithCompletionHandler:^ {
+       
+        switch (exportSession.status) {
+            case AVAssetExportSessionStatusUnknown :{
+                
+                break;
+            }
+            case AVAssetExportSessionStatusWaiting :{
+                
+                break;
+            }
+            case AVAssetExportSessionStatusExporting :{
+                
+                break;
+            }
+            case AVAssetExportSessionStatusCompleted :{
+                AlertToastTitle(@"设置完成");
+                if (completeBlock) {
+                    completeBlock(YES);
+                }
+                break;
+            }
+            case AVAssetExportSessionStatusFailed :
+            case AVAssetExportSessionStatusCancelled :{ break;}
+            default: {
+                AlertToastTitle(([[exportSession error] localizedDescription]));
+                if (completeBlock) {
+                    completeBlock(NO);
+                }
+            }
+        }
+    }];
+    
+    return YES;
 }
 
 @end

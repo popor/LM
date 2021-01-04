@@ -7,7 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "LrcDetailEntity.h"
-
+#import "AlertWindowImageView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

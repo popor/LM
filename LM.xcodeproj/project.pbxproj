@@ -52,6 +52,7 @@
 		C3AD5139251700BF00746FA2 /* SongListHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD5138251700BF00746FA2 /* SongListHeadView.m */; };
 		C3AD513D2517161700746FA2 /* LocalMusicHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD513C2517161700746FA2 /* LocalMusicHeadView.m */; };
 		C3AD516C2517310900746FA2 /* ThemeColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD516B2517310900746FA2 /* ThemeColor.m */; };
+		C3E1687525A2FFC1004104B4 /* AlertWindowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E1687425A2FFC1004104B4 /* AlertWindowImageView.m */; };
 		C3F31AD825395D3F00621878 /* UINavigationController+pAutorotate.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F31AD625395D3F00621878 /* UINavigationController+pAutorotate.m */; };
 		C3F31AE02539709100621878 /* 全屏@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F31ADC2539709100621878 /* 全屏@3x.png */; };
 		C3F31AE12539709100621878 /* 全屏@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F31ADD2539709100621878 /* 全屏@2x.png */; };
@@ -186,6 +187,8 @@
 		C3AD513C2517161700746FA2 /* LocalMusicHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocalMusicHeadView.m; sourceTree = "<group>"; };
 		C3AD516A2517310900746FA2 /* ThemeColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThemeColor.h; sourceTree = "<group>"; };
 		C3AD516B2517310900746FA2 /* ThemeColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThemeColor.m; sourceTree = "<group>"; };
+		C3E1687325A2FFC1004104B4 /* AlertWindowImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertWindowImageView.h; sourceTree = "<group>"; };
+		C3E1687425A2FFC1004104B4 /* AlertWindowImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertWindowImageView.m; sourceTree = "<group>"; };
 		C3F31AD625395D3F00621878 /* UINavigationController+pAutorotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+pAutorotate.m"; sourceTree = "<group>"; };
 		C3F31AD725395D3F00621878 /* UINavigationController+pAutorotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+pAutorotate.h"; sourceTree = "<group>"; };
 		C3F31ADC2539709100621878 /* 全屏@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "全屏@3x.png"; sourceTree = "<group>"; };
@@ -390,6 +393,7 @@
 		183BF42B224A25B0004DE115 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				C3E1687225A2FFC1004104B4 /* AlertWindowImageView */,
 				E431E51025A1A16C0024C67B /* FD_download */,
 				C3F31AD525395D3F00621878 /* NC */,
 				C3AD51692517307F00746FA2 /* Color */,
@@ -739,6 +743,15 @@
 			path = list;
 			sourceTree = "<group>";
 		};
+		C3E1687225A2FFC1004104B4 /* AlertWindowImageView */ = {
+			isa = PBXGroup;
+			children = (
+				C3E1687325A2FFC1004104B4 /* AlertWindowImageView.h */,
+				C3E1687425A2FFC1004104B4 /* AlertWindowImageView.m */,
+			);
+			path = AlertWindowImageView;
+			sourceTree = "<group>";
+		};
 		C3F31AD525395D3F00621878 /* NC */ = {
 			isa = PBXGroup;
 			children = (
@@ -963,6 +976,7 @@
 				18DE13AB2251F40A009920D7 /* SongListDetailVCPresenter.m in Sources */,
 				C3AD50F42516EDDB00746FA2 /* SongListVCInteractor.m in Sources */,
 				C3560EC22537ED780062EFA8 /* LrcKuGou.m in Sources */,
+				C3E1687525A2FFC1004104B4 /* AlertWindowImageView.m in Sources */,
 				18DE138F2251AAC9009920D7 /* MusicPlayTool.m in Sources */,
 				C3560EC62537F4F00062EFA8 /* LrcKugouListEntity.m in Sources */,
 				C3AD50F52516EDDB00746FA2 /* SongListVC.m in Sources */,

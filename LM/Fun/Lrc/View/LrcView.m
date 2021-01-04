@@ -22,6 +22,9 @@
 @property (nonatomic        ) BOOL showBlurImage_lrc;
 @property (nonatomic, copy  ) NSString * lastImageUrl;
 
+@property (nonatomic, strong) AlertWindowImageView * _Nullable awIV;
+@property (nonatomic, strong) UILongPressGestureRecognizer * coverIvLpGR;
+
 @end
 
 @implementation LrcView
@@ -120,12 +123,69 @@
     });
     self.coverIV = ({
         UIImageView * oneIV = [UIImageView new];
+        oneIV.userInteractionEnabled = YES;
         
         [self.coverSV addSubview:oneIV];
         oneIV;
     });
     
+    self.coverIvLpGR = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(editAudioCover)];
+    [self.coverIV addGestureRecognizer:self.coverIvLpGR];
+    
     [self updateCoverIVContentMode];
+}
+
+- (void)editAudioCover {
+    if (self.lastImageUrl.length == 0) {
+        
+        return;
+    }
+    if (self.awIV) {
+        return;
+    }
+    BOOL isHasImage = [[UIPasteboard generalPasteboard] containsPasteboardTypes:UIPasteboardTypeListImage];
+    if (isHasImage) {
+        UIImage * image = [UIPasteboard generalPasteboard].image;
+        
+        self.awIV = [[AlertWindowImageView alloc] initWithImage:image cancelButtonTitle:@"取消" confireButtonTitles:@"设置封面"];
+        
+        @weakify(self);
+        [self.awIV showWithBlock:^(BOOL isConfirm) {
+            @strongify(self);
+            
+            [self.awIV removeFromSuperview];
+            self.awIV = nil;
+            
+            
+            if (isConfirm) {
+                NSData * iamgeData = UIImageJPEGRepresentation(image, 0.9);
+                
+                NSURL * inputUrl1 = [NSURL URLWithString:self.lastImageUrl];
+                NSString * output = [NSString stringWithFormat:@"%@ 2.m4a", [self.lastImageUrl substringToIndex:self.lastImageUrl.length -self.lastImageUrl.pathExtension.length -1]];
+                NSURL * outputUrl = [NSURL URLWithString:output];
+                
+                [MusicPlayTool editAudioFileUrl1:inputUrl1
+                                       inputUrl2:nil
+                                          output:outputUrl
+                                          artist:nil
+                                        songName:nil
+                                           album:nil
+                                         artwork:iamgeData complete:^(BOOL value) {
+                    
+                    
+                }];
+            }
+        }];
+        
+    } else {
+        //NSLog(@"没有检测到复制图片");
+        AlertToastTitle(@"没有检测到复制图片");
+        self.coverIvLpGR.enabled = NO;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.coverIvLpGR.enabled = YES;
+        });
+    }
+    
 }
 
 - (void)updateCoverIVContentMode {
