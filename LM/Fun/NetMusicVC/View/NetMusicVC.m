@@ -146,7 +146,6 @@ static NSString * NetMusicUrl = @"http://y.webzcz.cn/";
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     
     NSURL *URL = navigationAction.request.URL;
-    
     //NSLogString(URL.absoluteString);
     
     if ([URL.absoluteString.lowercaseString hasSuffix:@".mp3"]) {
@@ -161,9 +160,9 @@ static NSString * NetMusicUrl = @"http://y.webzcz.cn/";
         decisionHandler(WKNavigationActionPolicyAllow);
         NSLogStringTitle(URL.absoluteString, @"跳转网页 官网");
     } else {
-        decisionHandler(WKNavigationActionPolicyCancel);
+        //decisionHandler(WKNavigationActionPolicyCancel);
         NSLogStringTitle(URL.absoluteString, @"跳转网页 禁止");
-        //decisionHandler(WKNavigationActionPolicyAllow);
+        decisionHandler(WKNavigationActionPolicyAllow);
     }
 }
 
@@ -187,9 +186,9 @@ static NSString * NetMusicUrl = @"http://y.webzcz.cn/";
     // 加载好之后禁止 选择和查看图片
     //[webView evaluateJavaScript:@"document.documentElement.style.webkitTouchCallout='none';" completionHandler:nil];
     //[webView evaluateJavaScript:@"document.documentElement.style.webkitUserSelect='none';"   completionHandler:nil];
-    
+    //[self viewSource:webView];
     [self removeGoogleAD:webView];
-    // [self viewSource:webView];
+    
     
     // NSLog(@"webView.src: %@", webView);
     //    if (self.addPullFresh) {
@@ -242,7 +241,7 @@ static NSString * NetMusicUrl = @"http://y.webzcz.cn/";
         if (error) {
             NSLog(@"JSError:%@",error);
         }
-        //NSLog(@"html:%@",htmlStr);
+        NSLog(@"html:%@",htmlStr);
     }] ;
 }
 
