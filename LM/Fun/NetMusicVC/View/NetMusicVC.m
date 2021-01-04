@@ -13,6 +13,8 @@
 #import "FD_FileDownload.h"
 #import "MusicPlayListTool.h"
 
+static NSString * NetMusicUrl = @"http://y.webzcz.cn/";
+
 @interface NetMusicVC () <WKNavigationDelegate, WKUIDelegate>
 
 @property (nonatomic, strong) NetMusicVCPresenter * present;
@@ -118,7 +120,7 @@
         
         {
             //NSLogString(self.rootUrl);
-            NSString * musicUrl = @"http://y.webzcz.cn/";
+            NSString * musicUrl = NetMusicUrl;
             //musicUrl = @"https://www.126.com";
             NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:musicUrl]];
             
@@ -145,17 +147,23 @@
     
     NSURL *URL = navigationAction.request.URL;
     
-    NSLogString(URL.absoluteString);
+    //NSLogString(URL.absoluteString);
     
     if ([URL.absoluteString.lowercaseString hasSuffix:@".mp3"]) {
+        NSLogStringTitle(URL.absoluteString, @"跳转网页 下载mp3");
         // 自主下载
         self.lastSaveFileUrl = URL.absoluteString;
         
         [self downloadAction];
         
         decisionHandler(WKNavigationActionPolicyCancel);
-    } else {
+    } else if ([URL.absoluteString.lowercaseString hasPrefix:NetMusicUrl]) {
         decisionHandler(WKNavigationActionPolicyAllow);
+        NSLogStringTitle(URL.absoluteString, @"跳转网页 官网");
+    } else {
+        decisionHandler(WKNavigationActionPolicyCancel);
+        NSLogStringTitle(URL.absoluteString, @"跳转网页 禁止");
+        //decisionHandler(WKNavigationActionPolicyAllow);
     }
 }
 
@@ -177,12 +185,65 @@
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     // 加载好之后禁止 选择和查看图片
-    [webView evaluateJavaScript:@"document.documentElement.style.webkitTouchCallout='none';" completionHandler:nil];
-    [webView evaluateJavaScript:@"document.documentElement.style.webkitUserSelect='none';"   completionHandler:nil];
+    //[webView evaluateJavaScript:@"document.documentElement.style.webkitTouchCallout='none';" completionHandler:nil];
+    //[webView evaluateJavaScript:@"document.documentElement.style.webkitUserSelect='none';"   completionHandler:nil];
     
-//    if (self.addPullFresh) {
-//        [self.infoWV.scrollView.mj_header endRefreshing];
-//    }
+    [self removeGoogleAD:webView];
+    // [self viewSource:webView];
+    
+    // NSLog(@"webView.src: %@", webView);
+    //    if (self.addPullFresh) {
+    //        [self.infoWV.scrollView.mj_header endRefreshing];
+    //    }
+}
+
+- (void)removeGoogleAD:(WKWebView *)webView {
+    // 移除谷歌插件class
+    //NSString *str = @"document.getElementsByClassName('adsbygoogle')[0].remove();";
+    NSString *str = @"document.getElementsByClassName('adsbygoogle')[0].remove(); document.getElementsByClassName('adsbygoogle')[1].remove();";
+    [webView evaluateJavaScript:str completionHandler:nil];
+}
+
+- (void)addWebviewAdRuler:(WKWebView *)webView {
+    WKContentRuleListStore * ls = [WKContentRuleListStore defaultStore];
+    NSArray * blockArray =
+    @[
+        @{
+            @"trigger":@{@"url-filter": @"googleads.g.doubleclick.net*"},
+            @"action" :@{@"type":@"block"},
+        },
+        @{
+            @"trigger":@{@"url-filter": @"pagead.googlesyndication.com*"},
+            @"action" :@{@"type":@"block"},
+        },
+        @{
+            @"trigger":@{@"url-filter": @"pagead1.googlesyndication.com*"},
+            @"action" :@{@"type":@"block"},
+        },
+        @{
+            @"trigger":@{@"url-filter": @"pagead2.googlesyndication.com*"},
+            @"action" :@{@"type":@"block"},
+        }
+    ];
+    
+    NSString * blockString = blockArray.toJSONString;
+    
+    [ls compileContentRuleListForIdentifier:@"rule1" encodedContentRuleList:blockString completionHandler:^(WKContentRuleList * crl, NSError * error) {
+        NSLog(@"error1: %@", error.localizedDescription);
+        
+    }];
+    
+}
+
+- (void)viewSource:(WKWebView *)webView {
+    NSString *doc = @"document.body.outerHTML";
+    [webView evaluateJavaScript:doc
+              completionHandler:^(id _Nullable htmlStr, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"JSError:%@",error);
+        }
+        //NSLog(@"html:%@",htmlStr);
+    }] ;
 }
 
 - (void)downloadAction {
