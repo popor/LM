@@ -597,6 +597,8 @@
     }
     
     AVAssetExportSession *exportSession = [AVAssetExportSession exportSessionWithAsset:composition presetName:AVAssetExportPresetAppleM4A];
+    //AVAssetExportSession *exportSession = [AVAssetExportSession exportSessionWithAsset:composition presetName:AVAssetExportPresetPassthrough];
+    
     if (nil == exportSession) {
         return NO;
     }
@@ -628,7 +630,7 @@
                 break;
             }
             case AVAssetExportSessionStatusFailed :
-            case AVAssetExportSessionStatusCancelled :{ break;}
+            case AVAssetExportSessionStatusCancelled :
             default: {
                 AlertToastTitle(([[exportSession error] localizedDescription]));
                 if (completeBlock) {
