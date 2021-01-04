@@ -118,7 +118,9 @@
         
         {
             //NSLogString(self.rootUrl);
-            NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://y.webzcz.cn/"]];
+            NSString * musicUrl = @"http://y.webzcz.cn/";
+            //musicUrl = @"https://www.126.com";
+            NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:musicUrl]];
             
             [web loadRequest:request];
         }
