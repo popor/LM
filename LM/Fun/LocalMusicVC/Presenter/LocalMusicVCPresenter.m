@@ -589,7 +589,17 @@ API_AVAILABLE(ios(12.0))
         UIMenuItem *copyItem   = [[UIMenuItem alloc] initWithTitle:@"修改" action:@selector(cellGrEditFileNameAction)];
         UIMenuItem *resendItem = [[UIMenuItem alloc] initWithTitle:@"删除" action:@selector(cellGrDeleteFileAction)];
         
-        [menu setMenuItems:[NSArray arrayWithObjects:copyItem,resendItem,nil]];
+        if (self.view.isRoot) {
+            [menu setMenuItems:[NSArray arrayWithObjects:copyItem,resendItem,nil]];
+            
+        } else {
+            UIMenuItem *copy1 = [[UIMenuItem alloc] initWithTitle:@"歌手" action:@selector(cellGrCopySingerNameAction)];
+            UIMenuItem *copy2 = [[UIMenuItem alloc] initWithTitle:@"歌曲" action:@selector(cellGrCopySongNameAction)];
+            UIMenuItem *copy3 = [[UIMenuItem alloc] initWithTitle:@"文件" action:@selector(cellGrCopyFileNameAction)];
+            
+            [menu setMenuItems:[NSArray arrayWithObjects:copyItem, resendItem, copy1, copy2, copy3, nil]];
+        }
+        
         [menu setTargetRect:longRecognizer.view.frame inView:self.view.infoTV];
         
         [menu setMenuVisible:YES animated:YES];
@@ -598,10 +608,8 @@ API_AVAILABLE(ios(12.0))
 
 #pragma mark method
 - (void)cellGrEditFileNameAction {
-    NSMutableArray * songArray = [self currentSongArray];
-    FileEntity * entity = songArray[self.longPressIndexPathRow];
+    FileEntity * entity = [self longPressEntity];
     
-    NSLog(@"entity: %@", entity.fileNameDeleteExtension);
     if (entity.fileNameDeleteExtension.length > 0) {
         // 音乐
         [self editFileAction];
@@ -612,8 +620,7 @@ API_AVAILABLE(ios(12.0))
 }
 
 - (void)editFileAction {
-    NSMutableArray * songArray = [self currentSongArray];
-    FileEntity * entity = songArray[self.longPressIndexPathRow];
+    FileEntity * entity = [self longPressEntity];
     
     UIAlertController * oneAC = [UIAlertController alertControllerWithTitle:@"修改文件名称" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
@@ -645,8 +652,7 @@ API_AVAILABLE(ios(12.0))
 }
 
 - (void)editFolderAction {
-    NSMutableArray * songArray = [self currentSongArray];
-    FileEntity * entity = songArray[self.longPressIndexPathRow];
+    FileEntity * entity = [self longPressEntity];
     
     UIAlertController * oneAC = [UIAlertController alertControllerWithTitle:@"修改文件夹名称" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
@@ -682,8 +688,7 @@ API_AVAILABLE(ios(12.0))
 }
 
 - (void)cellGrDeleteFileAction {
-    NSMutableArray * songArray = [self currentSongArray];
-    FileEntity * entity = songArray[self.longPressIndexPathRow];
+    FileEntity * entity = [self longPressEntity];
     
     //NSLog(@"entity: %@", entity.fileNameDeleteExtension);
     if (entity.fileNameDeleteExtension.length > 0) {
@@ -696,8 +701,7 @@ API_AVAILABLE(ios(12.0))
 }
 
 - (void)deleteFileAction {
-    NSMutableArray * songArray = [self currentSongArray];
-    FileEntity * entity = songArray[self.longPressIndexPathRow];
+    FileEntity * entity = [self longPressEntity];
     
     UIAlertController * oneAC = [UIAlertController alertControllerWithTitle:@"提醒" message:[NSString stringWithFormat:@"确认删除'%@'吗?", entity.fileNameDeleteExtension] preferredStyle:UIAlertControllerStyleAlert];
     
@@ -721,8 +725,7 @@ API_AVAILABLE(ios(12.0))
 }
 
 - (void)deleteFolderAction {
-    NSMutableArray * songArray = [self currentSongArray];
-    FileEntity * entity = songArray[self.longPressIndexPathRow];
+    FileEntity * entity = [self longPressEntity];
     
     UIAlertController * oneAC = [UIAlertController alertControllerWithTitle:@"提醒" message:[NSString stringWithFormat:@"确认删除《%@》吗?\n包含%li个文件", entity.fileName, entity.itemArray.count] preferredStyle:UIAlertControllerStyleAlert];
     
@@ -740,6 +743,36 @@ API_AVAILABLE(ios(12.0))
     [oneAC addAction:okAction];
     
     [self.view.vc presentViewController:oneAC animated:YES completion:nil];
+}
+
+- (void)cellGrCopySingerNameAction {
+    FileEntity * entity = [self longPressEntity];
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    [pasteboard setString:entity.musicAuthor];
+    
+    AlertToastTitle(@"已复制歌手名称");
+}
+
+- (void)cellGrCopySongNameAction {
+    FileEntity * entity = [self longPressEntity];
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    [pasteboard setString:entity.musicName];
+    
+    AlertToastTitle(@"已复制歌手名称");
+}
+
+- (void)cellGrCopyFileNameAction {
+    FileEntity * entity = [self longPressEntity];
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    [pasteboard setString:entity.fileNameDeleteExtension];
+    
+    AlertToastTitle(@"已复制文件名称");
+}
+
+- (FileEntity *)longPressEntity {
+    NSMutableArray * songArray = [self currentSongArray];
+    FileEntity * entity = songArray[self.longPressIndexPathRow];
+    return entity;
 }
 
 @end

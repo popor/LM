@@ -56,4 +56,8 @@
 - (void)cellGrEditFileNameAction;
 - (void)cellGrDeleteFileAction;
 
+- (void)cellGrCopySingerNameAction;
+- (void)cellGrCopySongNameAction;
+- (void)cellGrCopyFileNameAction;
+
 @end

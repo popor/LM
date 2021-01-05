@@ -320,7 +320,20 @@
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender{
     if(action ==@selector(cellGrEditFileNameAction)){
         return YES;
-    } else if (action==@selector(cellGrDeleteFileAction)){
+    }
+    else if (action==@selector(cellGrDeleteFileAction)){
+        
+        return YES;
+    }
+    else if (action==@selector(cellGrCopySingerNameAction)){
+        
+        return YES;
+    }
+    else if (action==@selector(cellGrCopySongNameAction)){
+        
+        return YES;
+    }
+    else if (action==@selector(cellGrCopyFileNameAction)){
         
         return YES;
     }
@@ -333,6 +346,16 @@
 
 - (void)cellGrDeleteFileAction {
     [self.present cellGrDeleteFileAction];
+}
+
+- (void)cellGrCopySingerNameAction {
+    [self.present cellGrCopySingerNameAction];
+}
+- (void)cellGrCopySongNameAction {
+    [self.present cellGrCopySongNameAction];
+}
+- (void)cellGrCopyFileNameAction {
+    [self.present cellGrCopyFileNameAction];
 }
 
 #pragma mark 实现成为第一响应者方法
