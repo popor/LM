@@ -13,6 +13,8 @@
 #import "FD_FileDownload.h"
 #import "MusicPlayListTool.h"
 
+#import <PoporFoundation/NSString+pTool.h>
+
 static NSString * NetMusicUrl = @"http://y.webzcz.cn/";
 
 @interface NetMusicVC () <WKNavigationDelegate, WKUIDelegate>
@@ -153,7 +155,35 @@ static NSString * NetMusicUrl = @"http://y.webzcz.cn/";
         // 自主下载
         self.lastSaveFileUrl = URL.absoluteString;
         
-        [self downloadAction];
+        
+        
+        // <span class="info-title">歌名：</span>Light It Up<br>
+        // <span class="info-title">歌手：</span>Robin Hustin<br>
+        // <span class="info-title">专辑：</span>Light It Up<br>
+        
+        NSString *doc = @"document.body.outerHTML";
+        [webView evaluateJavaScript:doc completionHandler:^(id _Nullable htmlStr, NSError * _Nullable error) {
+            //NSLog(@"下载 html:%@",htmlStr);
+            
+            NSString * singerName = @"";
+            NSString * songName   = @"";
+            NSMutableArray * array = [self string:htmlStr arrayReg:@"<span class=\"info-title\">[^<]{3,10}</span>[^<]{1,}<br>"];
+            for (NSString * text in array) {
+                if ([text containsString:@"歌手"]) {
+                    singerName = [text cleanWithREG:@"<[^>]*>"];
+                    singerName = [singerName cleanWithREG:@"歌手："];
+                    continue;
+                }
+                if ([text containsString:@"歌名"]) {
+                    songName  = [text cleanWithREG:@"<[^>]*>"];
+                    songName  = [songName cleanWithREG:@"歌名："];
+                    continue;
+                }
+            }
+            //NSLogString(singerName);
+            //NSLogString(songName);
+            [self downloadActionSingerName:singerName songName:songName];
+        }] ;
         
         decisionHandler(WKNavigationActionPolicyCancel);
     } else if ([URL.absoluteString.lowercaseString hasPrefix:NetMusicUrl]) {
@@ -164,6 +194,28 @@ static NSString * NetMusicUrl = @"http://y.webzcz.cn/";
         NSLogStringTitle(URL.absoluteString, @"跳转网页 禁止");
         decisionHandler(WKNavigationActionPolicyAllow);
     }
+}
+
+- (NSMutableArray *)string:(NSString *)originStr arrayReg:(NSString * _Nonnull)reg {
+    if (!originStr) {
+        return nil;
+    }
+    if (!reg) {
+        return nil;
+    }
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:reg options:NSRegularExpressionCaseInsensitive error:&error];
+
+    NSArray * matchArray = [regex matchesInString:originStr options:0 range:NSMakeRange(0, [originStr length])];
+    if (matchArray.count > 0) {
+        NSMutableArray * array = [NSMutableArray new];
+        for (NSTextCheckingResult * result in matchArray) {
+            [array addObject:[originStr substringWithRange:result.range]];
+        }
+        return array;
+    }
+    
+    return nil;
 }
 
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
@@ -245,33 +297,30 @@ static NSString * NetMusicUrl = @"http://y.webzcz.cn/";
     }] ;
 }
 
-- (void)downloadAction {
-    //
-    {
-        UIAlertController * oneAC = [UIAlertController alertControllerWithTitle:@"下载" message:nil preferredStyle:UIAlertControllerStyleAlert];
+- (void)downloadActionSingerName:(NSString *)singerName songName:(NSString *)songName {
+    UIAlertController * oneAC = [UIAlertController alertControllerWithTitle:@"下载" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    [oneAC addTextFieldWithConfigurationHandler:^(UITextField *textField){
+        textField.placeholder = @"歌手名称 - 歌曲名称";
+        textField.text        = [NSString stringWithFormat:@"%@ - %@", singerName, songName];
         
-        [oneAC addTextFieldWithConfigurationHandler:^(UITextField *textField){
+    }];
+    
+    UIAlertAction * cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction * changeAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UITextField * nameTF = oneAC.textFields[0];
+        if (nameTF.text.length > 0) {
+            //NSLog(@"更新 name: %@", nameTF.text);
+            self.lastSaveFileName = nameTF.text;
             
-            textField.placeholder = @"歌手名称 - 歌曲名称";
-            textField.text = self.lastSaveFileName;
-        }];
-        
-        UIAlertAction * cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-        UIAlertAction * changeAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            UITextField * nameTF = oneAC.textFields[0];
-            if (nameTF.text.length > 0) {
-                //NSLog(@"更新 name: %@", nameTF.text);
-                self.lastSaveFileName = nameTF.text;
-                
-                [self downloadEvent];
-            }
-        }];
-        
-        [oneAC addAction:cancleAction];
-        [oneAC addAction:changeAction];
-        
-        [self presentViewController:oneAC animated:YES completion:nil];
-    }
+            [self downloadEvent];
+        }
+    }];
+    
+    [oneAC addAction:cancleAction];
+    [oneAC addAction:changeAction];
+    
+    [self presentViewController:oneAC animated:YES completion:nil];
 }
 
 - (void)downloadEvent {
