@@ -372,6 +372,8 @@
     }];
     
     [[self.closeBT rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        FeedbackShakePhone
+        
         [MGJRouter openURL:MUrl_closeLrc];
     }];
 }
@@ -407,8 +409,8 @@
     
     @weakify(self);
     [[self.coverFillBT rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        //[MGJRouter openURL:MUrl_closeLrc];
         @strongify(self);
+        FeedbackShakePhone
         
         self.coverFillBT.selected = !self.coverFillBT.isSelected;
         [self save__coverImageFull:self.coverFillBT.isSelected];
@@ -425,6 +427,7 @@
     @weakify(self);
     [[self.tapGR rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
         @strongify(self);
+        FeedbackShakePhone
         
         if (self.tvDrag) {
             [self.present endDragDelay];

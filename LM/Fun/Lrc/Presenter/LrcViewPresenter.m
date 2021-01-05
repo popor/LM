@@ -256,6 +256,8 @@
 }
 
 - (void)playBTAction {
+    FeedbackShakePhone
+    
     NSDictionary * dic = @{@"time":@(self.dragTime)};
     [MGJRouter openURL:MUrl_playAtTime withUserInfo:dic completion:nil];
     

@@ -37,6 +37,7 @@
 		18E52ED32253050C00EF8BF6 /* MusicListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E52ED22253050C00EF8BF6 /* MusicListCell.m */; };
 		C30D897F25354F6D009BFB45 /* NetService.m in Sources */ = {isa = PBXBuildFile; fileRef = C30D897D25354F6D009BFB45 /* NetService.m */; };
 		C32A17C925381E8000BD830B /* LrcTool.m in Sources */ = {isa = PBXBuildFile; fileRef = C32A17C825381E8000BD830B /* LrcTool.m */; };
+		C3325B3C25A41B07000A7F43 /* FeedbackGeneratorTool.m in Sources */ = {isa = PBXBuildFile; fileRef = C3325B3A25A41B07000A7F43 /* FeedbackGeneratorTool.m */; };
 		C3560EC22537ED780062EFA8 /* LrcKuGou.m in Sources */ = {isa = PBXBuildFile; fileRef = C3560EC12537ED780062EFA8 /* LrcKuGou.m */; };
 		C3560EC62537F4F00062EFA8 /* LrcKugouListEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C3560EC52537F4F00062EFA8 /* LrcKugouListEntity.m */; };
 		C3560ECA2537F7C40062EFA8 /* LrcKugouDetailEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C3560EC92537F7C40062EFA8 /* LrcKugouDetailEntity.m */; };
@@ -155,6 +156,8 @@
 		C32A17C725381E8000BD830B /* LrcTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LrcTool.h; sourceTree = "<group>"; };
 		C32A17C825381E8000BD830B /* LrcTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LrcTool.m; sourceTree = "<group>"; };
 		C32A17CC25381EB600BD830B /* LrcPrefix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LrcPrefix.h; sourceTree = "<group>"; };
+		C3325B3A25A41B07000A7F43 /* FeedbackGeneratorTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackGeneratorTool.m; sourceTree = "<group>"; };
+		C3325B3B25A41B07000A7F43 /* FeedbackGeneratorTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackGeneratorTool.h; sourceTree = "<group>"; };
 		C3560EC02537ED780062EFA8 /* LrcKuGou.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LrcKuGou.h; sourceTree = "<group>"; };
 		C3560EC12537ED780062EFA8 /* LrcKuGou.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LrcKuGou.m; sourceTree = "<group>"; };
 		C3560EC42537F4F00062EFA8 /* LrcKugouListEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LrcKugouListEntity.h; sourceTree = "<group>"; };
@@ -393,6 +396,7 @@
 		183BF42B224A25B0004DE115 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				C3325B3925A41B07000A7F43 /* FeedbackGenerator */,
 				C3E1687225A2FFC1004104B4 /* AlertWindowImageView */,
 				E431E51025A1A16C0024C67B /* FD_download */,
 				C3F31AD525395D3F00621878 /* NC */,
@@ -592,6 +596,15 @@
 				C3560ECC2537F8550062EFA8 /* LrcKugou */,
 			);
 			path = Tool;
+			sourceTree = "<group>";
+		};
+		C3325B3925A41B07000A7F43 /* FeedbackGenerator */ = {
+			isa = PBXGroup;
+			children = (
+				C3325B3B25A41B07000A7F43 /* FeedbackGeneratorTool.h */,
+				C3325B3A25A41B07000A7F43 /* FeedbackGeneratorTool.m */,
+			);
+			path = FeedbackGenerator;
 			sourceTree = "<group>";
 		};
 		C3560ECC2537F8550062EFA8 /* LrcKugou */ = {
@@ -985,6 +998,7 @@
 				18E52ED32253050C00EF8BF6 /* MusicListCell.m in Sources */,
 				180E33C1224E11AF008C176D /* FileTool.m in Sources */,
 				180E33C4224E11F7008C176D /* FileEntity.m in Sources */,
+				C3325B3C25A41B07000A7F43 /* FeedbackGeneratorTool.m in Sources */,
 				C3AD513D2517161700746FA2 /* LocalMusicHeadView.m in Sources */,
 				183BF427224A22EC004DE115 /* RootVCInteractor.m in Sources */,
 				C3560ECA2537F7C40062EFA8 /* LrcKugouDetailEntity.m in Sources */,

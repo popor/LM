@@ -12,6 +12,8 @@
 #import "MusicPlayListTool.h"
 #import "LrcTool.h"
 
+#import "FeedbackGeneratorTool.h"
+
 @interface MusicPlayTool() <AVAudioPlayerDelegate>
 
 @property (nonatomic, getter=isNeedActive) BOOL needActive;
@@ -79,6 +81,8 @@
 }
 
 - (void)playItem:(FileEntity *)item autoPlay:(BOOL)autoPlay {
+    FeedbackShakePhone
+    
 #if TARGET_OS_MACCATALYST
     NSString * path = [NSString stringWithFormat:@"%@/%@/%@", FT_docPath, MusicFolderName, item.filePath];
 #else

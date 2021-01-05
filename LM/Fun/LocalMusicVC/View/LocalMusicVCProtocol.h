@@ -10,6 +10,8 @@
 
 #import "LocalMusicHeadView.h"
 #import <PoporAlertBubbleView/AlertBubbleView.h>
+#import "FeedbackGeneratorTool.h"
+
 // MARK: 对外接口
 @protocol LocalMusicVCProtocol <NSObject>
 

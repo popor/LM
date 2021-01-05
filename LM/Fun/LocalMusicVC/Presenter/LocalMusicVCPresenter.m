@@ -569,6 +569,8 @@ API_AVAILABLE(ios(12.0))
 }
 
 - (void)aimAtCurrentItem:(UIButton *)bt {
+    FeedbackShakePhone
+    
     if ([self.mplt.config.localFolderName isEqualToString:self.view.vc.title]) {
         if ([self.view.infoTV.dataSource tableView:self.view.infoTV numberOfRowsInSection:0] > self.mpb.mplt.config.currentPlayIndexRow) {
             [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.mpb.mplt.config.currentPlayIndexRow inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];

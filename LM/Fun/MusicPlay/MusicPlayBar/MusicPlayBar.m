@@ -13,6 +13,8 @@
 #import "LrcKuGou.h"
 #import "LrcTool.h"
 
+#import "FeedbackGeneratorTool.h"
+
 #import <PoporUI/UIDevice+pScreenSize.h>
 //#import <PoporImageBrower/PoporImageBrower.h>
 
@@ -483,6 +485,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 }
 
 - (void)playBTEvent {
+    FeedbackShakePhone
     if (self.mpt.audioPlayer.isPlaying) {
         [self pauseEvent];
     }else{
@@ -508,6 +511,8 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 }
 
 - (void)previousBTEvent {
+    FeedbackShakePhone
+    
     if (self.mplt.currentWeakList.count>0) {
         NSInteger index = [self getPreviousIndex];
         self.mplt.config.currentPlayIndexRow = index;
@@ -528,6 +533,8 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 }
 
 - (void)nextBTEvent {
+    FeedbackShakePhone
+    
     if (self.mplt.currentWeakList.count>0) {
         NSInteger index = [self getNextIndex];
         self.mplt.config.currentPlayIndexRow = index;
@@ -632,6 +639,8 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 }
 
 - (void)orderAction {
+    FeedbackShakePhone
+    
     self.mplt.config.playOrder = (self.mplt.config.playOrder + 1)%McPlayOrderImageArray.count;
     
     [self.orderBT setImage:LmImageThemeBlue1(McPlayOrderImageArray[self.mplt.config.playOrder]) forState:UIControlStateNormal];
@@ -772,6 +781,8 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 }
 
 - (void)showBigIVAction {
+    FeedbackShakePhone
+    
     [MGJRouter openURL:MUrl_showLrc];
     
     self.songInfoL.text = self.mpt.musicItem.fileNameDeleteExtension;
