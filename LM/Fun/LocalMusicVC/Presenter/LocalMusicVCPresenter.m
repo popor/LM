@@ -612,7 +612,7 @@ API_AVAILABLE(ios(12.0))
                 [menu setMenuItems:[NSArray arrayWithObjects:copyItem, resendItem, copy1, copy2, copy3, nil]];
             }
             
-            [menu setTargetRect:longRecognizer.view.frame inView:self.view.infoTV];
+            [menu setTargetRect:CGRectOffset(longRecognizer.view.frame, 0, 10) inView:self.view.infoTV];
             
             [menu setMenuVisible:YES animated:YES];
             
