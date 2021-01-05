@@ -201,7 +201,11 @@
 #else
         NSMutableDictionary *songInfo = [ [NSMutableDictionary alloc] init];
         
-        MPMediaItemArtwork * media = [[MPMediaItemArtwork alloc] initWithImage:coverImage ? :self.defaultCoverImage];
+        //MPMediaItemArtwork * media = [[MPMediaItemArtwork alloc] initWithImage:coverImage ? :self.defaultCoverImage];
+        MPMediaItemArtwork * media = [[MPMediaItemArtwork alloc] initWithBoundsSize:CGSizeMake(200, 200) requestHandler:^UIImage * _Nonnull(CGSize size) {
+            return coverImage ? :self.defaultCoverImage;
+        }];
+        
         [songInfo setObject:media forKey:MPMediaItemPropertyArtwork];
         
         //锁屏标题

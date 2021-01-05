@@ -97,7 +97,14 @@ static NSString * NetMusicUrl = @"http://y.webzcz.cn/";
     
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
     config.allowsInlineMediaPlayback = YES;
-    config.requiresUserActionForMediaPlayback = NO;
+    config.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeAll;
+    
+    //if (@available(iOS 10, *)) {
+    //    config.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeNone;
+    //} else {
+    //    config.requiresUserActionForMediaPlayback = NO;
+    //}
+    
     
     {   // 注释 音视频js代码
         // https://blog.csdn.net/levebe/article/details/105996359

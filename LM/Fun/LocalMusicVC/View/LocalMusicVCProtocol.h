@@ -12,6 +12,8 @@
 #import <PoporAlertBubbleView/AlertBubbleView.h>
 #import "FeedbackGeneratorTool.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 // MARK: 对外接口
 @protocol LocalMusicVCProtocol <NSObject>
 
@@ -33,6 +35,8 @@
 @property (nonatomic, strong) UIButton        * aimBT;
 
 @property (nonatomic, readonly, getter=isRoot) BOOL root;
+
+@property (nonatomic, strong) UIMenuController * _Nullable longPressMenu;
 
 // MARK: 外部注入的
 
@@ -63,3 +67,5 @@
 - (void)cellGrCopyFileNameAction;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -75,9 +75,9 @@
     UIAlertAction * cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 #if TARGET_OS_MACCATALYST
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:entity.downloadUrl] options:@{}completionHandler:^(BOOL success) {}];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:entity.downloadUrl] options:@{} completionHandler:^(BOOL success) {}];
 #else
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:entity.downloadUrl]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:entity.downloadUrl] options:@{} completionHandler:nil];
 #endif
     }];
     
