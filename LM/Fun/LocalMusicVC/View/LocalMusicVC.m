@@ -27,6 +27,7 @@
 @synthesize searchArray;
 @synthesize aimBT;
 @synthesize root;
+@synthesize longPressMenu;
 
 - (void)dealloc {
     [MGJRouter openURL:MUrl_freshRootTV];

@@ -145,6 +145,8 @@
     }
     BOOL isHasImage = [[UIPasteboard generalPasteboard] containsPasteboardTypes:UIPasteboardTypeListImage];
     if (isHasImage) {
+        FeedbackShakePhone
+        
         UIImage * image = [UIPasteboard generalPasteboard].image;
         
         self.awIV = [[AlertWindowImageView alloc] initWithImage:image cancelButtonTitle:@"取消" confireButtonTitles:@"设置封面"];
@@ -178,6 +180,8 @@
         }];
         
     } else {
+        FeedbackShakeMedium
+        
         //NSLog(@"没有检测到复制图片");
         AlertToastTitle(@"没有检测到复制图片");
         self.coverIvLpGR.enabled = NO;

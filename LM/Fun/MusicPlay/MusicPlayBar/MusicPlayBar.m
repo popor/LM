@@ -132,6 +132,14 @@ static CGFloat MPBTimeLabelWidth1 = 57;
                 
                 float x = self.slider.frame.origin.x  +self.sliderImageWH/2 +(self.slider.width -self.sliderImageWH) *self.slider.value;
                 self.sliderTimeL.center = CGPointMake(x, -40);
+                
+                // 触感反馈
+                static CGFloat lastTime;
+                if (fabs(lastTime - time) >3) {
+                    lastTime = time;
+                    
+                    FeedbackShakePhone
+                }
             }
         }];
     }

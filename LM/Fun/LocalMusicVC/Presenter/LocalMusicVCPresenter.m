@@ -193,6 +193,7 @@ API_AVAILABLE(ios(12.0))
             [[cell.addBt rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
                 @strongify(self);
                 @strongify(cell);
+                FeedbackShakePhone
                 
                 FileEntity * entity = (FileEntity *)cell.cellData;
                 self.selectFileEntity = entity;
@@ -356,7 +357,11 @@ API_AVAILABLE(ios(12.0))
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    if (self.view.longPressMenu) {
+        [self.view.longPressMenu setMenuVisible:NO];
+        self.view.longPressMenu = nil;
+        return;
+    }
     if (tableView == self.view.infoTV) {
         FileEntity * fileEntity;
         NSMutableArray<FileEntity> * itemArray;
@@ -412,6 +417,8 @@ API_AVAILABLE(ios(12.0))
     }
     
     else {
+        FeedbackShakePhone
+        
         MusicPlayListEntity * list = MpltShare.list.songListArray[indexPath.row];
         if (list) {
             if (self.selectFileEntity.isFolder) {
@@ -584,27 +591,33 @@ API_AVAILABLE(ios(12.0))
 
 -(void)longTap:(UILongPressGestureRecognizer *)longRecognizer {
     if (longRecognizer.state==UIGestureRecognizerStateBegan) {
+        FeedbackShakeMedium
+        
         self.longPressIndexPathRow = [self.view.infoTV indexPathForCell:(UITableViewCell *)longRecognizer.view].row;
-        
         [self.view.vc becomeFirstResponder];
-        UIMenuController *menu = [UIMenuController sharedMenuController];
-        UIMenuItem *copyItem   = [[UIMenuItem alloc] initWithTitle:@"修改" action:@selector(cellGrEditFileNameAction)];
-        UIMenuItem *resendItem = [[UIMenuItem alloc] initWithTitle:@"删除" action:@selector(cellGrDeleteFileAction)];
         
-        if (self.view.isRoot) {
-            [menu setMenuItems:[NSArray arrayWithObjects:copyItem,resendItem,nil]];
+        self.view.longPressMenu = ({
+            UIMenuController *menu = [UIMenuController sharedMenuController];
+            UIMenuItem *copyItem   = [[UIMenuItem alloc] initWithTitle:@"修改" action:@selector(cellGrEditFileNameAction)];
+            UIMenuItem *resendItem = [[UIMenuItem alloc] initWithTitle:@"删除" action:@selector(cellGrDeleteFileAction)];
             
-        } else {
-            UIMenuItem *copy1 = [[UIMenuItem alloc] initWithTitle:@"歌手" action:@selector(cellGrCopySingerNameAction)];
-            UIMenuItem *copy2 = [[UIMenuItem alloc] initWithTitle:@"歌曲" action:@selector(cellGrCopySongNameAction)];
-            UIMenuItem *copy3 = [[UIMenuItem alloc] initWithTitle:@"文件" action:@selector(cellGrCopyFileNameAction)];
+            if (self.view.isRoot) {
+                [menu setMenuItems:[NSArray arrayWithObjects:copyItem,resendItem,nil]];
+                
+            } else {
+                UIMenuItem *copy1 = [[UIMenuItem alloc] initWithTitle:@"歌手" action:@selector(cellGrCopySingerNameAction)];
+                UIMenuItem *copy2 = [[UIMenuItem alloc] initWithTitle:@"歌曲" action:@selector(cellGrCopySongNameAction)];
+                UIMenuItem *copy3 = [[UIMenuItem alloc] initWithTitle:@"文件" action:@selector(cellGrCopyFileNameAction)];
+                
+                [menu setMenuItems:[NSArray arrayWithObjects:copyItem, resendItem, copy1, copy2, copy3, nil]];
+            }
             
-            [menu setMenuItems:[NSArray arrayWithObjects:copyItem, resendItem, copy1, copy2, copy3, nil]];
-        }
-        
-        [menu setTargetRect:longRecognizer.view.frame inView:self.view.infoTV];
-        
-        [menu setMenuVisible:YES animated:YES];
+            [menu setTargetRect:longRecognizer.view.frame inView:self.view.infoTV];
+            
+            [menu setMenuVisible:YES animated:YES];
+            
+            menu;
+        });
     }
 }
 

@@ -122,11 +122,19 @@
     if (scrollView == self.view.infoTV) {
         if (self.view.tvDrag && self.lrcArray.count > 0) {
             NSIndexPath * indexPath = [self.view.infoTV indexPathForRowAtPoint:CGPointMake(1, self.view.infoTV.height/2 +scrollView.contentOffset.y)];
-            LrcDetailEntity * entity = self.lrcArray[indexPath.row];
-            // NSLog(@"%i %@", (int)indexPath.row, entity.timeText);
-            self.view.timeL.text = entity.timeText5;
-            self.dragTime = entity.time;
-            self.dragRow  = entity.row;
+
+            static NSInteger lastRow;
+            if (indexPath.row != lastRow) {
+                lastRow = indexPath.row;
+                FeedbackShakePhone
+                
+                LrcDetailEntity * entity = self.lrcArray[indexPath.row];
+                //NSLog(@"%i %@", (int)indexPath.row, entity.timeText5);
+                
+                self.view.timeL.text = entity.timeText5;
+                self.dragTime = entity.time;
+                self.dragRow  = entity.row;
+            }
         }
     }
     
