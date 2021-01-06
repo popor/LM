@@ -81,8 +81,11 @@
         fileEntity;
     });
     
-    self.infoArray = self.folderArray;
-    [self.infoArray insertObject:self.allFileEntity atIndex:0];
+    self.localArray = self.folderArray;
+    
+    self.recordArray = [NSMutableArray<FileEntity> new];
+    [self.recordArray addObject:self.allFileEntity];
+    //[self.localArray insertObject:self.allFileEntity atIndex:0];
 }
 
 #pragma mark - VCDataSource

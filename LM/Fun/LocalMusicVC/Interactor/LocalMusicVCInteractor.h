@@ -12,8 +12,14 @@
 // 处理Entity事件
 @interface LocalMusicVCInteractor : NSObject
 
-@property (nonatomic, weak  ) NSMutableArray<FileEntity> * infoArray;
+@property (nonatomic, strong) NSMutableArray<FileEntity> * allArray;    // 全部文件夹
+
+@property (nonatomic, strong) NSMutableArray<FileEntity> * recordArray; // 收藏文件夹
+@property (nonatomic, weak  ) NSMutableArray<FileEntity> * localArray;  // 本地文件夹
+
 @property (nonatomic, strong) FileEntity * allFileEntity; // 全部音乐文件.
+
+
 
 - (void)initData;
 

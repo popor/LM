@@ -39,12 +39,17 @@
         switch (i) {
             case 0: {
                 self.openBT = oneBT;
-                [oneBT setTitle:@"打开" forState:UIControlStateNormal];
+#if TARGET_OS_MACCATALYST
+                [oneBT setTitle:@" 打开 " forState:UIControlStateNormal];
+#else
+                [oneBT setTitle:@" WIFI " forState:UIControlStateNormal];
+#endif
+                
                 break;
             }
             case 1: {
                 self.freshBT = oneBT;
-                [oneBT setTitle:@"刷新" forState:UIControlStateNormal];
+                [oneBT setTitle:@" 刷新 " forState:UIControlStateNormal];
                 //[oneBT setTitle:@"完成" forState:UIControlStateSelected];
                 break;
             }
