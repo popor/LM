@@ -66,7 +66,23 @@
     }];
     self.folderArray = result.mutableCopy;
     
+    self.allFileEntity = nil;
+    self.allFileEntity = ({
+        FileEntity * fileEntity = [FileEntity new];
+        fileEntity.fileName     = @"全部";
+        
+        fileEntity.fileType = FileType_virtualFolder;
+        fileEntity.itemArray = [NSMutableArray<FileEntity, Ignore> new];
+        
+        for (FileEntity * fe in self.folderArray) {
+            [fileEntity.itemArray addObjectsFromArray:fe.itemArray];
+        }
+        
+        fileEntity;
+    });
+    
     self.infoArray = self.folderArray;
+    [self.infoArray insertObject:self.allFileEntity atIndex:0];
 }
 
 #pragma mark - VCDataSource

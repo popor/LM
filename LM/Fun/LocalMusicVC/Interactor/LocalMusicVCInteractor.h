@@ -13,6 +13,7 @@
 @interface LocalMusicVCInteractor : NSObject
 
 @property (nonatomic, weak  ) NSMutableArray<FileEntity> * infoArray;
+@property (nonatomic, strong) FileEntity * allFileEntity; // 全部音乐文件.
 
 - (void)initData;
 

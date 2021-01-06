@@ -78,7 +78,7 @@
 }
 
 - (BOOL)isFolder {
-    if (self.fileType == FileType_folder) {
+    if (self.fileType == FileType_folder || self.fileType == FileType_virtualFolder) {
         return YES;
     } else {
         return NO;
