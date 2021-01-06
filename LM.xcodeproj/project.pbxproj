@@ -315,6 +315,7 @@
 				183BF429224A24EF004DE115 /* App */,
 				184F3703224B25D000FEB57B /* Root */,
 				184F370E224B26A100FEB57B /* Fun */,
+				C3F9E29E25A555290030CE24 /* old */,
 			);
 			path = LM;
 			sourceTree = "<group>";
@@ -436,10 +437,9 @@
 			children = (
 				C30D896625354B6D009BFB45 /* Lrc */,
 				C3D58B6B2517470C00A40108 /* MusicPlay */,
-				C3AD50F82516EE1100746FA2 /* SongSection */,
 				180E33A4224DE7E5008C176D /* LocalMusicVC */,
-				18561596224DC1D0004BE073 /* WifiAddFileVC */,
 				E431E4F925A19C0C0024C67B /* NetMusicVC */,
+				18561596224DC1D0004BE073 /* WifiAddFileVC */,
 			);
 			path = Fun;
 			sourceTree = "<group>";
@@ -783,6 +783,15 @@
 				C3F31ADF2539709100621878 /* 半屏@3x.png */,
 			);
 			path = image;
+			sourceTree = "<group>";
+		};
+		C3F9E29E25A555290030CE24 /* old */ = {
+			isa = PBXGroup;
+			children = (
+				C3AD50F82516EE1100746FA2 /* SongSection */,
+			);
+			name = old;
+			path = Fun;
 			sourceTree = "<group>";
 		};
 		E431E4F925A19C0C0024C67B /* NetMusicVC */ = {

@@ -236,7 +236,8 @@
 }
 
 - (void)addHeadSegmentViews {
-    self.titleArray = @[@"歌单", @"本地", @"网络"];
+    //self.titleArray = @[@"歌单", @"本地", @"网络"];
+    self.titleArray = @[@"本地", @"网络"];
     self.segmentView = ({
         NSArray *titleAry = self.titleArray;
         
@@ -297,24 +298,24 @@
     }
     
     {
-        self.songListVC = ({
-            SongListVC * vc = [[SongListVC alloc] initWithDic:nil];
-            
-            [self addChildViewController:vc];
-            [self.tvSV addSubview:vc.view];
-            
-            [self.tvArray addObject:vc.view];
-            
-            [vc.view mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.mas_equalTo(0);
-                make.bottom.mas_equalTo(0);
-                
-                make.width.mas_equalTo(self.tvSV);
-                make.height.mas_equalTo(self.tvSV);
-            }];
-            
-            vc;
-        });
+        //        self.songListVC = ({
+        //            SongListVC * vc = [[SongListVC alloc] initWithDic:nil];
+        //            
+        //            [self addChildViewController:vc];
+        //            [self.tvSV addSubview:vc.view];
+        //            
+        //            [self.tvArray addObject:vc.view];
+        //            
+        //            [vc.view mas_makeConstraints:^(MASConstraintMaker *make) {
+        //                make.top.mas_equalTo(0);
+        //                make.bottom.mas_equalTo(0);
+        //                
+        //                make.width.mas_equalTo(self.tvSV);
+        //                make.height.mas_equalTo(self.tvSV);
+        //            }];
+        //            
+        //            vc;
+        //        });
         
         self.localMusicVC = ({
             LocalMusicVC * vc = [[LocalMusicVC alloc] initWithDic:nil];

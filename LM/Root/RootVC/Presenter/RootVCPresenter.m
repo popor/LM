@@ -22,7 +22,7 @@
 @property (nonatomic, weak  ) id<RootVCProtocol> view;
 @property (nonatomic, strong) RootVCInteractor * interactor;
 @property (nonatomic, weak  ) MusicPlayListTool * mplt;
-@property (nonatomic        ) NSInteger recordDepartment;
+//@property (nonatomic        ) NSInteger recordDepartment;// 移除了
 
 @end
 
@@ -48,29 +48,29 @@
 
 // 开始执行事件,比如获取网络数据
 - (void)startEvent {
-    
-    self.recordDepartment = [self.interactor get__playDepartment];
-    @weakify(self);
-    [MRouterC registerURL:MUrl_savePlayDepartment toHandel:^(NSDictionary *routerParameters){
-        @strongify(self);
-        
-        if (self.view.segmentView.currentPage != self.recordDepartment) {
-            [self.interactor save__playDepartment:self.view.segmentView.currentPage];
-        }
-    }];
-    
-    [MRouterC registerURL:MUrl_wifiAddFileVC toHandel:^(NSDictionary *routerParameters){
-        @strongify(self);
-        
-        [self showWifiVC];
-    }];
-    
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (self.recordDepartment != 0) {
-            [self.view.segmentView updateLineViewToBT:self.view.segmentView.btArray[self.recordDepartment]];
-        }
-    });
+    {
+        @weakify(self);
+        [MRouterC registerURL:MUrl_wifiAddFileVC toHandel:^(NSDictionary *routerParameters){
+            @strongify(self);
+            
+            [self showWifiVC];
+        }];
+    }
+    //    self.recordDepartment = [self.interactor get__playDepartment];
+    //    @weakify(self);
+    //    [MRouterC registerURL:MUrl_savePlayDepartment toHandel:^(NSDictionary *routerParameters){
+    //        @strongify(self);
+    //
+    //        if (self.view.segmentView.currentPage != self.recordDepartment) {
+    //            [self.interactor save__playDepartment:self.view.segmentView.currentPage];
+    //        }
+    //    }];
+    //
+    //    dispatch_async(dispatch_get_main_queue(), ^{
+    //        if (self.recordDepartment != 0) {
+    //            [self.view.segmentView updateLineViewToBT:self.view.segmentView.btArray[self.recordDepartment]];
+    //        }
+    //    });
     
 }
 
