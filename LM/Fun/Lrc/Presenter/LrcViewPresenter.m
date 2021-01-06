@@ -21,6 +21,7 @@
 
 @property (nonatomic, copy  ) UIColor * cellTextColorN;
 @property (nonatomic, copy  ) UIColor * cellTextColorS;
+@property (nonatomic, copy  ) UIColor * cellTextColorD;
 
 @end
 
@@ -30,6 +31,7 @@
     if (self = [super init]) {
         self.cellTextColorN = [UIColor whiteColor];
         self.cellTextColorS = App_textSColor;
+        self.cellTextColorD = KDragColor;
     }
     return self;
 }
@@ -91,7 +93,7 @@
 #else
         cell.textLabel.font = [UIFont systemFontOfSize:18];
 #endif
-        
+        cell.textLabel.textColor = self.cellTextColorN;
     }
     if (self.lrcArray.count == 0) {
         cell.textLabel.text = @"暂无歌词";
@@ -100,12 +102,6 @@
     } else {
         LrcDetailEntity * entity = self.lrcArray[indexPath.row];
         cell.textLabel.text = entity.lrcText;
-        //cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", entity.timeText, entity.lrc];
-        if (self.playRow == indexPath.row) {
-            cell.textLabel.textColor = self.cellTextColorS;
-        } else {
-            cell.textLabel.textColor = self.cellTextColorN;
-        }
     }
     
     
@@ -134,6 +130,8 @@
                 self.view.timeL.text = entity.timeText5;
                 self.dragTime = entity.time;
                 self.dragRow  = entity.row;
+                
+                [self freshVisiablCell];
             }
         }
     }
@@ -221,29 +219,39 @@
 }
 
 - (void)scrollToLrc:(LrcDetailEntity *)lyric {
-    if (self.view.tvDrag) {
+    if (self.playRow != lyric.row) {
+        self.playRow = lyric.row;
+        //NSLog(@"歌词 time: %@", lyric.timeText);
         
-    } else {
-        if (self.playRow != lyric.row) {
-            self.playRow = lyric.row;
-            //NSLog(@"歌词 time: %@", lyric.timeText);
-            
-            NSArray * ipArray = self.view.infoTV.indexPathsForVisibleRows;
-            NSIndexPath * ip0 = ipArray.firstObject;
-            NSIndexPath * ip1 = ipArray.lastObject;
-            if (ip0.row <= self.playRow && self.playRow <= ip1.row) {
-                // 假如拖拽范围少, 在屏幕显示内部, 则需要刷新可见范围cell.
-                [self freshVisiablCell];
-            }
-            
+        NSArray * ipArray = self.view.infoTV.indexPathsForVisibleRows;
+        NSIndexPath * ip0 = ipArray.firstObject;
+        NSIndexPath * ip1 = ipArray.lastObject;
+        if (ip0.row <= self.playRow && self.playRow <= ip1.row) {
+            // 假如拖拽范围少, 在屏幕显示内部, 则需要刷新可见范围cell.
+            [self freshVisiablCell];
+        }
+        
+        if (!self.view.tvDrag) {
             [self scrollToRow:lyric.row];
         }
     }
 }
 
 - (void)freshVisiablCell {
-    for (UITableViewCell * cell in self.view.infoTV.visibleCells) {
-        if (cell) {
+    if (self.view.tvDrag) {
+        for (UITableViewCell * cell in self.view.infoTV.visibleCells) {
+            NSIndexPath * ip = [self.view.infoTV indexPathForCell:cell];
+       
+            if (ip.row == self.playRow) {
+                cell.textLabel.textColor = self.cellTextColorS;
+            } else if (ip.row == self.dragRow) {
+                cell.textLabel.textColor = self.cellTextColorD;
+            } else {
+                cell.textLabel.textColor = self.cellTextColorN;
+            }
+        }
+    } else {
+        for (UITableViewCell * cell in self.view.infoTV.visibleCells) {
             NSIndexPath * ip = [self.view.infoTV indexPathForCell:cell];
             if (ip.row == self.playRow) {
                 cell.textLabel.textColor = self.cellTextColorS;

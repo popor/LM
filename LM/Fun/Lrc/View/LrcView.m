@@ -209,7 +209,7 @@
 - (UITableView *)addTVs {
     UITableView * oneTV = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     
-    oneTV.backgroundColor = PRGBF(0, 0, 0, 0.2);
+    oneTV.backgroundColor = PRGBF(0, 0, 0, 0.3);
     oneTV.separatorColor  = [UIColor clearColor];
     
     oneTV.delegate   = self.present;
@@ -256,7 +256,7 @@
             UILabel * oneL = [UILabel new];
             oneL.backgroundColor     = [UIColor clearColor]; // ios8 之前
             oneL.font                = [UIFont systemFontOfSize:16];
-            oneL.textColor           = App_textSColor;
+            oneL.textColor           = KDragColor;
             oneL.layer.masksToBounds = YES; // ios8 之后 lableLayer 问题
             oneL.numberOfLines       = 1;
             oneL.userInteractionEnabled = NO;
@@ -276,7 +276,7 @@
             UIButton * oneBT = [UIButton buttonWithType:UIButtonTypeCustom];
             
             [oneBT setTitle:@"▶" forState:UIControlStateNormal];
-            [oneBT setTitleColor:App_textSColor forState:UIControlStateNormal];
+            [oneBT setTitleColor:KDragColor forState:UIControlStateNormal];
             [oneBT setBackgroundColor:[UIColor clearColor]];
             oneBT.titleLabel.font = [UIFont systemFontOfSize:30];
             oneBT.userInteractionEnabled = NO;
@@ -335,8 +335,8 @@
                 make.left.mas_equalTo(self.lineView1.mas_right).mas_offset(gap);
             }];
             
-            UIColor * c0 = [ColorThemeBlue1 colorWithAlphaComponent:1];
-            UIColor * c1 = [ColorThemeBlue1 colorWithAlphaComponent:0];
+            UIColor * c0 = [KDragColor colorWithAlphaComponent:1];
+            UIColor * c1 = [KDragColor colorWithAlphaComponent:0];
             
             UIImage * image1 = [UIImage gradientImageWithBounds:CGRectMake(0, 0, size.width, size.height) andColors:@[c0, c1] gradientHorizon:YES];
             UIImage * image2 = [UIImage gradientImageWithBounds:CGRectMake(0, 0, size.width, size.height) andColors:@[c1, c0] gradientHorizon:YES];

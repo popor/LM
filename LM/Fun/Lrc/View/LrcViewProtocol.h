@@ -12,6 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#define KDragColor PRGBF(234,111,59, 1) //UIColor.orangeColor
 static CGFloat LrcViewTvCellDefaultH = 40;
 
 // MARK: 对外接口
