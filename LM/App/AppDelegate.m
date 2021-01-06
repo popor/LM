@@ -10,6 +10,12 @@
 
 #import "AppNetRecordConfig.h"
 
+void UncaughtExceptionHandler(NSException *exception) {
+    
+    [MGJRouter openURL:MUrl_savePlayDepartment];
+    [MGJRouter openURL:MUrl_savePlayConfig];
+}
+
 @interface AppDelegate ()
 
 @end
@@ -17,6 +23,9 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // 抓捕异常崩溃信息.
+    NSSetUncaughtExceptionHandler (&UncaughtExceptionHandler);
+    
 #if TARGET_IPHONE_SIMULATOR//模拟器
     NSString * iosInjectionPath = @"/Applications/InjectionIII.app/Contents/Resources/iOSInjection.bundle";
     if ([[NSFileManager defaultManager] fileExistsAtPath:iosInjectionPath]) {
