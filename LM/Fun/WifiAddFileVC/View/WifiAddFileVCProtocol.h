@@ -11,7 +11,7 @@
 #import "GCDWebServerDataResponse.h"
 
 #import "GCDWebUploader.h"
-
+#import "SingleBTBottomView.h"
 //#import "UILabelInsets.h"
 
 //#import <PoporUI/UILabel+pInsets.h>
@@ -24,6 +24,8 @@
 // MARK: 自己的
 @property (nonatomic, strong) GCDWebUploader * webUploader;
 @property (nonatomic, strong) UILabel * infoL;
+
+@property (nonatomic, strong) SingleBTBottomView * singleBTBottomView;
 // MARK: 外部注入的
 @property (nonatomic, copy  ) BlockPVoid deallocBlock;
 

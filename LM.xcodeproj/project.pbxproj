@@ -59,6 +59,8 @@
 		C3F31AE12539709100621878 /* 全屏@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F31ADD2539709100621878 /* 全屏@2x.png */; };
 		C3F31AE22539709100621878 /* 半屏@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F31ADE2539709100621878 /* 半屏@2x.png */; };
 		C3F31AE32539709100621878 /* 半屏@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F31ADF2539709100621878 /* 半屏@3x.png */; };
+		C3F9E2A625A586F50030CE24 /* SingleBTBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F9E2A225A586F50030CE24 /* SingleBTBottomView.m */; };
+		C3F9E2A725A586F50030CE24 /* DoubleBTBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F9E2A525A586F50030CE24 /* DoubleBTBottomView.m */; };
 		D4807A288BE4B56179FA77D5 /* libPods-LM.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7B2B70D60E892B2A452617D /* libPods-LM.a */; };
 		E431E50B25A19C3A0024C67B /* NetMusicVCInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = E431E50225A19C3A0024C67B /* NetMusicVCInteractor.m */; };
 		E431E50C25A19C3A0024C67B /* NetMusicVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E431E50625A19C3A0024C67B /* NetMusicVC.m */; };
@@ -199,6 +201,10 @@
 		C3F31ADE2539709100621878 /* 半屏@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "半屏@2x.png"; sourceTree = "<group>"; };
 		C3F31ADF2539709100621878 /* 半屏@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "半屏@3x.png"; sourceTree = "<group>"; };
 		C3F31BC425398F2300621878 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		C3F9E2A225A586F50030CE24 /* SingleBTBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleBTBottomView.m; sourceTree = "<group>"; };
+		C3F9E2A325A586F50030CE24 /* DoubleBTBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoubleBTBottomView.h; sourceTree = "<group>"; };
+		C3F9E2A425A586F50030CE24 /* SingleBTBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleBTBottomView.h; sourceTree = "<group>"; };
+		C3F9E2A525A586F50030CE24 /* DoubleBTBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoubleBTBottomView.m; sourceTree = "<group>"; };
 		D517352033FD9281F808A739 /* Pods-LM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LM.release.xcconfig"; path = "Target Support Files/Pods-LM/Pods-LM.release.xcconfig"; sourceTree = "<group>"; };
 		D7B2B70D60E892B2A452617D /* libPods-LM.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LM.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E431E50225A19C3A0024C67B /* NetMusicVCInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetMusicVCInteractor.m; sourceTree = "<group>"; };
@@ -397,6 +403,7 @@
 		183BF42B224A25B0004DE115 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				C3F9E2A125A586F50030CE24 /* SingleBTBottomView */,
 				C3325B3925A41B07000A7F43 /* FeedbackGenerator */,
 				C3E1687225A2FFC1004104B4 /* AlertWindowImageView */,
 				E431E51025A1A16C0024C67B /* FD_download */,
@@ -794,6 +801,17 @@
 			path = Fun;
 			sourceTree = "<group>";
 		};
+		C3F9E2A125A586F50030CE24 /* SingleBTBottomView */ = {
+			isa = PBXGroup;
+			children = (
+				C3F9E2A425A586F50030CE24 /* SingleBTBottomView.h */,
+				C3F9E2A225A586F50030CE24 /* SingleBTBottomView.m */,
+				C3F9E2A325A586F50030CE24 /* DoubleBTBottomView.h */,
+				C3F9E2A525A586F50030CE24 /* DoubleBTBottomView.m */,
+			);
+			path = SingleBTBottomView;
+			sourceTree = "<group>";
+		};
 		E431E4F925A19C0C0024C67B /* NetMusicVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -1000,6 +1018,7 @@
 				C3560EC22537ED780062EFA8 /* LrcKuGou.m in Sources */,
 				C3E1687525A2FFC1004104B4 /* AlertWindowImageView.m in Sources */,
 				18DE138F2251AAC9009920D7 /* MusicPlayTool.m in Sources */,
+				C3F9E2A625A586F50030CE24 /* SingleBTBottomView.m in Sources */,
 				C3560EC62537F4F00062EFA8 /* LrcKugouListEntity.m in Sources */,
 				C3AD50F52516EDDB00746FA2 /* SongListVC.m in Sources */,
 				180E33BB224DE806008C176D /* LocalMusicVCInteractor.m in Sources */,
@@ -1007,6 +1026,7 @@
 				18E52ED32253050C00EF8BF6 /* MusicListCell.m in Sources */,
 				180E33C1224E11AF008C176D /* FileTool.m in Sources */,
 				180E33C4224E11F7008C176D /* FileEntity.m in Sources */,
+				C3F9E2A725A586F50030CE24 /* DoubleBTBottomView.m in Sources */,
 				C3325B3C25A41B07000A7F43 /* FeedbackGeneratorTool.m in Sources */,
 				C3AD513D2517161700746FA2 /* LocalMusicHeadView.m in Sources */,
 				183BF427224A22EC004DE115 /* RootVCInteractor.m in Sources */,

@@ -21,6 +21,7 @@
 @synthesize webUploader;
 @synthesize infoL;
 @synthesize deallocBlock;
+@synthesize singleBTBottomView;
 
 
 - (void)dealloc {
@@ -98,6 +99,7 @@
     }
 #endif
     
+    [self addBottomView1];
 }
 
 
@@ -228,6 +230,43 @@
 - (void)setFolderAction {
     
     
+}
+
+- (void)addBottomView1 {
+    self.singleBTBottomView = ({
+        SingleBTBottomView * view = [SingleBTBottomView new];
+        
+        [view.submitBtn setTitle:@"复制链接" forState:UIControlStateNormal];
+        static UIImage * bgImage;
+        if (!bgImage) {
+            bgImage = [UIImage imageFromColor:ColorThemeBlue1 size:CGSizeMake(1, 1)];
+        }
+        [view.submitBtn setBackgroundImage:bgImage forState:UIControlStateNormal];
+        
+        @weakify(self);
+        [[view.submitBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+            @strongify(self);
+            
+            if (self.webUploader.serverURL) {
+                UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+                [pasteboard setString:self.webUploader.serverURL.absoluteString];
+                AlertToastTitle(([NSString stringWithFormat:@"已复制: %@", self.webUploader.serverURL.absoluteString]));
+            } else {
+                AlertToastTitle(@"未连接WIFI");
+            }
+        }];
+        
+        [self.view addSubview:view];
+        
+        [view mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(view.height);
+            make.left.mas_equalTo(0);
+            make.bottom.mas_equalTo(-0);
+            make.right.mas_equalTo(-0);
+        }];
+        
+        view;
+    });
 }
 
 @end
