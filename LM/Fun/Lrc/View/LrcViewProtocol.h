@@ -38,7 +38,8 @@ static CGFloat LrcViewTvCellDefaultH = 40;
 
 @property (nonatomic, strong) UILabel  * timeL;
 @property (nonatomic, strong) UIButton * playBT;
-@property (nonatomic, strong) UITapGestureRecognizer * tapGR;
+@property (nonatomic, strong) UITapGestureRecognizer * coverLrcTapGR; // 封面和歌词切换GR
+@property (nonatomic, strong) UITapGestureRecognizer * dragLrcTapGR; // 拖拽歌词后点击GR
 
 // MARK: 外部注入的
 
@@ -58,7 +59,7 @@ static CGFloat LrcViewTvCellDefaultH = 40;
 
 - (void)endDragDelay;
 
-- (void)playBTAction;
+- (void)playBTAction:(UITapGestureRecognizer *)tapGR;
 
 @end
 

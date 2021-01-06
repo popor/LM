@@ -43,7 +43,8 @@
 @synthesize playBT;
 @synthesize lineView1;
 @synthesize lineView2;
-@synthesize tapGR;
+@synthesize coverLrcTapGR;
+@synthesize dragLrcTapGR;
 
 - (instancetype)initWithDic:(NSDictionary *)dic {
     if (self = [super init]) {
@@ -94,7 +95,11 @@
     [self addTapGrs];
     [self addMgjrouter];
     
-    
+    {
+        self.dragLrcTapGR = [[UITapGestureRecognizer alloc] initWithTarget:self.present action:@selector(playBTAction:)];
+        self.dragLrcTapGR.enabled = NO;
+        [self.infoTV addGestureRecognizer:self.dragLrcTapGR];
+    }
     {
         [self.view insertSubview:self.lineView1 belowSubview:self.infoTV];
         [self.view insertSubview:self.lineView2 belowSubview:self.infoTV];
@@ -231,12 +236,11 @@
         self.dragLrcTimeView = ({
             UIView * oneView = [UIView new];
             oneView.backgroundColor = UIColor.clearColor;
+            oneView.userInteractionEnabled = NO;
             
             [self.view addSubview:oneView];
             oneView;
         });
-        UITapGestureRecognizer * tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self.present action:@selector(playBTAction)];
-        [self.dragLrcTimeView addGestureRecognizer:tapGR];
         
         [self.dragLrcTimeView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(0);
@@ -424,12 +428,12 @@
 }
 
 - (void)addTapGrs {
-    self.tapGR = [UITapGestureRecognizer new];
+    self.coverLrcTapGR = [UITapGestureRecognizer new];
     //self.tapGR.delegate = self;
-    [self.view addGestureRecognizer:self.tapGR];
+    [self.view addGestureRecognizer:self.coverLrcTapGR];
     
     @weakify(self);
-    [[self.tapGR rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
+    [[self.coverLrcTapGR rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
         @strongify(self);
         FeedbackShakePhone
         
@@ -444,7 +448,7 @@
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    if (gestureRecognizer == self.tapGR) {
+    if (gestureRecognizer == self.coverLrcTapGR) {
         if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
             return YES;
         }

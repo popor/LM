@@ -145,6 +145,8 @@
         if (self.lrcArray.count > 0) {
             self.view.tvDrag = YES;
             self.view.dragLrcTimeView.hidden = NO;
+            self.view.dragLrcTapGR.enabled   = YES;
+            self.view.coverLrcTapGR.enabled  = NO;
         } else {
             [self endDragDelay];
         }
@@ -198,6 +200,8 @@
 - (void)endDragDelay {
     self.view.tvDrag = NO;
     self.view.dragLrcTimeView.hidden = YES;
+    self.view.dragLrcTapGR.enabled   = NO;
+    self.view.coverLrcTapGR.enabled  = YES;
 }
 
 #pragma mark - VC_EventHandler
@@ -263,16 +267,33 @@
     });
 }
 
-- (void)playBTAction {
-    FeedbackShakePhone
-    
-    NSDictionary * dic = @{@"time":@(self.dragTime)};
-    [MGJRouter openURL:MUrl_playAtTime withUserInfo:dic completion:nil];
-    
-    self.playRow = self.dragRow;
-    [self freshVisiablCell];
-    
-    [self endDragDelay];
+- (void)playBTAction:(UITapGestureRecognizer *)tapGR {
+    if (!self.view.dragLrcTimeView.hidden) {
+        FeedbackShakePhone
+        //NSLogPoint(tapGR)
+        CGPoint point = [tapGR locationInView:self.view.view];
+        //NSLogRect(self.view.dragLrcTimeView.frame);
+        //NSLogPoint(point);
+        
+        if (CGRectContainsPoint(self.view.dragLrcTimeView.frame, point)) {
+            //NSLog(@"包含");
+            
+            NSDictionary * dic = @{@"time":@(self.dragTime)};
+            [MGJRouter openURL:MUrl_playAtTime withUserInfo:dic completion:nil];
+            
+            self.playRow = self.dragRow;
+            
+            [self freshVisiablCell];
+            [self endDragDelay];
+        } else {
+            // 取消滑动
+            [self scrollToRow:self.playRow];
+            [self freshVisiablCell];
+            [self endDragDelay];
+        }
+        
+        
+    }
 }
 
 #pragma mark - Interactor_EventHandler
