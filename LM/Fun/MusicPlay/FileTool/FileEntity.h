@@ -12,9 +12,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 static NSString * WFIgnoreFile = @".DS_Store";
 
+typedef NS_ENUM(NSInteger, FileType) {
+    FileType_folder,
+    FileType_file,
+    FileType_virtualFolder,
+};
+
 @protocol FileEntity;
 @interface FileEntity : PoporJsonModel
 
+@property (nonatomic        ) FileType   fileType;
 @property (nonatomic, copy  ) NSString * folderName;
 @property (nonatomic, copy  ) NSString * fileName;
 @property (nonatomic, copy  ) NSString * fileNameDeleteExtension;
@@ -31,11 +38,11 @@ static NSString * WFIgnoreFile = @".DS_Store";
 @property (nonatomic, getter=isAvailable) BOOL available; // 是否还存在
 @property (nonatomic        ) NSInteger index;
 
-@property (nonatomic, getter=isFolder) BOOL folder;
+- (BOOL)isFolder;
 
 + (UIImage *)mp3CoverImage:(NSString *)filePath;
 
-- (void)updateFileFolder:(NSString *)folderName isFolder:(BOOL)isFolder FileName:(NSString *)fileName;
+- (void)updateFileFolder:(NSString *)folderName fileType:(FileType)fileType FileName:(NSString *)fileName;
 
 @end
 

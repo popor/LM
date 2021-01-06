@@ -654,7 +654,7 @@ API_AVAILABLE(ios(12.0))
             NSString * path1 = [NSString stringWithFormat:@"%@/%@/%@", FT_docPath, entity.folderName, nameTF.text];
             [NSFileManager moveFile:path0 to:path1];
             
-            [entity updateFileFolder:entity.folderName isFolder:entity.folder FileName:nameTF.text];
+            [entity updateFileFolder:entity.folderName fileType:FileType_file FileName:nameTF.text];
             
             [self.view.infoTV reloadData];
         }
@@ -686,10 +686,10 @@ API_AVAILABLE(ios(12.0))
             NSString * path1 = [NSString stringWithFormat:@"%@/%@", FT_docPath, nameTF.text];
             [NSFileManager moveFile:path0 to:path1];
             
-            [entity updateFileFolder:entity.folderName isFolder:entity.folder FileName:nameTF.text];
+            [entity updateFileFolder:entity.folderName fileType:FileType_folder FileName:nameTF.text];
             
             for (FileEntity * fe in entity.itemArray) {
-                [fe updateFileFolder:entity.fileName isFolder:fe.folder FileName:fe.fileName];
+                [fe updateFileFolder:entity.fileName fileType:FileType_file FileName:fe.fileName];
             }
             
             [self.view.infoTV reloadData];

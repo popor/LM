@@ -12,13 +12,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-
-typedef NS_ENUM(int, FileType) {
-    FileTypeFolder,
-    FileTypeItem,
-    FileTypeAll,
-};
-
 #define FT_docPath [FileTool getAppDocPath]
 
 @interface FileTool : NSObject

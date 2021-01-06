@@ -16,7 +16,7 @@
     FileEntity *entity = [[[self class] alloc] init]; // <== 注意这里
     entity.folderName  = self.folderName;
     entity.fileName    = self.fileName;
-    entity.folder      = self.isFolder;
+    entity.fileType    = self.fileType;
     entity.itemArray   = [self.itemArray mutableCopy];
     
     return entity;
@@ -48,13 +48,13 @@
     return coverImage;
 }
 
-- (void)updateFileFolder:(NSString *)folderName isFolder:(BOOL)isFolder FileName:(NSString *)fileName {
+- (void)updateFileFolder:(NSString *)folderName fileType:(FileType)fileType FileName:(NSString *)fileName {
     self.folderName = folderName;
     self.fileName   = fileName;
-    self.folder     = isFolder;
+    self.fileType   = fileType;
     self.filePath   = [NSString stringWithFormat:@"%@/%@", folderName, fileName];
     
-    if (isFolder) {
+    if (fileType == FileType_folder || fileType == FileType_virtualFolder) {
         
     } else {
         if (fileName.pathExtension.length > 0) {
@@ -74,6 +74,14 @@
             self.musicName   = self.fileNameDeleteExtension;
             self.musicAuthor = @"";
         }
+    }
+}
+
+- (BOOL)isFolder {
+    if (self.fileType == FileType_folder) {
+        return YES;
+    } else {
+        return NO;
     }
 }
 

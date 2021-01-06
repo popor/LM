@@ -28,9 +28,9 @@
 
 - (void)initData {
 #if TARGET_OS_MACCATALYST
-    self.folderArray = [FileTool getArrayAtPath:MusicFolderName type:FileTypeFolder];
+    self.folderArray = [FileTool getArrayAtPath:MusicFolderName type:FileType_folder];
 #else
-    self.folderArray = [FileTool getArrayAtPath:nil type:FileTypeFolder];
+    self.folderArray = [FileTool getArrayAtPath:nil type:FileType_folder];
 #endif
     
     for (NSInteger i = 0; i<self.folderArray.count;) {
@@ -49,7 +49,7 @@
         }
 #endif
         
-        NSMutableArray<FileEntity, Ignore> * itemArray = [FileTool getArrayAtPath:[NSString stringWithFormat:@"%@/%@", folderEntity.folderName, folderEntity.fileName] type:FileTypeItem];
+        NSMutableArray<FileEntity, Ignore> * itemArray = [FileTool getArrayAtPath:[NSString stringWithFormat:@"%@/%@", folderEntity.folderName, folderEntity.fileName] type:FileType_file];
         
         // 排序
         NSArray *result = [itemArray sortedArrayUsingComparator:^NSComparisonResult(FileEntity * _Nonnull obj1, FileEntity * _Nonnull obj2) {

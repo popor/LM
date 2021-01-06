@@ -45,44 +45,41 @@
         BOOL folderFlag;
         [fileManager fileExistsAtPath:[NSString stringWithFormat:@"%@/%@", path, fileName] isDirectory:&folderFlag];
         FileEntity * entity = [FileEntity new];
-        [entity updateFileFolder:folderName isFolder:folderFlag FileName:fileName];
         
         if (folderFlag) {
             [direnum skipDescendants];
+            [entity updateFileFolder:folderName fileType:FileType_folder FileName:fileName];
+        } else {
+            [entity updateFileFolder:folderName fileType:FileType_file FileName:fileName];
         }
         
         switch (type) {
-            case FileTypeFolder:{
+            case FileType_folder:{
                 if (entity.isFolder) {
                     [fileArray addObject:entity];
                 }
                 break;
             }
-            case FileTypeItem:{
+            case FileType_file:{
                 if (!entity.isFolder) {
                     [fileArray addObject:entity];
                 }
                 break;
             }
-            case FileTypeAll:{
-                [fileArray addObject:entity];
-                break;
-            }
             default:{
-                [fileArray addObject:entity];
+                //[fileArray addObject:entity];
                 break;
             }
         }
     }
-    if (type == FileTypeAll) {
-        [fileArray sortUsingComparator:^NSComparisonResult(FileEntity * entity1, FileEntity * entity2) {
-            if (entity1.isFolder != entity2.isFolder) {
-                return entity1.isFolder ? NSOrderedAscending:NSOrderedDescending;
-            }else{
-                return [entity1.fileName floatValue] < [entity2.fileName floatValue] ? NSOrderedAscending:NSOrderedDescending;
-            }
-        }];
-    }
+    
+    [fileArray sortUsingComparator:^NSComparisonResult(FileEntity * entity1, FileEntity * entity2) {
+        if (entity1.isFolder != entity2.isFolder) {
+            return entity1.isFolder ? NSOrderedAscending:NSOrderedDescending;
+        }else{
+            return [entity1.fileName compare:entity2.fileName] ? NSOrderedAscending:NSOrderedDescending;
+        }
+    }];
     
     return fileArray;
 }
