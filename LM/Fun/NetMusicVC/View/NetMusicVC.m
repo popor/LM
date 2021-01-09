@@ -150,6 +150,11 @@ static NSString * NetMusicUrl = @"http://y.webzcz.cn/";
         
         self.infoWV = web;
     }
+    
+    // 2s后主动删除广告, 防止系统没有触发finish函数.
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self removeGoogleAD:self.infoWV];
+    });
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
@@ -161,36 +166,7 @@ static NSString * NetMusicUrl = @"http://y.webzcz.cn/";
         NSLogStringTitle(URL.absoluteString, @"跳转网页 下载mp3");
         // 自主下载
         self.lastSaveFileUrl = URL.absoluteString;
-        
-        
-        
-        // <span class="info-title">歌名：</span>Light It Up<br>
-        // <span class="info-title">歌手：</span>Robin Hustin<br>
-        // <span class="info-title">专辑：</span>Light It Up<br>
-        
-        NSString *doc = @"document.body.outerHTML";
-        [webView evaluateJavaScript:doc completionHandler:^(id _Nullable htmlStr, NSError * _Nullable error) {
-            //NSLog(@"下载 html:%@",htmlStr);
-            
-            NSString * singerName = @"";
-            NSString * songName   = @"";
-            NSMutableArray * array = [self string:htmlStr arrayReg:@"<span class=\"info-title\">[^<]{3,10}</span>[^<]{1,}<br>"];
-            for (NSString * text in array) {
-                if ([text containsString:@"歌手"]) {
-                    singerName = [text cleanWithREG:@"<[^>]*>"];
-                    singerName = [singerName cleanWithREG:@"歌手："];
-                    continue;
-                }
-                if ([text containsString:@"歌名"]) {
-                    songName  = [text cleanWithREG:@"<[^>]*>"];
-                    songName  = [songName cleanWithREG:@"歌名："];
-                    continue;
-                }
-            }
-            //NSLogString(singerName);
-            //NSLogString(songName);
-            [self downloadActionSingerName:singerName songName:songName];
-        }] ;
+        [self downloadMp3Analysis:webView];
         
         decisionHandler(WKNavigationActionPolicyCancel);
     } else if ([URL.absoluteString.lowercaseString hasPrefix:NetMusicUrl]) {
@@ -201,6 +177,37 @@ static NSString * NetMusicUrl = @"http://y.webzcz.cn/";
         NSLogStringTitle(URL.absoluteString, @"跳转网页 禁止");
         decisionHandler(WKNavigationActionPolicyAllow);
     }
+}
+
+// 下载音乐前分析歌手和歌名
+- (void)downloadMp3Analysis:(WKWebView *)webView {
+    // <span class="info-title">歌名：</span>Light It Up<br>
+    // <span class="info-title">歌手：</span>Robin Hustin<br>
+    // <span class="info-title">专辑：</span>Light It Up<br>
+    
+    NSString *doc = @"document.body.outerHTML";
+    [webView evaluateJavaScript:doc completionHandler:^(id _Nullable htmlStr, NSError * _Nullable error) {
+        //NSLog(@"下载 html:%@",htmlStr);
+        
+        NSString * singerName = @"";
+        NSString * songName   = @"";
+        NSMutableArray * array = [self string:htmlStr arrayReg:@"<span class=\"info-title\">[^<]{3,10}</span>[^<]{1,}<br>"];
+        for (NSString * text in array) {
+            if ([text containsString:@"歌手"]) {
+                singerName = [text cleanWithREG:@"<[^>]*>"];
+                singerName = [singerName cleanWithREG:@"歌手："];
+                continue;
+            }
+            if ([text containsString:@"歌名"]) {
+                songName  = [text cleanWithREG:@"<[^>]*>"];
+                songName  = [songName cleanWithREG:@"歌名："];
+                continue;
+            }
+        }
+        //NSLogString(singerName);
+        //NSLogString(songName);
+        [self downloadActionSingerName:singerName songName:songName];
+    }] ;
 }
 
 - (NSMutableArray *)string:(NSString *)originStr arrayReg:(NSString * _Nonnull)reg {
@@ -255,6 +262,14 @@ static NSString * NetMusicUrl = @"http://y.webzcz.cn/";
     //    }
 }
 
+- (void)nslogWebView:(WKWebView *)webView {
+    NSString *doc = @"document.body.outerHTML";
+    [webView evaluateJavaScript:doc completionHandler:^(id _Nullable htmlStr, NSError * _Nullable error) {
+        NSLog(@"nslog html:%@",htmlStr);
+    }] ;
+}
+
+// 移除广告
 - (void)removeGoogleAD:(WKWebView *)webView {
     // 移除谷歌插件class
     //NSString *str = @"document.getElementsByClassName('adsbygoogle')[0].remove();";
