@@ -163,7 +163,7 @@ static NSString * NetMusicUrl = @"http://y.webzcz.cn/";
     //NSLogString(URL.absoluteString);
     
     if ([URL.absoluteString.lowercaseString hasSuffix:@".mp3"]) {
-        NSLogStringTitle(URL.absoluteString, @"跳转网页 下载mp3");
+        //NSLogStringTitle(URL.absoluteString, @"跳转网页 下载mp3");
         // 自主下载
         self.lastSaveFileUrl = URL.absoluteString;
         [self downloadMp3Analysis:webView];
@@ -171,10 +171,10 @@ static NSString * NetMusicUrl = @"http://y.webzcz.cn/";
         decisionHandler(WKNavigationActionPolicyCancel);
     } else if ([URL.absoluteString.lowercaseString hasPrefix:NetMusicUrl]) {
         decisionHandler(WKNavigationActionPolicyAllow);
-        NSLogStringTitle(URL.absoluteString, @"跳转网页 官网");
+        //NSLogStringTitle(URL.absoluteString, @"跳转网页 官网");
     } else {
         //decisionHandler(WKNavigationActionPolicyCancel);
-        NSLogStringTitle(URL.absoluteString, @"跳转网页 禁止");
+        //NSLogStringTitle(URL.absoluteString, @"跳转网页 禁止");
         decisionHandler(WKNavigationActionPolicyAllow);
     }
 }
