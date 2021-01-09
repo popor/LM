@@ -127,6 +127,10 @@
 - (void)addViews {
     [self addPlayboard];
     [self addLrcViews];
+    
+    // 将歌词加载到playBar下面.
+    [self.navigationController.view insertSubview:self.lrcView belowSubview:self.playbar];
+   
     @weakify(self);
     {
         self.navigationController.navigationBar.tintColor = ColorThemeBlue1;
