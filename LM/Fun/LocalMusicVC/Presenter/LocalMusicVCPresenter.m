@@ -194,7 +194,7 @@ API_AVAILABLE(ios(12.0))
         if (self.view.isRoot) {
             return 10;
         }else{
-            return 0.1;
+            return 20;
         }
     }else{
         return 0.1;

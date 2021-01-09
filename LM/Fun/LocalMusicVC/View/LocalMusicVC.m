@@ -153,6 +153,7 @@
 #pragma mark - views
 - (UITableView *)addTVs {
     UITableViewStyle style = self.isRoot ? UITableViewStyleGrouped:UITableViewStylePlain;
+    style = UITableViewStyleGrouped;
     UITableView * oneTV = [[UITableView alloc] initWithFrame:self.view.bounds style:style];
     
     oneTV.delegate   = self.present;
