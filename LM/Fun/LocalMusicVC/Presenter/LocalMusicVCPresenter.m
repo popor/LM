@@ -806,9 +806,7 @@ API_AVAILABLE(ios(12.0))
             
             [entity updateFileFolder:entity.folderName fileType:FileType_file FileName:nameTF.text];
             
-//            if (self.) {
-//                <#statements#>
-//            }
+            [self.interactor updateSongList];
             [self.view.infoTV reloadData];
         }
     }];
@@ -901,6 +899,7 @@ API_AVAILABLE(ios(12.0))
             [self.interactor.localArray removeObject:entity];
             [self.view.searchArray removeObject:entity];
             [self.view.infoTV reloadData];
+            [self.interactor updateSongList];
         }
         AlertToastTitle(@"删除成功");
     }];

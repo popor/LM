@@ -89,12 +89,31 @@
 #pragma mark - VCDataSource
 - (void)freshFavFolderEvent {
     self.recordArray = [NSMutableArray<FileEntity> new];
-    [self.recordArray addObject:self.allFileEntity];
+    //[self.recordArray addObject:self.allFileEntity];
+    
+    [self.mplShare.allFileEntityDic removeAllObjects];
+    for (FileEntity * fe in self.allFileEntity.itemArray) {
+        self.mplShare.allFileEntityDic[fe.filePath] = fe;
+    }
     
     for (FileEntity *fe in self.mplShare.list.songListArray) {
-        fe.fileType = FileType_virtualFolder;
-        [self.recordArray addObject:fe];
+        
+        FileEntity * listFE = [FileEntity new];
+        listFE.fileName = fe.fileName;
+        listFE.fileType = FileType_virtualFolder;
+        listFE.itemArray = [NSMutableArray<FileEntity> new];
+        [self.recordArray addObject:listFE];
+        
+        for (FileEntity *fe0 in fe.itemArray) {
+            FileEntity *fe1 = self.mplShare.allFileEntityDic[fe0.filePath];
+            [listFE.itemArray addObject:fe1];
+        }
     }
+    // 重置记录list, 使得他们使用同一个地址
+    [self.mplShare.list.songListArray removeAllObjects];
+    [self.mplShare.list.songListArray addObjectsFromArray:self.recordArray];
+    
+    [self.recordArray insertObject:self.allFileEntity atIndex:0];
 }
 
 - (void)addListName:(NSString *)name {

@@ -128,6 +128,7 @@
     dispatch_once(&once, ^{
         instance = [MusicPlayListShare new];
         [instance resumeFavRecordData];
+        instance.allFileEntityDic = [NSMutableDictionary new];
     });
     return instance;
 }

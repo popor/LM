@@ -47,7 +47,7 @@ typedef NS_ENUM(int, MpViewOrder) {
 
 @interface MusicPlayListShare : NSObject
 @property (nonatomic, strong) MusicPlayList * list;
-//@property (nonatomic, strong) NSMutableArray<FileEntity> * list;
+@property (nonatomic, strong) NSMutableDictionary * allFileEntityDic;
 
 + (instancetype)share;
 
