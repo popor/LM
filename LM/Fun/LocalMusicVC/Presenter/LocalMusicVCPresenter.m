@@ -220,7 +220,8 @@ API_AVAILABLE(ios(12.0))
         static NSString * CellID = @"CellFolder";
         MusicInfoCell * cell = [tableView dequeueReusableCellWithIdentifier:CellID];
         if (!cell) {
-            MusicInfoCellType cellType = self.view.isRoot ? MusicInfoCellTypeDefault:MusicInfoCellTypeAdd;
+            //MusicInfoCellType cellType = self.view.isRoot ? MusicInfoCellTypeDefault:MusicInfoCellTypeAdd;
+            MusicInfoCellType cellType = MusicInfoCellTypeAdd;
             cell = [[MusicInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID type:cellType];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
@@ -293,6 +294,8 @@ API_AVAILABLE(ios(12.0))
     cell.titelL.text = entity.fileName;
     cell.timeL.text  = [NSString stringWithFormat:@"%li首", entity.itemArray.count];
     
+
+    
     if (self.mplt.config.playType == McPlayType_songList
         || self.mplt.config.playType == McPlayType_searchSongList) {
         
@@ -303,11 +306,11 @@ API_AVAILABLE(ios(12.0))
         if (entity.itemArray.count == 0) {
             cell.accessoryType = UITableViewCellAccessoryNone;
             cell.titelL.textColor = App_textNColor2;
-            [cell.addBt setImage:self.addImageGray forState:UIControlStateNormal];
+            //[cell.addBt setImage:self.addImageGray forState:UIControlStateNormal];
         } else {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             //cell.titelL.textColor = App_textNColor;
-            [cell.addBt setImage:self.addImageBlack forState:UIControlStateNormal];
+            //[cell.addBt setImage:self.addImageBlack forState:UIControlStateNormal];
             
             if([self.mplt.config.localFolderName isEqualToString:entity.fileName]){
                 cell.rightIV.hidden = NO;
@@ -316,9 +319,21 @@ API_AVAILABLE(ios(12.0))
                 cell.rightIV.hidden = YES;
                 cell.titelL.textColor = App_textNColor;
             }
-            
         }
-        
+    }
+    
+    if (entity.fileType == FileType_folder) {
+        if ([entity.fileName isEqualToString:DownloadFolderName]) {
+            [cell.addBt setImage:[UIImage imageNamed:@"songDownload"] forState:UIControlStateNormal];
+        } else {
+            [cell.addBt setImage:[UIImage imageNamed:@"songFile"] forState:UIControlStateNormal];
+        }
+    } else {
+        if (indexPath.row == 0) {
+            [cell.addBt setImage:[UIImage imageNamed:@"songList"] forState:UIControlStateNormal];
+        } else {
+            [cell.addBt setImage:[UIImage imageNamed:@"songFav"] forState:UIControlStateNormal];
+        }
     }
     
     cell.cellData = entity;
