@@ -33,6 +33,8 @@ API_AVAILABLE(ios(12.0))
 @property (nonatomic        ) BOOL firstAimAt;
 @property (nonatomic        ) NSIndexPath * longPressIP;
 
+@property (nonatomic, weak  ) LocalMusicHeadView * infoTvHead;
+
 @end
 
 @implementation LocalMusicVCPresenter
@@ -177,8 +179,10 @@ API_AVAILABLE(ios(12.0))
                             [head.freshBT addTarget:self action:@selector(freshLocalDataAction) forControlEvents:UIControlEventTouchUpInside];
                             
                             [head.addBT   addTarget:self action:@selector(addFavFolderAction) forControlEvents:UIControlEventTouchUpInside];
+                            [head.sortBT  addTarget:self action:@selector(sortFavFolderAction) forControlEvents:UIControlEventTouchUpInside];
                             head;
                         });
+                        self.infoTvHead = head;
                     }
                     return head;
                 }
@@ -465,6 +469,66 @@ API_AVAILABLE(ios(12.0))
     }
 }
 
+#pragma mark - tv 移动
+// 这个回调实现了以后，就会出现更换位置的按钮，回调本身用来处理更换位置后的数据交换。
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == self.view.infoTV) {
+        if (indexPath.section == 0) {
+            if (indexPath.row == 0) {
+                return NO;
+            } else {
+                return YES;
+            }
+        }
+        return NO;
+    }else{
+        return NO;
+    }
+}
+
+- (UITableViewCellEditingStyle) tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleNone;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    BOOL enable = [self tableView:tableView canMoveRowAtIndexPath:destinationIndexPath];
+    if (enable) {
+        // 更新 plist部分
+        [self.interactor.mplShare.list.songListArray exchangeObjectAtIndex:sourceIndexPath.row-1 withObjectAtIndex:destinationIndexPath.row-1];
+        [self.interactor updateSongList];
+        
+        // 更新本地 record
+        [self.interactor.recordArray exchangeObjectAtIndex:sourceIndexPath.row withObjectAtIndex:destinationIndexPath.row];
+        
+    } else {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [tableView moveRowAtIndexPath:destinationIndexPath toIndexPath:sourceIndexPath];
+        });
+    }
+}
+
+// 这个回调决定了在当前indexPath的Cell是否可以移动。
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == self.view.infoTV) {
+        if (indexPath.section == 0) {
+            if (indexPath.row == 0) {
+                return NO;
+            } else {
+                return YES;
+            }
+        }
+        return NO;
+    }else{
+        return NO;
+    }
+}
+
+#pragma mark - TV select sectionIndexTitlesForTableView 索引
+//- (NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+//    return @[@"A"];
+//}
+
+#pragma mark - TV select
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (self.view.longPressMenu) {
@@ -474,7 +538,11 @@ API_AVAILABLE(ios(12.0))
     }
     if (tableView == self.view.infoTV) {
         if (self.view.isRoot) {
-            [self selectRootCellIP:indexPath];
+            if (self.view.infoTV.isEditing) {
+                return;
+            } else {
+                [self selectRootCellIP:indexPath];
+            }
         } else {
             [self selectDetailCellIP:indexPath];
         }
@@ -684,6 +752,10 @@ API_AVAILABLE(ios(12.0))
 }
 
 - (void)freshLocalDataAction {
+    if (self.view.infoTV.isEditing) {
+        self.view.infoTV.editing = NO;
+        self.infoTvHead.sortBT.selected = NO;
+    }
     DMProgressHUD * hud = [DMProgressHUD showLoadingHUDAddedTo:self.view.vc.view];
     __weak typeof(hud) weakHud = hud;
     
@@ -736,9 +808,23 @@ API_AVAILABLE(ios(12.0))
     [self.view.vc presentViewController:oneAC animated:YES completion:nil];
 }
 
-#pragma mark - 长按事件
+#pragma mark - 排序
+- (void)sortFavFolderAction {
+    self.infoTvHead.sortBT.selected = !self.infoTvHead.sortBT.isSelected;
+    if (self.infoTvHead.sortBT.isSelected) {
+        self.view.infoTV.editing = YES;
+    } else {
+        self.view.infoTV.editing = NO;
+    }
+    
+}
 
+#pragma mark - 长按事件
 -(void)longTap:(UILongPressGestureRecognizer *)longRecognizer {
+    if (self.view.infoTV.isEditing) {
+        return;
+    }
+    
     if (longRecognizer.state==UIGestureRecognizerStateBegan) {
         FeedbackShakeMedium
         
@@ -927,11 +1013,21 @@ API_AVAILABLE(ios(12.0))
 
 - (void)deleteFolderAction {
     FileEntity * entity = [self longPressEntity];
+   
+    NSString * message;
+    NSString * okText;
+    if (entity.fileType == FileType_folder) {
+        message = [NSString stringWithFormat:@"确认删除《%@》吗?\n包含%li个文件", entity.fileName, entity.itemArray.count];
+        okText  = @"删除";
+    } else {
+        message = [NSString stringWithFormat:@"确认移除《%@》吗?", entity.fileName];
+        okText  = @"移除";
+    }
     
-    UIAlertController * oneAC = [UIAlertController alertControllerWithTitle:@"提醒" message:[NSString stringWithFormat:@"确认删除《%@》吗?\n包含%li个文件", entity.fileName, entity.itemArray.count] preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController * oneAC = [UIAlertController alertControllerWithTitle:@"提醒" message:message preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction * cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction * okAction = [UIAlertAction actionWithTitle:okText style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         if (entity.fileType == FileType_folder) {
             NSString * path = [NSString stringWithFormat:@"%@/%@", FT_docPath, entity.fileName];
             [NSFileManager deleteFile:path];

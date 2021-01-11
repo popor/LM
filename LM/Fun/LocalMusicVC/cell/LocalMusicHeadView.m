@@ -20,7 +20,7 @@
 
 - (void)addViews {
     
-    for (NSInteger i = 0; i<3; i++) {
+    for (NSInteger i = 0; i<4; i++) {
         UIButton * oneBT = ({
             UIButton * oneBT = [UIButton buttonWithType:UIButtonTypeCustom];
             
@@ -50,14 +50,17 @@
             case 1: {
                 self.freshBT = oneBT;
                 [oneBT setTitle:@" 刷新 " forState:UIControlStateNormal];
-                //[oneBT setTitle:@"完成" forState:UIControlStateSelected];
                 break;
             }
             case 2: {
                 self.addBT = oneBT;
                 [oneBT setTitle:@" 新增 " forState:UIControlStateNormal];
-                //[oneBT setTitle:@"完成" forState:UIControlStateSelected];
                 break;
+            }
+            case 3: {
+                self.sortBT = oneBT;
+                [oneBT setTitle:@" 排序 " forState:UIControlStateNormal];
+                [oneBT setTitle:@" 完成 " forState:UIControlStateSelected];
             }
             default:
                 break;
@@ -81,6 +84,12 @@
     [self.addBT mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(0);
         make.left.mas_equalTo(10);
+        make.bottom.mas_equalTo(0);
+        make.width.mas_equalTo(self.openBT);
+    }];
+    [self.sortBT mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(0);
+        make.left.mas_equalTo(self.addBT.mas_right).mas_offset(5);
         make.bottom.mas_equalTo(0);
         make.width.mas_equalTo(self.openBT);
     }];

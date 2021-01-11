@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface LocalMusicHeadView : UITableViewHeaderFooterView
 
 @property (nonatomic, strong) UIButton * addBT;
+@property (nonatomic, strong) UIButton * sortBT;
 
 @property (nonatomic, strong) UIButton * openBT;
 @property (nonatomic, strong) UIButton * freshBT;

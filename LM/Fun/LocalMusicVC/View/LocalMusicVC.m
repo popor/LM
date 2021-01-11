@@ -160,8 +160,9 @@
     oneTV.delegate   = self.present;
     oneTV.dataSource = self.present;
     
-    oneTV.allowsMultipleSelectionDuringEditing = YES;
-    oneTV.directionalLockEnabled = YES;
+    oneTV.allowsMultipleSelectionDuringEditing = NO;
+    
+    //oneTV.directionalLockEnabled = YES;
     
     oneTV.estimatedRowHeight           = 0;
     oneTV.estimatedSectionHeaderHeight = 0;
