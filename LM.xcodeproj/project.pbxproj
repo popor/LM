@@ -36,6 +36,10 @@
 		18DE13AF2251F78C009920D7 /* MusicInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE13AE2251F78C009920D7 /* MusicInfoCell.m */; };
 		18E52ED32253050C00EF8BF6 /* MusicListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E52ED22253050C00EF8BF6 /* MusicListCell.m */; };
 		C30D897F25354F6D009BFB45 /* NetService.m in Sources */ = {isa = PBXBuildFile; fileRef = C30D897D25354F6D009BFB45 /* NetService.m */; };
+		C31C054925ABE0AE001C6E78 /* 封面N@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C31C054525ABE0AE001C6E78 /* 封面N@2x.png */; };
+		C31C054A25ABE0AE001C6E78 /* 封面N@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C31C054625ABE0AE001C6E78 /* 封面N@3x.png */; };
+		C31C054B25ABE0AE001C6E78 /* 封面S@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C31C054725ABE0AE001C6E78 /* 封面S@3x.png */; };
+		C31C054C25ABE0AE001C6E78 /* 封面S@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C31C054825ABE0AE001C6E78 /* 封面S@2x.png */; };
 		C32A17C925381E8000BD830B /* LrcTool.m in Sources */ = {isa = PBXBuildFile; fileRef = C32A17C825381E8000BD830B /* LrcTool.m */; };
 		C3325B3C25A41B07000A7F43 /* FeedbackGeneratorTool.m in Sources */ = {isa = PBXBuildFile; fileRef = C3325B3A25A41B07000A7F43 /* FeedbackGeneratorTool.m */; };
 		C3560EC22537ED780062EFA8 /* LrcKuGou.m in Sources */ = {isa = PBXBuildFile; fileRef = C3560EC12537ED780062EFA8 /* LrcKuGou.m */; };
@@ -152,6 +156,10 @@
 		80F3B930C3AFCB09C6C2E77B /* Pods-LMUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMUITests.release.xcconfig"; path = "Target Support Files/Pods-LMUITests/Pods-LMUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C30D897D25354F6D009BFB45 /* NetService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetService.m; sourceTree = "<group>"; };
 		C30D897E25354F6D009BFB45 /* NetService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetService.h; sourceTree = "<group>"; };
+		C31C054525ABE0AE001C6E78 /* 封面N@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "封面N@2x.png"; sourceTree = "<group>"; };
+		C31C054625ABE0AE001C6E78 /* 封面N@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "封面N@3x.png"; sourceTree = "<group>"; };
+		C31C054725ABE0AE001C6E78 /* 封面S@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "封面S@3x.png"; sourceTree = "<group>"; };
+		C31C054825ABE0AE001C6E78 /* 封面S@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "封面S@2x.png"; sourceTree = "<group>"; };
 		C32678F725145FB9007CADFC /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		C32678F925145FB9007CADFC /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		C3267B2C251489C1007CADFC /* LM.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LM.entitlements; sourceTree = "<group>"; };
@@ -784,6 +792,10 @@
 		C3F31ADB2539709100621878 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				C31C054525ABE0AE001C6E78 /* 封面N@2x.png */,
+				C31C054625ABE0AE001C6E78 /* 封面N@3x.png */,
+				C31C054825ABE0AE001C6E78 /* 封面S@2x.png */,
+				C31C054725ABE0AE001C6E78 /* 封面S@3x.png */,
 				C3F31ADC2539709100621878 /* 全屏@3x.png */,
 				C3F31ADD2539709100621878 /* 全屏@2x.png */,
 				C3F31ADE2539709100621878 /* 半屏@2x.png */,
@@ -926,13 +938,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C31C054C25ABE0AE001C6E78 /* 封面S@2x.png in Resources */,
+				C31C054925ABE0AE001C6E78 /* 封面N@2x.png in Resources */,
 				183BF3E6224A1DBD004DE115 /* LaunchScreen.storyboard in Resources */,
 				183BF3E3224A1DBD004DE115 /* Assets.xcassets in Resources */,
 				C3F31AE12539709100621878 /* 全屏@2x.png in Resources */,
 				C3F31AE02539709100621878 /* 全屏@3x.png in Resources */,
 				183BF3E1224A1DBB004DE115 /* Main.storyboard in Resources */,
+				C31C054B25ABE0AE001C6E78 /* 封面S@3x.png in Resources */,
 				C3F31AE22539709100621878 /* 半屏@2x.png in Resources */,
 				C3F31AE32539709100621878 /* 半屏@3x.png in Resources */,
+				C31C054A25ABE0AE001C6E78 /* 封面N@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

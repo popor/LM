@@ -37,6 +37,7 @@
 @synthesize show;
 
 @synthesize coverFillBT;
+@synthesize coverCloseBT;
 
 @synthesize dragLrcTimeView;
 @synthesize timeL;
@@ -404,6 +405,22 @@
         [self.view addSubview:oneBT];
         oneBT;
     });
+    self.coverCloseBT = ({
+        UIButton * oneBT;
+        oneBT = [UIButton buttonWithType:UIButtonTypeCustom];
+        // https://www.iconfont.cn/search/index?q=屏&page=7
+        [oneBT setImage:[UIImage imageNamed:@"封面S"] forState:UIControlStateSelected];
+        [oneBT setImage:[UIImage imageNamed:@"封面N"] forState:UIControlStateNormal];
+        
+        [oneBT setBackgroundImage:[UIImage imageFromColor:PRGB16F(0XB1B1B1, 0.7) size:CGSizeMake(1, 1)] forState:UIControlStateNormal];
+        
+        oneBT.layer.cornerRadius = btWidth/2;
+        oneBT.layer.cornerRadius = 4;
+        oneBT.clipsToBounds = YES;
+        
+        [self.view addSubview:oneBT];
+        oneBT;
+    });
     
     if ([self get__coverImageFull]) {
         self.coverFillBT.selected = YES;
@@ -412,6 +429,11 @@
     [self.coverFillBT mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(-20);
         make.right.mas_equalTo(-20);
+        make.size.mas_equalTo(CGSizeMake(btWidth, btWidth));
+    }];
+    [self.coverCloseBT mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(self.coverFillBT);
+        make.right.mas_equalTo(self.coverFillBT.mas_left).mas_offset(-20);
         make.size.mas_equalTo(CGSizeMake(btWidth, btWidth));
     }];
     
@@ -424,6 +446,14 @@
         [self save__coverImageFull:self.coverFillBT.isSelected];
         
         [self updateCoverIVContentMode];
+    }];
+    
+    [[self.coverCloseBT rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        @strongify(self);
+        FeedbackShakePhone
+        
+        self.coverCloseBT.selected = !self.coverCloseBT.isSelected;
+        self.coverIV.hidden = !self.coverIV.hidden;
     }];
 }
 
