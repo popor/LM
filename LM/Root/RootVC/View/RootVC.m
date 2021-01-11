@@ -22,7 +22,6 @@
 
 @synthesize segmentView;
 @synthesize tvSV;
-@synthesize songListVC;
 @synthesize localMusicVC;
 @synthesize netMusicVC;
 @synthesize lrcView;
@@ -39,7 +38,6 @@
     [MRouterC registerURL:MUrl_freshRootTV toHandel:^(NSDictionary *routerParameters){
         @strongify(self);
         
-        [self.songListVC.infoTV reloadData];
         [self.localMusicVC.infoTV reloadData];
     }];
     
@@ -302,25 +300,6 @@
     }
     
     {
-        //        self.songListVC = ({
-        //            SongListVC * vc = [[SongListVC alloc] initWithDic:nil];
-        //            
-        //            [self addChildViewController:vc];
-        //            [self.tvSV addSubview:vc.view];
-        //            
-        //            [self.tvArray addObject:vc.view];
-        //            
-        //            [vc.view mas_makeConstraints:^(MASConstraintMaker *make) {
-        //                make.top.mas_equalTo(0);
-        //                make.bottom.mas_equalTo(0);
-        //                
-        //                make.width.mas_equalTo(self.tvSV);
-        //                make.height.mas_equalTo(self.tvSV);
-        //            }];
-        //            
-        //            vc;
-        //        });
-        
         self.localMusicVC = ({
             LocalMusicVC * vc = [[LocalMusicVC alloc] initWithDic:nil];
             

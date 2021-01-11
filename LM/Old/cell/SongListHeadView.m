@@ -1,14 +1,14 @@
 //
-//  LocalMusicHeadView.m
+//  SongListHeadView.m
 //  LM
 //
 //  Created by popor on 2020/9/20.
 //  Copyright © 2020 popor. All rights reserved.
 //
 
-#import "LocalMusicHeadView.h"
+#import "SongListHeadView.h"
 
-@implementation LocalMusicHeadView
+@implementation SongListHeadView
 
 - (instancetype)initWithReuseIdentifier:(nullable NSString *)reuseIdentifier {
     if (self = [super initWithReuseIdentifier:reuseIdentifier]) {
@@ -20,7 +20,7 @@
 
 - (void)addViews {
     
-    for (NSInteger i = 0; i<3; i++) {
+    for (NSInteger i = 0; i<2; i++) {
         UIButton * oneBT = ({
             UIButton * oneBT = [UIButton buttonWithType:UIButtonTypeCustom];
             
@@ -38,25 +38,16 @@
         
         switch (i) {
             case 0: {
-                self.openBT = oneBT;
-#if TARGET_OS_MACCATALYST
-                [oneBT setTitle:@" 打开 " forState:UIControlStateNormal];
-#else
-                [oneBT setTitle:@" WIFI " forState:UIControlStateNormal];
-#endif
-                
+                self.addBT = oneBT;
+                [oneBT setTitle:@"新增" forState:UIControlStateNormal];
                 break;
             }
             case 1: {
-                self.freshBT = oneBT;
-                [oneBT setTitle:@" 刷新 " forState:UIControlStateNormal];
-                //[oneBT setTitle:@"完成" forState:UIControlStateSelected];
-                break;
-            }
-            case 2: {
-                self.addBT = oneBT;
-                [oneBT setTitle:@" 新增 " forState:UIControlStateNormal];
-                //[oneBT setTitle:@"完成" forState:UIControlStateSelected];
+                self.editBT = oneBT;
+                [oneBT setTitle:@"编辑" forState:UIControlStateNormal];
+                [oneBT setTitle:@"完成" forState:UIControlStateSelected];
+                
+                
                 break;
             }
             default:
@@ -64,26 +55,20 @@
         }
     }
     
-    [self.openBT mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.addBT mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(0);
-        make.right.mas_equalTo(self.freshBT.mas_left).mas_offset(0);
+        make.right.mas_equalTo(self.editBT.mas_left).mas_offset(0);
         make.bottom.mas_equalTo(0);
         make.width.mas_equalTo(45);
     }];
     
-    [self.freshBT mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.editBT mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(0);
         make.right.mas_equalTo(-5);
         make.bottom.mas_equalTo(0);
-        make.width.mas_equalTo(self.openBT);
-    }];
-    
-    [self.addBT mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(0);
-        make.left.mas_equalTo(10);
-        make.bottom.mas_equalTo(0);
-        make.width.mas_equalTo(self.openBT);
+        make.width.mas_equalTo(self.addBT);
     }];
 }
+
 
 @end

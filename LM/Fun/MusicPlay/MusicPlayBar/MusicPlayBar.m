@@ -179,8 +179,8 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         }
     }
     self.orderImageArray = @[@"loop_random", @"loop_order", @"loop_single"];
-    NSArray * imageN = @[@"big_play_button",  @"prev_song", @"next_song", @"rewind", @"forward", @"loop_random", @"searchMode"];
-    NSArray * imageS = @[@"big_pause_button", @"prev_song", @"next_song", @"rewind", @"forward", @"loop_random", @"searchMode"];
+    NSArray * imageN = @[@"big_play_button",  @"prev_song", @"next_song", @"rewind", @"forward", @"loop_random"];//@"searchMode"
+    NSArray * imageS = @[@"big_pause_button", @"prev_song", @"next_song", @"rewind", @"forward", @"loop_random"];//@"searchMode"
     
     for (int i = 0; i<imageN.count; i++) {
         UIButton * oneBT = ({
@@ -240,12 +240,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
                 [oneBT addTarget:self action:@selector(orderAction) forControlEvents:UIControlEventTouchUpInside];
                 break;
             }
-            case 6:{
-                self.exitPlaySearchLocalBT = oneBT;
                 
-                [oneBT addTarget:self action:@selector(exitPlaySearchLocalBTAction) forControlEvents:UIControlEventTouchUpInside];
-                break;
-            }
             default:
                 break;
         }
@@ -300,12 +295,6 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         make.top.mas_equalTo(self.slider.bottom +10);
         make.left.mas_equalTo(15);
         make.height.mas_equalTo(20);
-        make.right.mas_equalTo(self.exitPlaySearchLocalBT.mas_left).mas_offset(-5);
-    }];
-    // 退出播放搜素结果列表
-    [self.exitPlaySearchLocalBT mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(self.songInfoL.mas_centerY);
-        make.size.mas_equalTo(CGSizeZero);
         make.right.mas_equalTo(-15);
     }];
     
@@ -468,29 +457,29 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     }
 }
 
-- (void)playSongListEntity:(MusicPlayListEntity *)listEntity at:(NSInteger)index {
-    if (self.mplt.currentWeakList != listEntity.itemArray) {
-        self.mplt.currentWeakList = listEntity.itemArray;
-    }
-    self.playBT.selected     = YES;
-    if (self.isPlaySearchLocalItem) {
-        self.playSearchLocalItem = NO;
-        //AlertToastTitle(@"退出 [搜索歌单] 模式");
-    }
-    
-    if (listEntity.itemArray.count > 0) {
-        self.currentItem = self.mplt.currentWeakList[index];
-        [self playItem:self.currentItem autoPlay:YES];
-    }
-    
-    NSInteger currentListIndex = [self.mplt.list.songListArray indexOfObject:listEntity];
-    if (self.mplt.config.songIndexList != currentListIndex) {
-        self.mplt.config.songIndexList = currentListIndex;
-    }
-    
-    self.mplt.config.playType      = McPlayType_songList;
-    self.mplt.config.songIndexItem = index;
-}
+//- (void)playSongListEntity:(MusicPlayListEntity *)listEntity at:(NSInteger)index {
+//    if (self.mplt.currentWeakList != listEntity.itemArray) {
+//        self.mplt.currentWeakList = listEntity.itemArray;
+//    }
+//    self.playBT.selected     = YES;
+//    if (self.isPlaySearchLocalItem) {
+//        self.playSearchLocalItem = NO;
+//        //AlertToastTitle(@"退出 [搜索歌单] 模式");
+//    }
+//
+//    if (listEntity.itemArray.count > 0) {
+//        self.currentItem = self.mplt.currentWeakList[index];
+//        [self playItem:self.currentItem autoPlay:YES];
+//    }
+//
+//    NSInteger currentListIndex = [self.mplt.list.songListArray indexOfObject:listEntity];
+//    if (self.mplt.config.songIndexList != currentListIndex) {
+//        self.mplt.config.songIndexList = currentListIndex;
+//    }
+//
+//    self.mplt.config.playType      = McPlayType_songList;
+//    self.mplt.config.songIndexItem = index;
+//}
 
 - (void)playBTEvent {
     FeedbackShakePhone
@@ -605,20 +594,21 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 }
 
 - (void)updateConfigIndex:(NSInteger)itemIndex {
-    if (self.isPlaySearchLocalItem) {
-        // 假如播放的是搜索或者本地 音乐的话
-        if (self.mplt.config.songIndexList >= 0) {
-            MusicPlayListEntity * le = self.mplt.list.songListArray[self.mplt.config.songIndexList];
-            itemIndex = [le.itemArray indexOfObject:self.currentItem];
-            
-            if (itemIndex != INTMAX_MAX && itemIndex >= 0) {
-                self.mplt.config.songIndexItem = itemIndex;
-            }
-        }
-        //AlertToastTitle(@"当前播放歌单为: 搜索结果");
-    }else{
-        self.mplt.config.songIndexItem = itemIndex;
-    }
+    NSLog(@"暂停保存数据1");
+    //    if (self.isPlaySearchLocalItem) {
+    //        // 假如播放的是搜索或者本地 音乐的话
+    //        if (self.mplt.config.songIndexList >= 0) {
+    //            MusicPlayListEntity * le = self.mplt.weakMpList.songListArray[self.mplt.config.songIndexList];
+    //            itemIndex = [le.itemArray indexOfObject:self.currentItem];
+    //
+    //            if (itemIndex != INTMAX_MAX && itemIndex >= 0) {
+    //                self.mplt.config.songIndexItem = itemIndex;
+    //            }
+    //        }
+    //        //AlertToastTitle(@"当前播放歌单为: 搜索结果");
+    //    }else{
+    //        self.mplt.config.songIndexItem = itemIndex;
+    //    }
 }
 
 - (void)rewindBTEvent {
@@ -629,22 +619,22 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     
 }
 
-- (void)exitPlaySearchLocalBTAction {
-    self.playSearchLocalItem = NO;
-    
-    if (self.mplt.config.songIndexList >= 0) {
-        MusicPlayListEntity * le = self.mplt.list.songListArray[self.mplt.config.songIndexList];
-        NSInteger row = [le.itemArray indexOfObject:self.currentItem];
-        if (row != INTMAX_MAX) {
-            [self playSongListEntity:le at:row];
-            AlertToastTitle(@"退出 [搜索歌单] 模式");
-        }else{
-            AlertToastTitle(@"未在当前个当中找到 当前音乐");
-        }
-    }else{
-        AlertToastTitle(@"未在当前个当中找到 当前音乐");
-    }
-}
+//- (void)exitPlaySearchLocalBTAction {
+//    self.playSearchLocalItem = NO;
+//
+//    if (self.mplt.config.songIndexList >= 0) {
+//        MusicPlayListEntity * le = self.mplt.list.songListArray[self.mplt.config.songIndexList];
+//        NSInteger row = [le.itemArray indexOfObject:self.currentItem];
+//        if (row != INTMAX_MAX) {
+//            [self playSongListEntity:le at:row];
+//            AlertToastTitle(@"退出 [搜索歌单] 模式");
+//        }else{
+//            AlertToastTitle(@"未在当前个当中找到 当前音乐");
+//        }
+//    }else{
+//        AlertToastTitle(@"未在当前个当中找到 当前音乐");
+//    }
+//}
 
 - (void)orderAction {
     FeedbackShakePhone
@@ -656,42 +646,42 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 
 #pragma mark - 恢复上次数据
 - (void)resumeLastStatus {
-    
-    switch (self.mplt.config.playType) {
-        case McPlayType_songList: {
-            if (self.mplt.config.songIndexList >= 0 && self.mplt.list.songListArray > 0) {
-                
-                MusicPlayListEntity * listEntity = self.mplt.list.songListArray[self.mplt.config.songIndexList];
-                NSInteger             index      = self.mplt.config.songIndexItem;
-                
-                if (self.mplt.currentWeakList != listEntity.itemArray) {
-                    self.mplt.currentWeakList = listEntity.itemArray;
-                }
-                if (listEntity.itemArray.count > 0) {
-                    self.currentItem = self.mplt.currentWeakList[index];
-                    [self playItem:self.currentItem autoPlay:NO];
-                }
-            }
-            break;
-        }
-        case McPlayType_local: {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [MGJRouter openURL:MUrl_resumePlayItem_local];
-            });
-            
-            break;
-        }
-        case McPlayType_searchLocal:
-        case McPlayType_searchSongList:{
-            
-            break;
-        }
-        default:
-            break;
-    }
-    
-    [self.orderBT setImage:LmImageThemeBlue1(McPlayOrderImageArray[self.mplt.config.playOrder]) forState:UIControlStateNormal];
-    
+    NSLog(@"暂停恢复上次播放");
+    //    switch (self.mplt.config.playType) {
+    //        case McPlayType_songList: {
+    //            if (self.mplt.config.songIndexList >= 0 && self.mplt.weakMpList.songListArray > 0) {
+    //
+    //                MusicPlayListEntity * listEntity = self.mplt.weakMpList.songListArray[self.mplt.config.songIndexList];
+    //                NSInteger             index      = self.mplt.config.songIndexItem;
+    //
+    //                if (self.mplt.currentWeakList != listEntity.itemArray) {
+    //                    self.mplt.currentWeakList = listEntity.itemArray;
+    //                }
+    //                if (listEntity.itemArray.count > 0) {
+    //                    self.currentItem = self.mplt.currentWeakList[index];
+    //                    [self playItem:self.currentItem autoPlay:NO];
+    //                }
+    //            }
+    //            break;
+    //        }
+    //        case McPlayType_local: {
+    //            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    //                [MGJRouter openURL:MUrl_resumePlayItem_local];
+    //            });
+    //
+    //            break;
+    //        }
+    //        case McPlayType_searchLocal:
+    //        case McPlayType_searchSongList:{
+    //
+    //            break;
+    //        }
+    //        default:
+    //            break;
+    //    }
+    //
+    //    [self.orderBT setImage:LmImageThemeBlue1(McPlayOrderImageArray[self.mplt.config.playOrder]) forState:UIControlStateNormal];
+    //
 }
 
 - (void)playItem:(FileEntity *)item autoPlay:(BOOL)autoPlay {

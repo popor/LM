@@ -12,7 +12,7 @@
 #import "MusicPlayListTool.h"
 
 #import "WifiAddFileVC.h"
-#import "SongListDetailVC.h"
+//#import "SongListDetailVC.h"
 
 #import "MusicListCell.h"
 #import "MusicPlayListTool.h"
@@ -102,37 +102,7 @@
     [self.view.vc.navigationController pushViewController:[[WifiAddFileVC alloc] initWithDic:dic] animated:YES];
 }
 
-- (void)addListAction {
-    __weak typeof(self) weakSelf = self;
-    {
-        UIAlertController * oneAC = [UIAlertController alertControllerWithTitle:@"创建新列表" message:nil preferredStyle:UIAlertControllerStyleAlert];
-        
-        [oneAC addTextFieldWithConfigurationHandler:^(UITextField *textField){
-            
-            textField.placeholder = @"新列表名称";
-            textField.text = @"";
-        }];
-        
-        UIAlertAction * cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-        
-        @weakify(oneAC);
-        UIAlertAction * changeAction = [UIAlertAction actionWithTitle:@"创建" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            @strongify(oneAC);
-            
-            UITextField * nameTF = oneAC.textFields[0];
-            if (nameTF.text.length > 0) {
-                [MpltShare addListName:nameTF.text];
-                
-                [weakSelf.view.songListVC.infoTV reloadData];
-            }
-        }];
-        
-        [oneAC addAction:cancleAction];
-        [oneAC addAction:changeAction];
-        
-        [self.view.vc presentViewController:oneAC animated:YES completion:nil];
-    }
-}
+- (void)addListAction {}
 
 - (void)checkVersion {
     [self.interactor oneCheckUpdateAtVC:self.view.vc];

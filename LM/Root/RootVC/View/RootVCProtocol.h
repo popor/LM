@@ -13,7 +13,6 @@
 #import "MusicPlayBar.h"
 #import <PoporSegmentView/PoporSegmentView.h>
 #import <PoporMasonry/PoporMasonry.h>
-#import "SongListVC.h"
 #import "LocalMusicVC.h"
 #import "NetMusicVC.h"
 #import "LrcView.h"
@@ -34,7 +33,6 @@
 
 @property (nonatomic, strong) PoporSegmentView * segmentView;
 @property (nonatomic, strong) UIScrollView    * tvSV;
-@property (nonatomic, strong) SongListVC      * songListVC;
 @property (nonatomic, strong) LocalMusicVC    * localMusicVC;
 @property (nonatomic, strong) NetMusicVC      * netMusicVC;
 @property (nonatomic, strong) LrcView         * lrcView;

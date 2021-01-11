@@ -8,20 +8,22 @@
 #import <Foundation/Foundation.h>
 
 #import "FileTool.h"
+#import "MusicPlayList.h"
 
 // 处理Entity事件
 @interface LocalMusicVCInteractor : NSObject
 
-@property (nonatomic, strong) NSMutableArray<FileEntity> * allArray;    // 全部文件夹
+@property (nonatomic, weak  ) MusicPlayListShare * mplShare;
 
 @property (nonatomic, strong) NSMutableArray<FileEntity> * recordArray; // 收藏文件夹
 @property (nonatomic, weak  ) NSMutableArray<FileEntity> * localArray;  // 本地文件夹
 
 @property (nonatomic, strong) FileEntity * allFileEntity; // 全部音乐文件.
 
-
-
 - (void)initData;
 
+- (void)addListName:(NSString *)name;
+- (void)updateSongList;
+- (void)freshFavFolderEvent;
 
 @end

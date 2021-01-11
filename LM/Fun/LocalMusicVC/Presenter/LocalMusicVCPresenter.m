@@ -31,7 +31,7 @@ API_AVAILABLE(ios(12.0))
 @property (nonatomic        ) UIUserInterfaceStyle userInterfaceStyle;
 
 @property (nonatomic        ) BOOL firstAimAt;
-@property (nonatomic        ) NSInteger longPressIndexPathRow;
+@property (nonatomic        ) NSIndexPath * longPressIP;
 
 @end
 
@@ -107,8 +107,12 @@ API_AVAILABLE(ios(12.0))
 #pragma mark - VC_DataSource
 #pragma mark - TV_Delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (self.view.isRoot) {
-        return 2;
+    if (tableView == self.view.infoTV) {
+        if (self.view.isRoot) {
+            return 2;
+        } else {
+            return 1;
+        }
     } else {
         return 1;
     }
@@ -135,7 +139,7 @@ API_AVAILABLE(ios(12.0))
             }
         }
     }else{
-        return  MAX(MpltShare.list.songListArray.count, 1);
+        return  MAX(self.interactor.mplShare.list.songListArray.count, 1);
     }
 }
 
@@ -172,6 +176,7 @@ API_AVAILABLE(ios(12.0))
                             [head.openBT  addTarget:self action:@selector(addFileEvent) forControlEvents:UIControlEventTouchUpInside];
                             [head.freshBT addTarget:self action:@selector(freshLocalDataAction) forControlEvents:UIControlEventTouchUpInside];
                             
+                            [head.addBT   addTarget:self action:@selector(addFavFolderAction) forControlEvents:UIControlEventTouchUpInside];
                             head;
                         });
                     }
@@ -231,13 +236,7 @@ API_AVAILABLE(ios(12.0))
                     
                     FileEntity * entity = (FileEntity *)cell.cellData;
                     self.selectFileEntity = entity;
-                    if (entity.isFolder) {
-                        if (entity.itemArray.count != 0) {
-                            [self addMusicPlistFile];
-                        }
-                    } else {
-                        [self addMusicPlistFile];
-                    }
+                    [self addMusicPlistFile];
                 }];
             }
             // 长按事件
@@ -262,9 +261,9 @@ API_AVAILABLE(ios(12.0))
             cell.backgroundColor = [UIColor clearColor];
             cell.textLabel.textColor = [UIColor whiteColor];
         }
-        MusicPlayListEntity * list = MpltShare.list.songListArray[indexPath.row];
+        FileEntity * list = self.interactor.mplShare.list.songListArray[indexPath.row];
         if (list) {
-            cell.textLabel.text = list.name;
+            cell.textLabel.text = list.fileName;
         } else {
             cell.textLabel.text = @"请在首页 新增歌单";
         }
@@ -469,21 +468,17 @@ API_AVAILABLE(ios(12.0))
     else {
         FeedbackShakePhone
         
-        MusicPlayListEntity * list = MpltShare.list.songListArray[indexPath.row];
+        FileEntity * list = self.interactor.mplShare.list.songListArray[indexPath.row];
         if (list) {
-            if (self.selectFileEntity.isFolder) {
-                for (FileEntity * fileEntity in self.selectFileEntity.itemArray) {
-                    FileEntity * nEntity = [[FileEntity alloc] initWithDictionary:[fileEntity toDictionary] error:nil];
-                    nEntity.index = list.recoredNum++;
-                    list.itemArray.add(nEntity);
-                }
-            }else{
-                FileEntity * fileEntity = self.selectFileEntity;
-                FileEntity * nEntity = [[FileEntity alloc] initWithDictionary:[fileEntity toDictionary] error:nil];
-                nEntity.index = list.recoredNum++;
-                list.itemArray.add(nEntity);
+            if (!list.itemArray) {
+                list.itemArray = [NSMutableArray<FileEntity> new];
             }
-            [MpltShare updateSongList];
+            if (self.selectFileEntity.isFolder) {
+                [list.itemArray addObjectsFromArray:self.selectFileEntity.itemArray];
+            }else{
+                [list.itemArray addObject:self.selectFileEntity];
+            }
+            [self.interactor updateSongList];
             
             [MGJRouter openURL:MUrl_freshRootTV];
             
@@ -498,11 +493,13 @@ API_AVAILABLE(ios(12.0))
 - (void)selectRootCellIP:(NSIndexPath *)indexPath {
     FileEntity * fileEntity = [self rootFE:indexPath];
     if (fileEntity.itemArray.count > 0) {
-        NSDictionary * dic = @{@"title":fileEntity.fileName, @"itemArray":fileEntity.itemArray};
+        NSDictionary * dic = @{
+            @"title":fileEntity.fileName,
+            @"itemArray":fileEntity.itemArray,
+            @"folderType":@(fileEntity.fileType),
+        };
         [self.view.vc.navigationController pushViewController:[[LocalMusicVC alloc] initWithDic:dic] animated:YES];
     }
-    
-    //[self addFileEvent];
 }
 
 - (void)selectDetailCellIP:(NSIndexPath *)indexPath {
@@ -693,22 +690,65 @@ API_AVAILABLE(ios(12.0))
     }
 }
 
+#pragma mark - 新增Folder
+- (void)addFavFolderAction {
+    UIAlertController * oneAC = [UIAlertController alertControllerWithTitle:@"创建新列表" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    [oneAC addTextFieldWithConfigurationHandler:^(UITextField *textField){
+        
+        textField.placeholder = @"新列表名称";
+        textField.text = @"";
+    }];
+    
+    UIAlertAction * cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    
+    @weakify(oneAC);
+    UIAlertAction * changeAction = [UIAlertAction actionWithTitle:@"创建" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        @strongify(oneAC);
+        
+        UITextField * nameTF = oneAC.textFields[0];
+        if (nameTF.text.length > 0) {
+            [self.interactor addListName:nameTF.text];
+            
+            [self.interactor freshFavFolderEvent];
+            [self.view.infoTV reloadData];
+        }
+    }];
+    
+    [oneAC addAction:cancleAction];
+    [oneAC addAction:changeAction];
+    
+    [self.view.vc presentViewController:oneAC animated:YES completion:nil];
+}
+
 #pragma mark - 长按事件
 
 -(void)longTap:(UILongPressGestureRecognizer *)longRecognizer {
     if (longRecognizer.state==UIGestureRecognizerStateBegan) {
         FeedbackShakeMedium
         
-        self.longPressIndexPathRow = [self.view.infoTV indexPathForCell:(UITableViewCell *)longRecognizer.view].row;
+        self.longPressIP = [self.view.infoTV indexPathForCell:(UITableViewCell *)longRecognizer.view];
+        self.selectFileEntity = [self longPressEntity];
+        
         [self.view.vc becomeFirstResponder];
         
         self.view.longPressMenu = ({
             UIMenuController *menu = [UIMenuController sharedMenuController];
+            
             UIMenuItem *copyItem   = [[UIMenuItem alloc] initWithTitle:@"修改" action:@selector(cellGrEditFileNameAction)];
             UIMenuItem *resendItem = [[UIMenuItem alloc] initWithTitle:@"删除" action:@selector(cellGrDeleteFileAction)];
-            
             if (self.view.isRoot) {
-                [menu setMenuItems:[NSArray arrayWithObjects:copyItem,resendItem,nil]];
+                if (self.longPressIP.section == 0 && self.longPressIP.row == 0) { // 假如是全部的话不执行任何操作
+                    UIMenuItem *nullItem   = [[UIMenuItem alloc] initWithTitle:@"默认文件夹" action:@selector(cellGrNullAction_all)];
+                    [menu setMenuItems:[NSArray arrayWithObjects:nullItem, nil]];
+                } else {
+                    UIMenuItem *addItem = [[UIMenuItem alloc] initWithTitle:@"添加" action:@selector(cellGrAddFolderAction)];
+                    if (self.longPressIP.section == 1) {
+                        [menu setMenuItems:[NSArray arrayWithObjects:copyItem, resendItem, addItem, nil]];
+                    } else {
+                        [menu setMenuItems:[NSArray arrayWithObjects:copyItem, resendItem, nil]];
+                    }
+                }
                 
             } else {
                 UIMenuItem *copy1 = [[UIMenuItem alloc] initWithTitle:@"歌手" action:@selector(cellGrCopySingerNameAction)];
@@ -728,6 +768,10 @@ API_AVAILABLE(ios(12.0))
 }
 
 #pragma mark method
+- (void)cellGrNullAction_all{
+    //AlertToastTitle(@"默认歌单不能修改和删除");
+}
+
 - (void)cellGrEditFileNameAction {
     FileEntity * entity = [self longPressEntity];
     
@@ -762,6 +806,9 @@ API_AVAILABLE(ios(12.0))
             
             [entity updateFileFolder:entity.folderName fileType:FileType_file FileName:nameTF.text];
             
+//            if (self.) {
+//                <#statements#>
+//            }
             [self.view.infoTV reloadData];
         }
     }];
@@ -788,16 +835,20 @@ API_AVAILABLE(ios(12.0))
         UITextField * nameTF = oneAC.textFields[0];
         //NSLog(@"更新 name: %@", nameTF.text);
         if (nameTF.text.length > 0) {
-            NSString * path0 = [NSString stringWithFormat:@"%@/%@", FT_docPath, entity.fileName];
-            NSString * path1 = [NSString stringWithFormat:@"%@/%@", FT_docPath, nameTF.text];
-            [NSFileManager moveFile:path0 to:path1];
-            
-            [entity updateFileFolder:entity.folderName fileType:FileType_folder FileName:nameTF.text];
-            
-            for (FileEntity * fe in entity.itemArray) {
-                [fe updateFileFolder:entity.fileName fileType:FileType_file FileName:fe.fileName];
+            if (entity.fileType == FileType_folder) {
+                NSString * path0 = [NSString stringWithFormat:@"%@/%@", FT_docPath, entity.fileName];
+                NSString * path1 = [NSString stringWithFormat:@"%@/%@", FT_docPath, nameTF.text];
+                [NSFileManager moveFile:path0 to:path1];
+                
+                [entity updateFileFolder:entity.folderName fileType:FileType_folder FileName:nameTF.text];
+                
+                for (FileEntity * fe in entity.itemArray) {
+                    [fe updateFileFolder:entity.fileName fileType:FileType_file FileName:fe.fileName];
+                }
+            } else {
+                entity.fileName = nameTF.text;
+                [self.interactor updateSongList];
             }
-            
             [self.view.infoTV reloadData];
         }
     }];
@@ -824,18 +875,33 @@ API_AVAILABLE(ios(12.0))
 - (void)deleteFileAction {
     FileEntity * entity = [self longPressEntity];
     
-    UIAlertController * oneAC = [UIAlertController alertControllerWithTitle:@"提醒" message:[NSString stringWithFormat:@"确认删除'%@'吗?", entity.fileNameDeleteExtension] preferredStyle:UIAlertControllerStyleAlert];
+    NSString * message;
+    NSString * okText;
+    if (self.view.folderType == FileType_folder) {
+        message = [NSString stringWithFormat:@"确认删除'%@'吗?", entity.fileNameDeleteExtension];
+        okText  = @"删除";
+    } else {
+        message = [NSString stringWithFormat:@"确认从《%@》移除'%@'吗?", self.view.vc.title, entity.fileNameDeleteExtension];
+        okText  = @"移除";
+    }
+    UIAlertController * oneAC = [UIAlertController alertControllerWithTitle:@"提醒" message:message preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction * cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction * okAction = [UIAlertAction actionWithTitle:okText style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
-        NSString * path = [NSString stringWithFormat:@"%@/%@", FT_docPath, entity.filePath];
-        [NSFileManager deleteFile:path];
-        
-        [self.interactor.localArray removeObject:entity];
-        [self.view.searchArray removeObject:entity];
-        [self.view.infoTV reloadData];
-        
+        if (self.view.folderType == FileType_folder) {
+            NSString * path = [NSString stringWithFormat:@"%@/%@", FT_docPath, entity.filePath];
+            [NSFileManager deleteFile:path];
+            
+            [self.interactor.localArray removeObject:entity];
+            [self.view.searchArray removeObject:entity];
+            [self.view.infoTV reloadData];
+        } else if (self.view.folderType == FileType_virtualFolder) {
+            // 仅仅是文件夹移除
+            [self.interactor.localArray removeObject:entity];
+            [self.view.searchArray removeObject:entity];
+            [self.view.infoTV reloadData];
+        }
         AlertToastTitle(@"删除成功");
     }];
     
@@ -852,11 +918,18 @@ API_AVAILABLE(ios(12.0))
     
     UIAlertAction * cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        NSString * path = [NSString stringWithFormat:@"%@/%@", FT_docPath, entity.fileName];
-        [NSFileManager deleteFile:path];
-        AlertToastTitle(@"删除成功");
+        if (entity.fileType == FileType_folder) {
+            NSString * path = [NSString stringWithFormat:@"%@/%@", FT_docPath, entity.fileName];
+            [NSFileManager deleteFile:path];
+            
+            [self.interactor.localArray removeObject:entity];
+        } else {
+            [self.interactor.mplShare.list.songListArray removeObject:entity];
+            [self.interactor updateSongList];
+            [self.interactor freshFavFolderEvent];
+        }
         
-        [self.interactor.localArray removeObject:entity];
+        AlertToastTitle(@"删除成功");
         [self.view.infoTV reloadData];
     }];
     
@@ -864,6 +937,10 @@ API_AVAILABLE(ios(12.0))
     [oneAC addAction:okAction];
     
     [self.view.vc presentViewController:oneAC animated:YES completion:nil];
+}
+
+- (void)cellGrAddFolderAction {// 添加文件到歌单
+    [self addMusicPlistFile];
 }
 
 - (void)cellGrCopySingerNameAction {
@@ -891,9 +968,24 @@ API_AVAILABLE(ios(12.0))
 }
 
 - (FileEntity *)longPressEntity {
-    NSMutableArray * songArray = [self currentSongArray];
-    FileEntity * entity = songArray[self.longPressIndexPathRow];
-    return entity;
+    if (self.view.isRoot) {
+        switch (self.longPressIP.section) {
+            case 0: {
+                FileEntity * entity = self.interactor.recordArray[self.longPressIP.row];
+                return entity;
+            }
+            case 1: {
+                FileEntity * entity = self.interactor.localArray[self.longPressIP.row];
+                return entity;
+            }
+            default:
+                return nil;
+        }
+    } else {
+        NSMutableArray * songArray = [self currentSongArray];
+        FileEntity * entity = songArray[self.longPressIP.row];
+        return entity;
+    }
 }
 
 @end

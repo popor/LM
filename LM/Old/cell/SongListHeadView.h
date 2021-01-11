@@ -1,5 +1,5 @@
 //
-//  LocalMusicHeadView.h
+//  SongListHeadView.h
 //  LM
 //
 //  Created by popor on 2020/9/20.
@@ -10,12 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LocalMusicHeadView : UITableViewHeaderFooterView
+@interface SongListHeadView : UITableViewHeaderFooterView
 
 @property (nonatomic, strong) UIButton * addBT;
-
-@property (nonatomic, strong) UIButton * openBT;
-@property (nonatomic, strong) UIButton * freshBT;
+@property (nonatomic, strong) UIButton * editBT;
 
 @end
 

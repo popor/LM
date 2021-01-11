@@ -21,7 +21,7 @@
 
 - (id)init {
     if (self = [super init]) {
-        
+        self.mplShare = [MusicPlayListShare share];
     }
     return self;
 }
@@ -83,13 +83,29 @@
     
     self.localArray = self.folderArray;
     
-    self.recordArray = [NSMutableArray<FileEntity> new];
-    [self.recordArray addObject:self.allFileEntity];
-    //[self.localArray insertObject:self.allFileEntity atIndex:0];
+    [self freshFavFolderEvent];
 }
 
 #pragma mark - VCDataSource
+- (void)freshFavFolderEvent {
+    self.recordArray = [NSMutableArray<FileEntity> new];
+    [self.recordArray addObject:self.allFileEntity];
+    
+    for (FileEntity *fe in self.mplShare.list.songListArray) {
+        fe.fileType = FileType_virtualFolder;
+        [self.recordArray addObject:fe];
+    }
+}
 
+- (void)addListName:(NSString *)name {
+    FileEntity * list = [FileEntity new];
+    list.fileName = name;
+    [self.mplShare.list.songListArray addObject:list];
+    [self updateSongList];
+}
 
+- (void)updateSongList {
+    [self.mplShare updateSongList];
+}
 
 @end

@@ -42,16 +42,7 @@
         
 #endif
         
-        NSData * listData   = [NSData dataWithContentsOfFile:self.listFilePath];
         NSData * configData = [NSData dataWithContentsOfFile:self.configFilePath];
-        
-        if (listData) {
-            //_list = [[MusicPlayList alloc] initWithString:[[NSString alloc] initWithData:listData encoding:NSUTF8StringEncoding] error:nil];
-            _list = [[MusicPlayList alloc] initWithData:listData error:nil];
-        } else {
-            _list       = [MusicPlayList new];
-        }
-        
         if (configData) {
             //_config     = [[MusicConfig alloc] initWithString:[[NSString alloc] initWithData:configData encoding:NSUTF8StringEncoding] error:nil];
             _config     = [[MusicConfig alloc] initWithData:configData error:nil];
@@ -60,9 +51,7 @@
             _config.songIndexList = -1;
             _config.songIndexItem = -1;
         }
-        if (!_list) {
-            _list = [MusicPlayList new];
-        }
+        
         _currentTempList = [NSMutableArray<FileEntity> new];
         
         [self addMgjrouter];
@@ -80,37 +69,12 @@
     }];
 }
 
-- (void)addListName:(NSString *)name {
-    MusicPlayListEntity * list = [MusicPlayListEntity new];
-    list.name = name;
-    list.viewOrder = -1;
-    self.list.songListArray.add(list);
-    [self updateSongList];
-}
-
-- (void)updateSongList {
-    [self.list.toJSONData writeToFile:self.listFilePath atomically:YES];
-
-    //    NSString * path = [self listFilePath];
-    //    NSString * json = [self.list toJSONString];
-    //    [json writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];
-}
-
 - (void)updateConfig {
     [self.config.toJSONData writeToFile:self.configFilePath atomically:YES];
     
     //    NSString * file = [self configFilePath];
     //    NSString * json = [self.config toJSONString];
     //    [json writeToFile:file atomically:YES encoding:NSUTF8StringEncoding error:nil];
-}
-
-
-- (NSString *)listFilePath {
-    static NSString * text;
-    if (!text) {
-        text = [NSString stringWithFormat:@"%@/%@/%@.json", FT_docPath, ConfigFolderName, LmPlayListKey];
-    }
-    return text;
 }
 
 - (NSString *)configFilePath {

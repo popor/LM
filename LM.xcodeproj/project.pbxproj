@@ -30,16 +30,14 @@
 		189A5DF1225C95E6001E8A9D /* AppVersionCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = 189A5DF0225C95E6001E8A9D /* AppVersionCheck.m */; };
 		18DE138F2251AAC9009920D7 /* MusicPlayTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE138D2251AAC8009920D7 /* MusicPlayTool.m */; };
 		18DE13922251BD5F009920D7 /* MusicPlayListTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE13912251BD5F009920D7 /* MusicPlayListTool.m */; };
-		18DE13A92251F40A009920D7 /* SongListDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE139D2251F40A009920D7 /* SongListDetailVC.m */; };
-		18DE13AB2251F40A009920D7 /* SongListDetailVCPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE13A42251F40A009920D7 /* SongListDetailVCPresenter.m */; };
-		18DE13AC2251F40A009920D7 /* SongListDetailVCInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE13A72251F40A009920D7 /* SongListDetailVCInteractor.m */; };
 		18DE13AF2251F78C009920D7 /* MusicInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE13AE2251F78C009920D7 /* MusicInfoCell.m */; };
-		18E52ED32253050C00EF8BF6 /* MusicListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E52ED22253050C00EF8BF6 /* MusicListCell.m */; };
 		C30D897F25354F6D009BFB45 /* NetService.m in Sources */ = {isa = PBXBuildFile; fileRef = C30D897D25354F6D009BFB45 /* NetService.m */; };
 		C31C054925ABE0AE001C6E78 /* 封面N@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C31C054525ABE0AE001C6E78 /* 封面N@2x.png */; };
 		C31C054A25ABE0AE001C6E78 /* 封面N@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C31C054625ABE0AE001C6E78 /* 封面N@3x.png */; };
 		C31C054B25ABE0AE001C6E78 /* 封面S@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C31C054725ABE0AE001C6E78 /* 封面S@3x.png */; };
 		C31C054C25ABE0AE001C6E78 /* 封面S@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C31C054825ABE0AE001C6E78 /* 封面S@2x.png */; };
+		C31C055525ABEB53001C6E78 /* SongListHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = C31C055125ABEB53001C6E78 /* SongListHeadView.m */; };
+		C31C055625ABEB53001C6E78 /* MusicListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C31C055425ABEB53001C6E78 /* MusicListCell.m */; };
 		C32A17C925381E8000BD830B /* LrcTool.m in Sources */ = {isa = PBXBuildFile; fileRef = C32A17C825381E8000BD830B /* LrcTool.m */; };
 		C3325B3C25A41B07000A7F43 /* FeedbackGeneratorTool.m in Sources */ = {isa = PBXBuildFile; fileRef = C3325B3A25A41B07000A7F43 /* FeedbackGeneratorTool.m */; };
 		C3560EC22537ED780062EFA8 /* LrcKuGou.m in Sources */ = {isa = PBXBuildFile; fileRef = C3560EC12537ED780062EFA8 /* LrcKuGou.m */; };
@@ -49,12 +47,8 @@
 		C39396F52536D3F400409025 /* LrcViewPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C39396EC2536D3F300409025 /* LrcViewPresenter.m */; };
 		C39396F62536D3F400409025 /* LrcView.m in Sources */ = {isa = PBXBuildFile; fileRef = C39396EF2536D3F300409025 /* LrcView.m */; };
 		C39396F72536D3F400409025 /* LrcViewInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = C39396F32536D3F300409025 /* LrcViewInteractor.m */; };
-		C3AD50F32516EDDB00746FA2 /* SongListVCPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD50EA2516EDDB00746FA2 /* SongListVCPresenter.m */; };
-		C3AD50F42516EDDB00746FA2 /* SongListVCInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD50EE2516EDDB00746FA2 /* SongListVCInteractor.m */; };
-		C3AD50F52516EDDB00746FA2 /* SongListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD50F22516EDDB00746FA2 /* SongListVC.m */; };
 		C3AD51332516FC6900746FA2 /* MRouterConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD51312516FC6900746FA2 /* MRouterConfig.m */; };
 		C3AD51342516FC6900746FA2 /* MRouterUrlPrefix.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD51322516FC6900746FA2 /* MRouterUrlPrefix.m */; };
-		C3AD5139251700BF00746FA2 /* SongListHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD5138251700BF00746FA2 /* SongListHeadView.m */; };
 		C3AD513D2517161700746FA2 /* LocalMusicHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD513C2517161700746FA2 /* LocalMusicHeadView.m */; };
 		C3AD516C2517310900746FA2 /* ThemeColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD516B2517310900746FA2 /* ThemeColor.m */; };
 		C3E1687525A2FFC1004104B4 /* AlertWindowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E1687425A2FFC1004104B4 /* AlertWindowImageView.m */; };
@@ -139,17 +133,8 @@
 		18DE138E2251AAC9009920D7 /* MusicPlayTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayTool.h; sourceTree = "<group>"; };
 		18DE13902251BD5F009920D7 /* MusicPlayListTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicPlayListTool.h; sourceTree = "<group>"; };
 		18DE13912251BD5F009920D7 /* MusicPlayListTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicPlayListTool.m; sourceTree = "<group>"; };
-		18DE139D2251F40A009920D7 /* SongListDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongListDetailVC.m; sourceTree = "<group>"; };
-		18DE139E2251F40A009920D7 /* SongListDetailVCProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongListDetailVCProtocol.h; sourceTree = "<group>"; };
-		18DE139F2251F40A009920D7 /* SongListDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongListDetailVC.h; sourceTree = "<group>"; };
-		18DE13A42251F40A009920D7 /* SongListDetailVCPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongListDetailVCPresenter.m; sourceTree = "<group>"; };
-		18DE13A52251F40A009920D7 /* SongListDetailVCPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongListDetailVCPresenter.h; sourceTree = "<group>"; };
-		18DE13A72251F40A009920D7 /* SongListDetailVCInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongListDetailVCInteractor.m; sourceTree = "<group>"; };
-		18DE13A82251F40A009920D7 /* SongListDetailVCInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongListDetailVCInteractor.h; sourceTree = "<group>"; };
 		18DE13AD2251F78C009920D7 /* MusicInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicInfoCell.h; sourceTree = "<group>"; };
 		18DE13AE2251F78C009920D7 /* MusicInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicInfoCell.m; sourceTree = "<group>"; };
-		18E52ED12253050C00EF8BF6 /* MusicListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicListCell.h; sourceTree = "<group>"; };
-		18E52ED22253050C00EF8BF6 /* MusicListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicListCell.m; sourceTree = "<group>"; };
 		29BA81301DB9758FD1B2E469 /* libPods-LMTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LMTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BD68A1A6DDCAC558466342A /* Pods-LMTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMTests.debug.xcconfig"; path = "Target Support Files/Pods-LMTests/Pods-LMTests.debug.xcconfig"; sourceTree = "<group>"; };
 		767D491D9049577971B2EEE5 /* Pods-LMUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LMUITests.debug.xcconfig"; path = "Target Support Files/Pods-LMUITests/Pods-LMUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -160,6 +145,10 @@
 		C31C054625ABE0AE001C6E78 /* 封面N@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "封面N@3x.png"; sourceTree = "<group>"; };
 		C31C054725ABE0AE001C6E78 /* 封面S@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "封面S@3x.png"; sourceTree = "<group>"; };
 		C31C054825ABE0AE001C6E78 /* 封面S@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "封面S@2x.png"; sourceTree = "<group>"; };
+		C31C055125ABEB53001C6E78 /* SongListHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongListHeadView.m; sourceTree = "<group>"; };
+		C31C055225ABEB53001C6E78 /* MusicListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicListCell.h; sourceTree = "<group>"; };
+		C31C055325ABEB53001C6E78 /* SongListHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongListHeadView.h; sourceTree = "<group>"; };
+		C31C055425ABEB53001C6E78 /* MusicListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicListCell.m; sourceTree = "<group>"; };
 		C32678F725145FB9007CADFC /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		C32678F925145FB9007CADFC /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		C3267B2C251489C1007CADFC /* LM.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LM.entitlements; sourceTree = "<group>"; };
@@ -183,19 +172,10 @@
 		C39396F12536D3F300409025 /* LrcView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LrcView.h; sourceTree = "<group>"; };
 		C39396F32536D3F300409025 /* LrcViewInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LrcViewInteractor.m; sourceTree = "<group>"; };
 		C39396F42536D3F300409025 /* LrcViewInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LrcViewInteractor.h; sourceTree = "<group>"; };
-		C3AD50EA2516EDDB00746FA2 /* SongListVCPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongListVCPresenter.m; sourceTree = "<group>"; };
-		C3AD50EB2516EDDB00746FA2 /* SongListVCPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongListVCPresenter.h; sourceTree = "<group>"; };
-		C3AD50ED2516EDDB00746FA2 /* SongListVCInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongListVCInteractor.h; sourceTree = "<group>"; };
-		C3AD50EE2516EDDB00746FA2 /* SongListVCInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongListVCInteractor.m; sourceTree = "<group>"; };
-		C3AD50F02516EDDB00746FA2 /* SongListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongListVC.h; sourceTree = "<group>"; };
-		C3AD50F12516EDDB00746FA2 /* SongListVCProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongListVCProtocol.h; sourceTree = "<group>"; };
-		C3AD50F22516EDDB00746FA2 /* SongListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongListVC.m; sourceTree = "<group>"; };
 		C3AD512F2516FC6900746FA2 /* MRouterConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRouterConfig.h; sourceTree = "<group>"; };
 		C3AD51302516FC6900746FA2 /* MRouterUrlPrefix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRouterUrlPrefix.h; sourceTree = "<group>"; };
 		C3AD51312516FC6900746FA2 /* MRouterConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRouterConfig.m; sourceTree = "<group>"; };
 		C3AD51322516FC6900746FA2 /* MRouterUrlPrefix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRouterUrlPrefix.m; sourceTree = "<group>"; };
-		C3AD5137251700BF00746FA2 /* SongListHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SongListHeadView.h; sourceTree = "<group>"; };
-		C3AD5138251700BF00746FA2 /* SongListHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SongListHeadView.m; sourceTree = "<group>"; };
 		C3AD513B2517161700746FA2 /* LocalMusicHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocalMusicHeadView.h; sourceTree = "<group>"; };
 		C3AD513C2517161700746FA2 /* LocalMusicHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocalMusicHeadView.m; sourceTree = "<group>"; };
 		C3AD516A2517310900746FA2 /* ThemeColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThemeColor.h; sourceTree = "<group>"; };
@@ -254,6 +234,7 @@
 		180E33A4224DE7E5008C176D /* LocalMusicVC */ = {
 			isa = PBXGroup;
 			children = (
+				C3D58B6D25174A4600A40108 /* entity */,
 				18DE13B02251F790009920D7 /* cell */,
 				180E33B6224DE806008C176D /* View */,
 				180E33AD224DE806008C176D /* Presenter */,
@@ -329,7 +310,7 @@
 				183BF429224A24EF004DE115 /* App */,
 				184F3703224B25D000FEB57B /* Root */,
 				184F370E224B26A100FEB57B /* Fun */,
-				C3F9E29E25A555290030CE24 /* old */,
+				C31C054F25ABEB53001C6E78 /* Old */,
 			);
 			path = LM;
 			sourceTree = "<group>";
@@ -464,7 +445,6 @@
 			children = (
 				18DE13902251BD5F009920D7 /* MusicPlayListTool.h */,
 				18DE13912251BD5F009920D7 /* MusicPlayListTool.m */,
-				C3D58B6D25174A4600A40108 /* list */,
 				18561592224DC077004BE073 /* config */,
 			);
 			path = MusicPalyList;
@@ -517,44 +497,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		18DE13932251F380009920D7 /* SongListDetailVC */ = {
-			isa = PBXGroup;
-			children = (
-				18DE139C2251F40A009920D7 /* View */,
-				18DE13A32251F40A009920D7 /* Presenter */,
-				18DE13A62251F40A009920D7 /* Interactor */,
-			);
-			path = SongListDetailVC;
-			sourceTree = "<group>";
-		};
-		18DE139C2251F40A009920D7 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				18DE139F2251F40A009920D7 /* SongListDetailVC.h */,
-				18DE139D2251F40A009920D7 /* SongListDetailVC.m */,
-				18DE139E2251F40A009920D7 /* SongListDetailVCProtocol.h */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		18DE13A32251F40A009920D7 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				18DE13A52251F40A009920D7 /* SongListDetailVCPresenter.h */,
-				18DE13A42251F40A009920D7 /* SongListDetailVCPresenter.m */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		18DE13A62251F40A009920D7 /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				18DE13A82251F40A009920D7 /* SongListDetailVCInteractor.h */,
-				18DE13A72251F40A009920D7 /* SongListDetailVCInteractor.m */,
-			);
-			path = Interactor;
-			sourceTree = "<group>";
-		};
 		18DE13B02251F790009920D7 /* cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -598,6 +540,26 @@
 				C30D897D25354F6D009BFB45 /* NetService.m */,
 			);
 			path = NetService;
+			sourceTree = "<group>";
+		};
+		C31C054F25ABEB53001C6E78 /* Old */ = {
+			isa = PBXGroup;
+			children = (
+				C31C055025ABEB53001C6E78 /* cell */,
+			);
+			name = Old;
+			path = LM/Old;
+			sourceTree = SOURCE_ROOT;
+		};
+		C31C055025ABEB53001C6E78 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				C31C055325ABEB53001C6E78 /* SongListHeadView.h */,
+				C31C055125ABEB53001C6E78 /* SongListHeadView.m */,
+				C31C055225ABEB53001C6E78 /* MusicListCell.h */,
+				C31C055425ABEB53001C6E78 /* MusicListCell.m */,
+			);
+			path = cell;
 			sourceTree = "<group>";
 		};
 		C32A17CB25381E8C00BD830B /* Tool */ = {
@@ -663,65 +625,6 @@
 			path = Interactor;
 			sourceTree = "<group>";
 		};
-		C3AD50E02516EDC200746FA2 /* SongListVC */ = {
-			isa = PBXGroup;
-			children = (
-				C3AD50EF2516EDDB00746FA2 /* View */,
-				C3AD50E92516EDDB00746FA2 /* Presenter */,
-				C3AD50EC2516EDDB00746FA2 /* Interactor */,
-			);
-			path = SongListVC;
-			sourceTree = "<group>";
-		};
-		C3AD50E92516EDDB00746FA2 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				C3AD50EB2516EDDB00746FA2 /* SongListVCPresenter.h */,
-				C3AD50EA2516EDDB00746FA2 /* SongListVCPresenter.m */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		C3AD50EC2516EDDB00746FA2 /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				C3AD50ED2516EDDB00746FA2 /* SongListVCInteractor.h */,
-				C3AD50EE2516EDDB00746FA2 /* SongListVCInteractor.m */,
-			);
-			path = Interactor;
-			sourceTree = "<group>";
-		};
-		C3AD50EF2516EDDB00746FA2 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				C3AD50F72516EDF400746FA2 /* cell */,
-				C3AD50F02516EDDB00746FA2 /* SongListVC.h */,
-				C3AD50F22516EDDB00746FA2 /* SongListVC.m */,
-				C3AD50F12516EDDB00746FA2 /* SongListVCProtocol.h */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		C3AD50F72516EDF400746FA2 /* cell */ = {
-			isa = PBXGroup;
-			children = (
-				18E52ED12253050C00EF8BF6 /* MusicListCell.h */,
-				18E52ED22253050C00EF8BF6 /* MusicListCell.m */,
-				C3AD5137251700BF00746FA2 /* SongListHeadView.h */,
-				C3AD5138251700BF00746FA2 /* SongListHeadView.m */,
-			);
-			path = cell;
-			sourceTree = "<group>";
-		};
-		C3AD50F82516EE1100746FA2 /* SongSection */ = {
-			isa = PBXGroup;
-			children = (
-				C3AD50E02516EDC200746FA2 /* SongListVC */,
-				18DE13932251F380009920D7 /* SongListDetailVC */,
-			);
-			path = SongSection;
-			sourceTree = "<group>";
-		};
 		C3AD512D2516FC6900746FA2 /* AppConfig */ = {
 			isa = PBXGroup;
 			children = (
@@ -762,13 +665,13 @@
 			path = MusicPlay;
 			sourceTree = "<group>";
 		};
-		C3D58B6D25174A4600A40108 /* list */ = {
+		C3D58B6D25174A4600A40108 /* entity */ = {
 			isa = PBXGroup;
 			children = (
 				1856158C224DBF0E004BE073 /* MusicPlayList.h */,
 				1856158D224DBF0E004BE073 /* MusicPlayList.m */,
 			);
-			path = list;
+			path = entity;
 			sourceTree = "<group>";
 		};
 		C3E1687225A2FFC1004104B4 /* AlertWindowImageView */ = {
@@ -802,15 +705,6 @@
 				C3F31ADF2539709100621878 /* 半屏@3x.png */,
 			);
 			path = image;
-			sourceTree = "<group>";
-		};
-		C3F9E29E25A555290030CE24 /* old */ = {
-			isa = PBXGroup;
-			children = (
-				C3AD50F82516EE1100746FA2 /* SongSection */,
-			);
-			name = old;
-			path = Fun;
 			sourceTree = "<group>";
 		};
 		C3F9E2A125A586F50030CE24 /* SingleBTBottomView */ = {
@@ -1014,32 +908,26 @@
 				E431E50C25A19C3A0024C67B /* NetMusicVC.m in Sources */,
 				180E33BD224DE806008C176D /* LocalMusicVC.m in Sources */,
 				C3AD51342516FC6900746FA2 /* MRouterUrlPrefix.m in Sources */,
-				18DE13AC2251F40A009920D7 /* SongListDetailVCInteractor.m in Sources */,
 				C39396F72536D3F400409025 /* LrcViewInteractor.m in Sources */,
 				E431E50D25A19C3A0024C67B /* NetMusicVCPresenter.m in Sources */,
 				185615AD224DC23A004BE073 /* WifiAddFileVCPresenter.m in Sources */,
-				18DE13A92251F40A009920D7 /* SongListDetailVC.m in Sources */,
 				180E33BA224DE806008C176D /* LocalMusicVCPresenter.m in Sources */,
 				E431E50B25A19C3A0024C67B /* NetMusicVCInteractor.m in Sources */,
-				C3AD5139251700BF00746FA2 /* SongListHeadView.m in Sources */,
 				C30D897F25354F6D009BFB45 /* NetService.m in Sources */,
 				183BF428224A22EC004DE115 /* RootVCPresenter.m in Sources */,
 				C39396722536C88500409025 /* LrcDetailEntity.m in Sources */,
-				C3AD50F32516EDDB00746FA2 /* SongListVCPresenter.m in Sources */,
 				C32A17C925381E8000BD830B /* LrcTool.m in Sources */,
 				E431E51325A1A16C0024C67B /* FD_FileDownload.m in Sources */,
 				189A5DF1225C95E6001E8A9D /* AppVersionCheck.m in Sources */,
-				18DE13AB2251F40A009920D7 /* SongListDetailVCPresenter.m in Sources */,
-				C3AD50F42516EDDB00746FA2 /* SongListVCInteractor.m in Sources */,
 				C3560EC22537ED780062EFA8 /* LrcKuGou.m in Sources */,
+				C31C055525ABEB53001C6E78 /* SongListHeadView.m in Sources */,
 				C3E1687525A2FFC1004104B4 /* AlertWindowImageView.m in Sources */,
+				C31C055625ABEB53001C6E78 /* MusicListCell.m in Sources */,
 				18DE138F2251AAC9009920D7 /* MusicPlayTool.m in Sources */,
 				C3F9E2A625A586F50030CE24 /* SingleBTBottomView.m in Sources */,
 				C3560EC62537F4F00062EFA8 /* LrcKugouListEntity.m in Sources */,
-				C3AD50F52516EDDB00746FA2 /* SongListVC.m in Sources */,
 				180E33BB224DE806008C176D /* LocalMusicVCInteractor.m in Sources */,
 				185615AF224DC23A004BE073 /* WifiAddFileVC.m in Sources */,
-				18E52ED32253050C00EF8BF6 /* MusicListCell.m in Sources */,
 				180E33C1224E11AF008C176D /* FileTool.m in Sources */,
 				180E33C4224E11F7008C176D /* FileEntity.m in Sources */,
 				C3F9E2A725A586F50030CE24 /* DoubleBTBottomView.m in Sources */,

@@ -25,14 +25,9 @@ static NSString * DownloadFolderName  = @"Download";// 下载
 
 + (MusicPlayListTool *)share;
 
-@property (nonatomic, strong) MusicPlayList * list;
 @property (nonatomic, strong) MusicConfig   * config;
 @property (nonatomic, strong) NSMutableArray<FileEntity> * currentTempList; // 针对本地歌单
 @property (nonatomic, weak  ) NSMutableArray * currentWeakList; // 针对保存的歌单
-
-- (void)addListName:(NSString *)name;
-
-- (void)updateSongList;
 
 + (NSString *)downloadFolderPath;
 

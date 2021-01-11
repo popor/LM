@@ -35,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIButton        * aimBT;
 
 @property (nonatomic, readonly, getter=isRoot) BOOL root;
+@property (nonatomic, readonly) FileType folderType;// 假如非Root, 则需要标注文件夹类型
 
 @property (nonatomic, strong) UIMenuController * _Nullable longPressMenu;
 
@@ -59,8 +60,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 // 长按手势
+- (void)cellGrNullAction_all;
 - (void)cellGrEditFileNameAction;
 - (void)cellGrDeleteFileAction;
+- (void)cellGrAddFolderAction; // 添加文件到歌单
 
 - (void)cellGrCopySingerNameAction;
 - (void)cellGrCopySongNameAction;

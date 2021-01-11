@@ -27,6 +27,7 @@
 @synthesize searchArray;
 @synthesize aimBT;
 @synthesize root;
+@synthesize folderType;
 @synthesize longPressMenu;
 
 - (void)dealloc {
@@ -323,7 +324,15 @@
     if(action ==@selector(cellGrEditFileNameAction)){
         return YES;
     }
+    else if (action==@selector(cellGrNullAction_all)){
+        
+        return YES;
+    }
     else if (action==@selector(cellGrDeleteFileAction)){
+        
+        return YES;
+    }
+    else if (action==@selector(cellGrAddFolderAction)){
         
         return YES;
     }
@@ -342,12 +351,21 @@
     return [super canPerformAction:action withSender:sender];
 }
 
+- (void)cellGrNullAction_all {
+    [self.present cellGrNullAction_all];
+}
+
 - (void)cellGrEditFileNameAction {
     [self.present cellGrEditFileNameAction];
 }
 
 - (void)cellGrDeleteFileAction {
     [self.present cellGrDeleteFileAction];
+}
+
+- (void)cellGrAddFolderAction; // 添加文件到歌单
+{
+    [self.present cellGrAddFolderAction];
 }
 
 - (void)cellGrCopySingerNameAction {

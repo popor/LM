@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIButton * rewindBT;
 @property (nonatomic, strong) UIButton * forwardBT;
 
-@property (nonatomic, strong) UIButton * exitPlaySearchLocalBT; //退出播放搜索结果模式
+//@property (nonatomic, strong) UIButton * exitPlaySearchLocalBT; //退出播放搜索结果模式
 
 @property (nonatomic, weak  ) MusicPlayTool       * mpt;
 @property (nonatomic, weak  ) MusicPlayListTool   * mplt;
@@ -63,7 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)playLocalListArray:(NSMutableArray<FileEntity> *)itemArray folder:(NSString * _Nullable)folderName type:(McPlayType)playType at:(NSInteger)index autoPlay:(BOOL)autoPlay;
 
 // 播放歌单列表
-- (void)playSongListEntity:(MusicPlayListEntity *)listEntity at:(NSInteger)index;
+//- (void)playSongListEntity:(MusicPlayListEntity *)listEntity at:(NSInteger)index;
 
 - (void)playEvent;
 - (void)pauseEvent;
