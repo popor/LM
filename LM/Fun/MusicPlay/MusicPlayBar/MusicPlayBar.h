@@ -52,6 +52,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy  ) NSArray * _Nullable musicLyricArray;
 @property (nonatomic, getter=isShowLrc) BOOL showLrc;
 
+// 只针对于随机模式
+@property (nonatomic, strong) NSMutableArray<FileEntity> * playHistoryArray;
+@property (nonatomic        ) NSInteger                    playHistoryIndex;
+
 //明天处理逻辑.
 //退出该页面或者点击了完成,就退出搜索结果?
 //当在播放搜索音乐的时候,每次播放下一首,就刷新当前页面歌单config?
@@ -61,9 +65,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 // 播放临时数组
 - (void)playLocalListArray:(NSMutableArray<FileEntity> *)itemArray folder:(NSString * _Nullable)folderName type:(McPlayType)playType at:(NSInteger)index autoPlay:(BOOL)autoPlay;
-
-// 播放歌单列表
-//- (void)playSongListEntity:(MusicPlayListEntity *)listEntity at:(NSInteger)index;
 
 - (void)playEvent;
 - (void)pauseEvent;

@@ -48,6 +48,9 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         self.mpt  = MptShare;
         self.mplt = MpltShare;
         self.backgroundColor = App_bgColor1;
+        
+        self.playHistoryArray = [NSMutableArray<FileEntity> new];
+        
         [self addViews];
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -435,6 +438,9 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     [self.mplt.currentTempList removeAllObjects];
     [self.mplt.currentTempList addObjectsFromArray:itemArray];
     
+    [self.playHistoryArray removeAllObjects];
+    self.playHistoryIndex = 0;
+    
     self.mplt.currentWeakList = self.mplt.currentTempList;
     self.playBT.selected      = autoPlay;
     self.playSearchLocalItem  = YES;
@@ -442,6 +448,8 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     if (itemArray.count > 0) {
         self.currentItem = self.mplt.currentWeakList[index];
         [self playItem:self.currentItem autoPlay:autoPlay];
+        
+        [self recordPlayHistory:self.currentItem atFront:NO];
     }
     
     // 刷新item
@@ -456,30 +464,6 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         self.mplt.config.currentPlayIndexRow = index;
     }
 }
-
-//- (void)playSongListEntity:(MusicPlayListEntity *)listEntity at:(NSInteger)index {
-//    if (self.mplt.currentWeakList != listEntity.itemArray) {
-//        self.mplt.currentWeakList = listEntity.itemArray;
-//    }
-//    self.playBT.selected     = YES;
-//    if (self.isPlaySearchLocalItem) {
-//        self.playSearchLocalItem = NO;
-//        //AlertToastTitle(@"退出 [搜索歌单] 模式");
-//    }
-//
-//    if (listEntity.itemArray.count > 0) {
-//        self.currentItem = self.mplt.currentWeakList[index];
-//        [self playItem:self.currentItem autoPlay:YES];
-//    }
-//
-//    NSInteger currentListIndex = [self.mplt.list.songListArray indexOfObject:listEntity];
-//    if (self.mplt.config.songIndexList != currentListIndex) {
-//        self.mplt.config.songIndexList = currentListIndex;
-//    }
-//
-//    self.mplt.config.playType      = McPlayType_songList;
-//    self.mplt.config.songIndexItem = index;
-//}
 
 - (void)playBTEvent {
     FeedbackShakePhone
@@ -511,8 +495,21 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     FeedbackShakePhone
     
     if (self.mplt.currentWeakList.count>0) {
-        NSInteger index = [self getPreviousIndex];
-        self.mplt.config.currentPlayIndexRow = index;
+        NSInteger index = -1;
+        BOOL needUpdateHistory = NO;
+        // 假如是随机的话, 要检查当前顺序
+        if (self.mplt.config.playOrder == McPlayOrderRandom && self.playHistoryArray.count>0) {
+            self.playHistoryIndex--;
+            if (self.playHistoryIndex >= 0) { // 只有当大于-1的时候, 才会处理播放历史, 否则还是播放其他的
+                FileEntity * fe = self.playHistoryArray[self.playHistoryIndex];
+                index = [self.mplt.currentTempList indexOfObject:fe];
+            }
+        }
+        if (index == -1) {
+            index = [self getPreviousIndex];
+            self.mplt.config.currentPlayIndexRow = index;
+            needUpdateHistory = YES;
+        }
         
         self.currentItem = self.mplt.currentWeakList[index];
         [self playItem:self.currentItem autoPlay:YES];
@@ -521,6 +518,10 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         
         // 刷新item
         [self updateConfigIndex:index];
+        
+        if (needUpdateHistory) {
+            [self recordPlayHistory:self.currentItem atFront:YES];
+        }
         
         // 刷新SongListDetailVC
         if (self.mpt.nextMusicBlock_SongListDetailVC) {
@@ -533,8 +534,22 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     FeedbackShakePhone
     
     if (self.mplt.currentWeakList.count>0) {
-        NSInteger index = [self getNextIndex];
-        self.mplt.config.currentPlayIndexRow = index;
+        NSInteger index = -1;
+        
+        // 随机播放, 当播放历史没有到头, 则播放历史记录.
+        BOOL needUpdateHistory = NO;
+        if (self.mplt.config.playOrder == McPlayOrderRandom &&  self.playHistoryArray.count>0) {
+            self.playHistoryIndex++;
+            if (self.playHistoryIndex < self.playHistoryArray.count) {
+                FileEntity * fe = self.playHistoryArray[self.playHistoryIndex];
+                index = [self.mplt.currentTempList indexOfObject:fe];
+            }
+        }
+        if (index == -1) {
+            index = [self getNextIndex];
+            self.mplt.config.currentPlayIndexRow = index;
+            needUpdateHistory = YES;
+        }
         
         self.currentItem = self.mplt.currentWeakList[index];
         [self playItem:self.currentItem autoPlay:YES];
@@ -543,6 +558,9 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         
         // 刷新item
         [self updateConfigIndex:index];
+        if (needUpdateHistory) {
+            [self recordPlayHistory:self.currentItem atFront:NO];
+        }
         
         // 刷新SongListDetailVC
         if (self.mpt.nextMusicBlock_SongListDetailVC) {
@@ -555,7 +573,11 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     NSInteger index = 0;
     switch (self.mplt.config.playOrder) {
         case McPlayOrderRandom:{
-            index = arc4random() % self.mplt.currentWeakList.count;
+            if (self.playHistoryIndex < self.playHistoryArray.count) {
+                return self.playHistoryIndex;
+            } else {
+                index = arc4random() % self.mplt.currentWeakList.count;
+            }
             break;
         }
         case McPlayOrderNormal:
@@ -686,6 +708,20 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 
 - (void)playItem:(FileEntity *)item autoPlay:(BOOL)autoPlay {
     [self.mpt playItem:self.currentItem autoPlay:autoPlay];
+    // NSLogString(item.fileName);
+}
+
+#pragma mark - 添加随机播放历史
+- (void)recordPlayHistory:(FileEntity *)item atFront:(BOOL)atFront {
+    if (self.mplt.config.playOrder == McPlayOrderRandom) {
+        if (atFront) {
+            [self.playHistoryArray insertObject:item atIndex:0];
+            self.playHistoryIndex = 0;
+        } else {
+            [self.playHistoryArray addObject:item];
+            self.playHistoryIndex = self.playHistoryArray.count-1;
+        }
+    }
 }
 
 - (void)updateLyricKugou {
