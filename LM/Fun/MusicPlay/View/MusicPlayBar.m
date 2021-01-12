@@ -590,7 +590,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
             if (self.playHistoryIndex < self.playHistoryArray.count) {
                 return self.playHistoryIndex;
             } else {
-                index = arc4random() % self.mplt.currentWeakList.count;
+                index = [self randomNumber];
             }
             break;
         }
@@ -612,7 +612,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     NSInteger index = 0;
     switch (self.mplt.config.playOrder) {
         case McPlayOrderRandom:{
-            index = arc4random() % self.mplt.currentWeakList.count;
+            index = [self randomNumber];
             break;
         }
         case McPlayOrderNormal:
@@ -627,6 +627,16 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     }
     
     return index;
+}
+
+
+- (NSInteger)randomNumber {
+    NSInteger index = arc4random() % self.mplt.currentWeakList.count;
+    if (index == self.mplt.config.currentPlayIndexRow && self.mplt.currentWeakList.count>1) {
+        return [self randomNumber];
+    } else {
+        return index;
+    }
 }
 
 - (void)rewindBTEvent {
