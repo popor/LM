@@ -325,7 +325,7 @@ API_AVAILABLE(ios(12.0))
     BOOL colorFull = NO;
     if (entity.itemArray.count == 0) {
         cell.accessoryType       = UITableViewCellAccessoryNone;
-        cell.titelL.textColor    = App_textNColor2;
+        cell.titelL.textColor    = App_colorTextN2;
         cell.subtitleL.textColor = UIColor.grayColor;
         colorFull                = NO;
         
@@ -344,13 +344,20 @@ API_AVAILABLE(ios(12.0))
             // text
             if (self.mplt.config.playSearchKey.length > 0 && self.mplt.currentWeakList && self.mpb.weakLastPlayArray != entity.itemArray) {
                 cell.titelL.text = [NSString stringWithFormat:@"%@ %li首 (搜索: %@  %li首)", entity.fileName, entity.itemArray.count, self.mplt.config.playSearchKey, self.mplt.currentTempList.count];
+                
+                NSMutableAttributedString * att = [NSMutableAttributedString new];
+                [att addString:[NSString stringWithFormat:@"%@ %li首(", entity.fileName, entity.itemArray.count] font:cell.titelL.font color:cell.subtitleL.textColor];
+                [att addString:[NSString stringWithFormat:@"搜索: %@  %li首", self.mplt.config.playSearchKey, self.mplt.currentTempList.count] font:cell.titelL.font color:App_colorRed1];
+                [att addString:@")" font:cell.titelL.font color:cell.subtitleL.textColor];
+                
+                cell.titelL.attributedText = att;
             } else {
                 cell.titelL.text = [NSString stringWithFormat:@"%@ %li首", entity.fileName, entity.itemArray.count];
             }
             cell.subtitleL.text      = self.mplt.config.playFileNameDeleteExtension;
         }else{
             cell.rightIV.hidden      = YES;
-            cell.titelL.textColor    = App_textNColor;
+            cell.titelL.textColor    = App_colorTextN1;
             cell.subtitleL.textColor = UIColor.grayColor;
             colorFull                = NO;
             
@@ -413,8 +420,8 @@ API_AVAILABLE(ios(12.0))
             
             self.lastCell = cell;
         }else{
-            cell.titelL.textColor = App_textNColor;
-            cell.subtitleL.textColor  = App_textNColor2;
+            cell.titelL.textColor = App_colorTextN1;
+            cell.subtitleL.textColor  = App_colorTextN2;
             cell.rightIV.hidden   = YES;
             
         }
@@ -440,8 +447,8 @@ API_AVAILABLE(ios(12.0))
                 
             }
             
-            cell.titelL.textColor = App_textNColor;
-            cell.subtitleL.textColor  = App_textNColor2;
+            cell.titelL.textColor = App_colorTextN1;
+            cell.subtitleL.textColor  = App_colorTextN2;
         }
     }
     
@@ -623,8 +630,8 @@ API_AVAILABLE(ios(12.0))
                       searchKey:self.view.playSearchKey];
         
         if (self.lastCell) {
-            self.lastCell.titelL.textColor = App_textNColor;
-            self.lastCell.subtitleL.textColor  = App_textNColor2;
+            self.lastCell.titelL.textColor = App_colorTextN1;
+            self.lastCell.subtitleL.textColor  = App_colorTextN2;
             self.lastCell.rightIV.hidden   = YES;
             
             // 刷新搜索状态

@@ -39,7 +39,7 @@
         
         self.labelColor     = [UIColor labelColor];
         
-        self.textNColor     = [UIColor labelColor];
+        self.textNColor1    = [UIColor labelColor];
         self.textNColor2    = [UIColor secondaryLabelColor];
         
     } else {
@@ -52,11 +52,12 @@
         
         self.labelColor     = [UIColor blackColor];
         
-        self.textNColor     = [UIColor blackColor];
+        self.textNColor1    = [UIColor blackColor];
         self.textNColor2    = [UIColor grayColor];
     }
     
     self.textSColor     = self.themeColor;
+    self.colorRed       = [UIColor systemRedColor];
     
 }
 

@@ -47,7 +47,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     if (self = [super init]) {
         self.mpt  = MptShare;
         self.mplt = MpltShare;
-        self.backgroundColor = App_bgColor1;
+        self.backgroundColor = App_colorBg1;
         
         self.playHistoryArray = [NSMutableArray<FileEntity> new];
         
@@ -69,7 +69,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         self.sliderTimeL = ({
             UILabel * l = [UILabel new];
             l.frame              = CGRectMake(0, 0, 60, 30);
-            l.backgroundColor    = App_bgColor1;
+            l.backgroundColor    = App_colorBg1;
             l.font               = [UIFont systemFontOfSize:15];
             l.textColor          = ColorThemeBlue1;
             l.textAlignment      = NSTextAlignmentCenter;
@@ -87,9 +87,9 @@ static CGFloat MPBTimeLabelWidth1 = 57;
             UISlider * slider = [UISlider new];
             slider.maximumValue   = 1.0;
             slider.minimumValue   = 0.0;
-            slider.tintColor      = App_themeColor;
-            slider.minimumTrackTintColor = App_themeColor;
-            slider.maximumTrackTintColor = App_separatorColor;
+            slider.tintColor      = App_colorTheme;
+            slider.minimumTrackTintColor = App_colorTheme;
+            slider.maximumTrackTintColor = App_colorSeparator;
             
             // slider.thumbTintColor = [UIColor redColor];
             UIImage *image = [UIImage imageFromColor:ColorThemeBlue1 size:CGSizeMake(self.sliderImageWH, self.sliderImageWH) corner:self.sliderImageWH/2];
@@ -264,7 +264,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     });
     {
         self.lineView = [UIView new];
-        self.lineView.backgroundColor = App_separatorColor;
+        self.lineView.backgroundColor = App_colorSeparator;
         
         [self addSubview:self.lineView];
         [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {

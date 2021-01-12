@@ -30,7 +30,7 @@
 - (id)init {
     if (self = [super init]) {
         self.cellTextColorN = [UIColor whiteColor];
-        self.cellTextColorS = App_textSColor;
+        self.cellTextColorS = App_colorTextS1;
         self.cellTextColorD = KDragColor;
     }
     return self;

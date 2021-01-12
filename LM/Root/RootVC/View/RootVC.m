@@ -261,8 +261,8 @@
         // 颜色
         segmentView.backgroundColor = [UIColor clearColor];
         
-        segmentView.btTitleNColor = App_textNColor;
-        segmentView.btTitleSColor = App_textSColor;
+        segmentView.btTitleNColor = App_colorTextN1;
+        segmentView.btTitleSColor = App_colorTextS1;
         segmentView.btTitleColorGradualChange = YES;
         
         segmentView.btTitleNFont  = PFONT16;
@@ -282,7 +282,7 @@
     }
     if (!self.tvSV) {
         UIScrollView_pPanGR * sv = [UIScrollView_pPanGR new];
-        sv.backgroundColor = App_bgColor1;
+        sv.backgroundColor = App_colorBg1;
         sv.pagingEnabled = YES;
         sv.showsHorizontalScrollIndicator = NO;
         [sv.panGestureRecognizer requireGestureRecognizerToFail:self.navigationController.interactivePopGestureRecognizer];

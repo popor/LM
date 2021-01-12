@@ -18,20 +18,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 //....................................................................................
 
-#define App_themeColor     [ThemeColor share].themeColor
+#define App_colorTheme     [ThemeColor share].themeColor
 
-#define App_bgColor1       [ThemeColor share].bgColor1
-#define App_bgColor2       [ThemeColor share].bgColor2
-#define App_bgColor3       [ThemeColor share].bgColor3
-#define App_bgColor4       [ThemeColor share].bgColor4
+#define App_colorBg1       [ThemeColor share].bgColor1
+#define App_colorBg2       [ThemeColor share].bgColor2
+#define App_colorBg3       [ThemeColor share].bgColor3
+#define App_colorBg4       [ThemeColor share].bgColor4
 
-#define App_separatorColor [ThemeColor share].separatorColor
+#define App_colorSeparator [ThemeColor share].separatorColor
 
-#define App_labelColor     [ThemeColor share].labelColor
+#define App_colorLabel     [ThemeColor share].labelColor
 
-#define App_textNColor     [ThemeColor share].textNColor
-#define App_textNColor2    [ThemeColor share].textNColor2
-#define App_textSColor     [ThemeColor share].textSColor
+#define App_colorTextN1    [ThemeColor share].textNColor1
+#define App_colorTextN2    [ThemeColor share].textNColor2
+#define App_colorTextS1    [ThemeColor share].textSColor
+#define App_colorRed1      [ThemeColor share].colorRed
 
 //....................................................................................
 
@@ -50,10 +51,12 @@ NS_ASSUME_NONNULL_BEGIN
  
 @property (nonatomic, strong) UIColor *  _Nullable labelColor;
  
-@property (nonatomic, strong) UIColor *  _Nullable textNColor;
+@property (nonatomic, strong) UIColor *  _Nullable textNColor1;
 @property (nonatomic, strong) UIColor *  _Nullable textNColor2;
 
 @property (nonatomic, strong) UIColor *  _Nullable textSColor;
+
+@property (nonatomic, strong) UIColor *  _Nullable colorRed;
 
 + (instancetype)share;
 

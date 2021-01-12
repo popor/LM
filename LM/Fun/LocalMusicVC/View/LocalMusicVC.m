@@ -198,8 +198,8 @@
     oneTV.estimatedSectionHeaderHeight = 0;
     oneTV.estimatedSectionFooterHeight = 0;
     
-    oneTV.backgroundColor = App_bgColor4;
-    oneTV.separatorColor  = App_separatorColor;
+    oneTV.backgroundColor = App_colorBg4;
+    oneTV.separatorColor  = App_colorSeparator;
     
     [self.view addSubview:oneTV];
     
@@ -240,10 +240,10 @@
     if (!searchBar) {
         searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, PSCREEN_SIZE.width, 44+10)];
 #if TARGET_OS_MACCATALYST
-        searchBar.barTintColor = App_bgColor2;
+        searchBar.barTintColor = App_colorBg2;
         searchBar.tintColor = [UIColor blackColor];
         searchBar.searchTextField.backgroundColor = [UIColor tertiarySystemBackgroundColor];
-        searchBar.searchTextField.textColor       = App_textNColor;
+        searchBar.searchTextField.textColor       = App_colorTextN;
         
 #else
         [searchBar setBackgroundImage:[UIImage imageFromColor:[UIColor clearColor] size:CGSizeMake(1, 1)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault]; //此处使底部线条颜色为红色
