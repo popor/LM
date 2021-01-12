@@ -550,7 +550,7 @@ API_AVAILABLE(ios(12.0))
 #pragma mark - TV select
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (self.view.longPressMenu) {
+    if (self.view.longPressMenu.menuVisible) {
         [self.view.longPressMenu setMenuVisible:NO];
         self.view.longPressMenu = nil;
         return;
@@ -865,18 +865,20 @@ API_AVAILABLE(ios(12.0))
         self.view.longPressMenu = ({
             UIMenuController *menu = [UIMenuController sharedMenuController];
             
-            UIMenuItem *copyItem   = [[UIMenuItem alloc] initWithTitle:@"修改" action:@selector(cellGrEditFileNameAction)];
+            UIMenuItem *copyItem   = [[UIMenuItem alloc] initWithTitle:@"重命名" action:@selector(cellGrEditFileNameAction)];
             UIMenuItem *resendItem = [[UIMenuItem alloc] initWithTitle:@"删除" action:@selector(cellGrDeleteFileAction)];
+            UIMenuItem *addItem    = [[UIMenuItem alloc] initWithTitle:@"添加" action:@selector(cellGrAddFolderAction)];
             if (self.view.isRoot) {
                 if (self.longPressIP.section == 0 && self.longPressIP.row == 0) { // 假如是全部的话不执行任何操作
-                    UIMenuItem *nullItem   = [[UIMenuItem alloc] initWithTitle:@"默认文件夹" action:@selector(cellGrNullAction_all)];
-                    [menu setMenuItems:[NSArray arrayWithObjects:nullItem, nil]];
+                    //UIMenuItem *nullItem   = [[UIMenuItem alloc] initWithTitle:@"默认文件夹" action:@selector(cellGrNullAction_all)];
+                    //[menu setMenuItems:[NSArray arrayWithObjects:nullItem,  nil]];
+                    
+                    [menu setMenuItems:[NSArray arrayWithObjects:addItem, nil]];
                 } else {
-                    UIMenuItem *addItem = [[UIMenuItem alloc] initWithTitle:@"添加" action:@selector(cellGrAddFolderAction)];
                     if (self.longPressIP.section == 1) {
                         [menu setMenuItems:[NSArray arrayWithObjects:copyItem, resendItem, addItem, nil]];
                     } else {
-                        [menu setMenuItems:[NSArray arrayWithObjects:copyItem, resendItem, nil]];
+                        [menu setMenuItems:[NSArray arrayWithObjects:copyItem, resendItem, addItem, nil]];
                     }
                 }
                 
