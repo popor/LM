@@ -121,15 +121,37 @@ API_AVAILABLE(ios(12.0))
 
 - (void)resumeLastPlay_1:(FileEntity *)fileEntity {
     NSString * playSearchKey = [self.mplt.config.playFileID isEqualToString:fileEntity.fileID] ? self.mplt.config.playSearchKey:@"";
-    NSDictionary * dic = @{
-        @"title":fileEntity.fileName,
-        @"itemArray":fileEntity.itemArray,
-        @"folderType":@(fileEntity.fileType),
-        @"playFileID":fileEntity.fileID,
-        @"playSearchKey":playSearchKey,
-        @"autoPlayFilePath":self.mplt.config.playFilePath,
-    };
-    [self.view.vc.navigationController pushViewController:[[LocalMusicVC alloc] initWithDic:dic] animated:YES];
+    
+    // 有搜索词 跳转到下一层
+    if (playSearchKey.length > 0) {
+        NSDictionary * dic = @{
+            @"title":fileEntity.fileName,
+            @"itemArray":fileEntity.itemArray,
+            @"folderType":@(fileEntity.fileType),
+            @"playFileID":fileEntity.fileID,
+            @"playSearchKey":playSearchKey,
+            @"autoPlayFilePath":self.mplt.config.playFilePath,
+        };
+        [self.view.vc.navigationController pushViewController:[[LocalMusicVC alloc] initWithDic:dic] animated:YES];
+    } else {
+        // 没有的 直接在本页播放.
+        NSInteger index = -1;
+        for (NSInteger i = 0; i<fileEntity.itemArray.count; i++) {
+            FileEntity * fe = fileEntity.itemArray[i];
+            if ([fe.filePath isEqualToString:self.mplt.config.playFilePath]) {
+                index = i;
+                break;
+            }
+        }
+        if (index > -1) {
+            [self.mpb playSongArray:fileEntity.itemArray
+                                 at:index
+                           autoPlay:YES
+                         playFileID:fileEntity.fileID
+                          searchKey:@""];
+        }
+        
+    }
 }
 
 
@@ -802,7 +824,10 @@ API_AVAILABLE(ios(12.0))
             [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.mpb.mplt.config.currentPlayIndexRow inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
         }
     } else {
-        AlertToastTitle(@"未播放该歌单");
+        // 假如有bt, 则是用户点击的, 给提示, 否则不给提示.
+        if (bt) {
+            AlertToastTitle(@"未播放该歌单");
+        }
     }
 }
 
