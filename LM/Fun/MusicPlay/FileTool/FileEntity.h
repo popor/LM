@@ -22,6 +22,8 @@ typedef NS_ENUM(NSInteger, FileType) {
 @interface FileEntity : PoporJsonModel
 
 @property (nonatomic        ) FileType   fileType;
+@property (nonatomic, copy  ) NSString * fileID;
+
 @property (nonatomic, copy  ) NSString * folderName;
 @property (nonatomic, copy  ) NSString * fileName;
 @property (nonatomic, copy  ) NSString * fileNameDeleteExtension;

@@ -35,6 +35,9 @@
     
     for (NSInteger i = 0; i<self.folderArray.count;) {
         FileEntity * folderEntity = self.folderArray[i];
+        
+        // 初始化文件夹名称
+        folderEntity.fileID = folderEntity.fileName;
 #if TARGET_OS_MACCATALYST
         
 #else
@@ -69,9 +72,10 @@
     self.allFileEntity = nil;
     self.allFileEntity = ({
         FileEntity * fileEntity = [FileEntity new];
-        fileEntity.fileName     = @"全部";
+        fileEntity.fileName  = @"全部";
+        fileEntity.fileID    = KRootCellFolderName_all;
         
-        fileEntity.fileType = FileType_virtualFolder;
+        fileEntity.fileType  = FileType_virtualFolder;
         fileEntity.itemArray = [NSMutableArray<FileEntity, Ignore> new];
         
         for (FileEntity * fe in self.folderArray) {
@@ -99,9 +103,10 @@
     for (FileEntity *fe in self.mplShare.list.songListArray) {
         
         FileEntity * listFE = [FileEntity new];
-        listFE.fileName = fe.fileName;
-        listFE.fileType = FileType_virtualFolder;
-        listFE.itemArray = [NSMutableArray<FileEntity> new];
+        listFE.fileName   = fe.fileName;
+        listFE.fileID     = fe.fileID;
+        listFE.fileType   = FileType_virtualFolder;
+        listFE.itemArray  = [NSMutableArray<FileEntity> new];
         [self.recordArray addObject:listFE];
         
         for (FileEntity *fe0 in fe.itemArray) {
@@ -118,7 +123,8 @@
 
 - (void)addListName:(NSString *)name {
     FileEntity * list = [FileEntity new];
-    list.fileName = name;
+    list.fileName   = name;
+    list.fileID     = [NSString getUUID];
     [self.mplShare.list.songListArray addObject:list];
     [self updateSongList];
 }

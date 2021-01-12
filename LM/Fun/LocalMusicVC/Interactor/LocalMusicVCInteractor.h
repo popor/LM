@@ -10,6 +10,11 @@
 #import "FileTool.h"
 #import "MusicPlayList.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
+static NSString * KRootCellFolderName_all      = @"全部";
+//static NSString * KRootCellFolderName_download = @"下载";
+
 // 处理Entity事件
 @interface LocalMusicVCInteractor : NSObject
 
@@ -18,7 +23,7 @@
 @property (nonatomic, strong) NSMutableArray<FileEntity> * recordArray; // 收藏文件夹
 @property (nonatomic, weak  ) NSMutableArray<FileEntity> * localArray;  // 本地文件夹
 
-@property (nonatomic, strong) FileEntity * allFileEntity; // 全部音乐文件.
+@property (nonatomic, strong) FileEntity * _Nullable allFileEntity; // 全部音乐文件.
 
 - (void)initData;
 
@@ -27,3 +32,5 @@
 - (void)freshFavFolderEvent;
 
 @end
+
+NS_ASSUME_NONNULL_END
