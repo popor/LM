@@ -435,22 +435,39 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 }
 
 - (void)playLocalListArray:(NSMutableArray<FileEntity> *)itemArray folder:(NSString * _Nullable)folderName type:(McPlayType)playType at:(NSInteger)index autoPlay:(BOOL)autoPlay {
-    [self.mplt.currentTempList removeAllObjects];
-    [self.mplt.currentTempList addObjectsFromArray:itemArray];
+    if (itemArray.count <= 0) {
+        return;
+    }
     
-    [self.playHistoryArray removeAllObjects];
-    self.playHistoryIndex = 0;
+    BOOL needRecordPlayHistoryAtFront = NO;
+    if (self.weakLastPlayArray != itemArray) {
+        [self.mplt.currentTempList removeAllObjects];
+        [self.mplt.currentTempList addObjectsFromArray:itemArray];
+        
+        self.weakLastPlayArray = itemArray;
+        needRecordPlayHistoryAtFront = NO;
+    
+        [self.playHistoryArray removeAllObjects];
+        self.playHistoryIndex = 0;
+        
+        //NSLog(@"itemArray: %p", itemArray);
+    } else {
+        // 不需要重置播放数组和记忆数组
+        // 不需要重置播放历史数组和index
+        
+    }
+    NSLogInteger(index);
     
     self.mplt.currentWeakList = self.mplt.currentTempList;
     self.playBT.selected      = autoPlay;
     self.playSearchLocalItem  = YES;
     
-    if (itemArray.count > 0) {
-        self.currentItem = self.mplt.currentWeakList[index];
-        [self playItem:self.currentItem autoPlay:autoPlay];
-        
-        [self recordPlayHistory:self.currentItem atFront:NO];
-    }
+    
+    self.currentItem = self.mplt.currentWeakList[index];
+    [self playItem:self.currentItem autoPlay:autoPlay];
+    
+    // 更新播放历史
+    [self recordPlayHistory:self.currentItem atFront:needRecordPlayHistoryAtFront];
     
     // 刷新item
     [self updateConfigIndex:index];

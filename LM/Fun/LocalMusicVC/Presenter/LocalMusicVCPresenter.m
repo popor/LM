@@ -716,7 +716,9 @@ API_AVAILABLE(ios(12.0))
 #pragma mark - Interactor_EventHandler
 #pragma mark - 搜索
 - (void)searchAction:(UISearchBar *)bar {
-    [self.view.searchArray removeAllObjects];
+    //[self.view.searchArray removeAllObjects];
+    self.view.searchArray = [NSMutableArray<FileEntity> new];
+    
     NSString * text = bar.text.lowercaseString;
     //NSLog(@"搜索 : %@", text);
     for (FileEntity * fileEntity in self.interactor.localArray) {

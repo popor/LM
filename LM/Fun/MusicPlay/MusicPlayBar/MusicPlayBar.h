@@ -56,6 +56,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray<FileEntity> * playHistoryArray;
 @property (nonatomic        ) NSInteger                    playHistoryIndex;
 
+// 用于记录上次播放的列表地址
+@property (nonatomic, weak  ) NSMutableArray<FileEntity> * _Nullable weakLastPlayArray;
 //明天处理逻辑.
 //退出该页面或者点击了完成,就退出搜索结果?
 //当在播放搜索音乐的时候,每次播放下一首,就刷新当前页面歌单config?
