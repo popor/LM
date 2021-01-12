@@ -434,7 +434,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     }
 }
 
-- (void)playLocalListArray:(NSMutableArray<FileEntity> *)itemArray folder:(NSString * _Nullable)folderName type:(McPlayType)playType at:(NSInteger)index autoPlay:(BOOL)autoPlay {
+- (void)playSongArray:(NSMutableArray<FileEntity> *)itemArray folder:(NSString * _Nullable)folderName at:(NSInteger)index autoPlay:(BOOL)autoPlay {
     if (itemArray.count <= 0) {
         return;
     }
@@ -472,7 +472,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     // 刷新item
     [self updateConfigIndex:index];
     
-    self.mplt.config.playType = McPlayType_local;
+    //self.mplt.config.playType = McPlayType_local;
     
     // 当folderName为空的时候, 可能是搜索的播放, 则不进行任何记录
     if (folderName.length > 0) {

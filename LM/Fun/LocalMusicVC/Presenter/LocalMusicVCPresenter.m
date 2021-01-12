@@ -116,7 +116,7 @@ API_AVAILABLE(ios(12.0))
                         FileEntity * itemEntity = folderEntity.itemArray[itemIndex];
                         
                         if ([itemEntity.fileName isEqualToString:musicName]) {
-                            [self.mpb playLocalListArray:folderEntity.itemArray folder:itemEntity.fileName type:McPlayType_local at:itemIndex autoPlay:NO];
+                            [self.mpb playSongArray:folderEntity.itemArray folder:itemEntity.fileName at:itemIndex autoPlay:NO];
                             break;
                         }
                     }
@@ -323,15 +323,7 @@ API_AVAILABLE(ios(12.0))
     cell.subtitleL.text  = [NSString stringWithFormat:@"%li首", entity.itemArray.count];
     
     BOOL colorFull = NO;
-    if (self.mplt.config.playType == McPlayType_songList
-        || self.mplt.config.playType == McPlayType_searchSongList) {
-        
-        cell.rightIV.hidden      = YES;
-        cell.titelL.textColor    = App_textNColor;
-        cell.subtitleL.textColor = UIColor.grayColor;
-        colorFull                = NO;
-    } else {
-        
+    {
         if (entity.itemArray.count == 0) {
             cell.accessoryType       = UITableViewCellAccessoryNone;
             cell.titelL.textColor    = App_textNColor2;
@@ -401,13 +393,7 @@ API_AVAILABLE(ios(12.0))
             cell.titelL.text     = entity.fileName;
             cell.subtitleL.text  = [NSString stringWithFormat:@"%li首", entity.itemArray.count];
             
-            if (self.mplt.config.playType == McPlayType_songList
-                || self.mplt.config.playType == McPlayType_searchSongList) {
-                
-                cell.rightIV.hidden   = YES;
-                cell.titelL.textColor = App_textNColor;
-            } else {
-                
+            {
                 if (entity.itemArray.count == 0) {
                     cell.accessoryType    = UITableViewCellAccessoryNone;
                     cell.titelL.textColor = App_textNColor2;
@@ -428,12 +414,6 @@ API_AVAILABLE(ios(12.0))
                 }
                 
             }
-            
-            // if (entity == self.interactor.allFileEntity) {
-            //     cell.addBt.hidden = YES;
-            // } else {
-            //     cell.addBt.hidden = NO;
-            // }
             
         } else {
             cell.accessoryType = UITableViewCellAccessoryNone;
@@ -637,19 +617,19 @@ API_AVAILABLE(ios(12.0))
 - (void)selectDetailCellIP:(NSIndexPath *)indexPath {
     FileEntity * fileEntity;
     NSMutableArray<FileEntity> * itemArray;
-    McPlayType playType;
+    
     if ([self isSearchArray]) {
         fileEntity = self.view.searchArray[indexPath.row];
         itemArray  = self.view.searchArray;
-        playType   = McPlayType_searchLocal;
+        
     }else{
         fileEntity = self.interactor.localArray[indexPath.row];
         itemArray  = self.interactor.localArray;
-        playType   = McPlayType_local;
+        
     }
     
     {
-        [self.mpb playLocalListArray:itemArray folder:fileEntity.folderName type:playType at:indexPath.row autoPlay:YES];
+        [self.mpb playSongArray:itemArray folder:fileEntity.folderName at:indexPath.row autoPlay:YES];
         
         if (self.lastCell) {
             self.lastCell.titelL.textColor = App_textNColor;
