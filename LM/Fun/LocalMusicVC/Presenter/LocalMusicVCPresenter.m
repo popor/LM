@@ -358,7 +358,7 @@ API_AVAILABLE(ios(12.0))
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
         if([self.mplt.config.playFileID isEqualToString:entity.fileID]){
-            cell.rightIV.hidden      = NO;
+            //cell.rightIV.hidden      = NO;
             cell.titelL.textColor    = ColorThemeBlue1;
             cell.subtitleL.textColor = ColorThemeBlue1;
             colorFull                = YES;
@@ -378,7 +378,7 @@ API_AVAILABLE(ios(12.0))
             }
             cell.subtitleL.text      = self.mplt.config.playFileNameDeleteExtension;
         }else{
-            cell.rightIV.hidden      = YES;
+            //cell.rightIV.hidden      = YES;
             cell.titelL.textColor    = App_colorTextN1;
             cell.subtitleL.textColor = UIColor.grayColor;
             colorFull                = NO;
@@ -438,13 +438,13 @@ API_AVAILABLE(ios(12.0))
         if ([entity.filePath isEqualToString:self.mpb.currentItem.filePath]) {
             cell.titelL.textColor = ColorThemeBlue1;
             cell.subtitleL.textColor  = ColorThemeBlue1;
-            cell.rightIV.hidden   = NO;
+            //cell.rightIV.hidden   = NO;
             
             self.lastCell = cell;
         }else{
             cell.titelL.textColor = App_colorTextN1;
             cell.subtitleL.textColor  = App_colorTextN2;
-            cell.rightIV.hidden   = YES;
+            //cell.rightIV.hidden   = YES;
             
         }
         
@@ -654,7 +654,7 @@ API_AVAILABLE(ios(12.0))
         if (self.lastCell) {
             self.lastCell.titelL.textColor = App_colorTextN1;
             self.lastCell.subtitleL.textColor  = App_colorTextN2;
-            self.lastCell.rightIV.hidden   = YES;
+            //self.lastCell.rightIV.hidden   = YES;
             
             // 刷新搜索状态
             if ([self isSearchArray]) {
@@ -666,7 +666,7 @@ API_AVAILABLE(ios(12.0))
             MusicInfoCell * cell = [self.view.infoTV cellForRowAtIndexPath:indexPath];
             cell.titelL.textColor = ColorThemeBlue1;
             cell.subtitleL.textColor  = ColorThemeBlue1;
-            cell.rightIV.hidden   = NO;
+            //cell.rightIV.hidden   = NO;
             
             self.lastCell = cell;
             
