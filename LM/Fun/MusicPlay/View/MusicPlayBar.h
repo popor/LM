@@ -97,3 +97,45 @@ NS_ASSUME_NONNULL_BEGIN
 
 NS_ASSUME_NONNULL_END
 
+/** 之前的lrc 一句歌词对应着多个时间点, 但是酷狗的歌词是一对一的, 所以不再使用该方法
+ - (void)parseLrc_1vsN:(NSString *)lrc {
+ NSDictionary * originDic = [LrcTool parselrc_1vsN:lrc];
+ 
+ NSMutableArray * originArray = [NSMutableArray new];
+ NSArray * timeTextArray = originDic.allKeys;
+ for (NSString * timeText in timeTextArray) {
+ 
+ LrcDetailEntity * entity = [LrcDetailEntity new];
+ entity.timeText8 = timeText;
+ entity.lrcText  = originDic[timeText];;
+ entity.time     = [LrcTool timeFromText:entity.timeText8];
+ 
+ [originArray addObject:entity];
+ }
+ 
+ self.musicLyricArray = [originArray sortedArrayUsingComparator:^NSComparisonResult(LrcDetailEntity * obj1, LrcDetailEntity * obj2) {
+ //return [obj1.time compare:obj2.time]; //升序
+ return obj1.time<obj2.time ? NSOrderedAscending:NSOrderedDescending;
+ }];
+ 
+ 
+ NSMutableDictionary * tempDic = [NSMutableDictionary new];
+ NSInteger count = self.musicLyricArray.count;
+ for (NSInteger row = 0; row<count; row++) {
+ LrcDetailEntity * entity = self.musicLyricArray[row];
+ entity.row = row;
+ 
+ tempDic[entity.timeText8] = entity;
+ }
+ self.musicLyricDic = tempDic;
+ 
+ NSDictionary * dic = @{@"lrcArray":self.musicLyricArray};
+ [MGJRouter openURL:MUrl_updateLrcData withUserInfo:dic completion:nil];
+ 
+ // for (LrcDetailEntity * entity in self.musicLyricArray) {
+ //     [NSAssistant NSLogEntity:entity];
+ //     NSLog(@"\n ");
+ // }
+ }
+ 
+ */

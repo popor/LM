@@ -20,14 +20,17 @@ typedef NS_ENUM(int, McPlayOrder) {
 
 @interface MusicConfig : PoporJsonModel
 
-@property (nonatomic        ) McPlayOrder playOrder;  // 播放顺序, 随机还是顺序
+// 播放顺序, 随机还是顺序
+@property (nonatomic        ) McPlayOrder playOrder;
 
+// 用于恢复之前的播放记录
 @property (nonatomic, copy  ) NSString * playFileID;
 @property (nonatomic, copy  ) NSString * playSearchKey;
 @property (nonatomic, copy  ) NSString * playFilePath;
 @property (nonatomic, copy  ) NSString * playFileNameDeleteExtension;
 
-@property (nonatomic        ) NSInteger  currentPlayIndexRow; // 用于aimBT定位使用
+// 用于aimBT定位使用
+@property (nonatomic        ) NSInteger  currentPlayIndexRow;
 
 @end
 

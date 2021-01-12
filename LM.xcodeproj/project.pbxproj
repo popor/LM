@@ -271,15 +271,17 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		180E33BE224E1194008C176D /* FileTool */ = {
+		180E33BE224E1194008C176D /* entity */ = {
 			isa = PBXGroup;
 			children = (
+				18561593224DC089004BE073 /* MusicConfig.h */,
+				18561594224DC089004BE073 /* MusicConfig.m */,
 				180E33BF224E11AF008C176D /* FileTool.h */,
 				180E33C0224E11AF008C176D /* FileTool.m */,
 				180E33C2224E11F7008C176D /* FileEntity.h */,
 				180E33C3224E11F7008C176D /* FileEntity.m */,
 			);
-			path = FileTool;
+			path = entity;
 			sourceTree = "<group>";
 		};
 		183BF3CD224A1DBB004DE115 = {
@@ -402,13 +404,13 @@
 			path = Public;
 			sourceTree = "<group>";
 		};
-		184CD1C8224CA60600241B9C /* MusicPlayBar */ = {
+		184CD1C8224CA60600241B9C /* View */ = {
 			isa = PBXGroup;
 			children = (
 				184CD1C9224CA66800241B9C /* MusicPlayBar.h */,
 				184CD1CA224CA66800241B9C /* MusicPlayBar.m */,
 			);
-			path = MusicPlayBar;
+			path = View;
 			sourceTree = "<group>";
 		};
 		184CD1CC224CB99400241B9C /* MusicPlayTool */ = {
@@ -445,18 +447,8 @@
 			children = (
 				18DE13902251BD5F009920D7 /* MusicPlayListTool.h */,
 				18DE13912251BD5F009920D7 /* MusicPlayListTool.m */,
-				18561592224DC077004BE073 /* config */,
 			);
 			path = MusicPalyList;
-			sourceTree = "<group>";
-		};
-		18561592224DC077004BE073 /* config */ = {
-			isa = PBXGroup;
-			children = (
-				18561593224DC089004BE073 /* MusicConfig.h */,
-				18561594224DC089004BE073 /* MusicConfig.m */,
-			);
-			path = config;
 			sourceTree = "<group>";
 		};
 		18561596224DC1D0004BE073 /* WifiAddFileVC */ = {
@@ -657,10 +649,10 @@
 		C3D58B6B2517470C00A40108 /* MusicPlay */ = {
 			isa = PBXGroup;
 			children = (
-				180E33BE224E1194008C176D /* FileTool */,
+				180E33BE224E1194008C176D /* entity */,
+				184CD1C8224CA60600241B9C /* View */,
 				1856158B224DBEF7004BE073 /* MusicPalyList */,
 				184CD1CC224CB99400241B9C /* MusicPlayTool */,
-				184CD1C8224CA60600241B9C /* MusicPlayBar */,
 			);
 			path = MusicPlay;
 			sourceTree = "<group>";
@@ -1090,7 +1082,7 @@
 				CODE_SIGN_ENTITLEMENTS = LM/LM.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 7DUQZP3WD7;
 				GCC_PREFIX_HEADER = LM/AppPrefix.h;
 				INFOPLIST_FILE = LM/Info.plist;
@@ -1099,7 +1091,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2;
+				MARKETING_VERSION = 2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.xyeduzj.lm1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -1116,7 +1108,7 @@
 				CODE_SIGN_ENTITLEMENTS = LM/LM.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 7DUQZP3WD7;
 				GCC_PREFIX_HEADER = LM/AppPrefix.h;
 				INFOPLIST_FILE = LM/Info.plist;
@@ -1125,7 +1117,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2;
+				MARKETING_VERSION = 2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.xyeduzj.lm1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;

@@ -794,7 +794,7 @@ API_AVAILABLE(ios(12.0))
     [weakHud dismiss];
 }
 
-- (void)aimAtCurrentItem:(UIButton *)bt {
+- (void)aimAtCurrentItem:(UIButton * _Nullable)bt {
     FeedbackShakePhone
     
     if ([self.mplt.config.playFileID isEqualToString:self.view.playFileID]) {

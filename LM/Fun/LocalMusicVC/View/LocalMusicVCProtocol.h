@@ -28,8 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UISearchBar     * searchBar;
 @property (nonatomic, strong) UIView          * searchCoverView;
-//@property (nonatomic, getter=isSearchTypeOld) BOOL searchTypeOld;// 显示搜索模式
-//@property (nonatomic, getter=isSearchType) BOOL searchType;// 显示搜索模式
+
 @property (nonatomic, strong) NSMutableArray<FileEntity> * _Nullable searchArray;
 
 @property (nonatomic, strong) UIButton        * aimBT;
@@ -59,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)reloadImageColor;
 - (void)freshTVVisiableCellEvent;
 
-- (void)aimAtCurrentItem:(UIButton *)bt;
+- (void)aimAtCurrentItem:(UIButton * _Nullable)bt;
 
 // detailVC 的时候, 返回播放列表
 - (NSMutableArray *)currentSongArray;
