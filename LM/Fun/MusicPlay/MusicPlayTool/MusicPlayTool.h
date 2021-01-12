@@ -23,7 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UIImage             * defaultCoverImage;
 
-@property (nonatomic, copy  , nullable) BlockPVoid nextMusicBlock_SongListDetailVC;
+@property (nonatomic, copy  , nullable) BlockPVoid nextMusicBlock_rootVC;
+@property (nonatomic, copy  , nullable) BlockPVoid nextMusicBlock_detailVC;
 
 + (MusicPlayTool *)share;
 

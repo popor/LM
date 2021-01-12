@@ -30,9 +30,13 @@
 @synthesize folderType;
 @synthesize longPressMenu;
 
+@synthesize playFileID;
+@synthesize playSearchKey;
+@synthesize playFilePath;
+
 - (void)dealloc {
     [MGJRouter openURL:MUrl_freshRootTV];
-    MptShare.nextMusicBlock_SongListDetailVC = nil;
+    MptShare.nextMusicBlock_detailVC = nil;
 }
 
 - (instancetype)initWithDic:(NSDictionary *)dic {
@@ -113,16 +117,26 @@
         }
     }];
     
+    __weak typeof(self) weakSelf = self;
     if (self.itemArray) {
-        __weak typeof(self) weakSelf = self;
-        MptShare.nextMusicBlock_SongListDetailVC = ^(void) {
+        MptShare.nextMusicBlock_detailVC = ^(void) {
             [weakSelf.present freshTVVisiableCellEvent];
+        };
+    } else {
+        MptShare.nextMusicBlock_rootVC = ^(void) {
+            [self.infoTV reloadData];
         };
     }
     
     [self addAimBTs];
     
     [self addTapEndEditGRAction];
+    
+    if (self.playSearchKey.length > 0) {
+        self.searchBar.text = self.playSearchKey;
+        
+        [self.present searchAction:self.searchBar];
+    }
 }
 
 // 开始执行事件,比如获取网络数据

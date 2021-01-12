@@ -116,7 +116,12 @@ API_AVAILABLE(ios(12.0))
                         FileEntity * itemEntity = folderEntity.itemArray[itemIndex];
                         
                         if ([itemEntity.fileName isEqualToString:musicName]) {
-                            [self.mpb playSongArray:folderEntity.itemArray folder:itemEntity.fileName at:itemIndex autoPlay:NO];
+                            //[self.mpb playSongArray:folderEntity.itemArray folder:itemEntity.fileName at:itemIndex autoPlay:NO];
+                            [self.mpb playSongArray:folderEntity.itemArray
+                                                 at:itemIndex
+                                           autoPlay:NO
+                                         playFileID:self.view.playFileID
+                                          searchKey:self.view.playSearchKey];
                             break;
                         }
                     }
@@ -319,33 +324,41 @@ API_AVAILABLE(ios(12.0))
 - (void)rootCell:(MusicInfoCell *)cell cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FileEntity * entity = [self rootFE:indexPath];
     
-    cell.titelL.text = entity.fileName;
-    cell.subtitleL.text  = [NSString stringWithFormat:@"%li首", entity.itemArray.count];
-    
     BOOL colorFull = NO;
-    {
-        if (entity.itemArray.count == 0) {
-            cell.accessoryType       = UITableViewCellAccessoryNone;
-            cell.titelL.textColor    = App_textNColor2;
+    if (entity.itemArray.count == 0) {
+        cell.accessoryType       = UITableViewCellAccessoryNone;
+        cell.titelL.textColor    = App_textNColor2;
+        cell.subtitleL.textColor = UIColor.grayColor;
+        colorFull                = NO;
+        
+        // text
+        cell.titelL.text         = entity.fileName;
+        cell.subtitleL.text      = [NSString stringWithFormat:@"%li首", entity.itemArray.count];
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+        if([self.mplt.config.playFileID isEqualToString:entity.fileID]){
+            cell.rightIV.hidden      = NO;
+            cell.titelL.textColor    = ColorThemeBlue1;
+            cell.subtitleL.textColor = ColorThemeBlue1;
+            colorFull                = YES;
+            
+            // text
+            if (self.mplt.config.playSearchKey.length > 0 && self.mplt.currentWeakList && self.mpb.weakLastPlayArray != entity.itemArray) {
+                cell.titelL.text = [NSString stringWithFormat:@"%@ %li首 (搜索: %@  %li首)", entity.fileName, entity.itemArray.count, self.mplt.config.playSearchKey, self.mplt.currentTempList.count];
+            } else {
+                cell.titelL.text = [NSString stringWithFormat:@"%@ %li首", entity.fileName, entity.itemArray.count];
+            }
+            cell.subtitleL.text      = self.mplt.config.playFileNameDeleteExtension;
+        }else{
+            cell.rightIV.hidden      = YES;
+            cell.titelL.textColor    = App_textNColor;
             cell.subtitleL.textColor = UIColor.grayColor;
             colorFull                = NO;
-            //[cell.addBt setImage:self.addImageGray forState:UIControlStateNormal];
-        } else {
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            //cell.titelL.textColor = App_textNColor;
-            //[cell.addBt setImage:self.addImageBlack forState:UIControlStateNormal];
             
-            if([self.mplt.config.localFolderName isEqualToString:entity.fileName]){
-                cell.rightIV.hidden      = NO;
-                cell.titelL.textColor    = ColorThemeBlue1;
-                cell.subtitleL.textColor = ColorThemeBlue1;
-                colorFull                = YES;
-            }else{
-                cell.rightIV.hidden      = YES;
-                cell.titelL.textColor    = App_textNColor;
-                cell.subtitleL.textColor = UIColor.grayColor;
-                colorFull                = NO;
-            }
+            // text
+            cell.titelL.text         = entity.fileName;
+            cell.subtitleL.text      = [NSString stringWithFormat:@"%li首", entity.itemArray.count];
         }
     }
     
@@ -605,10 +618,14 @@ API_AVAILABLE(ios(12.0))
 - (void)selectRootCellIP:(NSIndexPath *)indexPath {
     FileEntity * fileEntity = [self rootFE:indexPath];
     if (fileEntity.itemArray.count > 0) {
+        
+        NSString * playSearchKey = [self.mplt.config.playFileID isEqualToString:fileEntity.fileID] ? self.mplt.config.playSearchKey:@"";
         NSDictionary * dic = @{
             @"title":fileEntity.fileName,
             @"itemArray":fileEntity.itemArray,
             @"folderType":@(fileEntity.fileType),
+            @"playFileID":fileEntity.fileID,
+            @"playSearchKey":playSearchKey,
         };
         [self.view.vc.navigationController pushViewController:[[LocalMusicVC alloc] initWithDic:dic] animated:YES];
     }
@@ -621,15 +638,19 @@ API_AVAILABLE(ios(12.0))
     if ([self isSearchArray]) {
         fileEntity = self.view.searchArray[indexPath.row];
         itemArray  = self.view.searchArray;
-        
+        self.view.playSearchKey = self.view.searchBar.text;
     }else{
         fileEntity = self.interactor.localArray[indexPath.row];
         itemArray  = self.interactor.localArray;
-        
+        self.view.playSearchKey = @"";
     }
     
     {
-        [self.mpb playSongArray:itemArray folder:fileEntity.folderName at:indexPath.row autoPlay:YES];
+        [self.mpb playSongArray:itemArray
+                             at:indexPath.row
+                       autoPlay:YES
+                     playFileID:self.view.playFileID
+                      searchKey:self.view.playSearchKey];
         
         if (self.lastCell) {
             self.lastCell.titelL.textColor = App_textNColor;

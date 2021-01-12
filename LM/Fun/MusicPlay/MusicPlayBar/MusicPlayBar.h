@@ -66,7 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, getter=isPlaySearchLocalItem) BOOL playSearchLocalItem;
 
 // 播放临时数组
-- (void)playSongArray:(NSMutableArray<FileEntity> *)itemArray folder:(NSString * _Nullable)folderName at:(NSInteger)index autoPlay:(BOOL)autoPlay;
+//- (void)playSongArray:(NSMutableArray<FileEntity> *)itemArray folder:(NSString * _Nullable)folderName at:(NSInteger)index autoPlay:(BOOL)autoPlay;
 
 - (void)playSongArray:(NSMutableArray<FileEntity> *)itemArray
                    at:(NSInteger)index

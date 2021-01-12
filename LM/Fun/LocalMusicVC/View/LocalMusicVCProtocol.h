@@ -40,7 +40,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIMenuController * _Nullable longPressMenu;
 
 // MARK: 外部注入的
-
+@property (nonatomic, copy  ) NSString * playFileID;
+@property (nonatomic, copy  ) NSString * playSearchKey;
+@property (nonatomic, copy  ) NSString * playFilePath;
 
 @end
 

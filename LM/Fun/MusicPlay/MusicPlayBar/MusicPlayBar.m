@@ -434,7 +434,14 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     }
 }
 
-- (void)playSongArray:(NSMutableArray<FileEntity> *)itemArray folder:(NSString * _Nullable)folderName at:(NSInteger)index autoPlay:(BOOL)autoPlay {
+//- (void)playSongArray:(NSMutableArray<FileEntity> *)itemArray folder:(NSString * _Nullable)folderName at:(NSInteger)index autoPlay:(BOOL)autoPlay
+- (void)playSongArray:(NSMutableArray<FileEntity> *)itemArray
+                   at:(NSInteger)index
+             autoPlay:(BOOL)autoPlay
+
+           playFileID:(NSString *)fileId
+            searchKey:(NSString * _Nullable)searchKey
+{
     if (itemArray.count <= 0) {
         return;
     }
@@ -457,6 +464,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         
     }
     NSLogInteger(index);
+    self.mplt.config.currentPlayIndexRow = index;
     
     self.mplt.currentWeakList = self.mplt.currentTempList;
     self.playBT.selected      = autoPlay;
@@ -472,14 +480,8 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     // 刷新item
     [self updateConfigIndex:index];
     
-    //self.mplt.config.playType = McPlayType_local;
-    
-    // 当folderName为空的时候, 可能是搜索的播放, 则不进行任何记录
-    if (folderName.length > 0) {
-        self.mplt.config.localFolderName = folderName;
-        self.mplt.config.localMusicName  = self.currentItem.fileName;
-        self.mplt.config.currentPlayIndexRow = index;
-    }
+    self.mplt.config.playFileID    = fileId;
+    self.mplt.config.playSearchKey = searchKey;
 }
 
 - (void)playBTEvent {
@@ -541,11 +543,6 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         if (needUpdateHistory) {
             [self recordPlayHistory:self.currentItem atFront:YES];
         }
-        
-        // 刷新SongListDetailVC
-        if (self.mpt.nextMusicBlock_SongListDetailVC) {
-            self.mpt.nextMusicBlock_SongListDetailVC();
-        }
     }
 }
 
@@ -581,11 +578,6 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         [self updateConfigIndex:index];
         if (needUpdateHistory) {
             [self recordPlayHistory:self.currentItem atFront:NO];
-        }
-        
-        // 刷新SongListDetailVC
-        if (self.mpt.nextMusicBlock_SongListDetailVC) {
-            self.mpt.nextMusicBlock_SongListDetailVC();
         }
     }
 }
@@ -730,6 +722,17 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 - (void)playItem:(FileEntity *)item autoPlay:(BOOL)autoPlay {
     [self.mpt playItem:self.currentItem autoPlay:autoPlay];
     // NSLogString(item.fileName);
+    
+    self.mplt.config.playFilePath = item.filePath;
+    self.mplt.config.playFileNameDeleteExtension = item.fileNameDeleteExtension;
+    
+    // 刷新SongListDetailVC
+    if (self.mpt.nextMusicBlock_rootVC) {
+        self.mpt.nextMusicBlock_rootVC();
+    }
+    if (self.mpt.nextMusicBlock_detailVC) {
+        self.mpt.nextMusicBlock_detailVC();
+    }
 }
 
 #pragma mark - 添加随机播放历史
