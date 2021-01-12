@@ -35,6 +35,19 @@ API_AVAILABLE(ios(12.0))
 
 @property (nonatomic, weak  ) LocalMusicHeadView * infoTvHead;
 
+// rootImage
+@property (nonatomic, strong) UIImage * cellLeftImage_downloadN;
+@property (nonatomic, strong) UIImage * cellLeftImage_downloadS;
+@property (nonatomic, strong) UIImage * cellLeftImage_fileN;
+@property (nonatomic, strong) UIImage * cellLeftImage_fileS;
+
+@property (nonatomic, strong) UIImage * cellLeftImage_listN;
+@property (nonatomic, strong) UIImage * cellLeftImage_listS;
+@property (nonatomic, strong) UIImage * cellLeftImage_favN;
+@property (nonatomic, strong) UIImage * cellLeftImage_favS;
+
+//
+
 @end
 
 @implementation LocalMusicVCPresenter
@@ -56,7 +69,18 @@ API_AVAILABLE(ios(12.0))
 
 - (void)setMyView:(id<LocalMusicVCProtocol>)view {
     self.view = view;
-    
+    if (self.view.isRoot) {
+        self.cellLeftImage_downloadN  = [UIImage imageNamed:@"songDownload"];
+        self.cellLeftImage_fileN      = [UIImage imageNamed:@"songFile"];
+        self.cellLeftImage_listN      = [UIImage imageNamed:@"songList"];
+        self.cellLeftImage_favN       = [UIImage imageNamed:@"songFav"];
+        
+        UIColor * color = ColorThemeBlue1;
+        self.cellLeftImage_downloadS  = [UIImage imageFromImage:self.cellLeftImage_downloadN changecolor:color];
+        self.cellLeftImage_fileS      = [UIImage imageFromImage:self.cellLeftImage_fileN     changecolor:color];
+        self.cellLeftImage_listS      = [UIImage imageFromImage:self.cellLeftImage_listN     changecolor:color];
+        self.cellLeftImage_favS       = [UIImage imageFromImage:self.cellLeftImage_favN      changecolor:color];
+    }
     if (self.view.itemArray) {
         self.interactor.localArray = self.view.itemArray;
     }else{
@@ -296,20 +320,23 @@ API_AVAILABLE(ios(12.0))
     FileEntity * entity = [self rootFE:indexPath];
     
     cell.titelL.text = entity.fileName;
-    cell.timeL.text  = [NSString stringWithFormat:@"%li首", entity.itemArray.count];
+    cell.subtitleL.text  = [NSString stringWithFormat:@"%li首", entity.itemArray.count];
     
-
-    
+    BOOL colorFull = NO;
     if (self.mplt.config.playType == McPlayType_songList
         || self.mplt.config.playType == McPlayType_searchSongList) {
         
-        cell.rightIV.hidden   = YES;
-        cell.titelL.textColor = App_textNColor;
+        cell.rightIV.hidden      = YES;
+        cell.titelL.textColor    = App_textNColor;
+        cell.subtitleL.textColor = UIColor.grayColor;
+        colorFull                = NO;
     } else {
         
         if (entity.itemArray.count == 0) {
-            cell.accessoryType = UITableViewCellAccessoryNone;
-            cell.titelL.textColor = App_textNColor2;
+            cell.accessoryType       = UITableViewCellAccessoryNone;
+            cell.titelL.textColor    = App_textNColor2;
+            cell.subtitleL.textColor = UIColor.grayColor;
+            colorFull                = NO;
             //[cell.addBt setImage:self.addImageGray forState:UIControlStateNormal];
         } else {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -317,28 +344,50 @@ API_AVAILABLE(ios(12.0))
             //[cell.addBt setImage:self.addImageBlack forState:UIControlStateNormal];
             
             if([self.mplt.config.localFolderName isEqualToString:entity.fileName]){
-                cell.rightIV.hidden = NO;
-                cell.titelL.textColor = ColorThemeBlue1;
+                cell.rightIV.hidden      = NO;
+                cell.titelL.textColor    = ColorThemeBlue1;
+                cell.subtitleL.textColor = ColorThemeBlue1;
+                colorFull                = YES;
             }else{
-                cell.rightIV.hidden = YES;
-                cell.titelL.textColor = App_textNColor;
+                cell.rightIV.hidden      = YES;
+                cell.titelL.textColor    = App_textNColor;
+                cell.subtitleL.textColor = UIColor.grayColor;
+                colorFull                = NO;
             }
         }
     }
     
-    if (entity.fileType == FileType_folder) {
-        if ([entity.fileName isEqualToString:DownloadFolderName]) {
-            [cell.addBt setImage:[UIImage imageNamed:@"songDownload"] forState:UIControlStateNormal];
+    UIImage * cellLeftImage;
+    if (colorFull) {
+        if (entity.fileType == FileType_folder) {
+            if ([entity.fileName isEqualToString:DownloadFolderName]) {
+                cellLeftImage = self.cellLeftImage_downloadS;
+            } else {
+                cellLeftImage = self.cellLeftImage_fileS;
+            }
         } else {
-            [cell.addBt setImage:[UIImage imageNamed:@"songFile"] forState:UIControlStateNormal];
+            if (indexPath.row == 0) {
+                cellLeftImage = self.cellLeftImage_listS;
+            } else {
+                cellLeftImage = self.cellLeftImage_favS;
+            }
         }
     } else {
-        if (indexPath.row == 0) {
-            [cell.addBt setImage:[UIImage imageNamed:@"songList"] forState:UIControlStateNormal];
+        if (entity.fileType == FileType_folder) {
+            if ([entity.fileName isEqualToString:DownloadFolderName]) {
+                cellLeftImage = self.cellLeftImage_downloadN;
+            } else {
+                cellLeftImage = self.cellLeftImage_fileN;
+            }
         } else {
-            [cell.addBt setImage:[UIImage imageNamed:@"songFav"] forState:UIControlStateNormal];
+            if (indexPath.row == 0) {
+                cellLeftImage = self.cellLeftImage_listN;
+            } else {
+                cellLeftImage = self.cellLeftImage_favN;
+            }
         }
     }
+    [cell.addBt setImage:cellLeftImage forState:UIControlStateNormal];
     
     cell.cellData = entity;
 }
@@ -349,8 +398,8 @@ API_AVAILABLE(ios(12.0))
     
     if (entity) {
         if (entity.isFolder) {
-            cell.titelL.text = entity.fileName;
-            cell.timeL.text  = [NSString stringWithFormat:@"%li首", entity.itemArray.count];
+            cell.titelL.text     = entity.fileName;
+            cell.subtitleL.text  = [NSString stringWithFormat:@"%li首", entity.itemArray.count];
             
             if (self.mplt.config.playType == McPlayType_songList
                 || self.mplt.config.playType == McPlayType_searchSongList) {
@@ -360,7 +409,7 @@ API_AVAILABLE(ios(12.0))
             } else {
                 
                 if (entity.itemArray.count == 0) {
-                    cell.accessoryType = UITableViewCellAccessoryNone;
+                    cell.accessoryType    = UITableViewCellAccessoryNone;
                     cell.titelL.textColor = App_textNColor2;
                     [cell.addBt setImage:self.addImageGray forState:UIControlStateNormal];
                 } else {
@@ -369,10 +418,10 @@ API_AVAILABLE(ios(12.0))
                     [cell.addBt setImage:self.addImageBlack forState:UIControlStateNormal];
                     
                     if([self.mplt.config.localFolderName isEqualToString:entity.fileName]){
-                        cell.rightIV.hidden = NO;
+                        cell.rightIV.hidden   = NO;
                         cell.titelL.textColor = ColorThemeBlue1;
                     }else{
-                        cell.rightIV.hidden = YES;
+                        cell.rightIV.hidden   = YES;
                         cell.titelL.textColor = App_textNColor;
                     }
                     
@@ -390,25 +439,25 @@ API_AVAILABLE(ios(12.0))
             cell.accessoryType = UITableViewCellAccessoryNone;
             
             cell.titelL.text = [NSString stringWithFormat:@"%li: %@", indexPath.row+1, entity.musicName];
-            cell.timeL.text  = entity.musicAuthor;
+            cell.subtitleL.text  = entity.musicAuthor;
             [cell.addBt setImage:self.addImageBlack forState:UIControlStateNormal];
             
             if ([entity.filePath isEqualToString:self.mpb.currentItem.filePath]) {
                 cell.titelL.textColor = ColorThemeBlue1;
-                cell.timeL.textColor  = ColorThemeBlue1;
+                cell.subtitleL.textColor  = ColorThemeBlue1;
                 cell.rightIV.hidden   = NO;
                 
                 self.lastCell = cell;
             }else{
                 cell.titelL.textColor = App_textNColor;
-                cell.timeL.textColor  = App_textNColor2;
+                cell.subtitleL.textColor  = App_textNColor2;
                 cell.rightIV.hidden   = YES;
                 
             }
             
             if ([self isSearchArray]) {
                 [self attLable:cell.titelL searchText:self.view.searchBar.text];
-                [self attLable:cell.timeL searchText:self.view.searchBar.text];
+                [self attLable:cell.subtitleL searchText:self.view.searchBar.text];
             }
         }
     } else {
@@ -419,17 +468,17 @@ API_AVAILABLE(ios(12.0))
             if (self.view.itemArray) {
                 // 子页面
                 cell.titelL.text = @"请通过Wifi或者iTunes添加MP3文件";
-                cell.timeL.text  = @"";
+                cell.subtitleL.text  = @"";
                 
             } else {
                 // 首页
                 cell.titelL.text = @"请通过Wifi或者iTunes添加文件夹";
-                cell.timeL.text  = @"";
+                cell.subtitleL.text  = @"";
                 
             }
             
             cell.titelL.textColor = App_textNColor;
-            cell.timeL.textColor  = App_textNColor2;
+            cell.subtitleL.textColor  = App_textNColor2;
         }
     }
     
@@ -604,19 +653,19 @@ API_AVAILABLE(ios(12.0))
         
         if (self.lastCell) {
             self.lastCell.titelL.textColor = App_textNColor;
-            self.lastCell.timeL.textColor  = App_textNColor2;
+            self.lastCell.subtitleL.textColor  = App_textNColor2;
             self.lastCell.rightIV.hidden   = YES;
             
             // 刷新搜索状态
             if ([self isSearchArray]) {
                 [self attLable:self.lastCell.titelL searchText:self.view.searchBar.text];
-                [self attLable:self.lastCell.timeL searchText:self.view.searchBar.text];
+                [self attLable:self.lastCell.subtitleL searchText:self.view.searchBar.text];
             }
         }
         {
             MusicInfoCell * cell = [self.view.infoTV cellForRowAtIndexPath:indexPath];
             cell.titelL.textColor = ColorThemeBlue1;
-            cell.timeL.textColor  = ColorThemeBlue1;
+            cell.subtitleL.textColor  = ColorThemeBlue1;
             cell.rightIV.hidden   = NO;
             
             self.lastCell = cell;
@@ -624,7 +673,7 @@ API_AVAILABLE(ios(12.0))
             // 刷新搜索状态
             if ([self isSearchArray]) {
                 [self attLable:self.lastCell.titelL searchText:self.view.searchBar.text];
-                [self attLable:self.lastCell.timeL searchText:self.view.searchBar.text];
+                [self attLable:self.lastCell.subtitleL searchText:self.view.searchBar.text];
             }
         }
         

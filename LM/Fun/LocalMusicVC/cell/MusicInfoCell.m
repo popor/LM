@@ -62,7 +62,7 @@
             case 1:{
                 oneL.font      = [UIFont systemFontOfSize:13];
                 oneL.textColor = [UIColor grayColor];
-                self.timeL     = oneL;
+                self.subtitleL     = oneL;
                 break;
             }
             default:
@@ -119,7 +119,7 @@
         }
         make.right.mas_lessThanOrEqualTo(self.rightIV.mas_left).mas_offset(-5);
     }];
-    [self.timeL mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.subtitleL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.titelL.mas_left);
         make.bottom.mas_equalTo(-5);
         make.height.mas_equalTo(20);
