@@ -25,8 +25,7 @@ API_AVAILABLE(ios(12.0))
 @property (nonatomic, weak  ) MusicPlayListTool * mplt;
 @property (nonatomic, weak  ) MusicInfoCell * lastCell;
 
-@property (nonatomic, copy  ) UIImage * addImageGray;
-@property (nonatomic, copy  ) UIImage * addImageBlack;
+
 
 @property (nonatomic        ) UIUserInterfaceStyle userInterfaceStyle;
 
@@ -46,7 +45,10 @@ API_AVAILABLE(ios(12.0))
 @property (nonatomic, strong) UIImage * cellLeftImage_favN;
 @property (nonatomic, strong) UIImage * cellLeftImage_favS;
 
-//
+// detail
+@property (nonatomic, copy  ) UIImage * addImageU;// 目前没有用处
+@property (nonatomic, copy  ) UIImage * addImageN;
+@property (nonatomic, copy  ) UIImage * addImageS;
 
 @end
 
@@ -57,7 +59,6 @@ API_AVAILABLE(ios(12.0))
         self.mpb = MpbShare;
         self.mplt = MpltShare;
         self.userInterfaceStyle = -1;
-        [self reloadImageColor];
     }
     return self;
 }
@@ -94,7 +95,7 @@ API_AVAILABLE(ios(12.0))
 - (void)startEvent {
     
     if (self.view.itemArray) {
-        
+        [self reloadImageColor];
     } else {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self resumeLastPlay_0];
@@ -433,19 +434,19 @@ API_AVAILABLE(ios(12.0))
         
         cell.titelL.text = [NSString stringWithFormat:@"%li: %@", indexPath.row+1, entity.musicName];
         cell.subtitleL.text  = entity.musicAuthor;
-        [cell.addBt setImage:self.addImageBlack forState:UIControlStateNormal];
+        
         
         if ([entity.filePath isEqualToString:self.mpb.currentItem.filePath]) {
             cell.titelL.textColor = ColorThemeBlue1;
             cell.subtitleL.textColor  = ColorThemeBlue1;
             //cell.rightIV.hidden   = NO;
-            
+            [cell.addBt setImage:self.addImageS forState:UIControlStateNormal];
             self.lastCell = cell;
         }else{
             cell.titelL.textColor = App_colorTextN1;
             cell.subtitleL.textColor  = App_colorTextN2;
             //cell.rightIV.hidden   = YES;
-            
+            [cell.addBt setImage:self.addImageN forState:UIControlStateNormal];
         }
         
         if ([self isSearchArray]) {
@@ -707,9 +708,11 @@ API_AVAILABLE(ios(12.0))
 }
 
 - (void)reloadImageColor {
+    static UIImage * imageS;
     static UIImage * imageN1;
     static UIImage * imageN2;
-    static UIImage * imageS1;
+    
+    static UIImage * imageU;
     
     if (@available(iOS 13, *)) {
         UIUserInterfaceStyle userInterfaceStyle = [UITraitCollection currentTraitCollection].userInterfaceStyle;
@@ -720,25 +723,28 @@ API_AVAILABLE(ios(12.0))
                 UIImage * originImage = [UIImage imageNamed:@"add_gray"];
                 
                 imageN1 = [UIImage imageFromImage:originImage changecolor:[UIColor blackColor]];
-                imageS1 = [UIImage imageFromImage:originImage changecolor:[UIColor grayColor]];
+                imageU  = [UIImage imageFromImage:originImage changecolor:[UIColor grayColor]];
                 
                 imageN2 = [UIImage imageFromImage:originImage changecolor:[UIColor whiteColor]];
+                imageS  = [UIImage imageFromImage:originImage changecolor:ColorThemeBlue1];
             }
             
             switch (self.userInterfaceStyle) {
                 case UIUserInterfaceStyleLight:
-                    self.addImageBlack = imageN1;
-                    self.addImageGray  = imageS1;
+                    self.addImageN = imageN1;
+                    self.addImageU = imageU;
                     break;
                     
                 case UIUserInterfaceStyleDark:
-                    self.addImageBlack =  imageN2;
-                    self.addImageGray  =  imageN2;
+                    self.addImageN =  imageN2;
+                    self.addImageU =  imageU;
                     break;
                     
                 default:
                     return;;
             }
+            self.addImageS = imageS;
+            
             [self.view.infoTV reloadData];
             
         }
@@ -747,11 +753,13 @@ API_AVAILABLE(ios(12.0))
             UIImage * originImage = [UIImage imageNamed:@"add_gray"];
             
             imageN1 = [UIImage imageFromImage:originImage changecolor:[UIColor blackColor]];
-            imageS1 = [UIImage imageFromImage:originImage changecolor:[UIColor grayColor]];
+            imageU  = [UIImage imageFromImage:originImage changecolor:[UIColor grayColor]];
+            imageS  = [UIImage imageFromImage:originImage changecolor:ColorThemeBlue1];
         }
         
-        self.addImageBlack = imageN1;
-        self.addImageGray  = imageS1;
+        self.addImageN = imageN1;
+        self.addImageU = imageU;
+        self.addImageS = imageS;
     }
     
     
