@@ -443,16 +443,18 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     }
     
     BOOL needRecordPlayHistoryAtFront = NO;
-    //NSLog(@"itemArray.              md5: %@", itemArray.description.md5);
-    //NSLog(@"self.weakLastPlayArray. md5: %@  \n.", self.weakLastPlayArray.description.md5);
     
-    if (self.weakLastPlayArray != itemArray || self.mplt.currentTempList.count != itemArray.count) {
+    // 用于判断是否需要更新列表
+    NSString * arrayDesOld = [self playArrayDes:self.mplt.currentTempList];
+    NSString * arrayDesNew = [self playArrayDes:itemArray];
+    
+    if (![arrayDesOld isEqualToString:arrayDesNew]) {
         [self.mplt.currentTempList removeAllObjects];
         [self.mplt.currentTempList addObjectsFromArray:itemArray];
         
         self.weakLastPlayArray = itemArray;
         needRecordPlayHistoryAtFront = NO;
-    
+        
         [self.playHistoryArray removeAllObjects];
         self.playHistoryIndex = 0;
         
@@ -462,6 +464,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         // 不需要重置播放历史数组和index
         
     }
+    
     //NSLogInteger(index);
     self.mplt.config.currentPlayIndexRow = index;
     
@@ -478,6 +481,14 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     
     self.mplt.config.playFileID    = fileId;
     self.mplt.config.playSearchKey = searchKey;
+}
+
+- (NSString *)playArrayDes:(NSMutableArray<FileEntity> *)array {
+    NSMutableString * text = [NSMutableString new];
+    for (FileEntity * fe in array) {
+        [text appendString:fe.fileNameDeleteExtension];
+    }
+    return text;
 }
 
 - (void)playBTEvent {

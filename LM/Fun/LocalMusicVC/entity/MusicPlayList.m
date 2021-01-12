@@ -145,9 +145,7 @@
 
 - (void)updateSongList {
     [self.list.toJSONData writeToFile:[[self class] listFilePath] atomically:YES];
-    for (FileEntity * fe in self.list.songListArray) {
-        NSLog(@"count: %li", fe.itemArray.count);
-    }
+    
     //    NSString * path = [self listFilePath];
     //    NSString * json = [self.list toJSONString];
     //    [json writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];
