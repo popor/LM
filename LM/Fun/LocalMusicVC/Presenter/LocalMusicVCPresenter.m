@@ -817,7 +817,9 @@ API_AVAILABLE(ios(12.0))
 }
 
 - (void)aimAtCurrentItem:(UIButton * _Nullable)bt {
-    FeedbackShakePhone
+    if (bt) {
+        FeedbackShakePhone
+    }
     
     if ([self.mplt.config.playFileID isEqualToString:self.view.playFileID]) {
         if ([self.view.infoTV.dataSource tableView:self.view.infoTV numberOfRowsInSection:0] > self.mpb.mplt.config.currentPlayIndexRow) {
