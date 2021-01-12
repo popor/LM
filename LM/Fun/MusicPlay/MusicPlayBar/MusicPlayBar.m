@@ -526,6 +526,8 @@ static CGFloat MPBTimeLabelWidth1 = 57;
             index = [self getPreviousIndex];
             self.mplt.config.currentPlayIndexRow = index;
             needUpdateHistory = YES;
+        } else {
+            self.mplt.config.currentPlayIndexRow = index;
         }
         
         self.currentItem = self.mplt.currentWeakList[index];
@@ -566,6 +568,8 @@ static CGFloat MPBTimeLabelWidth1 = 57;
             index = [self getNextIndex];
             self.mplt.config.currentPlayIndexRow = index;
             needUpdateHistory = YES;
+        } else {
+            self.mplt.config.currentPlayIndexRow = index;
         }
         
         self.currentItem = self.mplt.currentWeakList[index];
