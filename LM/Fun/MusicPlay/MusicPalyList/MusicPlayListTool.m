@@ -48,8 +48,6 @@
             _config     = [[MusicConfig alloc] initWithData:configData error:nil];
         } else {
             _config     = [MusicConfig new];
-            _config.songIndexList = -1;
-            _config.songIndexItem = -1;
         }
         
         _currentTempList = [NSMutableArray<FileEntity> new];

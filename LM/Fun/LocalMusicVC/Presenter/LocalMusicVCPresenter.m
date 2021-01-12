@@ -93,45 +93,43 @@ API_AVAILABLE(ios(12.0))
 // 开始执行事件,比如获取网络数据
 - (void)startEvent {
     
-    [self addMgjrouter];
+    if (self.view.itemArray) {
+        
+    } else {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self resumeLastPlay_0];
+        });
+    }
 }
 
-- (void)addMgjrouter {
-    // 子页面不需要
-    if (self.view.itemArray) {
-        return;
+- (void)resumeLastPlay_0 {
+    NSString * playFileID = MpltShare.config.playFileID;
+    for (FileEntity * fe in self.interactor.recordArray) {
+        if ([fe.fileID isEqualToString:playFileID]) {
+            [self resumeLastPlay_1:fe];
+            return;
+        }
     }
     
-    @weakify(self);
-    [MRouterC registerURL:MUrl_resumePlayItem_local toHandel:^(NSDictionary *routerParameters){
-        @strongify(self);
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSString * folderName = MpltShare.config.localFolderName;
-            NSString * musicName  = MpltShare.config.localMusicName;
-            
-            for (NSInteger folderIndex = 0; folderIndex<self.interactor.localArray.count; folderIndex++) {
-                FileEntity * folderEntity = self.interactor.localArray[folderIndex];
-                if ([folderEntity.fileName isEqualToString:folderName]) {
-                    for (NSInteger itemIndex = 0; itemIndex < folderEntity.itemArray.count; itemIndex++) {
-                        FileEntity * itemEntity = folderEntity.itemArray[itemIndex];
-                        
-                        if ([itemEntity.fileName isEqualToString:musicName]) {
-                            //[self.mpb playSongArray:folderEntity.itemArray folder:itemEntity.fileName at:itemIndex autoPlay:NO];
-                            [self.mpb playSongArray:folderEntity.itemArray
-                                                 at:itemIndex
-                                           autoPlay:NO
-                                         playFileID:self.view.playFileID
-                                          searchKey:self.view.playSearchKey];
-                            break;
-                        }
-                    }
-                    break;
-                }
-            }
-            
-            
-        });
-    }];
+    for (FileEntity * fe in self.interactor.localArray) {
+        if ([fe.fileID isEqualToString:playFileID]) {
+            [self resumeLastPlay_1:fe];
+            return;
+        }
+    }
+}
+
+- (void)resumeLastPlay_1:(FileEntity *)fileEntity {
+    NSString * playSearchKey = [self.mplt.config.playFileID isEqualToString:fileEntity.fileID] ? self.mplt.config.playSearchKey:@"";
+    NSDictionary * dic = @{
+        @"title":fileEntity.fileName,
+        @"itemArray":fileEntity.itemArray,
+        @"folderType":@(fileEntity.fileType),
+        @"playFileID":fileEntity.fileID,
+        @"playSearchKey":playSearchKey,
+        @"autoPlayFilePath":self.mplt.config.playFilePath,
+    };
+    [self.view.vc.navigationController pushViewController:[[LocalMusicVC alloc] initWithDic:dic] animated:YES];
 }
 
 
@@ -402,56 +400,28 @@ API_AVAILABLE(ios(12.0))
     FileEntity * entity = songArray[indexPath.row];
     
     if (entity) {
-        if (entity.isFolder) {
-            cell.titelL.text     = entity.fileName;
-            cell.subtitleL.text  = [NSString stringWithFormat:@"%li首", entity.itemArray.count];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        
+        cell.titelL.text = [NSString stringWithFormat:@"%li: %@", indexPath.row+1, entity.musicName];
+        cell.subtitleL.text  = entity.musicAuthor;
+        [cell.addBt setImage:self.addImageBlack forState:UIControlStateNormal];
+        
+        if ([entity.filePath isEqualToString:self.mpb.currentItem.filePath]) {
+            cell.titelL.textColor = ColorThemeBlue1;
+            cell.subtitleL.textColor  = ColorThemeBlue1;
+            cell.rightIV.hidden   = NO;
             
-            {
-                if (entity.itemArray.count == 0) {
-                    cell.accessoryType    = UITableViewCellAccessoryNone;
-                    cell.titelL.textColor = App_textNColor2;
-                    [cell.addBt setImage:self.addImageGray forState:UIControlStateNormal];
-                } else {
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    //cell.titelL.textColor = App_textNColor;
-                    [cell.addBt setImage:self.addImageBlack forState:UIControlStateNormal];
-                    
-                    if([self.mplt.config.localFolderName isEqualToString:entity.fileName]){
-                        cell.rightIV.hidden   = NO;
-                        cell.titelL.textColor = ColorThemeBlue1;
-                    }else{
-                        cell.rightIV.hidden   = YES;
-                        cell.titelL.textColor = App_textNColor;
-                    }
-                    
-                }
-                
-            }
+            self.lastCell = cell;
+        }else{
+            cell.titelL.textColor = App_textNColor;
+            cell.subtitleL.textColor  = App_textNColor2;
+            cell.rightIV.hidden   = YES;
             
-        } else {
-            cell.accessoryType = UITableViewCellAccessoryNone;
-            
-            cell.titelL.text = [NSString stringWithFormat:@"%li: %@", indexPath.row+1, entity.musicName];
-            cell.subtitleL.text  = entity.musicAuthor;
-            [cell.addBt setImage:self.addImageBlack forState:UIControlStateNormal];
-            
-            if ([entity.filePath isEqualToString:self.mpb.currentItem.filePath]) {
-                cell.titelL.textColor = ColorThemeBlue1;
-                cell.subtitleL.textColor  = ColorThemeBlue1;
-                cell.rightIV.hidden   = NO;
-                
-                self.lastCell = cell;
-            }else{
-                cell.titelL.textColor = App_textNColor;
-                cell.subtitleL.textColor  = App_textNColor2;
-                cell.rightIV.hidden   = YES;
-                
-            }
-            
-            if ([self isSearchArray]) {
-                [self attLable:cell.titelL searchText:self.view.searchBar.text];
-                [self attLable:cell.subtitleL searchText:self.view.searchBar.text];
-            }
+        }
+        
+        if ([self isSearchArray]) {
+            [self attLable:cell.titelL searchText:self.view.searchBar.text];
+            [self attLable:cell.subtitleL searchText:self.view.searchBar.text];
         }
     } else {
         if ([self isSearchArray]) {
@@ -820,7 +790,7 @@ API_AVAILABLE(ios(12.0))
 - (void)aimAtCurrentItem:(UIButton *)bt {
     FeedbackShakePhone
     
-    if ([self.mplt.config.localFolderName isEqualToString:self.view.vc.title]) {
+    if ([self.mplt.config.playFileID isEqualToString:self.view.playFileID]) {
         if ([self.view.infoTV.dataSource tableView:self.view.infoTV numberOfRowsInSection:0] > self.mpb.mplt.config.currentPlayIndexRow) {
             [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.mpb.mplt.config.currentPlayIndexRow inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
         }

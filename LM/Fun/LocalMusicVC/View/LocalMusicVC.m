@@ -33,6 +33,7 @@
 @synthesize playFileID;
 @synthesize playSearchKey;
 @synthesize playFilePath;
+@synthesize autoPlayFilePath;
 
 - (void)dealloc {
     [MGJRouter openURL:MUrl_freshRootTV];
@@ -136,6 +137,22 @@
         self.searchBar.text = self.playSearchKey;
         
         [self.present searchAction:self.searchBar];
+    }
+    [self autoPlayLastRecord];
+}
+
+- (void)autoPlayLastRecord {
+    if (self.autoPlayFilePath.length > 0) {
+        NSMutableArray * songArray = [self.present currentSongArray];
+        for (NSInteger index = 0; index<songArray.count; index++) {
+            FileEntity * entity = songArray[index];
+            if ([entity.filePath isEqualToString:self.autoPlayFilePath]) {
+                NSIndexPath * ip = [NSIndexPath indexPathForRow:index inSection:0];
+                [self.present tableView:self.infoTV didSelectRowAtIndexPath:ip];
+                [self.present aimAtCurrentItem:nil];
+                break;
+            }
+        }
     }
 }
 

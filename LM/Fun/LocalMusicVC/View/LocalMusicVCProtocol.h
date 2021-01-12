@@ -43,6 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy  ) NSString * playFileID;
 @property (nonatomic, copy  ) NSString * playSearchKey;
 @property (nonatomic, copy  ) NSString * playFilePath;
+@property (nonatomic, copy  ) NSString * autoPlayFilePath;
 
 @end
 
@@ -60,6 +61,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)aimAtCurrentItem:(UIButton *)bt;
 
+// detailVC 的时候, 返回播放列表
+- (NSMutableArray *)currentSongArray;
 
 // 长按手势
 - (void)cellGrNullAction_all;

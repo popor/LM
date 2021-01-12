@@ -22,14 +22,6 @@ typedef NS_ENUM(int, McPlayOrder) {
 
 @property (nonatomic        ) McPlayOrder playOrder;  // 播放顺序, 随机还是顺序
 
-// 歌单部分
-@property (nonatomic        ) NSInteger songIndexList;// 歌单位置
-@property (nonatomic        ) NSInteger songIndexItem;// 歌曲位置
-
-// 本地部分
-@property (nonatomic, copy  ) NSString * localFolderName;
-@property (nonatomic, copy  ) NSString * localMusicName;
-
 @property (nonatomic, copy  ) NSString * playFileID;
 @property (nonatomic, copy  ) NSString * playSearchKey;
 @property (nonatomic, copy  ) NSString * playFilePath;
