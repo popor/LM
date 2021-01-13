@@ -27,6 +27,7 @@ API_AVAILABLE(ios(12.0))
 @property (nonatomic, weak  ) MusicConfigShare  * configShare;
 @property (nonatomic, weak  ) MusicInfoCell * lastCell;
 
+@property (nonatomic, strong) AlertBubbleView * songFolderAbView;
 
 
 @property (nonatomic        ) UIUserInterfaceStyle userInterfaceStyle;
@@ -180,7 +181,11 @@ API_AVAILABLE(ios(12.0))
         } else {
             return 1;
         }
-    } else {
+    }
+    else if (tableView == self.view.songFolderTV) {
+        return 1;
+    }
+    else {
         return 1;
     }
 }
@@ -205,7 +210,12 @@ API_AVAILABLE(ios(12.0))
                 return MAX(array.count, 1);
             }
         }
-    }else{
+    }
+    else if (tableView == self.view.songFolderTV) {
+        return self.interactor.mplShare.songFolderArray.count;
+    }
+    
+    else{
         return  MAX(self.interactor.mplShare.list.songListArray.count, 1);
     }
 }
@@ -225,7 +235,11 @@ API_AVAILABLE(ios(12.0))
         }else{
             return self.view.searchBar.height;
         }
-    }else{
+    }
+    else if (tableView == self.view.songFolderTV) {
+        return 0.1;
+    }
+    else{
         return 0.1;
     }
 }
@@ -258,7 +272,11 @@ API_AVAILABLE(ios(12.0))
         }else{
             return self.view.searchBar;
         }
-    }else{
+    }
+    else if (tableView == self.view.songFolderTV) {
+        return nil;
+    }
+    else{
         return nil;
     }
 }
@@ -270,7 +288,11 @@ API_AVAILABLE(ios(12.0))
         }else{
             return 20;
         }
-    }else{
+    }
+    else if (tableView == self.view.songFolderTV) {
+        return 0.1;
+    }
+    else{
         return 0.1;
     }
 }
@@ -279,7 +301,11 @@ API_AVAILABLE(ios(12.0))
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.view.infoTV) {
         return MusicInfoCellH;
-    }else{
+    }
+    else if (tableView == self.view.songFolderTV) {
+        return 50;
+    }
+    else{
         return  50;
     }
 }
@@ -319,6 +345,19 @@ API_AVAILABLE(ios(12.0))
         } else {
             [self detailCell:cell cellForRowAtIndexPath:indexPath];
         }
+        
+        return cell;
+    }
+    else if (tableView == self.view.songFolderTV) {
+        static NSString * CellID = @"CellMusicList";
+        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellID];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
+            cell.backgroundColor = [UIColor clearColor];
+            cell.textLabel.textColor = App_colorTextN1;
+        }
+        FileEntity * list   = self.interactor.mplShare.songFolderArray[indexPath.row];
+        cell.textLabel.text = list.fileName;
         
         return cell;
     }
@@ -612,7 +651,45 @@ API_AVAILABLE(ios(12.0))
             [self selectDetailCellIP:indexPath];
         }
     }
-    
+    else if (tableView == self.view.songFolderTV) {
+        FeedbackShakePhone
+        [self.songFolderAbView closeEvent];
+        
+        // 物理转移
+        FileEntity * originFE;
+        for (FileEntity * fe in self.interactor.mplShare.songFolderArray) {
+            if ([fe.fileID isEqualToString:self.view.playFileID]) {
+                originFE = fe;
+                break;
+            }
+        }
+        if (!originFE) {
+            AlertToastTitle(@"未能找到原始文件节点");
+        }
+        
+        FileEntity * targetFE = self.interactor.mplShare.songFolderArray[indexPath.row];
+        
+        NSString * originPath = [NSString stringWithFormat:@"%@/%@", FT_docPath, self.selectFileEntity.filePath];
+        NSString * targetPath = [NSString stringWithFormat:@"%@/%@/%@", FT_docPath, targetFE.fileName, self.selectFileEntity.fileName];
+        
+        if ([NSFileManager isFileExist:targetPath]) {
+            [NSFileManager deleteFile:targetPath];
+        }
+        [NSFileManager moveFile:originPath to:targetPath];
+        
+        // 更新 self.selectFileEntity
+        [self.selectFileEntity updateFileFolder:targetFE.fileName fileType:FileType_file FileName:self.selectFileEntity.fileName];
+        
+        // 数组转移
+        [targetFE.itemArray addObject:self.selectFileEntity];
+        [originFE.itemArray removeObject:self.selectFileEntity];
+        [self.interactor.localArray removeObject:self.selectFileEntity];
+        
+        // 刷新 UI
+        [self.view.infoTV reloadData];
+        [MGJRouter openURL:MUrl_freshRootTV];
+        
+    }
     else {
         FeedbackShakePhone
         
@@ -947,8 +1024,9 @@ API_AVAILABLE(ios(12.0))
                 UIMenuItem *copy1 = [[UIMenuItem alloc] initWithTitle:@"歌手" action:@selector(cellGrCopySingerNameAction)];
                 UIMenuItem *copy2 = [[UIMenuItem alloc] initWithTitle:@"歌曲" action:@selector(cellGrCopySongNameAction)];
                 UIMenuItem *copy3 = [[UIMenuItem alloc] initWithTitle:@"文件" action:@selector(cellGrCopyFileNameAction)];
+                UIMenuItem *move  = [[UIMenuItem alloc] initWithTitle:@"移动" action:@selector(cellGrMoveAction)];
                 
-                [menu setMenuItems:[NSArray arrayWithObjects:copyItem, resendItem, copy1, copy2, copy3, nil]];
+                [menu setMenuItems:[NSArray arrayWithObjects:copyItem, resendItem, copy1, copy2, copy3, move, nil]];
             }
             
             [menu setTargetRect:CGRectOffset(longRecognizer.view.frame, 0, 10) inView:self.view.infoTV];
@@ -1167,6 +1245,34 @@ API_AVAILABLE(ios(12.0))
     [pasteboard setString:entity.fileNameDeleteExtension];
     
     AlertToastTitle(@"已复制文件名称");
+}
+
+- (void)cellGrMoveAction {
+    UIColor * color = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    color = App_colorBg3;
+    
+    NSDictionary * dic = @{
+        @"direction":@(AlertBubbleViewDirectionTop),
+        @"baseView":self.view.vc.navigationController.view,
+        @"borderLineColor":[UIColor clearColor],
+        @"borderLineWidth":@(1),
+        @"corner":@(10),
+        
+        @"bubbleBgColor":color,
+        @"bgColor":[UIColor clearColor],
+        @"showAroundRect":@(NO),
+        @"showLogInfo":@(NO),
+    };
+    
+    AlertBubbleView * abView = [[AlertBubbleView alloc] initWithDic:dic];
+    
+    self.view.songFolderTV.center = self.view.vc.navigationController.view.center;
+    
+    [abView showCustomView:self.view.songFolderTV close:^{
+        
+    }];
+    
+    self.songFolderAbView = abView;
 }
 
 - (FileEntity *)longPressEntity {

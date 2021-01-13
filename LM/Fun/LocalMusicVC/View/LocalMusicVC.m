@@ -19,6 +19,7 @@
 @implementation LocalMusicVC
 @synthesize infoTV;
 @synthesize musicListTV;
+@synthesize songFolderTV;
 @synthesize playbar;
 @synthesize itemArray;
 
@@ -100,7 +101,13 @@
     
     self.playbar     = MpbShare;
     self.infoTV      = [self addTVs];
-    self.musicListTV = [self addMusicListTVs];
+    
+    
+    if (self.isRoot) {
+        self.musicListTV  = [self addMusicListTVs];
+    } else {
+        self.songFolderTV = [self addMusicListTVs];
+    }
     
     if (!self.isRoot) {
         self.searchBar.backgroundColor = PColorTVBG;
@@ -386,6 +393,11 @@
         
         return YES;
     }
+    else if (action==@selector(cellGrMoveAction)){
+        
+        return YES;
+    }
+    
     return [super canPerformAction:action withSender:sender];
 }
 
@@ -416,6 +428,9 @@
     [self.present cellGrCopyFileNameAction];
 }
 
+- (void)cellGrMoveAction {
+    [self.present cellGrMoveAction];
+}
 #pragma mark 实现成为第一响应者方法
 - (BOOL)canBecomeFirstResponder{
     return YES;

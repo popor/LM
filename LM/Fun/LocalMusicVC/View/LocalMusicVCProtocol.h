@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak  ) MusicPlayBar    * playbar;
 @property (nonatomic, strong) UITableView     * infoTV;
 @property (nonatomic, strong) UITableView     * musicListTV;
+@property (nonatomic, strong) UITableView     * songFolderTV;
+
 @property (nonatomic, weak  ) NSMutableArray<FileEntity> * itemArray;
 
 @property (nonatomic, strong) UISearchBar     * searchBar;
@@ -72,6 +74,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)cellGrCopySingerNameAction;
 - (void)cellGrCopySongNameAction;
 - (void)cellGrCopyFileNameAction;
+
+- (void)cellGrMoveAction;
 
 @end
 
