@@ -222,8 +222,8 @@
         [songInfo setObject:[NSNumber numberWithFloat:self.audioPlayer.duration] forKey:MPMediaItemPropertyPlaybackDuration];
         [songInfo setObject:[NSNumber numberWithFloat:self.audioPlayer.currentTime] forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
         
-        [songInfo setObject:self.musicItem.musicName forKey:MPMediaItemPropertyTitle];
-        [songInfo setObject:self.musicItem.musicAuthor forKey:MPMediaItemPropertyArtist];
+        [songInfo setObject:self.musicItem.songName forKey:MPMediaItemPropertyTitle];
+        [songInfo setObject:self.musicItem.authorName forKey:MPMediaItemPropertyArtist];
         //[songInfo setObject:author forKey:MPMediaItemPropertyAlbumTitle];
         [mpic setNowPlayingInfo:songInfo];
 #endif

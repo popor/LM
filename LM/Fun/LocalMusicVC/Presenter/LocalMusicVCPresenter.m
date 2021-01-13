@@ -105,6 +105,7 @@ API_AVAILABLE(ios(12.0))
     
     if (self.view.itemArray) {
         [self reloadImageColor];
+        
     } else {
         @weakify(self);
         [MRouterC registerURL:MUrl_freshFileData toHandel:^(NSDictionary *routerParameters){
@@ -119,6 +120,7 @@ API_AVAILABLE(ios(12.0))
     }
 }
 
+// 恢复之前播放记录
 - (void)resumeLastPlay_0 {
     NSString * playFileID = self.configShare.config.playFileID;
     for (FileEntity * fe in self.interactor.mplShare.songListArray) {
@@ -170,7 +172,6 @@ API_AVAILABLE(ios(12.0))
         
     }
 }
-
 
 #pragma mark - VC_DataSource
 #pragma mark - TV_Delegate
@@ -494,8 +495,8 @@ API_AVAILABLE(ios(12.0))
     if (entity) {
         cell.accessoryType = UITableViewCellAccessoryNone;
         
-        cell.titelL.text = [NSString stringWithFormat:@"%li: %@", indexPath.row+1, entity.musicName];
-        cell.subtitleL.text  = entity.musicAuthor;
+        cell.titelL.text = [NSString stringWithFormat:@"%li: %@", indexPath.row+1, entity.songName];
+        cell.subtitleL.text  = entity.authorName;
         
         
         if ([entity.filePath isEqualToString:self.mpb.currentItem.filePath]) {
@@ -628,9 +629,34 @@ API_AVAILABLE(ios(12.0))
 }
 
 #pragma mark - TV select sectionIndexTitlesForTableView 索引
-//- (NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-//    return @[@"A"];
-//}
+- (NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    if (!self.view.isRoot && tableView == self.view.infoTV) {
+        if (self.view.sortEntityArray.count > 0) {
+            if (!self.view.sortTextArray) {
+                self.view.sortTextArray = [NSMutableArray<NSString *> new];
+                for (FileSortEntity * fse in self.view.sortEntityArray) {
+                    [self.view.sortTextArray addObject:fse.pinYin];
+                }
+            }
+            return self.view.sortTextArray;
+        } else {
+            return nil;
+        }
+    } else {
+        return nil;
+    }
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString*)title atIndex:(NSInteger)index {
+    FileSortEntity * fse = self.view.sortEntityArray[index];
+    //NSLog(@"row: %li, pinyin:%@", fse.row, fse.pinYin);
+    [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:fse.row inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    
+    AlertToastTitle(fse.pinYin);
+    FeedbackShakePhone
+    
+    return fse.row;
+}
 
 #pragma mark - TV select
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -1229,7 +1255,7 @@ API_AVAILABLE(ios(12.0))
 - (void)cellGrCopySingerNameAction {
     FileEntity * entity = [self longPressEntity];
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-    [pasteboard setString:entity.musicAuthor];
+    [pasteboard setString:entity.authorName];
     
     AlertToastTitle(@"已复制歌手名称");
 }
@@ -1237,7 +1263,7 @@ API_AVAILABLE(ios(12.0))
 - (void)cellGrCopySongNameAction {
     FileEntity * entity = [self longPressEntity];
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-    [pasteboard setString:entity.musicName];
+    [pasteboard setString:entity.songName];
     
     AlertToastTitle(@"已复制歌手名称");
 }

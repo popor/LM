@@ -40,6 +40,7 @@
 		C31C055625ABEB53001C6E78 /* MusicListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C31C055425ABEB53001C6E78 /* MusicListCell.m */; };
 		C32A17C925381E8000BD830B /* LrcTool.m in Sources */ = {isa = PBXBuildFile; fileRef = C32A17C825381E8000BD830B /* LrcTool.m */; };
 		C3325B3C25A41B07000A7F43 /* FeedbackGeneratorTool.m in Sources */ = {isa = PBXBuildFile; fileRef = C3325B3A25A41B07000A7F43 /* FeedbackGeneratorTool.m */; };
+		C338BD1425AED0F60098BB82 /* FileSortEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C338BD1325AED0F60098BB82 /* FileSortEntity.m */; };
 		C3560EC22537ED780062EFA8 /* LrcKuGou.m in Sources */ = {isa = PBXBuildFile; fileRef = C3560EC12537ED780062EFA8 /* LrcKuGou.m */; };
 		C3560EC62537F4F00062EFA8 /* LrcKugouListEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C3560EC52537F4F00062EFA8 /* LrcKugouListEntity.m */; };
 		C3560ECA2537F7C40062EFA8 /* LrcKugouDetailEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C3560EC92537F7C40062EFA8 /* LrcKugouDetailEntity.m */; };
@@ -157,6 +158,8 @@
 		C32A17CC25381EB600BD830B /* LrcPrefix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LrcPrefix.h; sourceTree = "<group>"; };
 		C3325B3A25A41B07000A7F43 /* FeedbackGeneratorTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackGeneratorTool.m; sourceTree = "<group>"; };
 		C3325B3B25A41B07000A7F43 /* FeedbackGeneratorTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackGeneratorTool.h; sourceTree = "<group>"; };
+		C338BD1225AED0F60098BB82 /* FileSortEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileSortEntity.h; sourceTree = "<group>"; };
+		C338BD1325AED0F60098BB82 /* FileSortEntity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FileSortEntity.m; sourceTree = "<group>"; };
 		C3560EC02537ED780062EFA8 /* LrcKuGou.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LrcKuGou.h; sourceTree = "<group>"; };
 		C3560EC12537ED780062EFA8 /* LrcKuGou.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LrcKuGou.m; sourceTree = "<group>"; };
 		C3560EC42537F4F00062EFA8 /* LrcKugouListEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LrcKugouListEntity.h; sourceTree = "<group>"; };
@@ -278,6 +281,8 @@
 				180E33C0224E11AF008C176D /* FileTool.m */,
 				180E33C2224E11F7008C176D /* FileEntity.h */,
 				180E33C3224E11F7008C176D /* FileEntity.m */,
+				C338BD1225AED0F60098BB82 /* FileSortEntity.h */,
+				C338BD1325AED0F60098BB82 /* FileSortEntity.m */,
 			);
 			path = entity;
 			sourceTree = "<group>";
@@ -939,6 +944,7 @@
 				C3AD51332516FC6900746FA2 /* MRouterConfig.m in Sources */,
 				18DE13AF2251F78C009920D7 /* MusicInfoCell.m in Sources */,
 				18561595224DC089004BE073 /* MusicConfig.m in Sources */,
+				C338BD1425AED0F60098BB82 /* FileSortEntity.m in Sources */,
 				18DE13922251BD5F009920D7 /* MusicFolderEntity.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

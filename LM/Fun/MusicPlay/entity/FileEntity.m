@@ -65,14 +65,14 @@
         
         NSRange range = [self.fileNameDeleteExtension rangeOfString:@"-"];
         if (range.location > 0 && range.length > 0) {
-            self.musicName   = [self.fileNameDeleteExtension substringFromIndex:range.location + range.length];
-            self.musicAuthor = [self.fileNameDeleteExtension substringToIndex:range.location];
+            self.songName   = [self.fileNameDeleteExtension substringFromIndex:range.location + range.length];
+            self.authorName = [self.fileNameDeleteExtension substringToIndex:range.location];
             
-            self.musicName   = [self.musicName replaceWithREG:@"^\\s+" newString:@""];
-            self.musicAuthor = [self.musicAuthor replaceWithREG:@"\\s+$" newString:@""];
+            self.songName   = [self.songName replaceWithREG:@"^\\s+" newString:@""];
+            self.authorName = [self.authorName replaceWithREG:@"\\s+$" newString:@""];
         }else{
-            self.musicName   = self.fileNameDeleteExtension;
-            self.musicAuthor = @"";
+            self.songName   = self.fileNameDeleteExtension;
+            self.authorName = @"";
         }
     }
 }

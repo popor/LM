@@ -36,6 +36,9 @@
 @synthesize playFilePath;
 @synthesize autoPlayFilePath;
 
+@synthesize sortEntityArray;
+@synthesize sortTextArray;
+
 - (void)dealloc {
     [MGJRouter openURL:MUrl_freshRootTV];
     MptShare.nextMusicBlock_detailVC = nil;
@@ -98,10 +101,11 @@
 }
 
 - (void)addViews {
-    
+    if (!self.isRoot) {
+        [self sortPinYinArray];
+    }
     self.playbar     = MpbShare;
     self.infoTV      = [self addTVs];
-    
     
     if (self.isRoot) {
         self.musicListTV  = [self addMusicListTVs];
@@ -166,6 +170,48 @@
     }
 }
 
+// 排序
+- (void)sortPinYinArray {
+    self.sortEntityArray = [NSMutableArray<FileSortEntity *> new];
+    
+    NSString * lastText = @"";
+    for (NSInteger index = 0; index <self.itemArray.count; index++) {
+        FileEntity * fe = self.itemArray[index];
+        if (![fe.pinYinAuthor isEqualToString:lastText]) {
+            lastText = fe.pinYinAuthor;
+            
+            FileSortEntity * fse = [FileSortEntity new];
+            fse.row    = index;
+            fse.pinYin = lastText;
+            
+            [self.sortEntityArray addObject:fse];
+        }
+    }
+    
+    if (self.sortEntityArray.count == 1) {
+        
+        lastText = @"";
+        [self.sortEntityArray removeAllObjects];
+        
+        for (NSInteger index = 0; index <self.itemArray.count; index++) {
+            FileEntity * fe = self.itemArray[index];
+            if (![fe.pinYinSong isEqualToString:lastText]) {
+                lastText = fe.pinYinSong;
+                
+                FileSortEntity * fse = [FileSortEntity new];
+                fse.row    = index;
+                fse.pinYin = lastText;
+                
+                [self.sortEntityArray addObject:fse];
+            }
+        }
+    }
+    if (self.sortEntityArray.count == 1) {
+        [self.sortEntityArray removeAllObjects];
+    }
+    
+}
+
 // 开始执行事件,比如获取网络数据
 - (void)startEvent {
     [self.present startEvent];
@@ -210,6 +256,8 @@
     
     oneTV.backgroundColor = App_colorBg4;
     oneTV.separatorColor  = App_colorSeparator;
+    
+    oneTV.sectionIndexColor = ColorThemeBlue1;
     
     [self.view addSubview:oneTV];
     

@@ -11,6 +11,7 @@
 #import "LocalMusicHeadView.h"
 #import <PoporAlertBubbleView/AlertBubbleView.h>
 #import "FeedbackGeneratorTool.h"
+#import "FileSortEntity.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -39,6 +40,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) FileType folderType;// 假如非Root, 则需要标注文件夹类型
 
 @property (nonatomic, strong) UIMenuController * _Nullable longPressMenu;
+
+@property (nonatomic, strong) NSMutableArray<FileSortEntity *> * sortEntityArray;
+@property (nonatomic, strong) NSMutableArray<NSString *> * sortTextArray;
 
 // MARK: 外部注入的
 @property (nonatomic, copy  ) NSString * playFileID;

@@ -31,12 +31,15 @@ typedef NS_ENUM(NSInteger, FileType) {
 @property (nonatomic, strong) NSMutableArray<FileEntity> * itemArray; //Ignore
 
 //----- 音乐文件;
-@property (nonatomic, copy  ) NSString<Ignore> * musicAuthor; // 本APP 的歌手和歌名, 并没有读取mp3的文件属性, 只是根据文件名字分析出来.
-@property (nonatomic, copy  ) NSString<Ignore> * musicName;
+@property (nonatomic, copy  ) NSString<Ignore> * authorName; // 本APP 的歌手和歌名, 并没有读取mp3的文件属性, 只是根据文件名字分析出来.
+@property (nonatomic, copy  ) NSString<Ignore> * songName;
 @property (nonatomic, copy  ) UIImage <Ignore> * musicCover;
 @property (nonatomic        ) CGFloat musicDuration;
 
 // 额外参数
+@property (nonatomic, copy  ) NSString<Ignore> * pinYinAuthor; // 歌手首拼音
+@property (nonatomic, copy  ) NSString<Ignore> * pinYinSong;   // 歌曲首拼音
+
 //@property (nonatomic, getter=isAvailable) BOOL available; // 是否还存在
 //@property (nonatomic        ) NSInteger index;
 

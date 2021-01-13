@@ -42,11 +42,11 @@
 #if TARGET_OS_MACCATALYST
         
 #else
-        if ([folderEntity.fileName isEqualToString:LrcFolderName]
+        if (   [folderEntity.fileName isEqualToString:LrcFolderName]
             || [folderEntity.fileName isEqualToString:LrcListFolderName]
             || [folderEntity.fileName isEqualToString:ConfigFolderName]
             || [folderEntity.fileName isEqualToString:ArtworkFolderName])
-            {
+        {
             // ios 忽略4个文件夹
             [self.mplShare.songFolderArray removeObject:folderEntity];
             continue;
@@ -105,6 +105,31 @@
             }
         }
         
+        // 插入字典
+        [self.mplShare.allFileEntityDic removeAllObjects];
+        for (FileEntity * fe in fileEntity.itemArray) {
+            if (fe.authorName.length >0) {
+                fe.pinYinAuthor = [fe.authorName substringToIndex:1];
+                fe.pinYinAuthor = [self firstCharactor:fe.pinYinAuthor];
+            }
+            
+            if (fe.songName.length >0) {
+                fe.pinYinSong = [fe.songName substringToIndex:1];
+                fe.pinYinSong = [self firstCharactor:fe.pinYinSong];
+            }
+            
+            self.mplShare.allFileEntityDic[fe.filePath] = fe;
+        }
+        
+        // 排序
+        NSArray *result = [fileEntity.itemArray sortedArrayUsingComparator:^NSComparisonResult(FileEntity * _Nonnull obj1, FileEntity * _Nonnull obj2) {
+            NSRange string1Range = NSMakeRange(0, 1);
+            //            NSString *
+            return [obj1.pinYinAuthor compare:obj2.pinYinAuthor options:0 range:string1Range locale:locale];
+            //return [obj1.pinYinAuthor compare:obj1.pinYinAuthor]; //升序
+        }];
+        fileEntity.itemArray = result.mutableCopy;
+        
         fileEntity;
     });
     
@@ -116,11 +141,6 @@
 #pragma mark - VCDataSource
 - (void)freshFavFolderEvent {
     self.mplShare.songListArray = [NSMutableArray<FileEntity> new];
-    
-    [self.mplShare.allFileEntityDic removeAllObjects];
-    for (FileEntity * fe in self.mplShare.allFileEntity.itemArray) {
-        self.mplShare.allFileEntityDic[fe.filePath] = fe;
-    }
     
     for (FileEntity *fe in self.mplShare.songFavListEntity.songListArray) {
         
@@ -141,6 +161,20 @@
     [self.mplShare.songFavListEntity.songListArray addObjectsFromArray:self.mplShare.songListArray];
     
     [self.mplShare.songListArray insertObject:self.mplShare.allFileEntity atIndex:0];
+}
+
+//获取拼音首字母(传入汉字字符串, 返回大写拼音首字母)
+- (NSString *)firstCharactor:(NSString *)aString {
+    //转成了可变字符串
+    NSMutableString *str = [NSMutableString stringWithString:aString];
+    //先转换为带声调的拼音
+    CFStringTransform((CFMutableStringRef)str,NULL, kCFStringTransformMandarinLatin,NO);
+    //再转换为不带声调的拼音
+    CFStringTransform((CFMutableStringRef)str,NULL, kCFStringTransformStripDiacritics,NO);
+    //转化为大写拼音
+    NSString *pinYin = [str capitalizedString];
+    //获取并返回首字母
+    return [pinYin substringToIndex:1];
 }
 
 - (void)addListName:(NSString *)name {

@@ -722,12 +722,12 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 - (void)updateLyricKugou {
     dispatch_async(dispatch_get_main_queue(), ^{
         
-        if ([self.lastMusicTitle isEqualToString:self.currentItem.musicName] && self.musicLyricDic) {
+        if ([self.lastMusicTitle isEqualToString:self.currentItem.songName] && self.musicLyricDic) {
             return;
         }
         self.musicLyricDic   = nil;
         self.musicLyricArray = nil;
-        self.lastMusicTitle  = self.currentItem.musicName;
+        self.lastMusicTitle  = self.currentItem.songName;
         
         // 先排查是否有保存
         NSString * lrcPath = [LrcTool lycPath:self.currentItem.fileNameDeleteExtension];
