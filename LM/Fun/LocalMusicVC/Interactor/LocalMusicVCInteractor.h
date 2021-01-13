@@ -19,7 +19,7 @@ static NSString * KRootCellFolderName_all = @".allFile.";
 
 @property (nonatomic, weak  ) MusicPlayListShare * mplShare;
 
-@property (nonatomic, strong) NSMutableArray<FileEntity> * recordArray; // 收藏文件夹
+//@property (nonatomic, strong) NSMutableArray<FileEntity> * recordArray; // 收藏文件夹
 @property (nonatomic, weak  ) NSMutableArray<FileEntity> * localArray;  // 本地文件夹
 
 

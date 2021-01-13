@@ -120,7 +120,7 @@ API_AVAILABLE(ios(12.0))
 
 - (void)resumeLastPlay_0 {
     NSString * playFileID = self.configShare.config.playFileID;
-    for (FileEntity * fe in self.interactor.recordArray) {
+    for (FileEntity * fe in self.interactor.mplShare.songListArray) {
         if ([fe.fileID isEqualToString:playFileID]) {
             [self resumeLastPlay_1:fe];
             return;
@@ -190,7 +190,7 @@ API_AVAILABLE(ios(12.0))
         if (self.view.isRoot) {
             switch (section) {
                 case 0:
-                    return self.interactor.recordArray.count;
+                    return self.interactor.mplShare.songListArray.count;
                 case 1:
                     return self.interactor.localArray.count;
                 default:
@@ -349,7 +349,7 @@ API_AVAILABLE(ios(12.0))
 - (FileEntity *)rootFE:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
         case 0:
-            return self.interactor.recordArray[indexPath.row];
+            return self.interactor.mplShare.songListArray[indexPath.row];
         case 1:
             return self.interactor.localArray[indexPath.row];
         default:
@@ -563,7 +563,7 @@ API_AVAILABLE(ios(12.0))
         [self.interactor updateSongList];
         
         // 更新本地 record
-        [self.interactor.recordArray exchangeObjectAtIndex:sourceIndexPath.row withObjectAtIndex:destinationIndexPath.row];
+        [self.interactor.mplShare.songListArray exchangeObjectAtIndex:sourceIndexPath.row withObjectAtIndex:destinationIndexPath.row];
         
     } else {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -1173,7 +1173,7 @@ API_AVAILABLE(ios(12.0))
     if (self.view.isRoot) {
         switch (self.longPressIP.section) {
             case 0: {
-                FileEntity * entity = self.interactor.recordArray[self.longPressIP.row];
+                FileEntity * entity = self.interactor.mplShare.songListArray[self.longPressIP.row];
                 return entity;
             }
             case 1: {
