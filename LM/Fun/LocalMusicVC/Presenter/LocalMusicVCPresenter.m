@@ -37,6 +37,8 @@ API_AVAILABLE(ios(12.0))
 // rootImage
 @property (nonatomic, strong) UIImage * cellLeftImage_downloadN;
 @property (nonatomic, strong) UIImage * cellLeftImage_downloadS;
+@property (nonatomic, strong) UIImage * cellLeftImage_errorN;
+@property (nonatomic, strong) UIImage * cellLeftImage_errorS;
 @property (nonatomic, strong) UIImage * cellLeftImage_fileN;
 @property (nonatomic, strong) UIImage * cellLeftImage_fileS;
 
@@ -72,12 +74,15 @@ API_AVAILABLE(ios(12.0))
     self.view = view;
     if (self.view.isRoot) {
         self.cellLeftImage_downloadN  = [UIImage imageNamed:@"songDownload"];
+        self.cellLeftImage_errorN     = [UIImage imageNamed:@"songError"];
         self.cellLeftImage_fileN      = [UIImage imageNamed:@"songFile"];
         self.cellLeftImage_listN      = [UIImage imageNamed:@"songList"];
         self.cellLeftImage_favN       = [UIImage imageNamed:@"songFav"];
         
+        
         UIColor * color = ColorThemeBlue1;
         self.cellLeftImage_downloadS  = [UIImage imageFromImage:self.cellLeftImage_downloadN changecolor:color];
+        self.cellLeftImage_errorS     = [UIImage imageFromImage:self.cellLeftImage_errorN    changecolor:color];
         self.cellLeftImage_fileS      = [UIImage imageFromImage:self.cellLeftImage_fileN     changecolor:color];
         self.cellLeftImage_listS      = [UIImage imageFromImage:self.cellLeftImage_listN     changecolor:color];
         self.cellLeftImage_favS       = [UIImage imageFromImage:self.cellLeftImage_favN      changecolor:color];
@@ -97,6 +102,13 @@ API_AVAILABLE(ios(12.0))
     if (self.view.itemArray) {
         [self reloadImageColor];
     } else {
+        @weakify(self);
+        [MRouterC registerURL:MUrl_freshFileData toHandel:^(NSDictionary *routerParameters){
+            @strongify(self);
+            
+            [self freshLocalDataAction];
+        }];
+        
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self resumeLastPlay_0];
         });
@@ -395,7 +407,11 @@ API_AVAILABLE(ios(12.0))
         if (entity.fileType == FileType_folder) {
             if ([entity.fileName isEqualToString:DownloadFolderName]) {
                 cellLeftImage = self.cellLeftImage_downloadS;
-            } else {
+            }
+            else if ([entity.fileName isEqualToString:ErrorFolderName]) {
+                cellLeftImage = self.cellLeftImage_errorS;
+            }
+            else {
                 cellLeftImage = self.cellLeftImage_fileS;
             }
         } else {
@@ -409,7 +425,11 @@ API_AVAILABLE(ios(12.0))
         if (entity.fileType == FileType_folder) {
             if ([entity.fileName isEqualToString:DownloadFolderName]) {
                 cellLeftImage = self.cellLeftImage_downloadN;
-            } else {
+            }
+            else if ([entity.fileName isEqualToString:ErrorFolderName]) {
+                cellLeftImage = self.cellLeftImage_errorN;
+            }
+            else {
                 cellLeftImage = self.cellLeftImage_fileN;
             }
         } else {

@@ -25,3 +25,7 @@ static NSString * LmConfigKey   = @"config";
 
 // 图片URL https://www.iconfont.cn/collections/detail?spm=a313x.7781069.0.da5a778a4&cid=9424
 // 歌单列表图标
+
+
+// 图片URL https://www.iconfont.cn/search/index?q=error&page=2
+// 错误图片

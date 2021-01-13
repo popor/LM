@@ -13,6 +13,7 @@
 NSString * const MUrl_savePlayDepartment   = @"savePlayDepartment";
 NSString * const MUrl_savePlayConfig       = @"savePlayConfig";
 NSString * const MUrl_freshRootTV          = @"freshRootTV";
+NSString * const MUrl_freshFileData        = @"freshFileData";
 
 
 NSString * const MUrl_updateLrcData        = @"updateLrcData";

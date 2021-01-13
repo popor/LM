@@ -32,7 +32,7 @@
 #else
     self.folderArray = [FileTool getArrayAtPath:nil type:FileType_folder];
 #endif
-    
+    FileEntity * folderEntity_error;
     for (NSInteger i = 0; i<self.folderArray.count;) {
         FileEntity * folderEntity = self.folderArray[i];
         
@@ -60,6 +60,19 @@
         }];
         folderEntity.itemArray = result.mutableCopy;
         
+        // 检查异常文件夹
+        if ([folderEntity.fileName isEqualToString:ErrorFolderName]
+            ) {
+            if (folderEntity.itemArray.count == 0) {
+                // ios 假如Error文件夹为空的话 忽略
+                
+                [self.folderArray removeObject:folderEntity];
+                continue;
+            } else {
+                folderEntity_error = folderEntity;
+            }
+        }
+        
         i++;
     }
     
@@ -68,9 +81,26 @@
         return [obj1.fileNameDeleteExtension compare:obj2.fileNameDeleteExtension]; //升序
     }];
     self.folderArray = result.mutableCopy;
+    if (folderEntity_error) {
+        [self.folderArray removeObject:folderEntity_error];
+        [self.folderArray addObject:folderEntity_error];
+    }
     
-    self.allFileEntity = nil;
-    self.allFileEntity = ({
+    
+    //    if ([folderEntity.fileName isEqualToString:ErrorFolderName]
+    //        ) {
+    //        if (folderEntity.itemArray.count == 0) {
+    //            // ios 假如Error文件夹为空的话 忽略
+    //
+    //            [self.folderArray removeObject:folderEntity];
+    //            continue;
+    //        } else {
+    //            folderEntity_error = folderEntity;
+    //        }
+    //    }
+    //
+    self.mplShare.allFileEntity = nil;
+    self.mplShare.allFileEntity = ({
         FileEntity * fileEntity = [FileEntity new];
         fileEntity.fileName  = @"全部";
         fileEntity.fileID    = KRootCellFolderName_all;
@@ -79,7 +109,11 @@
         fileEntity.itemArray = [NSMutableArray<FileEntity, Ignore> new];
         
         for (FileEntity * fe in self.folderArray) {
-            [fileEntity.itemArray addObjectsFromArray:fe.itemArray];
+            if (fe == folderEntity_error) {
+                continue;
+            } else {
+                [fileEntity.itemArray addObjectsFromArray:fe.itemArray];
+            }
         }
         
         fileEntity;
@@ -93,10 +127,9 @@
 #pragma mark - VCDataSource
 - (void)freshFavFolderEvent {
     self.recordArray = [NSMutableArray<FileEntity> new];
-    //[self.recordArray addObject:self.allFileEntity];
     
     [self.mplShare.allFileEntityDic removeAllObjects];
-    for (FileEntity * fe in self.allFileEntity.itemArray) {
+    for (FileEntity * fe in self.mplShare.allFileEntity.itemArray) {
         self.mplShare.allFileEntityDic[fe.filePath] = fe;
     }
     
@@ -118,7 +151,7 @@
     [self.mplShare.list.songListArray removeAllObjects];
     [self.mplShare.list.songListArray addObjectsFromArray:self.recordArray];
     
-    [self.recordArray insertObject:self.allFileEntity atIndex:0];
+    [self.recordArray insertObject:self.mplShare.allFileEntity atIndex:0];
 }
 
 - (void)addListName:(NSString *)name {

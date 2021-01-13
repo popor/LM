@@ -34,6 +34,8 @@
         
         [[NSFileManager defaultManager] createDirectoryAtPath:[NSString stringWithFormat:@"%@/%@", FT_docPath, DownloadFolderName]
                                   withIntermediateDirectories:YES attributes:nil error:nil];
+        [[NSFileManager defaultManager] createDirectoryAtPath:[NSString stringWithFormat:@"%@/%@", FT_docPath, ErrorFolderName]
+                                  withIntermediateDirectories:YES attributes:nil error:nil];
         
 #if TARGET_OS_MACCATALYST
         [[NSFileManager defaultManager] createDirectoryAtPath:[NSString stringWithFormat:@"%@/%@", FT_docPath, MusicFolderName]
@@ -96,6 +98,14 @@
     static NSString * text;
     if (!text) {
         text = [NSString stringWithFormat:@"%@/%@", FT_docPath, DownloadFolderName];
+    }
+    return text;
+}
+
++ (NSString *)errorFolderPath {
+    static NSString * text;
+    if (!text) {
+        text = [NSString stringWithFormat:@"%@/%@", FT_docPath, ErrorFolderName];
     }
     return text;
 }

@@ -80,7 +80,7 @@
     }];
 }
 
-- (void)playItem:(FileEntity *)item autoPlay:(BOOL)autoPlay {
+- (void)playItem:(FileEntity *)item autoPlay:(BOOL)autoPlay finish:(BlockPError _Nullable)finish {
     FeedbackShakePhone
     
 #if TARGET_OS_MACCATALYST
@@ -90,6 +90,7 @@
 #endif
     
     NSURL * url     = [NSURL fileURLWithPath:path];
+    NSError * error;
     //self.musicTitle = item.fileName;
     self.musicItem  = item;
     
@@ -99,12 +100,16 @@
             [self playEvent];
         }
     }else{
-        self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+        self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
         self.audioPlayer.delegate = self;
         //[self.audioPlayer prepareToPlay];
         if (autoPlay) {
             [self playEvent];
         }
+    }
+    
+    if (finish) {
+        finish(error);
     }
     
     [self updateIosLockInfo];

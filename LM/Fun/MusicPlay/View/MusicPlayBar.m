@@ -503,10 +503,8 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     if (self.mplt.currentWeakList.count>0) {
         if (!self.currentItem) {
             self.currentItem = self.mplt.currentWeakList[0];
-            [self playItem:self.currentItem autoPlay:YES];
-        }else{
-            [self playItem:self.currentItem autoPlay:YES];
         }
+        [self playItem:self.currentItem autoPlay:YES];
     }
     self.playBT.selected = YES;
 }
@@ -656,19 +654,48 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 }
 
 - (void)playItem:(FileEntity *)item autoPlay:(BOOL)autoPlay {
-    [self.mpt playItem:self.currentItem autoPlay:autoPlay];
-    // NSLogString(item.fileName);
     
-    self.mplt.config.playFilePath = item.filePath;
-    self.mplt.config.playFileNameDeleteExtension = item.fileNameDeleteExtension;
+    __block BOOL playSuccess = NO;
+    [self.mpt playItem:self.currentItem autoPlay:autoPlay finish:^(NSError * _Nonnull error) {
+        playSuccess = error == nil ? YES:NO;
+    }];
     
-    // 刷新SongListDetailVC
-    if (self.mpt.nextMusicBlock_rootVC) {
-        self.mpt.nextMusicBlock_rootVC();
+    if (playSuccess) {
+        // NSLogString(item.fileName);
+        
+        self.mplt.config.playFilePath = item.filePath;
+        self.mplt.config.playFileNameDeleteExtension = item.fileNameDeleteExtension;
+        
+        // 刷新SongListDetailVC
+        if (self.mpt.nextMusicBlock_rootVC) {
+            self.mpt.nextMusicBlock_rootVC();
+        }
+        if (self.mpt.nextMusicBlock_detailVC) {
+            self.mpt.nextMusicBlock_detailVC();
+        }
+    } else {
+        
+        if (![item.folderName isEqualToString:ErrorFolderName]) {
+            NSString * originPath = [NSString stringWithFormat:@"%@/%@", FT_docPath, item.filePath];
+            NSString * errorPath  = [NSString stringWithFormat:@"%@/%@", [MusicPlayListTool errorFolderPath],    item.fileName];
+            
+            if ([NSFileManager isFileExist:errorPath]) {
+                [NSFileManager deleteFile:errorPath];
+            }
+            [NSFileManager moveFile:originPath to:errorPath];
+            
+            // 刷新rootData
+            [MGJRouter openURL:MUrl_freshFileData];
+        }
+        // 自己的歌单清空
+        [self.mplt.currentTempList removeObject:item];
+        
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self nextBTEvent];
+        });
     }
-    if (self.mpt.nextMusicBlock_detailVC) {
-        self.mpt.nextMusicBlock_detailVC();
-    }
+   
 }
 
 #pragma mark - 添加随机播放历史

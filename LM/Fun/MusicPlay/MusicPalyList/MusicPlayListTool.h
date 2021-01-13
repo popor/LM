@@ -19,6 +19,7 @@ static NSString * ConfigFolderName    = @"Config";
 static NSString * MusicFolderName     = @"Music";
 static NSString * ArtworkFolderName   = @"Artwork";// 插图
 static NSString * DownloadFolderName  = @"Download";// 下载
+static NSString * ErrorFolderName     = @"Error";// 错误
 
 @interface MusicPlayListTool : NSObject
 
@@ -30,6 +31,8 @@ static NSString * DownloadFolderName  = @"Download";// 下载
 @property (nonatomic, weak  ) NSMutableArray * currentWeakList; // 针对保存的歌单
 
 + (NSString *)downloadFolderPath;
+
++ (NSString *)errorFolderPath;
 
 @end
 

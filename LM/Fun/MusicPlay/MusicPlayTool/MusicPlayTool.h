@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #define MptShare [MusicPlayTool share]
 
+typedef void(^BlockPError) (NSError * error);
+
 @interface MusicPlayTool : NSObject
 
 @property (nonatomic, strong) NSURL               * musicUrl;
@@ -28,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (MusicPlayTool *)share;
 
-- (void)playItem:(FileEntity *)item autoPlay:(BOOL)autoPlay;
+- (void)playItem:(FileEntity *)item autoPlay:(BOOL)autoPlay finish:(BlockPError _Nullable)finish;
 - (void)playAtTimeScale:(float)scale;
 
 - (void)pauseEvent;
