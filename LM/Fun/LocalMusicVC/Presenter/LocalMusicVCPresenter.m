@@ -314,7 +314,7 @@ API_AVAILABLE(ios(12.0))
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
             cell.backgroundColor = [UIColor clearColor];
-            cell.textLabel.textColor = [UIColor whiteColor];
+            cell.textLabel.textColor = App_colorTextN1;
         }
         FileEntity * list = self.interactor.mplShare.list.songListArray[indexPath.row];
         if (list) {
@@ -682,12 +682,15 @@ API_AVAILABLE(ios(12.0))
 }
 
 #pragma mark - VC_EventHandler
+#pragma mark 打开歌单添加歌曲 列表
 - (void)addMusicPlistFile {
     UIColor * color = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    color = App_colorBg3;
+    
     NSDictionary * dic = @{
         @"direction":@(AlertBubbleViewDirectionTop),
         @"baseView":self.view.vc.navigationController.view,
-        @"borderLineColor":color,
+        @"borderLineColor":[UIColor clearColor],
         @"borderLineWidth":@(1),
         @"corner":@(10),
         

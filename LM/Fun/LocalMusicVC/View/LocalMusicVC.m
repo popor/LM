@@ -210,7 +210,7 @@
 }
 
 - (UITableView *)addMusicListTVs {
-    UITableView * oneTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 200, 250) style:UITableViewStylePlain];
+    UITableView * oneTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 200, 250) style:UITableViewStyleGrouped];
     
     oneTV.delegate   = self.present;
     oneTV.dataSource = self.present;
@@ -222,8 +222,12 @@
     oneTV.estimatedSectionHeaderHeight = 0;
     oneTV.estimatedSectionFooterHeight = 0;
     
-    oneTV.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    oneTV.separatorInset  = UIEdgeInsetsMake(0, 0, 0, 0);
+    oneTV.separatorColor  = App_colorSeparator;
     oneTV.backgroundColor = [UIColor clearColor];
+    
+    oneTV.layer.cornerRadius  = 8;
+    oneTV.layer.masksToBounds = YES;
     
     return oneTV;
 }
