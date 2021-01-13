@@ -29,7 +29,7 @@
 		189A5DEE225C94A8001E8A9D /* AppNetRecordConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 189A5DED225C94A7001E8A9D /* AppNetRecordConfig.m */; };
 		189A5DF1225C95E6001E8A9D /* AppVersionCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = 189A5DF0225C95E6001E8A9D /* AppVersionCheck.m */; };
 		18DE138F2251AAC9009920D7 /* MusicPlayTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE138D2251AAC8009920D7 /* MusicPlayTool.m */; };
-		18DE13922251BD5F009920D7 /* MusicPlayListTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE13912251BD5F009920D7 /* MusicPlayListTool.m */; };
+		18DE13922251BD5F009920D7 /* MusicFolderEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE13912251BD5F009920D7 /* MusicFolderEntity.m */; };
 		18DE13AF2251F78C009920D7 /* MusicInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE13AE2251F78C009920D7 /* MusicInfoCell.m */; };
 		C30D897F25354F6D009BFB45 /* NetService.m in Sources */ = {isa = PBXBuildFile; fileRef = C30D897D25354F6D009BFB45 /* NetService.m */; };
 		C31C054925ABE0AE001C6E78 /* 封面N@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C31C054525ABE0AE001C6E78 /* 封面N@2x.png */; };
@@ -131,8 +131,8 @@
 		18D1B3F9225F2BD50014AA89 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		18DE138D2251AAC8009920D7 /* MusicPlayTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicPlayTool.m; sourceTree = "<group>"; };
 		18DE138E2251AAC9009920D7 /* MusicPlayTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayTool.h; sourceTree = "<group>"; };
-		18DE13902251BD5F009920D7 /* MusicPlayListTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicPlayListTool.h; sourceTree = "<group>"; };
-		18DE13912251BD5F009920D7 /* MusicPlayListTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicPlayListTool.m; sourceTree = "<group>"; };
+		18DE13902251BD5F009920D7 /* MusicFolderEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicFolderEntity.h; sourceTree = "<group>"; };
+		18DE13912251BD5F009920D7 /* MusicFolderEntity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicFolderEntity.m; sourceTree = "<group>"; };
 		18DE13AD2251F78C009920D7 /* MusicInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicInfoCell.h; sourceTree = "<group>"; };
 		18DE13AE2251F78C009920D7 /* MusicInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicInfoCell.m; sourceTree = "<group>"; };
 		29BA81301DB9758FD1B2E469 /* libPods-LMTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LMTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -274,8 +274,6 @@
 		180E33BE224E1194008C176D /* entity */ = {
 			isa = PBXGroup;
 			children = (
-				18561593224DC089004BE073 /* MusicConfig.h */,
-				18561594224DC089004BE073 /* MusicConfig.m */,
 				180E33BF224E11AF008C176D /* FileTool.h */,
 				180E33C0224E11AF008C176D /* FileTool.m */,
 				180E33C2224E11F7008C176D /* FileEntity.h */,
@@ -312,7 +310,6 @@
 				183BF429224A24EF004DE115 /* App */,
 				184F3703224B25D000FEB57B /* Root */,
 				184F370E224B26A100FEB57B /* Fun */,
-				C31C054F25ABEB53001C6E78 /* Old */,
 			);
 			path = LM;
 			sourceTree = "<group>";
@@ -433,6 +430,7 @@
 		184F370E224B26A100FEB57B /* Fun */ = {
 			isa = PBXGroup;
 			children = (
+				C31C054F25ABEB53001C6E78 /* common */,
 				C30D896625354B6D009BFB45 /* Lrc */,
 				C3D58B6B2517470C00A40108 /* MusicPlay */,
 				180E33A4224DE7E5008C176D /* LocalMusicVC */,
@@ -440,15 +438,6 @@
 				18561596224DC1D0004BE073 /* WifiAddFileVC */,
 			);
 			path = Fun;
-			sourceTree = "<group>";
-		};
-		1856158B224DBEF7004BE073 /* MusicPalyList */ = {
-			isa = PBXGroup;
-			children = (
-				18DE13902251BD5F009920D7 /* MusicPlayListTool.h */,
-				18DE13912251BD5F009920D7 /* MusicPlayListTool.m */,
-			);
-			path = MusicPalyList;
 			sourceTree = "<group>";
 		};
 		18561596224DC1D0004BE073 /* WifiAddFileVC */ = {
@@ -534,13 +523,15 @@
 			path = NetService;
 			sourceTree = "<group>";
 		};
-		C31C054F25ABEB53001C6E78 /* Old */ = {
+		C31C054F25ABEB53001C6E78 /* common */ = {
 			isa = PBXGroup;
 			children = (
+				C338BCFC25AE980E0098BB82 /* config */,
+				C338BCF825AE97270098BB82 /* Folder */,
 				C31C055025ABEB53001C6E78 /* cell */,
 			);
-			name = Old;
-			path = LM/Old;
+			name = common;
+			path = LM/Fun/common;
 			sourceTree = SOURCE_ROOT;
 		};
 		C31C055025ABEB53001C6E78 /* cell */ = {
@@ -574,6 +565,24 @@
 				C3325B3A25A41B07000A7F43 /* FeedbackGeneratorTool.m */,
 			);
 			path = FeedbackGenerator;
+			sourceTree = "<group>";
+		};
+		C338BCF825AE97270098BB82 /* Folder */ = {
+			isa = PBXGroup;
+			children = (
+				18DE13902251BD5F009920D7 /* MusicFolderEntity.h */,
+				18DE13912251BD5F009920D7 /* MusicFolderEntity.m */,
+			);
+			path = Folder;
+			sourceTree = "<group>";
+		};
+		C338BCFC25AE980E0098BB82 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				18561593224DC089004BE073 /* MusicConfig.h */,
+				18561594224DC089004BE073 /* MusicConfig.m */,
+			);
+			path = config;
 			sourceTree = "<group>";
 		};
 		C3560ECC2537F8550062EFA8 /* LrcKugou */ = {
@@ -651,7 +660,6 @@
 			children = (
 				180E33BE224E1194008C176D /* entity */,
 				184CD1C8224CA60600241B9C /* View */,
-				1856158B224DBEF7004BE073 /* MusicPalyList */,
 				184CD1CC224CB99400241B9C /* MusicPlayTool */,
 			);
 			path = MusicPlay;
@@ -931,7 +939,7 @@
 				C3AD51332516FC6900746FA2 /* MRouterConfig.m in Sources */,
 				18DE13AF2251F78C009920D7 /* MusicInfoCell.m in Sources */,
 				18561595224DC089004BE073 /* MusicConfig.m in Sources */,
-				18DE13922251BD5F009920D7 /* MusicPlayListTool.m in Sources */,
+				18DE13922251BD5F009920D7 /* MusicFolderEntity.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

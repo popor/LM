@@ -1,23 +1,24 @@
 //
-//  MusicPlayListTool.m
+//  MusicConfig.m
 //  LM
 //
-//  Created by apple on 2019/4/1.
+//  Created by apple on 2019/3/29.
 //  Copyright © 2019 popor. All rights reserved.
 //
 
-#import "MusicPlayListTool.h"
-#import "FileTool.h"
+#import "MusicConfig.h"
+#import "MusicFolderEntity.h"
 
-@interface MusicPlayListTool ()
+@implementation MusicConfig
 
 @end
 
-@implementation MusicPlayListTool
 
-+ (MusicPlayListTool *)share {
+@implementation MusicConfigShare
+
++ (instancetype)share {
     static dispatch_once_t once;
-    static MusicPlayListTool * instance;
+    static MusicConfigShare * instance;
     dispatch_once(&once, ^{
         instance = [self new];
         
@@ -85,29 +86,5 @@
     return text;
 }
 
-// 插图路径
-- (NSString *)artworkFolderPath {
-    static NSString * text;
-    if (!text) {
-        text = [NSString stringWithFormat:@"%@/%@", FT_docPath, ArtworkFolderName];
-    }
-    return text;
-}
-
-+ (NSString *)downloadFolderPath {
-    static NSString * text;
-    if (!text) {
-        text = [NSString stringWithFormat:@"%@/%@", FT_docPath, DownloadFolderName];
-    }
-    return text;
-}
-
-+ (NSString *)errorFolderPath {
-    static NSString * text;
-    if (!text) {
-        text = [NSString stringWithFormat:@"%@/%@", FT_docPath, ErrorFolderName];
-    }
-    return text;
-}
 
 @end

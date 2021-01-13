@@ -34,4 +34,12 @@ typedef NS_ENUM(int, McPlayOrder) {
 
 @end
 
+@interface MusicConfigShare : NSObject
+
++ (instancetype)share;
+
+@property (nonatomic, strong) MusicConfig   * config;
+
+@end
+
 NS_ASSUME_NONNULL_END

@@ -9,12 +9,12 @@
 #import "MusicPlayBar.h"
 
 #import "MusicPlayTool.h"
-#import "MusicPlayListTool.h"
+#import "MusicFolderEntity.h"
 #import "LrcKuGou.h"
 #import "LrcTool.h"
 
 #import "FeedbackGeneratorTool.h"
-
+#import "MusicConfig.h"
 #import <PoporUI/UIDevice+pScreenSize.h>
 //#import <PoporImageBrower/PoporImageBrower.h>
 
@@ -28,6 +28,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 @property (nonatomic        ) CGFloat sliderImageWH;
 
 @property (nonatomic, copy  ) NSString * lastMusicTitle;
+@property (nonatomic, weak  ) MusicConfigShare * configShare;
 
 @end
 
@@ -38,7 +39,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     static MusicPlayBar * instance;
     dispatch_once(&once, ^{
         instance = [self new];
-        
+        instance.configShare = [MusicConfigShare share];
     });
     return instance;
 }
@@ -46,7 +47,6 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 - (id)init {
     if (self = [super init]) {
         self.mpt  = MptShare;
-        self.mplt = MpltShare;
         self.mplShare = [MusicPlayListShare share];
         self.backgroundColor = App_colorBg1;
         
@@ -466,7 +466,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     }
     
     //NSLogInteger(index);
-    self.mplt.config.currentPlayIndexRow = index;
+    self.configShare.config.currentPlayIndexRow = index;
     
     self.mplShare.currentWeakList = self.mplShare.currentTempList;
     self.playBT.selected      = autoPlay;
@@ -479,8 +479,8 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     // 更新播放历史
     [self recordPlayHistory:self.currentItem atFront:needRecordPlayHistoryAtFront];
     
-    self.mplt.config.playFileID    = fileId;
-    self.mplt.config.playSearchKey = searchKey;
+    self.configShare.config.playFileID    = fileId;
+    self.configShare.config.playSearchKey = searchKey;
 }
 
 - (NSString *)playArrayDes:(NSMutableArray<FileEntity> *)array {
@@ -522,7 +522,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         NSInteger index = -1;
         BOOL needUpdateHistory = NO;
         // 假如是随机的话, 要检查当前顺序
-        if (self.mplt.config.playOrder == McPlayOrderRandom && self.playHistoryArray.count>0) {
+        if (self.configShare.config.playOrder == McPlayOrderRandom && self.playHistoryArray.count>0) {
             self.playHistoryIndex--;
             if (self.playHistoryIndex >= 0) { // 只有当大于-1的时候, 才会处理播放历史, 否则还是播放其他的
                 FileEntity * fe = self.playHistoryArray[self.playHistoryIndex];
@@ -531,10 +531,10 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         }
         if (index == -1) {
             index = [self getPreviousIndex];
-            self.mplt.config.currentPlayIndexRow = index;
+            self.configShare.config.currentPlayIndexRow = index;
             needUpdateHistory = YES;
         } else {
-            self.mplt.config.currentPlayIndexRow = index;
+            self.configShare.config.currentPlayIndexRow = index;
         }
         
         self.currentItem = self.mplShare.currentWeakList[index];
@@ -556,7 +556,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         
         // 随机播放, 当播放历史没有到头, 则播放历史记录.
         BOOL needUpdateHistory = NO;
-        if (self.mplt.config.playOrder == McPlayOrderRandom &&  self.playHistoryArray.count>0) {
+        if (self.configShare.config.playOrder == McPlayOrderRandom &&  self.playHistoryArray.count>0) {
             self.playHistoryIndex++;
             if (self.playHistoryIndex < self.playHistoryArray.count) {
                 FileEntity * fe = self.playHistoryArray[self.playHistoryIndex];
@@ -565,10 +565,10 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         }
         if (index == -1) {
             index = [self getNextIndex];
-            self.mplt.config.currentPlayIndexRow = index;
+            self.configShare.config.currentPlayIndexRow = index;
             needUpdateHistory = YES;
         } else {
-            self.mplt.config.currentPlayIndexRow = index;
+            self.configShare.config.currentPlayIndexRow = index;
         }
         
         self.currentItem = self.mplShare.currentWeakList[index];
@@ -584,7 +584,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 
 - (NSInteger)getNextIndex {
     NSInteger index = 0;
-    switch (self.mplt.config.playOrder) {
+    switch (self.configShare.config.playOrder) {
         case McPlayOrderRandom:{
             if (self.playHistoryIndex < self.playHistoryArray.count) {
                 return self.playHistoryIndex;
@@ -609,7 +609,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 
 - (NSInteger)getPreviousIndex {
     NSInteger index = 0;
-    switch (self.mplt.config.playOrder) {
+    switch (self.configShare.config.playOrder) {
         case McPlayOrderRandom:{
             index = [self randomNumber];
             break;
@@ -631,7 +631,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 
 - (NSInteger)randomNumber {
     NSInteger index = arc4random() % self.mplShare.currentWeakList.count;
-    if (index == self.mplt.config.currentPlayIndexRow && self.mplShare.currentWeakList.count>1) {
+    if (index == self.configShare.config.currentPlayIndexRow && self.mplShare.currentWeakList.count>1) {
         return [self randomNumber];
     } else {
         return index;
@@ -649,9 +649,9 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 - (void)orderAction {
     FeedbackShakePhone
     
-    self.mplt.config.playOrder = (self.mplt.config.playOrder + 1)%McPlayOrderImageArray.count;
+    self.configShare.config.playOrder = (self.configShare.config.playOrder + 1)%McPlayOrderImageArray.count;
     
-    [self.orderBT setImage:LmImageThemeBlue1(McPlayOrderImageArray[self.mplt.config.playOrder]) forState:UIControlStateNormal];
+    [self.orderBT setImage:LmImageThemeBlue1(McPlayOrderImageArray[self.configShare.config.playOrder]) forState:UIControlStateNormal];
 }
 
 - (void)playItem:(FileEntity *)item autoPlay:(BOOL)autoPlay {
@@ -664,8 +664,8 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     if (playSuccess) {
         // NSLogString(item.fileName);
         
-        self.mplt.config.playFilePath = item.filePath;
-        self.mplt.config.playFileNameDeleteExtension = item.fileNameDeleteExtension;
+        self.configShare.config.playFilePath = item.filePath;
+        self.configShare.config.playFileNameDeleteExtension = item.fileNameDeleteExtension;
         
         // 刷新SongListDetailVC
         if (self.mpt.nextMusicBlock_rootVC) {
@@ -678,7 +678,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         
         if (![item.folderName isEqualToString:ErrorFolderName]) {
             NSString * originPath = [NSString stringWithFormat:@"%@/%@", FT_docPath, item.filePath];
-            NSString * errorPath  = [NSString stringWithFormat:@"%@/%@", [MusicPlayListTool errorFolderPath],    item.fileName];
+            NSString * errorPath  = [NSString stringWithFormat:@"%@/%@", [MusicFolderEntity errorFolderPath],    item.fileName];
             
             if ([NSFileManager isFileExist:errorPath]) {
                 [NSFileManager deleteFile:errorPath];
@@ -701,7 +701,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 
 #pragma mark - 添加随机播放历史
 - (void)recordPlayHistory:(FileEntity *)item atFront:(BOOL)atFront {
-    if (self.mplt.config.playOrder == McPlayOrderRandom) {
+    if (self.configShare.config.playOrder == McPlayOrderRandom) {
         if (atFront) {
             [self.playHistoryArray insertObject:item atIndex:0];
             self.playHistoryIndex = 0;

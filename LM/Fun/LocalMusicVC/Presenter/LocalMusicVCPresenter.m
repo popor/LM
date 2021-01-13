@@ -11,8 +11,9 @@
 #import "LocalMusicVC.h"
 #import "MusicInfoCell.h"
 
-#import "MusicPlayListTool.h"
+#import "MusicFolderEntity.h"
 #import "MusicPlayBar.h"
+#import "MusicConfig.h"
 
 API_AVAILABLE(ios(12.0))
 @interface LocalMusicVCPresenter ()
@@ -22,7 +23,8 @@ API_AVAILABLE(ios(12.0))
 
 @property (nonatomic, weak  ) FileEntity * selectFileEntity;
 @property (nonatomic, weak  ) MusicPlayBar * mpb;
-@property (nonatomic, weak  ) MusicPlayListTool * mplt;
+@property (nonatomic, weak  ) MusicFolderEntity * mplt;
+@property (nonatomic, weak  ) MusicConfigShare  * configShare;
 @property (nonatomic, weak  ) MusicInfoCell * lastCell;
 
 
@@ -59,7 +61,7 @@ API_AVAILABLE(ios(12.0))
 - (id)init {
     if (self = [super init]) {
         self.mpb = MpbShare;
-        self.mplt = MpltShare;
+        self.configShare = [MusicConfigShare share];
         self.userInterfaceStyle = -1;
     }
     return self;
@@ -116,7 +118,7 @@ API_AVAILABLE(ios(12.0))
 }
 
 - (void)resumeLastPlay_0 {
-    NSString * playFileID = MpltShare.config.playFileID;
+    NSString * playFileID = self.configShare.config.playFileID;
     for (FileEntity * fe in self.interactor.recordArray) {
         if ([fe.fileID isEqualToString:playFileID]) {
             [self resumeLastPlay_1:fe];
@@ -133,7 +135,7 @@ API_AVAILABLE(ios(12.0))
 }
 
 - (void)resumeLastPlay_1:(FileEntity *)fileEntity {
-    NSString * playSearchKey = [self.mplt.config.playFileID isEqualToString:fileEntity.fileID] ? self.mplt.config.playSearchKey:@"";
+    NSString * playSearchKey = [self.configShare.config.playFileID isEqualToString:fileEntity.fileID] ? self.configShare.config.playSearchKey:@"";
     
     // 有搜索词 跳转到下一层
     if (playSearchKey.length > 0) {
@@ -143,7 +145,7 @@ API_AVAILABLE(ios(12.0))
             @"folderType":@(fileEntity.fileType),
             @"playFileID":fileEntity.fileID,
             @"playSearchKey":playSearchKey,
-            @"autoPlayFilePath":self.mplt.config.playFilePath,
+            @"autoPlayFilePath":self.configShare.config.playFilePath,
         };
         [self.view.vc.navigationController pushViewController:[[LocalMusicVC alloc] initWithDic:dic] animated:YES];
     } else {
@@ -151,7 +153,7 @@ API_AVAILABLE(ios(12.0))
         NSInteger index = -1;
         for (NSInteger i = 0; i<fileEntity.itemArray.count; i++) {
             FileEntity * fe = fileEntity.itemArray[i];
-            if ([fe.filePath isEqualToString:self.mplt.config.playFilePath]) {
+            if ([fe.filePath isEqualToString:self.configShare.config.playFilePath]) {
                 index = i;
                 break;
             }
@@ -370,26 +372,26 @@ API_AVAILABLE(ios(12.0))
     } else {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
-        if([self.mplt.config.playFileID isEqualToString:entity.fileID]){
+        if([self.configShare.config.playFileID isEqualToString:entity.fileID]){
             //cell.rightIV.hidden      = NO;
             cell.titelL.textColor    = ColorThemeBlue1;
             cell.subtitleL.textColor = ColorThemeBlue1;
             colorFull                = YES;
             
             // text
-            if (self.mplt.config.playSearchKey.length > 0 && self.interactor.mplShare.currentWeakList && self.mpb.weakLastPlayArray != entity.itemArray) {
-                cell.titelL.text = [NSString stringWithFormat:@"%@ %li首 (搜索: %@  %li首)", entity.fileName, entity.itemArray.count, self.mplt.config.playSearchKey, self.interactor.mplShare.currentTempList.count];
+            if (self.configShare.config.playSearchKey.length > 0 && self.interactor.mplShare.currentWeakList && self.mpb.weakLastPlayArray != entity.itemArray) {
+                cell.titelL.text = [NSString stringWithFormat:@"%@ %li首 (搜索: %@  %li首)", entity.fileName, entity.itemArray.count, self.configShare.config.playSearchKey, self.interactor.mplShare.currentTempList.count];
                 
                 NSMutableAttributedString * att = [NSMutableAttributedString new];
                 [att addString:[NSString stringWithFormat:@"%@ %li首(", entity.fileName, entity.itemArray.count] font:cell.titelL.font color:cell.subtitleL.textColor];
-                [att addString:[NSString stringWithFormat:@"搜索: %@  %li首", self.mplt.config.playSearchKey, self.interactor.mplShare.currentTempList.count] font:cell.titelL.font color:App_colorRed1];
+                [att addString:[NSString stringWithFormat:@"搜索: %@  %li首", self.configShare.config.playSearchKey, self.interactor.mplShare.currentTempList.count] font:cell.titelL.font color:App_colorRed1];
                 [att addString:@")" font:cell.titelL.font color:cell.subtitleL.textColor];
                 
                 cell.titelL.attributedText = att;
             } else {
                 cell.titelL.text = [NSString stringWithFormat:@"%@ %li首", entity.fileName, entity.itemArray.count];
             }
-            cell.subtitleL.text      = self.mplt.config.playFileNameDeleteExtension;
+            cell.subtitleL.text      = self.configShare.config.playFileNameDeleteExtension;
         }else{
             //cell.rightIV.hidden      = YES;
             cell.titelL.textColor    = App_colorTextN1;
@@ -639,7 +641,7 @@ API_AVAILABLE(ios(12.0))
     FileEntity * fileEntity = [self rootFE:indexPath];
     if (fileEntity.itemArray.count > 0) {
         
-        NSString * playSearchKey = [self.mplt.config.playFileID isEqualToString:fileEntity.fileID] ? self.mplt.config.playSearchKey:@"";
+        NSString * playSearchKey = [self.configShare.config.playFileID isEqualToString:fileEntity.fileID] ? self.configShare.config.playSearchKey:@"";
         NSDictionary * dic = @{
             @"title":fileEntity.fileName,
             @"itemArray":fileEntity.itemArray,
@@ -790,7 +792,7 @@ API_AVAILABLE(ios(12.0))
 
 - (void)freshTVVisiableCellEvent {
     [self.view.infoTV reloadRowsAtIndexPaths:[self.view.infoTV indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
-    [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.mplt.config.currentPlayIndexRow inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.configShare.config.currentPlayIndexRow inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 }
 
 #pragma mark - Interactor_EventHandler
@@ -852,9 +854,9 @@ API_AVAILABLE(ios(12.0))
         FeedbackShakePhone
     }
     
-    if ([self.mplt.config.playFileID isEqualToString:self.view.playFileID]) {
-        if ([self.view.infoTV.dataSource tableView:self.view.infoTV numberOfRowsInSection:0] > self.mpb.mplt.config.currentPlayIndexRow) {
-            [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.mpb.mplt.config.currentPlayIndexRow inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    if ([self.configShare.config.playFileID isEqualToString:self.view.playFileID]) {
+        if ([self.view.infoTV.dataSource tableView:self.view.infoTV numberOfRowsInSection:0] > self.configShare.config.currentPlayIndexRow) {
+            [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.configShare.config.currentPlayIndexRow inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
         }
     } else {
         // 假如有bt, 则是用户点击的, 给提示, 否则不给提示.

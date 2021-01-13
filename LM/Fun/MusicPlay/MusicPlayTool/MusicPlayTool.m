@@ -9,16 +9,19 @@
 #import "MusicPlayTool.h"
 #import "MusicPlayBar.h"
 #import <MediaPlayer/MediaPlayer.h>
-#import "MusicPlayListTool.h"
+#import "MusicFolderEntity.h"
 #import "LrcTool.h"
 
+#import "MusicConfig.h"
 #import "FeedbackGeneratorTool.h"
 
 @interface MusicPlayTool() <AVAudioPlayerDelegate>
 
 @property (nonatomic, getter=isNeedActive) BOOL needActive;
 
-@property (nonatomic, weak  ) MusicPlayBar    * mpb;
+@property (nonatomic, weak  ) MusicPlayBar     * mpb;
+@property (nonatomic, weak  ) MusicConfigShare * configShare;
+
 @property (nonatomic, strong) NSDateFormatter * dateFormatterMS; // 分钟秒
 @property (nonatomic, strong) NSDateFormatter * dateFormatter1HMS;// 1小时分钟秒
 @property (nonatomic, strong) NSDateFormatter * dateFormatter10HMS;// 10小时分钟秒
@@ -37,6 +40,8 @@
     static MusicPlayTool * instance;
     dispatch_once(&once, ^{
         instance = [self new];
+        
+        instance.configShare = [MusicConfigShare share];
         
         // 后台播放设置
         AVAudioSession *session = [AVAudioSession sharedInstance];
@@ -397,7 +402,7 @@
 
 #pragma mark - delegate
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
-    if (self.mpb.mplt.config.playOrder == McPlayOrderSingle) {
+    if (self.configShare.config.playOrder == McPlayOrderSingle) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.audioPlayer play];
         });

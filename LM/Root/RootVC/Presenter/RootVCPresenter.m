@@ -9,20 +9,18 @@
 #import "RootVCInteractor.h"
 
 #import "MusicPlayTool.h"
-#import "MusicPlayListTool.h"
+#import "MusicFolderEntity.h"
 
 #import "WifiAddFileVC.h"
 //#import "SongListDetailVC.h"
 
 #import "MusicListCell.h"
-#import "MusicPlayListTool.h"
+#import "MusicFolderEntity.h"
 
 @interface RootVCPresenter ()
 
 @property (nonatomic, weak  ) id<RootVCProtocol> view;
 @property (nonatomic, strong) RootVCInteractor * interactor;
-@property (nonatomic, weak  ) MusicPlayListTool * mplt;
-//@property (nonatomic        ) NSInteger recordDepartment;// 移除了
 
 @end
 
@@ -30,7 +28,7 @@
 
 - (id)init {
     if (self = [super init]) {
-        self.mplt = MpltShare;
+        
     }
     return self;
 }

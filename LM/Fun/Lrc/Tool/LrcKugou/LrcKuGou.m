@@ -9,7 +9,7 @@
 #import "LrcKuGou.h"
 #import "NetService.h"
 #import "LrcTool.h"
-#import "MusicPlayListTool.h"
+#import "MusicFolderEntity.h"
 #import "LrcKugouListEntity.h"
 #import "LrcKugouDetailEntity.h"
 #import <Base64/MF_Base64Additions.h>

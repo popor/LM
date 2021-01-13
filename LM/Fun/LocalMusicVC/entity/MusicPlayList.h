@@ -23,21 +23,6 @@ typedef NS_ENUM(int, MpViewOrder) {
 
 #define MpViewOrderTitleArray    @[@"歌手名称: 正序", @"歌手名称: 倒序", @"歌曲名称: 正序", @"歌曲名称: 倒序", @"自定义: 正序", @"自定义: 倒序"]
 
-//
-//@protocol  MusicPlayListEntity;
-//@interface MusicPlayListEntity : PoporJsonModel
-//
-//@property (nonatomic, strong) NSString    * name;
-//@property (nonatomic        ) MpViewOrder viewOrder;
-//@property (nonatomic        ) NSInteger   recoredNum;//记录增加的个数
-//
-//@property (nonatomic, strong) NSMutableArray<FileEntity> * itemArray;
-//
-////- (void)sortArray:(MpViewOrder)viewOrder;
-//
-//@end
-//
-//
 @protocol  MusicPlayList;
 @interface MusicPlayList : PoporJsonModel
 

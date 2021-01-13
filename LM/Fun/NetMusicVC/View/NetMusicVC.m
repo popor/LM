@@ -11,7 +11,7 @@
 
 #import <Masonry/Masonry.h>
 #import "FD_FileDownload.h"
-#import "MusicPlayListTool.h"
+#import "MusicFolderEntity.h"
 
 #import <PoporFoundation/NSString+pTool.h>
 
@@ -346,7 +346,7 @@ static NSString * NetMusicUrl = @"http://y.webzcz.cn/";
 }
 
 - (void)downloadEvent {
-    NSString * savePath = [NSString stringWithFormat:@"%@/%@.mp3", [MusicPlayListTool downloadFolderPath],self.lastSaveFileName];
+    NSString * savePath = [NSString stringWithFormat:@"%@/%@.mp3", [MusicFolderEntity downloadFolderPath],self.lastSaveFileName];
     NSLogString(savePath);
     
     @weakify(self);

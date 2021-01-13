@@ -8,16 +8,16 @@
 #import "LrcView.h"
 #import "LrcViewPresenter.h"
 #import "LrcViewInteractor.h"
-#import "MusicPlayListTool.h"
+#import "MusicFolderEntity.h"
 #import "MusicPlayBar.h"
-#import "MusicPlayListTool.h"
+#import "MusicFolderEntity.h"
 #import "MusicPlayTool.h"
 
 @interface LrcView () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) LrcViewPresenter * present;
 @property (nonatomic, weak  ) MusicPlayBar * mpb;
-@property (nonatomic, weak  ) MusicPlayListTool * mplt;
+@property (nonatomic, weak  ) MusicFolderEntity * mplt;
 @property (nonatomic, weak  ) MusicPlayTool * mpt;
 @property (nonatomic        ) BOOL showBlurImage_lrc;
 @property (nonatomic, copy  ) NSString * lastImageUrl;
@@ -84,7 +84,6 @@
 - (void)addViews {
     self.backgroundColor = [UIColor blackColor];
     self.mpb  = MpbShare;
-    self.mplt = MpltShare;
     self.mpt  = MptShare;
     
     [self addCovers];

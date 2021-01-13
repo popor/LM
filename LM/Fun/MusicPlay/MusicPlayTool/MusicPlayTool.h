@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MusicPlayListTool.h"
+#import "MusicFolderEntity.h"
 
 #import <AVFoundation/AVFoundation.h>
 
