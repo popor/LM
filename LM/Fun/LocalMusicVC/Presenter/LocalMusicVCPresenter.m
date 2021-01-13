@@ -25,7 +25,8 @@ API_AVAILABLE(ios(12.0))
 @property (nonatomic, weak  ) MusicPlayBar * mpb;
 @property (nonatomic, weak  ) MusicFolderEntity * mplt;
 @property (nonatomic, weak  ) MusicConfigShare  * configShare;
-@property (nonatomic, weak  ) MusicInfoCell * lastCell;
+@property (nonatomic, weak  ) MusicInfoCell * lastPlayCell;
+@property (nonatomic, weak  ) MusicInfoCell * lastPinYinScrolledCell; // 最后依据拼音顺序滑动的cell
 
 @property (nonatomic, strong) AlertBubbleView * songFolderAbView;
 
@@ -165,7 +166,7 @@ API_AVAILABLE(ios(12.0))
         if (index > -1) {
             [self.mpb playSongArray:fileEntity.itemArray
                                  at:index
-                           autoPlay:YES
+                           autoPlay:NO
                          playFileID:fileEntity.fileID
                           searchKey:@""];
         }
@@ -504,7 +505,7 @@ API_AVAILABLE(ios(12.0))
             cell.subtitleL.textColor  = ColorThemeBlue1;
             //cell.rightIV.hidden   = NO;
             [cell.addBt setImage:self.addImageS forState:UIControlStateNormal];
-            self.lastCell = cell;
+            self.lastPlayCell = cell;
         }else{
             cell.titelL.textColor = App_colorTextN1;
             cell.subtitleL.textColor  = App_colorTextN2;
@@ -648,15 +649,39 @@ API_AVAILABLE(ios(12.0))
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString*)title atIndex:(NSInteger)index {
-    FileSortEntity * fse = self.view.sortEntityArray[index];
-    //NSLog(@"row: %li, pinyin:%@", fse.row, fse.pinYin);
-    [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:fse.row inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
-    
-    AlertToastTitle(fse.pinYin);
     FeedbackShakePhone
+    
+    FileSortEntity * fse = self.view.sortEntityArray[index];
+    
+    NSIndexPath * toIP = [NSIndexPath indexPathForRow:fse.row inSection:0];
+    [tableView scrollToRowAtIndexPath:toIP atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    
+    MusicInfoCell * cell = [tableView cellForRowAtIndexPath:toIP];
+    
+    [cell.addBt setTitle:fse.pinYin forState:UIControlStateNormal];
+    [cell.addBt setImage:nil        forState:UIControlStateNormal];
+    
+    if (self.lastPinYinScrolledCell == cell) {
+    //    [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(resumeLastPinYinScrolledCellStatus) object:nil];
+    } else {
+        [self resumeLastPinYinScrolledCellStatus];
+        self.lastPinYinScrolledCell = cell;
+    }
+    // [self performSelector:@selector(resumeLastPinYinScrolledCellStatus) withObject:nil afterDelay:2];
     
     return fse.row;
 }
+
+- (void)resumeLastPinYinScrolledCellStatus {
+    if (self.lastPinYinScrolledCell) {
+        [self.lastPinYinScrolledCell.addBt setImage:self.addImageN forState:UIControlStateNormal];
+        [self.lastPinYinScrolledCell.addBt setTitle:nil            forState:UIControlStateNormal];
+        
+        self.lastPinYinScrolledCell = nil;
+    }
+}
+
+
 
 #pragma mark - TV select
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -674,7 +699,7 @@ API_AVAILABLE(ios(12.0))
                 [self selectRootCellIP:indexPath];
             }
         } else {
-            [self selectDetailCellIP:indexPath];
+            [self selectDetailCellIP:indexPath autoPlay:YES];
         }
     }
     else if (tableView == self.view.songFolderTV) {
@@ -757,7 +782,7 @@ API_AVAILABLE(ios(12.0))
     }
 }
 
-- (void)selectDetailCellIP:(NSIndexPath *)indexPath {
+- (void)selectDetailCellIP:(NSIndexPath *)indexPath autoPlay:(BOOL)autoPlay {
     FileEntity * fileEntity;
     NSMutableArray<FileEntity> * itemArray;
     
@@ -774,19 +799,19 @@ API_AVAILABLE(ios(12.0))
     {
         [self.mpb playSongArray:itemArray
                              at:indexPath.row
-                       autoPlay:YES
+                       autoPlay:autoPlay
                      playFileID:self.view.playFileID
                       searchKey:self.view.playSearchKey];
         
-        if (self.lastCell) {
-            self.lastCell.titelL.textColor = App_colorTextN1;
-            self.lastCell.subtitleL.textColor  = App_colorTextN2;
-            //self.lastCell.rightIV.hidden   = YES;
+        if (self.lastPlayCell) {
+            self.lastPlayCell.titelL.textColor = App_colorTextN1;
+            self.lastPlayCell.subtitleL.textColor  = App_colorTextN2;
+            //self.lastPlayCell.rightIV.hidden   = YES;
             
             // 刷新搜索状态
             if ([self isSearchArray]) {
-                [self attLable:self.lastCell.titelL searchText:self.view.searchBar.text];
-                [self attLable:self.lastCell.subtitleL searchText:self.view.searchBar.text];
+                [self attLable:self.lastPlayCell.titelL searchText:self.view.searchBar.text];
+                [self attLable:self.lastPlayCell.subtitleL searchText:self.view.searchBar.text];
             }
         }
         {
@@ -795,12 +820,12 @@ API_AVAILABLE(ios(12.0))
             cell.subtitleL.textColor  = ColorThemeBlue1;
             //cell.rightIV.hidden   = NO;
             
-            self.lastCell = cell;
+            self.lastPlayCell = cell;
             
             // 刷新搜索状态
             if ([self isSearchArray]) {
-                [self attLable:self.lastCell.titelL searchText:self.view.searchBar.text];
-                [self attLable:self.lastCell.subtitleL searchText:self.view.searchBar.text];
+                [self attLable:self.lastPlayCell.titelL searchText:self.view.searchBar.text];
+                [self attLable:self.lastPlayCell.subtitleL searchText:self.view.searchBar.text];
             }
         }
         

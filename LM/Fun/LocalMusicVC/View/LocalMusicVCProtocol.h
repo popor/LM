@@ -66,8 +66,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)aimAtCurrentItem:(UIButton * _Nullable)bt;
 
+// 播放歌单
+- (void)selectDetailCellIP:(NSIndexPath *)indexPath autoPlay:(BOOL)autoPlay;
+
 // detailVC 的时候, 返回播放列表
 - (NSMutableArray *)currentSongArray;
+
+// 恢复滑动拼音Cell的事件
+- (void)resumeLastPinYinScrolledCellStatus;
 
 // 长按手势
 - (void)cellGrNullAction_all;

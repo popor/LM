@@ -34,6 +34,9 @@
     self.addBt = ({
         UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame =  CGRectMake(0, 0, 30, 30);
+        [button setTitleColor:UIColor.redColor forState:UIControlStateNormal];
+        button.titleLabel.font = [UIFont systemFontOfSize:30];
+        
         [self.contentView addSubview:button];
         
         button;

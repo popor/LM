@@ -163,7 +163,7 @@
             FileEntity * entity = songArray[index];
             if ([entity.filePath isEqualToString:self.autoPlayFilePath]) {
                 NSIndexPath * ip = [NSIndexPath indexPathForRow:index inSection:0];
-                [self.present tableView:self.infoTV didSelectRowAtIndexPath:ip];
+                [self.present selectDetailCellIP:ip autoPlay:NO];
                 break;
             }
         }
@@ -479,9 +479,20 @@
 - (void)cellGrMoveAction {
     [self.present cellGrMoveAction];
 }
+
 #pragma mark 实现成为第一响应者方法
 - (BOOL)canBecomeFirstResponder{
     return YES;
 }
+
+
+#pragma mark 点击事件
+//- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+//    [self.present resumeLastPinYinScrolledCellStatus];
+//}
+//
+//- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+//    [self.present resumeLastPinYinScrolledCellStatus];
+//}
 
 @end
