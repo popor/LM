@@ -52,7 +52,7 @@
             _config     = [MusicConfig new];
         }
         
-        _currentTempList = [NSMutableArray<FileEntity> new];
+        
         
         [self addMgjrouter];
     }

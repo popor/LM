@@ -129,6 +129,7 @@
         instance = [MusicPlayListShare new];
         [instance resumeFavRecordData];
         instance.allFileEntityDic = [NSMutableDictionary new];
+        instance.currentTempList  = [NSMutableArray<FileEntity> new];
     });
     return instance;
 }

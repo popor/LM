@@ -377,12 +377,12 @@ API_AVAILABLE(ios(12.0))
             colorFull                = YES;
             
             // text
-            if (self.mplt.config.playSearchKey.length > 0 && self.mplt.currentWeakList && self.mpb.weakLastPlayArray != entity.itemArray) {
-                cell.titelL.text = [NSString stringWithFormat:@"%@ %li首 (搜索: %@  %li首)", entity.fileName, entity.itemArray.count, self.mplt.config.playSearchKey, self.mplt.currentTempList.count];
+            if (self.mplt.config.playSearchKey.length > 0 && self.interactor.mplShare.currentWeakList && self.mpb.weakLastPlayArray != entity.itemArray) {
+                cell.titelL.text = [NSString stringWithFormat:@"%@ %li首 (搜索: %@  %li首)", entity.fileName, entity.itemArray.count, self.mplt.config.playSearchKey, self.interactor.mplShare.currentTempList.count];
                 
                 NSMutableAttributedString * att = [NSMutableAttributedString new];
                 [att addString:[NSString stringWithFormat:@"%@ %li首(", entity.fileName, entity.itemArray.count] font:cell.titelL.font color:cell.subtitleL.textColor];
-                [att addString:[NSString stringWithFormat:@"搜索: %@  %li首", self.mplt.config.playSearchKey, self.mplt.currentTempList.count] font:cell.titelL.font color:App_colorRed1];
+                [att addString:[NSString stringWithFormat:@"搜索: %@  %li首", self.mplt.config.playSearchKey, self.interactor.mplShare.currentTempList.count] font:cell.titelL.font color:App_colorRed1];
                 [att addString:@")" font:cell.titelL.font color:cell.subtitleL.textColor];
                 
                 cell.titelL.attributedText = att;

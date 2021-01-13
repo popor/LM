@@ -50,6 +50,9 @@ typedef NS_ENUM(int, MpViewOrder) {
 @property (nonatomic, strong) NSMutableDictionary * allFileEntityDic;
 @property (nonatomic, strong) FileEntity * _Nullable allFileEntity; // 全部音乐文件.
 
+@property (nonatomic, weak  ) NSMutableArray * currentWeakList; // 针对保存的歌单
+@property (nonatomic, strong) NSMutableArray<FileEntity> * currentTempList; // 针对本地歌单
+
 + (instancetype)share;
 
 + (NSString *)listFilePath;

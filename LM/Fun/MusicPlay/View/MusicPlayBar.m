@@ -47,6 +47,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     if (self = [super init]) {
         self.mpt  = MptShare;
         self.mplt = MpltShare;
+        self.mplShare = [MusicPlayListShare share];
         self.backgroundColor = App_colorBg1;
         
         self.playHistoryArray = [NSMutableArray<FileEntity> new];
@@ -444,12 +445,12 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     BOOL needRecordPlayHistoryAtFront = NO;
     
     // 用于判断是否需要更新列表
-    NSString * arrayDesOld = [self playArrayDes:self.mplt.currentTempList];
+    NSString * arrayDesOld = [self playArrayDes:self.mplShare.currentTempList];
     NSString * arrayDesNew = [self playArrayDes:itemArray];
     
     if (![arrayDesOld isEqualToString:arrayDesNew]) {
-        [self.mplt.currentTempList removeAllObjects];
-        [self.mplt.currentTempList addObjectsFromArray:itemArray];
+        [self.mplShare.currentTempList removeAllObjects];
+        [self.mplShare.currentTempList addObjectsFromArray:itemArray];
         
         self.weakLastPlayArray = itemArray;
         needRecordPlayHistoryAtFront = NO;
@@ -467,12 +468,12 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     //NSLogInteger(index);
     self.mplt.config.currentPlayIndexRow = index;
     
-    self.mplt.currentWeakList = self.mplt.currentTempList;
+    self.mplShare.currentWeakList = self.mplShare.currentTempList;
     self.playBT.selected      = autoPlay;
     self.playSearchLocalItem  = YES;
     
     
-    self.currentItem = self.mplt.currentWeakList[index];
+    self.currentItem = self.mplShare.currentWeakList[index];
     [self playItem:self.currentItem autoPlay:autoPlay];
     
     // 更新播放历史
@@ -500,9 +501,9 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 }
 
 - (void)playEvent {
-    if (self.mplt.currentWeakList.count>0) {
+    if (self.mplShare.currentWeakList.count>0) {
         if (!self.currentItem) {
-            self.currentItem = self.mplt.currentWeakList[0];
+            self.currentItem = self.mplShare.currentWeakList[0];
         }
         [self playItem:self.currentItem autoPlay:YES];
     }
@@ -517,7 +518,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 - (void)previousBTEvent {
     FeedbackShakePhone
     
-    if (self.mplt.currentWeakList.count>0) {
+    if (self.mplShare.currentWeakList.count>0) {
         NSInteger index = -1;
         BOOL needUpdateHistory = NO;
         // 假如是随机的话, 要检查当前顺序
@@ -525,7 +526,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
             self.playHistoryIndex--;
             if (self.playHistoryIndex >= 0) { // 只有当大于-1的时候, 才会处理播放历史, 否则还是播放其他的
                 FileEntity * fe = self.playHistoryArray[self.playHistoryIndex];
-                index = [self.mplt.currentTempList indexOfObject:fe];
+                index = [self.mplShare.currentTempList indexOfObject:fe];
             }
         }
         if (index == -1) {
@@ -536,7 +537,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
             self.mplt.config.currentPlayIndexRow = index;
         }
         
-        self.currentItem = self.mplt.currentWeakList[index];
+        self.currentItem = self.mplShare.currentWeakList[index];
         [self playItem:self.currentItem autoPlay:YES];
         
         self.playBT.selected = YES;
@@ -550,7 +551,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 - (void)nextBTEvent {
     FeedbackShakePhone
     
-    if (self.mplt.currentWeakList.count>0) {
+    if (self.mplShare.currentWeakList.count>0) {
         NSInteger index = -1;
         
         // 随机播放, 当播放历史没有到头, 则播放历史记录.
@@ -559,7 +560,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
             self.playHistoryIndex++;
             if (self.playHistoryIndex < self.playHistoryArray.count) {
                 FileEntity * fe = self.playHistoryArray[self.playHistoryIndex];
-                index = [self.mplt.currentTempList indexOfObject:fe];
+                index = [self.mplShare.currentTempList indexOfObject:fe];
             }
         }
         if (index == -1) {
@@ -570,7 +571,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
             self.mplt.config.currentPlayIndexRow = index;
         }
         
-        self.currentItem = self.mplt.currentWeakList[index];
+        self.currentItem = self.mplShare.currentWeakList[index];
         [self playItem:self.currentItem autoPlay:YES];
         
         self.playBT.selected = YES;
@@ -596,9 +597,9 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         case McPlayOrderSingle:
         default:{
             if (self.currentItem) {
-                index = [self.mplt.currentWeakList indexOfObject:self.currentItem] + 1;
+                index = [self.mplShare.currentWeakList indexOfObject:self.currentItem] + 1;
             }
-            index =  index % self.mplt.currentWeakList.count;
+            index =  index % self.mplShare.currentWeakList.count;
             break;
         }
     }
@@ -617,9 +618,9 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         case McPlayOrderSingle:
         default:{
             if (self.currentItem) {
-                index = [self.mplt.currentWeakList indexOfObject:self.currentItem] - 1;
+                index = [self.mplShare.currentWeakList indexOfObject:self.currentItem] - 1;
             }
-            index =  index % self.mplt.currentWeakList.count;
+            index =  index % self.mplShare.currentWeakList.count;
             break;
         }
     }
@@ -629,8 +630,8 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 
 
 - (NSInteger)randomNumber {
-    NSInteger index = arc4random() % self.mplt.currentWeakList.count;
-    if (index == self.mplt.config.currentPlayIndexRow && self.mplt.currentWeakList.count>1) {
+    NSInteger index = arc4random() % self.mplShare.currentWeakList.count;
+    if (index == self.mplt.config.currentPlayIndexRow && self.mplShare.currentWeakList.count>1) {
         return [self randomNumber];
     } else {
         return index;
@@ -688,7 +689,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
             [MGJRouter openURL:MUrl_freshFileData];
         }
         // 自己的歌单清空
-        [self.mplt.currentTempList removeObject:item];
+        [self.mplShare.currentTempList removeObject:item];
         
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

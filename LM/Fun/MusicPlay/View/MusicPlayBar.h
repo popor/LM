@@ -45,6 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak  ) MusicPlayTool       * mpt;
 @property (nonatomic, weak  ) MusicPlayListTool   * mplt;
+@property (nonatomic, weak  ) MusicPlayListShare  * mplShare;
 
 @property (nonatomic, weak  ) FileEntity * currentItem;
 

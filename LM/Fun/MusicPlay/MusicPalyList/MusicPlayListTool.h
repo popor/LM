@@ -27,8 +27,6 @@ static NSString * ErrorFolderName     = @"Error";// 错误
 + (MusicPlayListTool *)share;
 
 @property (nonatomic, strong) MusicConfig   * config;
-@property (nonatomic, strong) NSMutableArray<FileEntity> * currentTempList; // 针对本地歌单
-@property (nonatomic, weak  ) NSMutableArray * currentWeakList; // 针对保存的歌单
 
 + (NSString *)downloadFolderPath;
 
