@@ -21,24 +21,24 @@ typedef NS_ENUM(NSInteger, FileType) {
 @protocol FileEntity;
 @interface FileEntity : PoporJsonModel
 
-@property (nonatomic        ) FileType   fileType;
+@property (nonatomic        ) FileType fileType;
 @property (nonatomic, copy  ) NSString * fileID;
 
-@property (nonatomic, copy  ) NSString * folderName;
+@property (nonatomic, copy  ) NSString<Ignore> * folderName;
 @property (nonatomic, copy  ) NSString * fileName;
-@property (nonatomic, copy  ) NSString * fileNameDeleteExtension;
+@property (nonatomic, copy  ) NSString<Ignore> * fileNameDeleteExtension;
 @property (nonatomic, copy  ) NSString * filePath;
 @property (nonatomic, strong) NSMutableArray<FileEntity> * itemArray; //Ignore
 
 //----- 音乐文件;
-@property (nonatomic, copy  ) NSString * musicAuthor; // 本APP 的歌手和歌名, 并没有读取mp3的文件属性, 只是根据文件名字分析出来.
-@property (nonatomic, copy  ) NSString * musicName;
-@property (nonatomic        ) CGFloat    musicDuration;
-@property (nonatomic, copy  ) UIImage  * musicCover;
+@property (nonatomic, copy  ) NSString<Ignore> * musicAuthor; // 本APP 的歌手和歌名, 并没有读取mp3的文件属性, 只是根据文件名字分析出来.
+@property (nonatomic, copy  ) NSString<Ignore> * musicName;
+@property (nonatomic, copy  ) UIImage <Ignore> * musicCover;
+@property (nonatomic        ) CGFloat musicDuration;
 
 // 额外参数
-@property (nonatomic, getter=isAvailable) BOOL available; // 是否还存在
-@property (nonatomic        ) NSInteger index;
+//@property (nonatomic, getter=isAvailable) BOOL available; // 是否还存在
+//@property (nonatomic        ) NSInteger index;
 
 - (BOOL)isFolder;
 
