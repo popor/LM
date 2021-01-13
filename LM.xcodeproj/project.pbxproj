@@ -21,7 +21,7 @@
 		183BF427224A22EC004DE115 /* RootVCInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 183BF420224A22EC004DE115 /* RootVCInteractor.m */; };
 		183BF428224A22EC004DE115 /* RootVCPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 183BF423224A22EC004DE115 /* RootVCPresenter.m */; };
 		184CD1CB224CA66800241B9C /* MusicPlayBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 184CD1CA224CA66800241B9C /* MusicPlayBar.m */; };
-		1856158E224DBF0E004BE073 /* MusicPlayList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1856158D224DBF0E004BE073 /* MusicPlayList.m */; };
+		1856158E224DBF0E004BE073 /* MusicPlayListEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 1856158D224DBF0E004BE073 /* MusicPlayListEntity.m */; };
 		18561595224DC089004BE073 /* MusicConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 18561594224DC089004BE073 /* MusicConfig.m */; };
 		185615AD224DC23A004BE073 /* WifiAddFileVCPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 185615A3224DC239004BE073 /* WifiAddFileVCPresenter.m */; };
 		185615AE224DC23A004BE073 /* WifiAddFileVCInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 185615A6224DC239004BE073 /* WifiAddFileVCInteractor.m */; };
@@ -111,8 +111,8 @@
 		183BF424224A22EC004DE115 /* RootVCPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootVCPresenter.h; sourceTree = "<group>"; };
 		184CD1C9224CA66800241B9C /* MusicPlayBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicPlayBar.h; sourceTree = "<group>"; };
 		184CD1CA224CA66800241B9C /* MusicPlayBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicPlayBar.m; sourceTree = "<group>"; };
-		1856158C224DBF0E004BE073 /* MusicPlayList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicPlayList.h; sourceTree = "<group>"; };
-		1856158D224DBF0E004BE073 /* MusicPlayList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicPlayList.m; sourceTree = "<group>"; };
+		1856158C224DBF0E004BE073 /* MusicPlayListEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicPlayListEntity.h; sourceTree = "<group>"; };
+		1856158D224DBF0E004BE073 /* MusicPlayListEntity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicPlayListEntity.m; sourceTree = "<group>"; };
 		18561593224DC089004BE073 /* MusicConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicConfig.h; sourceTree = "<group>"; };
 		18561594224DC089004BE073 /* MusicConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicConfig.m; sourceTree = "<group>"; };
 		185615A3224DC239004BE073 /* WifiAddFileVCPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WifiAddFileVCPresenter.m; sourceTree = "<group>"; };
@@ -668,8 +668,8 @@
 		C3D58B6D25174A4600A40108 /* entity */ = {
 			isa = PBXGroup;
 			children = (
-				1856158C224DBF0E004BE073 /* MusicPlayList.h */,
-				1856158D224DBF0E004BE073 /* MusicPlayList.m */,
+				1856158C224DBF0E004BE073 /* MusicPlayListEntity.h */,
+				1856158D224DBF0E004BE073 /* MusicPlayListEntity.m */,
 			);
 			path = entity;
 			sourceTree = "<group>";
@@ -902,7 +902,7 @@
 				185615AE224DC23A004BE073 /* WifiAddFileVCInteractor.m in Sources */,
 				C39396F62536D3F400409025 /* LrcView.m in Sources */,
 				184CD1CB224CA66800241B9C /* MusicPlayBar.m in Sources */,
-				1856158E224DBF0E004BE073 /* MusicPlayList.m in Sources */,
+				1856158E224DBF0E004BE073 /* MusicPlayListEntity.m in Sources */,
 				183BF426224A22EC004DE115 /* RootVC.m in Sources */,
 				189A5DEE225C94A8001E8A9D /* AppNetRecordConfig.m in Sources */,
 				E431E50C25A19C3A0024C67B /* NetMusicVC.m in Sources */,

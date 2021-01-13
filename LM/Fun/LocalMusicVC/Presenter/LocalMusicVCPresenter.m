@@ -216,7 +216,7 @@ API_AVAILABLE(ios(12.0))
     }
     
     else{
-        return  MAX(self.interactor.mplShare.list.songListArray.count, 1);
+        return  MAX(self.interactor.mplShare.songFavListEntity.songListArray.count, 1);
     }
 }
 
@@ -370,7 +370,7 @@ API_AVAILABLE(ios(12.0))
             cell.backgroundColor = [UIColor clearColor];
             cell.textLabel.textColor = App_colorTextN1;
         }
-        FileEntity * list = self.interactor.mplShare.list.songListArray[indexPath.row];
+        FileEntity * list = self.interactor.mplShare.songFavListEntity.songListArray[indexPath.row];
         if (list) {
             cell.textLabel.text = list.fileName;
         } else {
@@ -598,7 +598,7 @@ API_AVAILABLE(ios(12.0))
     BOOL enable = [self tableView:tableView canMoveRowAtIndexPath:destinationIndexPath];
     if (enable) {
         // 更新 plist部分
-        [self.interactor.mplShare.list.songListArray exchangeObjectAtIndex:sourceIndexPath.row-1 withObjectAtIndex:destinationIndexPath.row-1];
+        [self.interactor.mplShare.songFavListEntity.songListArray exchangeObjectAtIndex:sourceIndexPath.row-1 withObjectAtIndex:destinationIndexPath.row-1];
         [self.interactor updateSongList];
         
         // 更新本地 record
@@ -693,7 +693,7 @@ API_AVAILABLE(ios(12.0))
     else {
         FeedbackShakePhone
         
-        FileEntity * list = self.interactor.mplShare.list.songListArray[indexPath.row];
+        FileEntity * list = self.interactor.mplShare.songFavListEntity.songListArray[indexPath.row];
         if (list) {
             if (!list.itemArray) {
                 list.itemArray = [NSMutableArray<FileEntity> new];
@@ -1204,7 +1204,7 @@ API_AVAILABLE(ios(12.0))
             
             [self.interactor.localArray removeObject:entity];
         } else {
-            [self.interactor.mplShare.list.songListArray removeObject:entity];
+            [self.interactor.mplShare.songFavListEntity.songListArray removeObject:entity];
             [self.interactor updateSongList];
             [self.interactor freshFavFolderEvent];
         }

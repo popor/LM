@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MusicPlayList.h"
+#import "MusicPlayListEntity.h"
 #import "LrcKugouListEntity.h"
 #import "LrcKugouDetailEntity.h"
 

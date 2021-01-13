@@ -19,7 +19,7 @@
 
 - (id)init {
     if (self = [super init]) {
-        self.mplShare = [MusicPlayListShare share];
+        self.mplShare = [MusicPlayListEntityShare share];
     }
     return self;
 }
@@ -118,7 +118,7 @@
         self.mplShare.allFileEntityDic[fe.filePath] = fe;
     }
     
-    for (FileEntity *fe in self.mplShare.list.songListArray) {
+    for (FileEntity *fe in self.mplShare.songFavListEntity.songListArray) {
         
         FileEntity * listFE = [FileEntity new];
         listFE.fileName   = fe.fileName;
@@ -133,8 +133,8 @@
         }
     }
     // 重置记录list, 使得他们使用同一个地址
-    [self.mplShare.list.songListArray removeAllObjects];
-    [self.mplShare.list.songListArray addObjectsFromArray:self.mplShare.songListArray];
+    [self.mplShare.songFavListEntity.songListArray removeAllObjects];
+    [self.mplShare.songFavListEntity.songListArray addObjectsFromArray:self.mplShare.songListArray];
     
     [self.mplShare.songListArray insertObject:self.mplShare.allFileEntity atIndex:0];
 }
@@ -143,7 +143,7 @@
     FileEntity * list = [FileEntity new];
     list.fileName   = name;
     list.fileID     = [NSString getUUID];
-    [self.mplShare.list.songListArray addObject:list];
+    [self.mplShare.songFavListEntity.songListArray addObject:list];
     [self updateSongList];
 }
 

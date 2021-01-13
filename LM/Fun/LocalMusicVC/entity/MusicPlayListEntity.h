@@ -1,5 +1,5 @@
 //
-//  MusicPlayList.h
+//  MusicPlayListEntity.h
 //  LM
 //
 //  Created by apple on 2019/3/29.
@@ -23,14 +23,14 @@ typedef NS_ENUM(int, MpViewOrder) {
 
 #define MpViewOrderTitleArray    @[@"歌手名称: 正序", @"歌手名称: 倒序", @"歌曲名称: 正序", @"歌曲名称: 倒序", @"自定义: 正序", @"自定义: 倒序"]
 
-@protocol  MusicPlayList;
-@interface MusicPlayList : PoporJsonModel
+@protocol  MusicPlayListEntity;
+@interface MusicPlayListEntity : PoporJsonModel
 
 @property (nonatomic, strong) NSMutableArray<FileEntity> * songListArray;
 
 @end
 
-@interface MusicPlayListShare : NSObject
+@interface MusicPlayListEntityShare : NSObject
 
 @property (nonatomic, strong) NSMutableDictionary * allFileEntityDic;
 @property (nonatomic, strong) FileEntity * _Nullable allFileEntity; // 全部音乐文件.
@@ -41,7 +41,7 @@ typedef NS_ENUM(int, MpViewOrder) {
  */
 @property (nonatomic, strong) NSMutableArray<FileEntity> * songListArray;
 
-@property (nonatomic, strong) MusicPlayList * list;
+@property (nonatomic, strong) MusicPlayListEntity * songFavListEntity;
 
 // 歌曲文件夹
 @property (nonatomic, strong) NSMutableArray<FileEntity> * songFolderArray;

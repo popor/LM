@@ -1,18 +1,18 @@
 //
-//  MusicPlayList.m
+//  MusicPlayListEntity.m
 //  LM
 //
 //  Created by apple on 2019/3/29.
 //  Copyright © 2019 popor. All rights reserved.
 //
 
-#import "MusicPlayList.h"
+#import "MusicPlayListEntity.h"
 
 #import "MusicFolderEntity.h"
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
 
-@implementation MusicPlayList
+@implementation MusicPlayListEntity
 
 - (id)init {
     if (self = [super init]) {
@@ -25,13 +25,13 @@
 @end
 
 
-@implementation MusicPlayListShare
+@implementation MusicPlayListEntityShare
 
 + (instancetype)share {
     static dispatch_once_t once;
-    static MusicPlayListShare * instance;
+    static MusicPlayListEntityShare * instance;
     dispatch_once(&once, ^{
-        instance = [MusicPlayListShare new];
+        instance = [MusicPlayListEntityShare new];
         [instance resumeFavRecordData];
         instance.allFileEntityDic = [NSMutableDictionary new];
         instance.currentTempList  = [NSMutableArray<FileEntity> new];
@@ -40,17 +40,16 @@
 }
 
 - (void)resumeFavRecordData {
-    NSData * listData   = [NSData dataWithContentsOfFile:[[self class] listFilePath]];
+    NSData * listData = [NSData dataWithContentsOfFile:[[self class] listFilePath]];
     if (listData) {
-        //_list = [[MusicPlayList alloc] initWithString:[[NSString alloc] initWithData:listData encoding:NSUTF8StringEncoding] error:nil];
-        self.list = [[MusicPlayList alloc] initWithData:listData error:nil];
+        self.songFavListEntity = [[MusicPlayListEntity alloc] initWithData:listData error:nil];
     } else {
-        self.list = [MusicPlayList new];
+        self.songFavListEntity = [MusicPlayListEntity new];
     }
 }
 
 - (void)updateSongList {
-    [self.list.toJSONData writeToFile:[[self class] listFilePath] atomically:YES];
+    [self.songFavListEntity.toJSONData writeToFile:[[self class] listFilePath] atomically:YES];
     
     //    NSString * path = [self listFilePath];
     //    NSString * json = [self.list toJSONString];

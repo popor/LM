@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 
 #import "FileTool.h"
-#import "MusicPlayList.h"
+#import "MusicPlayListEntity.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,11 +17,9 @@ static NSString * KRootCellFolderName_all = @".allFile.";
 // 处理Entity事件
 @interface LocalMusicVCInteractor : NSObject
 
-@property (nonatomic, weak  ) MusicPlayListShare * mplShare;
+@property (nonatomic, weak  ) MusicPlayListEntityShare * mplShare;
 
-//@property (nonatomic, strong) NSMutableArray<FileEntity> * recordArray; // 收藏文件夹
 @property (nonatomic, weak  ) NSMutableArray<FileEntity> * localArray;  // 本地文件夹
-
 
 
 - (void)initData;

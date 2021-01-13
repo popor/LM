@@ -47,7 +47,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 - (id)init {
     if (self = [super init]) {
         self.mpt  = MptShare;
-        self.mplShare = [MusicPlayListShare share];
+        self.mplShare = [MusicPlayListEntityShare share];
         self.backgroundColor = App_colorBg1;
         
         self.playHistoryArray = [NSMutableArray<FileEntity> new];

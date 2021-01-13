@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "MusicFolderEntity.h"
-#import "MusicPlayList.h"
+#import "MusicPlayListEntity.h"
 #import "MusicPlayTool.h"
 #import "LrcDetailEntity.h"
 
@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 //@property (nonatomic, strong) UIButton * exitPlaySearchLocalBT; //退出播放搜索结果模式
 
 @property (nonatomic, weak  ) MusicPlayTool       * mpt;
-@property (nonatomic, weak  ) MusicPlayListShare  * mplShare;
+@property (nonatomic, weak  ) MusicPlayListEntityShare  * mplShare;
 
 @property (nonatomic, weak  ) FileEntity * currentItem;
 
