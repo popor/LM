@@ -291,13 +291,29 @@
     
     [commandCenter.previousTrackCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
         //NSLog(@"上一首");
+        UIButton * bt = MpbShare.previousBT;
+        
+        bt.enabled = NO;
         [MpbShare previousBTEvent];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            bt.enabled = YES;
+        });
+        
         return MPRemoteCommandHandlerStatusSuccess;
     }];
     
     [commandCenter.nextTrackCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
         //NSLog(@"下一首");
+        UIButton * bt = MpbShare.nextBT;
+        
+        bt.enabled = NO;
         [MpbShare nextBTEvent];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            bt.enabled = YES;
+        });
+        
         return MPRemoteCommandHandlerStatusSuccess;
     }];
     
