@@ -675,6 +675,8 @@ static CGFloat MPBTimeLabelWidth1 = 57;
             self.mpt.nextMusicBlock_detailVC();
         }
     } else {
+        self.configShare.config.playFilePath = @"";
+        self.configShare.config.playFileNameDeleteExtension = @"";
         
         if (![item.folderName isEqualToString:ErrorFolderName]) {
             NSString * originPath = [NSString stringWithFormat:@"%@/%@", FT_docPath, item.filePath];
@@ -687,14 +689,19 @@ static CGFloat MPBTimeLabelWidth1 = 57;
             
             // 刷新rootData
             [MGJRouter openURL:MUrl_freshFileData];
+        } else {
+            AlertToastTitle(@"无法播放音乐");
         }
         // 自己的歌单清空
         [self.mplShare.currentTempList removeObject:item];
         
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self nextBTEvent];
-        });
+        if (self.mplShare.currentTempList.count > 0) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self nextBTEvent];
+            });
+        } else {
+            AlertToastTitle(@"歌单中无可用文件");
+        }
     }
    
 }
