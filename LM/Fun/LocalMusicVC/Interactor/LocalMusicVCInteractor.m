@@ -25,6 +25,9 @@
 }
 
 - (void)initData {
+    
+    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
+    
 #if TARGET_OS_MACCATALYST
     self.mplShare.diskFolderArray = [FileTool getArrayAtPath:MusicFolderName type:FileType_folder];
 #else
@@ -54,7 +57,8 @@
         
         // 排序
         NSArray *result = [itemArray sortedArrayUsingComparator:^NSComparisonResult(FileEntity * _Nonnull obj1, FileEntity * _Nonnull obj2) {
-            return [obj1.fileNameDeleteExtension compare:obj2.fileNameDeleteExtension]; //升序
+            NSRange string1Range = NSMakeRange(0, [obj1.fileNameDeleteExtension length]);
+            return [obj1.fileNameDeleteExtension compare:obj2.fileNameDeleteExtension options:0 range:string1Range locale:locale];
         }];
         folderEntity.itemArray = result.mutableCopy;
         
