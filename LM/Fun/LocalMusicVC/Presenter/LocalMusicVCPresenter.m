@@ -84,6 +84,7 @@ API_AVAILABLE(ios(12.0))
         
         UIColor * color = ColorThemeBlue1;
         self.cellLeftImage_downloadS  = [UIImage imageFromImage:self.cellLeftImage_downloadN changecolor:color];
+        self.cellLeftImage_errorN     = [UIImage imageFromImage:self.cellLeftImage_errorN    changecolor:UIColor.redColor];
         self.cellLeftImage_errorS     = [UIImage imageFromImage:self.cellLeftImage_errorN    changecolor:color];
         self.cellLeftImage_fileS      = [UIImage imageFromImage:self.cellLeftImage_fileN     changecolor:color];
         self.cellLeftImage_listS      = [UIImage imageFromImage:self.cellLeftImage_listN     changecolor:color];
