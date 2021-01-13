@@ -887,6 +887,9 @@ API_AVAILABLE(ios(12.0))
             [self.view.searchArray addObject:fileEntity];
         }
     }
+    if (self.view.searchArray.count == 0) {
+        AlertToastTitle(@"未找到匹配文件");
+    }
     //NSLogIntegerTitle(self.view.searchArray.count, @"搜索数据");
     [self.view.infoTV reloadData];
 }
