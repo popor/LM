@@ -136,7 +136,15 @@
     
     {
         [self addHeadSegmentViews];
+        
+        // 组合, 否则显示和pop回来之后的效果不一样
         self.navigationItem.titleView = self.segmentView;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.navigationItem.titleView = nil;
+        });
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.navigationItem.titleView = self.segmentView;
+        });
         
         [self addSVs];
         
@@ -265,12 +273,11 @@
         segmentView.btTitleSColor = App_colorTextS1;
         segmentView.btTitleColorGradualChange = YES;
         
-        segmentView.btTitleNFont  = PFONT16;
+        segmentView.btTitleNFont  = [UIFont boldSystemFontOfSize:16];
         segmentView.lineColor     = ColorThemeBlue1;
         
         [segmentView setUI];
         
-        [self.view addSubview:segmentView];
         segmentView;
     });
 }
