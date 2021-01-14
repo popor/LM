@@ -45,6 +45,7 @@
 @synthesize sortTextSearchArray;
 
 @synthesize sortType;
+@synthesize sortTypeSearch;
 
 - (void)dealloc {
     [MGJRouter openURL:MUrl_freshRootTV];

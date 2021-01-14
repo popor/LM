@@ -690,6 +690,7 @@ API_AVAILABLE(ios(12.0))
     NSString * lastText  = @"";
     
     // 先排序歌手
+    self.view.sortTypeSearch = FileSortType_author;
     for (NSInteger index = 0; index <originEntityArray.count; index++) {
         FileEntity * fe = originEntityArray[index];
         if (![fe.pinYinAuthorFirst isEqualToString:lastText]) {
@@ -707,6 +708,7 @@ API_AVAILABLE(ios(12.0))
     if (entityArray.count == 1) {
         [entityArray removeAllObjects];
         lastText  = @"";
+        self.view.sortTypeSearch = FileSortType_song;
         for (NSInteger index = 0; index <originEntityArray.count; index++) {
             FileEntity * fe = originEntityArray[index];
             if (![fe.pinYinSongFirst isEqualToString:lastText]) {
@@ -746,6 +748,20 @@ API_AVAILABLE(ios(12.0))
     [cell.addBt setTitle:fse.pinYin forState:UIControlStateNormal];
     [cell.addBt setImage:nil        forState:UIControlStateNormal];
     
+    if ([self isSearchArray]) {
+        if (self.view.sortTypeSearch == FileSortType_author) {
+            cell.subtitleL.textColor = UIColor.redColor;
+        } else {
+            cell.titelL.textColor = UIColor.redColor;
+        }
+    } else {
+        if (self.view.sortType == FileSortType_author) {
+            cell.subtitleL.textColor = UIColor.redColor;
+        } else {
+            cell.titelL.textColor = UIColor.redColor;
+        }
+    }
+    
     if (self.lastPinYinScrolledCell != cell) {
         [self resumeLastPinYinScrolledCellStatus];
         self.lastPinYinScrolledCell = cell;
@@ -758,6 +774,14 @@ API_AVAILABLE(ios(12.0))
     if (self.lastPinYinScrolledCell) {
         [self.lastPinYinScrolledCell.addBt setImage:self.addImageN forState:UIControlStateNormal];
         [self.lastPinYinScrolledCell.addBt setTitle:nil            forState:UIControlStateNormal];
+        
+        if (self.lastPinYinScrolledCell.cellData == self.mpb.currentItem.filePath) {
+            self.lastPinYinScrolledCell.titelL.textColor    = ColorThemeBlue1;
+            self.lastPinYinScrolledCell.subtitleL.textColor = ColorThemeBlue1;
+        } else {
+            self.lastPinYinScrolledCell.titelL.textColor    = App_colorTextN1;
+            self.lastPinYinScrolledCell.subtitleL.textColor = App_colorTextN2;
+        }
         
         self.lastPinYinScrolledCell = nil;
     }
