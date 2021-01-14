@@ -49,6 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy  ) NSString * playSearchKey;
 @property (nonatomic, copy  ) NSString * playFilePath;
 @property (nonatomic, copy  ) NSString * autoPlayFilePath;
+@property (nonatomic        ) FileSortType sortType;
 
 @end
 

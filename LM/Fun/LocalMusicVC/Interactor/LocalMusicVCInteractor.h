@@ -21,12 +21,15 @@ static NSString * KRootCellFolderName_all = @".allFile.";
 
 @property (nonatomic, weak  ) NSMutableArray<FileEntity> * localArray;  // 本地文件夹
 
-
+// 初始化物理文件夹等
 - (void)initData;
 
 - (void)addListName:(NSString *)name;
 - (void)updateSongList;
 - (void)freshFavFolderEvent;
+
+// 排序
+- (void)sortFileEntityArray:(NSArray<FileEntity> *)fileEntityArray finish:(void (^ _Nonnull)(FileSortType sortType, NSArray * sortArray))block;
 
 @end
 

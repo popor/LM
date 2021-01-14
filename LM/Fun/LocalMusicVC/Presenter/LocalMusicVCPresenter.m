@@ -153,6 +153,7 @@ API_AVAILABLE(ios(12.0))
             @"playFileID":fileEntity.fileID,
             @"playSearchKey":playSearchKey,
             @"autoPlayFilePath":self.configShare.config.playFilePath,
+            @"sortType":@(fileEntity.sortType),
         };
         [self.view.vc.navigationController pushViewController:[[LocalMusicVC alloc] initWithDic:dic] animated:YES];
     } else {
@@ -793,6 +794,7 @@ API_AVAILABLE(ios(12.0))
             @"folderType":@(fileEntity.fileType),
             @"playFileID":fileEntity.fileID,
             @"playSearchKey":playSearchKey,
+            @"sortType":@(fileEntity.sortType),
         };
         [self.view.vc.navigationController pushViewController:[[LocalMusicVC alloc] initWithDic:dic] animated:YES];
     }

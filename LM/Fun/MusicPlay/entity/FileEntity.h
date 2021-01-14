@@ -18,6 +18,13 @@ typedef NS_ENUM(NSInteger, FileType) {
     FileType_virtualFolder,
 };
 
+typedef NS_ENUM(NSInteger, FileSortType) {
+    FileSortType_null,
+    FileSortType_author,
+    FileSortType_song,
+};
+
+
 @protocol FileEntity;
 @interface FileEntity : PoporJsonModel
 
@@ -37,8 +44,14 @@ typedef NS_ENUM(NSInteger, FileType) {
 @property (nonatomic        ) CGFloat musicDuration;
 
 // 额外参数
-@property (nonatomic, copy  ) NSString<Ignore> * pinYinAuthor; // 歌手首拼音
-@property (nonatomic, copy  ) NSString<Ignore> * pinYinSong;   // 歌曲首拼音
+@property (nonatomic        ) FileSortType       sortType;     // 排序是歌手还是歌曲.
+@property (nonatomic, copy  ) NSString<Ignore> * pinYinAuthor;
+@property (nonatomic, copy  ) NSString<Ignore> * pinYinAuthorFirst;
+
+@property (nonatomic, copy  ) NSString<Ignore> * pinYinSong;
+@property (nonatomic, copy  ) NSString<Ignore> * pinYinSongFirst;
+
+@property (nonatomic, copy  ) NSString<Ignore> * pinYinAll;
 
 //@property (nonatomic, getter=isAvailable) BOOL available; // 是否还存在
 //@property (nonatomic        ) NSInteger index;

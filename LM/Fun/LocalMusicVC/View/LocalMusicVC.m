@@ -38,6 +38,7 @@
 
 @synthesize sortEntityArray;
 @synthesize sortTextArray;
+@synthesize sortType;
 
 - (void)dealloc {
     [MGJRouter openURL:MUrl_freshRootTV];
@@ -173,39 +174,47 @@
 // 排序
 - (void)sortPinYinArray {
     self.sortEntityArray = [NSMutableArray<FileSortEntity *> new];
-    
-    NSString * lastText = @"";
-    for (NSInteger index = 0; index <self.itemArray.count; index++) {
-        FileEntity * fe = self.itemArray[index];
-        if (![fe.pinYinAuthor isEqualToString:lastText]) {
-            lastText = fe.pinYinAuthor;
+    NSString * lastText  = @"";
+    //sortType = FileSortType_null;
+    switch (sortType) {
+        case FileSortType_null: {
             
-            FileSortEntity * fse = [FileSortEntity new];
-            fse.row    = index;
-            fse.pinYin = lastText;
-            
-            [self.sortEntityArray addObject:fse];
+            break;
         }
-    }
-    
-    if (self.sortEntityArray.count == 1) {
-        
-        lastText = @"";
-        [self.sortEntityArray removeAllObjects];
-        
-        for (NSInteger index = 0; index <self.itemArray.count; index++) {
-            FileEntity * fe = self.itemArray[index];
-            if (![fe.pinYinSong isEqualToString:lastText]) {
-                lastText = fe.pinYinSong;
-                
-                FileSortEntity * fse = [FileSortEntity new];
-                fse.row    = index;
-                fse.pinYin = lastText;
-                
-                [self.sortEntityArray addObject:fse];
+        case FileSortType_author: {
+            for (NSInteger index = 0; index <self.itemArray.count; index++) {
+                FileEntity * fe = self.itemArray[index];
+                if (![fe.pinYinAuthorFirst isEqualToString:lastText]) {
+                    lastText = fe.pinYinAuthorFirst;
+                    
+                    FileSortEntity * fse = [FileSortEntity new];
+                    fse.row    = index;
+                    fse.pinYin = lastText;
+                    
+                    [self.sortEntityArray addObject:fse];
+                }
             }
+            break;
         }
+        case FileSortType_song: {
+            for (NSInteger index = 0; index <self.itemArray.count; index++) {
+                FileEntity * fe = self.itemArray[index];
+                if (![fe.pinYinSongFirst isEqualToString:lastText]) {
+                    lastText = fe.pinYinSongFirst;
+                    
+                    FileSortEntity * fse = [FileSortEntity new];
+                    fse.row    = index;
+                    fse.pinYin = [lastText substringToIndex:1];
+                    
+                    [self.sortEntityArray addObject:fse];
+                }
+            }
+            break;
+        }
+        default:
+            break;
     }
+    
     if (self.sortEntityArray.count == 1) {
         [self.sortEntityArray removeAllObjects];
     }
