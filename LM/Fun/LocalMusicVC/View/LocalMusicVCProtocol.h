@@ -44,6 +44,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray<FileSortEntity *> * sortEntityArray;
 @property (nonatomic, strong) NSMutableArray<NSString *> * sortTextArray;
 
+@property (nonatomic, strong) NSMutableArray<FileSortEntity *> * sortEntitySearchArray;
+@property (nonatomic, strong) NSMutableArray<NSString *> * sortTextSearchArray;
+
 // MARK: 外部注入的
 @property (nonatomic, copy  ) NSString * playFileID;
 @property (nonatomic, copy  ) NSString * playSearchKey;

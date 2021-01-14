@@ -38,6 +38,10 @@
 
 @synthesize sortEntityArray;
 @synthesize sortTextArray;
+
+@synthesize sortEntitySearchArray;
+@synthesize sortTextSearchArray;
+
 @synthesize sortType;
 
 - (void)dealloc {
@@ -384,7 +388,7 @@
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     [[self.present class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(searchAction:) object:nil];
-    [self.present performSelector:@selector(searchAction:) withObject:searchBar afterDelay:0.5];
+    [self.present performSelector:@selector(searchAction:) withObject:searchBar afterDelay:0.6];
 }
 
 - (void)searchCancelAction {

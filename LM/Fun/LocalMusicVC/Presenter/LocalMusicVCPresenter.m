@@ -40,6 +40,8 @@ API_AVAILABLE(ios(12.0))
 
 @property (nonatomic        ) BOOL userSelectSongMoment;// 用户刚刚点击了歌曲.
 
+@property (nonatomic, copy  ) NSString * lastSearchText;
+
 // rootImage
 @property (nonatomic, strong) UIImage * cellLeftImage_downloadN;
 @property (nonatomic, strong) UIImage * cellLeftImage_downloadS;
@@ -643,26 +645,97 @@ API_AVAILABLE(ios(12.0))
 #pragma mark - TV select sectionIndexTitlesForTableView 索引
 - (NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView {
     if (!self.view.isRoot && tableView == self.view.infoTV) {
-        if (self.view.sortEntityArray.count > 0) {
-            if (!self.view.sortTextArray) {
-                self.view.sortTextArray = [NSMutableArray<NSString *> new];
-                for (FileSortEntity * fse in self.view.sortEntityArray) {
-                    [self.view.sortTextArray addObject:fse.pinYin];
-                }
+        //NSLog(@"排序: %@", self.view.searchBar.text);
+        if (self.view.searchArray.count > 0) {
+            // sortPinYinSearchArray
+            if (![self.lastSearchText isEqualToString:self.view.searchBar.text]) {
+                self.lastSearchText = self.view.searchBar.text;
+                
+                [self sortPinYinSearchArray];
             }
-            return self.view.sortTextArray;
+            
+            if (self.view.sortEntitySearchArray.count > 0) {
+                self.view.sortTextSearchArray = [NSMutableArray<NSString *> new];
+                for (FileSortEntity * fse in self.view.sortEntitySearchArray) {
+                    [self.view.sortTextSearchArray addObject:fse.pinYin];
+                }
+                return self.view.sortTextSearchArray;
+            } else {
+                return nil;
+            }
         } else {
-            return nil;
+            if (self.view.sortEntityArray.count > 0) {
+                if (!self.view.sortTextArray) {
+                    self.view.sortTextArray = [NSMutableArray<NSString *> new];
+                    for (FileSortEntity * fse in self.view.sortEntityArray) {
+                        [self.view.sortTextArray addObject:fse.pinYin];
+                    }
+                }
+                return self.view.sortTextArray;
+            } else {
+                return nil;
+            }
         }
     } else {
         return nil;
     }
 }
 
+// 搜索模式下的拼音排序
+- (void)sortPinYinSearchArray {
+    NSMutableArray * originEntityArray = self.view.searchArray;
+    NSMutableArray<FileSortEntity *> * entityArray = [NSMutableArray<FileSortEntity *> new];
+    self.view.sortEntitySearchArray = entityArray;
+    NSString * lastText  = @"";
+    
+    // 先排序歌手
+    for (NSInteger index = 0; index <originEntityArray.count; index++) {
+        FileEntity * fe = originEntityArray[index];
+        if (![fe.pinYinAuthorFirst isEqualToString:lastText]) {
+            lastText = fe.pinYinAuthorFirst;
+            
+            FileSortEntity * fse = [FileSortEntity new];
+            fse.row    = index;
+            fse.pinYin = lastText;
+            
+            [entityArray addObject:fse];
+        }
+    }
+        
+    // 检查歌手, 在排序歌名
+    if (entityArray.count == 1) {
+        [entityArray removeAllObjects];
+        lastText  = @"";
+        for (NSInteger index = 0; index <originEntityArray.count; index++) {
+            FileEntity * fe = originEntityArray[index];
+            if (![fe.pinYinSongFirst isEqualToString:lastText]) {
+                lastText = fe.pinYinSongFirst;
+                
+                FileSortEntity * fse = [FileSortEntity new];
+                fse.row    = index;
+                fse.pinYin = [lastText substringToIndex:1];
+                
+                [entityArray addObject:fse];
+            }
+        }
+        
+    }
+
+    
+    if (entityArray.count == 1) {
+        [entityArray removeAllObjects];
+    }
+    
+}
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString*)title atIndex:(NSInteger)index {
     FeedbackShakePhone
-    
-    FileSortEntity * fse = self.view.sortEntityArray[index];
+    NSMutableArray * entityArray;
+    if ([self isSearchArray]) {
+        entityArray = self.view.sortEntitySearchArray;
+    } else {
+        entityArray = self.view.sortEntityArray;
+    }
+    FileSortEntity * fse = entityArray[index];
     
     NSIndexPath * toIP = [NSIndexPath indexPathForRow:fse.row inSection:0];
     [tableView scrollToRowAtIndexPath:toIP atScrollPosition:UITableViewScrollPositionTop animated:NO];
@@ -672,13 +745,10 @@ API_AVAILABLE(ios(12.0))
     [cell.addBt setTitle:fse.pinYin forState:UIControlStateNormal];
     [cell.addBt setImage:nil        forState:UIControlStateNormal];
     
-    if (self.lastPinYinScrolledCell == cell) {
-    //    [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(resumeLastPinYinScrolledCellStatus) object:nil];
-    } else {
+    if (self.lastPinYinScrolledCell != cell) {
         [self resumeLastPinYinScrolledCellStatus];
         self.lastPinYinScrolledCell = cell;
     }
-    // [self performSelector:@selector(resumeLastPinYinScrolledCellStatus) withObject:nil afterDelay:2];
     
     return fse.row;
 }
@@ -948,21 +1018,21 @@ API_AVAILABLE(ios(12.0))
 #pragma mark - Interactor_EventHandler
 #pragma mark - 搜索
 - (void)searchAction:(UISearchBar *)bar {
-    //[self.view.searchArray removeAllObjects];
     self.view.searchArray = [NSMutableArray<FileEntity> new];
     
-    NSString * text = bar.text.lowercaseString;
-    //NSLog(@"搜索 : %@", text);
-    for (FileEntity * fileEntity in self.interactor.localArray) {
-        if ([fileEntity.fileNameDeleteExtension.lowercaseString containsString:text]) {
-            //NSLog(@"fileName: %@", fileEntity.fileNameDeleteExtension.lowercaseString);
-            [self.view.searchArray addObject:fileEntity];
+    NSString * text = bar.text.lowercaseString; //NSLog(@"搜索 : %@", text);
+    if (text.length > 0) {
+        for (FileEntity * fileEntity in self.interactor.localArray) {
+            if ([fileEntity.fileNameDeleteExtension.lowercaseString containsString:text]) {
+                [self.view.searchArray addObject:fileEntity];
+            }
         }
     }
-    if (self.view.searchArray.count == 0) {
+    
+    if (self.view.searchArray.count == 0 && text.length > 0) {
         AlertToastTitle(@"未找到匹配文件");
-    }
-    //NSLogIntegerTitle(self.view.searchArray.count, @"搜索数据");
+    }//NSLogIntegerTitle(self.view.searchArray.count, @"搜索数据");
+    
     [self.view.infoTV reloadData];
 }
 
