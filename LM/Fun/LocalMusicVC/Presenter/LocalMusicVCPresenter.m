@@ -175,6 +175,14 @@ API_AVAILABLE(ios(12.0))
 }
 
 #pragma mark - VC_DataSource
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if (scrollView == self.view.infoTV) {
+        if (self.view.longPressMenu) {
+            self.view.longPressMenu = nil;
+        }
+    }
+}
+
 #pragma mark - TV_Delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (tableView == self.view.infoTV) {
@@ -686,7 +694,8 @@ API_AVAILABLE(ios(12.0))
 #pragma mark - TV select
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (self.view.longPressMenu.menuVisible) {
+    
+    if (self.view.longPressMenu) {
         [self.view.longPressMenu setMenuVisible:NO];
         self.view.longPressMenu = nil;
         return;
