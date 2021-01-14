@@ -38,6 +38,8 @@ API_AVAILABLE(ios(12.0))
 
 @property (nonatomic, weak  ) LocalMusicHeadView * infoTvHead;
 
+@property (nonatomic        ) BOOL userSelectSongMoment;// 用户刚刚点击了歌曲.
+
 // rootImage
 @property (nonatomic, strong) UIImage * cellLeftImage_downloadN;
 @property (nonatomic, strong) UIImage * cellLeftImage_downloadS;
@@ -708,6 +710,11 @@ API_AVAILABLE(ios(12.0))
                 [self selectRootCellIP:indexPath];
             }
         } else {
+            // 用户点击的话, 不滚动TV.
+            self.userSelectSongMoment = YES;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                self.userSelectSongMoment = NO;
+            });
             [self selectDetailCellIP:indexPath autoPlay:YES];
         }
     }
@@ -930,7 +937,10 @@ API_AVAILABLE(ios(12.0))
 
 - (void)freshTVVisiableCellEvent {
     [self.view.infoTV reloadRowsAtIndexPaths:[self.view.infoTV indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
-    [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.configShare.config.currentPlayIndexRow inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    
+    if (!self.userSelectSongMoment) {
+        [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.configShare.config.currentPlayIndexRow inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    }
 }
 
 #pragma mark - Interactor_EventHandler
