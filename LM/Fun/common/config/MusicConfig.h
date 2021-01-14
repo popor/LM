@@ -24,6 +24,7 @@ typedef NS_ENUM(int, McPlayOrder) {
 @property (nonatomic        ) McPlayOrder playOrder;
 
 @property (nonatomic        ) BOOL autoPlay;
+@property (nonatomic        ) BOOL rootVcShowSetBt;
 
 // 用于恢复之前的播放记录
 @property (nonatomic, copy  ) NSString * playFileID;

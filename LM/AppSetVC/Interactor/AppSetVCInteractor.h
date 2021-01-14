@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSInteger, AppSetCellType) {
     AppSetCellType_启动自动播放 = 1,
-    
+    AppSetCellType_首页显示设置,
 };
 
 

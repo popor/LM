@@ -92,6 +92,19 @@
             cell.uis.on = self.configShare.config.autoPlay;
             break;
         }
+        case AppSetCellType_首页显示设置: {
+            if (!cell.switchBlock) {
+                cell.switchBlock = ^(UISwitch *uis) {
+                    @strongify(self);
+                    self.configShare.config.rootVcShowSetBt = uis.on;
+                    
+                    [MGJRouter openURL:MUrl_savePlayConfig];
+                    [MGJRouter openURL:MUrl_freshRootVcSetBt];
+                };
+            }
+            cell.uis.on = self.configShare.config.rootVcShowSetBt;
+            break;
+        }
         default:
             break;
     }

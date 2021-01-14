@@ -121,6 +121,12 @@ API_AVAILABLE(ios(12.0))
             [self freshLocalDataAction];
         }];
         
+        [MRouterC registerURL:MUrl_freshRootVcSetBt toHandel:^(NSDictionary *routerParameters){
+            @strongify(self);
+            
+            [self freshLocalMusicHeadView];
+        }];
+        
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self resumeLastPlay_0];
         });
@@ -272,6 +278,8 @@ API_AVAILABLE(ios(12.0))
                             head;
                         });
                         self.infoTvHead = head;
+                        
+                        [self freshLocalMusicHeadView];
                     }
                     return head;
                 }
@@ -289,6 +297,10 @@ API_AVAILABLE(ios(12.0))
     else{
         return nil;
     }
+}
+
+- (void)freshLocalMusicHeadView {
+    self.infoTvHead.setBT.hidden = !self.configShare.config.rootVcShowSetBt;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {

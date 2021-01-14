@@ -24,7 +24,12 @@
 - (void)initData {
     self.cellCieArray = [NSMutableArray new];
     
-    self.cellCieArray.add(CIE_TT(AppSetCellType_启动自动播放, @"APP启动时自动播放"));
+    self.cellCieArray
+    .add(CIE_TT(AppSetCellType_启动自动播放, @"APP启动时自动播放"))
+    .add(CIE_TT(AppSetCellType_首页显示设置, @"首页显示设置"))
+    ;
+    
+    
 }
 
 @end
