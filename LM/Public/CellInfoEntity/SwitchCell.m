@@ -15,7 +15,7 @@
         if (!self.uis) {
             self.accessoryView = ({
                 UISwitch * uis = [UISwitch new];
-                uis.onTintColor = ColorThemeBlue1;
+                uis.onTintColor = App_colorTheme;
                 [uis addTarget:self action:@selector(uisAction) forControlEvents:UIControlEventValueChanged];
                 uis;
             });

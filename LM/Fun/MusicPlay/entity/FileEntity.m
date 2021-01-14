@@ -9,6 +9,7 @@
 #import "FileEntity.h"
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
+#import "MusicPlayTool.h"
 
 @implementation FileEntity
 
@@ -43,7 +44,7 @@
         }
     }
     if (!coverImage) {
-        coverImage = [UIImage imageNamed:@"music_placeholder"];
+        coverImage = [MusicPlayTool share].defaultCoverImage;
     }
     return coverImage;
 }

@@ -72,7 +72,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
             l.frame              = CGRectMake(0, 0, 60, 30);
             l.backgroundColor    = App_colorBg1;
             l.font               = [UIFont systemFontOfSize:15];
-            l.textColor          = ColorThemeBlue1;
+            l.textColor          = App_colorTheme;
             l.textAlignment      = NSTextAlignmentCenter;
             l.hidden             = YES;
             l.layer.cornerRadius = 6;
@@ -93,7 +93,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
             slider.maximumTrackTintColor = App_colorSeparator;
             
             // slider.thumbTintColor = [UIColor redColor];
-            UIImage *image = [UIImage imageFromColor:ColorThemeBlue1 size:CGSizeMake(self.sliderImageWH, self.sliderImageWH) corner:self.sliderImageWH/2];
+            UIImage *image = [UIImage imageFromColor:App_colorTheme size:CGSizeMake(self.sliderImageWH, self.sliderImageWH) corner:self.sliderImageWH/2];
             [slider setThumbImage:image forState:UIControlStateNormal];
             
             [self addSubview:slider];
@@ -148,7 +148,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
             UILabel * l = [UILabel new];
             l.backgroundColor    = [UIColor clearColor];
             l.textColor          = [UIColor darkGrayColor];
-            l.textColor          = ColorThemeBlue1;
+            l.textColor          = App_colorTheme;
             [self addSubview:l];
             l;
         });
@@ -215,7 +215,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
                 
                 oneBT.frame = CGRectMake(0, 0, 60, 60);
                 //UIImage * image = [UIImage imageFromColor:PRGBF(255, 255, 255, 0.8) size:oneBT.size corner:oneBT.width/2];
-                UIImage * image = [UIImage imageFromColor:[ColorThemeBlue1 colorWithAlphaComponent:0.15] size:oneBT.size corner:oneBT.width/2];
+                UIImage * image = [UIImage imageFromColor:[App_colorTheme colorWithAlphaComponent:0.15] size:oneBT.size corner:oneBT.width/2];
                 
                 [oneBT setBackgroundImage:image forState:UIControlStateNormal];
                 
@@ -269,7 +269,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         button.layer.borderWidth = 0.5;
         button.clipsToBounds = YES;
         
-        [button setImage:[UIImage imageNamed:@"music_placeholder"] forState:UIControlStateNormal];
+        [button setImage:[MusicPlayTool share].defaultCoverImage forState:UIControlStateNormal];
         [self addSubview:button];
         
         [button addTarget:self action:@selector(showBigIVAction) forControlEvents:UIControlEventTouchUpInside];

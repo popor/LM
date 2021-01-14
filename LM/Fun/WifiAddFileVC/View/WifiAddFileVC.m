@@ -239,7 +239,7 @@
         [view.submitBtn setTitle:@"复制链接" forState:UIControlStateNormal];
         static UIImage * bgImage;
         if (!bgImage) {
-            bgImage = [UIImage imageFromColor:ColorThemeBlue1 size:CGSizeMake(1, 1)];
+            bgImage = [UIImage imageFromColor:App_colorTheme size:CGSizeMake(1, 1)];
         }
         [view.submitBtn setBackgroundImage:bgImage forState:UIControlStateNormal];
         

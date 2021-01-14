@@ -26,7 +26,7 @@
 
 - (void)initData {
     
-    self.themeColor = [UIColor colorWithRed:0.2 green:0.752941 blue:0.745098 alpha:1];
+    self.themeColor = PRGBF(96,187,245, 1);
     
     if (@available(iOS 13, *)) {
         self.bgColor1       = [UIColor systemGroupedBackgroundColor];

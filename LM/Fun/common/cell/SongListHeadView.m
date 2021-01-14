@@ -24,7 +24,7 @@
         UIButton * oneBT = ({
             UIButton * oneBT = [UIButton buttonWithType:UIButtonTypeCustom];
             
-            [oneBT setTitleColor:ColorThemeBlue1 forState:UIControlStateNormal];
+            [oneBT setTitleColor:App_colorTheme forState:UIControlStateNormal];
             oneBT.titleLabel.font = [UIFont systemFontOfSize:16];
             // oneBT.layer.cornerRadius = 5;
             // oneBT.layer.borderColor = [UIColor lightGrayColor].CGColor;

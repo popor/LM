@@ -5,17 +5,18 @@
       "scale" : "1x"
     },
     {
+      "filename" : "songFileBig@2x-crunch.png",
       "idiom" : "universal",
-      "filename" : "music_placeholder.png",
       "scale" : "2x"
     },
     {
+      "filename" : "songFileBig@3x-crunch.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

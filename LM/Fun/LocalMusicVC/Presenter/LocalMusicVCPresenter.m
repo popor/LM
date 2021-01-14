@@ -90,7 +90,7 @@ API_AVAILABLE(ios(12.0))
         self.cellLeftImage_favN       = [UIImage imageNamed:@"songFav"];
         
         
-        UIColor * color = ColorThemeBlue1;
+        UIColor * color = App_colorTheme;
         self.cellLeftImage_downloadS  = [UIImage imageFromImage:self.cellLeftImage_downloadN changecolor:color];
         self.cellLeftImage_errorN     = [UIImage imageFromImage:self.cellLeftImage_errorN    changecolor:UIColor.redColor];
         self.cellLeftImage_errorS     = [UIImage imageFromImage:self.cellLeftImage_errorN    changecolor:color];
@@ -436,8 +436,8 @@ API_AVAILABLE(ios(12.0))
         
         if([self.configShare.config.playFileID isEqualToString:entity.fileID]){
             //cell.rightIV.hidden      = NO;
-            cell.titelL.textColor    = ColorThemeBlue1;
-            cell.subtitleL.textColor = ColorThemeBlue1;
+            cell.titelL.textColor    = App_colorTheme;
+            cell.subtitleL.textColor = App_colorTheme;
             colorFull                = YES;
             
             // text
@@ -521,8 +521,8 @@ API_AVAILABLE(ios(12.0))
         
         
         if ([entity.filePath isEqualToString:self.mpb.currentItem.filePath]) {
-            cell.titelL.textColor = ColorThemeBlue1;
-            cell.subtitleL.textColor  = ColorThemeBlue1;
+            cell.titelL.textColor = App_colorTheme;
+            cell.subtitleL.textColor  = App_colorTheme;
             //cell.rightIV.hidden   = NO;
             [cell.addBt setImage:self.addImageS forState:UIControlStateNormal];
             self.lastPlayCell = cell;
@@ -782,8 +782,8 @@ API_AVAILABLE(ios(12.0))
         [self.lastPinYinScrolledCell.addBt setTitle:nil            forState:UIControlStateNormal];
         
         if (self.lastPinYinScrolledCell.cellData == self.mpb.currentItem.filePath) {
-            self.lastPinYinScrolledCell.titelL.textColor    = ColorThemeBlue1;
-            self.lastPinYinScrolledCell.subtitleL.textColor = ColorThemeBlue1;
+            self.lastPinYinScrolledCell.titelL.textColor    = App_colorTheme;
+            self.lastPinYinScrolledCell.subtitleL.textColor = App_colorTheme;
         } else {
             self.lastPinYinScrolledCell.titelL.textColor    = App_colorTextN1;
             self.lastPinYinScrolledCell.subtitleL.textColor = App_colorTextN2;
@@ -935,8 +935,8 @@ API_AVAILABLE(ios(12.0))
         }
         {
             MusicInfoCell * cell = [self.view.infoTV cellForRowAtIndexPath:indexPath];
-            cell.titelL.textColor = ColorThemeBlue1;
-            cell.subtitleL.textColor  = ColorThemeBlue1;
+            cell.titelL.textColor = App_colorTheme;
+            cell.subtitleL.textColor  = App_colorTheme;
             //cell.rightIV.hidden   = NO;
             
             self.lastPlayCell = cell;
@@ -1031,7 +1031,7 @@ API_AVAILABLE(ios(12.0))
                 imageU  = [UIImage imageFromImage:originImage changecolor:[UIColor grayColor]];
                 
                 imageN2 = [UIImage imageFromImage:originImage changecolor:[UIColor whiteColor]];
-                imageS  = [UIImage imageFromImage:originImage changecolor:ColorThemeBlue1];
+                imageS  = [UIImage imageFromImage:originImage changecolor:App_colorTheme];
             }
             
             switch (self.userInterfaceStyle) {
@@ -1059,7 +1059,7 @@ API_AVAILABLE(ios(12.0))
             
             imageN1 = [UIImage imageFromImage:originImage changecolor:[UIColor blackColor]];
             imageU  = [UIImage imageFromImage:originImage changecolor:[UIColor grayColor]];
-            imageS  = [UIImage imageFromImage:originImage changecolor:ColorThemeBlue1];
+            imageS  = [UIImage imageFromImage:originImage changecolor:App_colorTheme];
         }
         
         self.addImageN = imageN1;

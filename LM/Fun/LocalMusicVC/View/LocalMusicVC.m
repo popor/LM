@@ -292,7 +292,7 @@
     oneTV.backgroundColor = App_colorBg4;
     oneTV.separatorColor  = App_colorSeparator;
     
-    oneTV.sectionIndexColor = ColorThemeBlue1;
+    oneTV.sectionIndexColor = App_colorTheme;
     
     [self.view addSubview:oneTV];
     
@@ -344,7 +344,7 @@
         
 #else
         [searchBar setBackgroundImage:[UIImage imageFromColor:[UIColor clearColor] size:CGSizeMake(1, 1)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault]; //此处使底部线条颜色为红色
-        searchBar.tintColor   = ColorThemeBlue1;
+        searchBar.tintColor   = App_colorTheme;
 #endif
         searchBar.placeholder = @"搜索";
         searchBar.delegate    = self;

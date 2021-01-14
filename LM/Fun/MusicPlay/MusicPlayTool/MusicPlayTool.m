@@ -62,7 +62,36 @@
         [instance initIosController];
         [instance initFormater];
         
-        instance.defaultCoverImage = [UIImage imageNamed:@"music_placeholder"];
+        instance.defaultCoverImage = [UIImage imageNamed:@"songFileBig"];
+        {   // 自主生成icon
+            CGFloat width = 300;
+            CGFloat insetWidth = (width - 160)/2;
+            instance.defaultCoverImage = [UIImage imageFromImage:instance.defaultCoverImage
+                                                            size:CGSizeMake(width, width)
+                                                   imageDrawRect:CGRectInset(CGRectMake(0, 0, width, width), insetWidth, insetWidth)
+                                                         bgColor:App_colorTheme
+                                                          corner:0
+                                                     borderWidth:0
+                                                     borderColor:nil
+                                                           scale:-1];
+        }
+        //        {   // 生成icon
+        //            CGFloat width = 1024;
+        //            CGFloat iconWidth = 800;
+        //            CGFloat insetWidth = (width - iconWidth)/2;
+        //            instance.defaultCoverImage = [UIImage imageFromImage:instance.defaultCoverImage
+        //                                                            size:CGSizeMake(width, width)
+        //                                                   imageDrawRect:CGRectInset(CGRectMake(0, 0, width, width), insetWidth, insetWidth)
+        //                                                         bgColor:App_colorTheme
+        //                                                          corner:0
+        //                                                     borderWidth:0
+        //                                                     borderColor:nil
+        //                                                           scale:-1];
+        //
+        //            UIImage * image = instance.defaultCoverImage;
+        //            NSLog(@"1");
+        //        }
+        
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             instance.mpb = MpbShare;

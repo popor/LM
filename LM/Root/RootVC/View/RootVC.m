@@ -131,7 +131,7 @@
    
     @weakify(self);
     {
-        self.navigationController.navigationBar.tintColor = ColorThemeBlue1;
+        self.navigationController.navigationBar.tintColor = App_colorTheme;
     }
     
     {
@@ -274,7 +274,7 @@
         segmentView.btTitleColorGradualChange = YES;
         
         segmentView.btTitleNFont  = [UIFont boldSystemFontOfSize:16];
-        segmentView.lineColor     = ColorThemeBlue1;
+        segmentView.lineColor     = App_colorTheme;
         
         [segmentView setUI];
         
