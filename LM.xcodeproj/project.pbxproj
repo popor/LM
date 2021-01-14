@@ -44,6 +44,12 @@
 		C3560EC22537ED780062EFA8 /* LrcKuGou.m in Sources */ = {isa = PBXBuildFile; fileRef = C3560EC12537ED780062EFA8 /* LrcKuGou.m */; };
 		C3560EC62537F4F00062EFA8 /* LrcKugouListEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C3560EC52537F4F00062EFA8 /* LrcKugouListEntity.m */; };
 		C3560ECA2537F7C40062EFA8 /* LrcKugouDetailEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C3560EC92537F7C40062EFA8 /* LrcKugouDetailEntity.m */; };
+		C3571A5C25B024240095AE53 /* AppSetVCPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3571A5325B024240095AE53 /* AppSetVCPresenter.m */; };
+		C3571A5D25B024240095AE53 /* AppSetVCInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3571A5725B024240095AE53 /* AppSetVCInteractor.m */; };
+		C3571A5E25B024240095AE53 /* AppSetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C3571A5A25B024240095AE53 /* AppSetVC.m */; };
+		C3571A6725B025DB0095AE53 /* SwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3571A6125B025DB0095AE53 /* SwitchCell.m */; };
+		C3571A6825B025DB0095AE53 /* SegmentEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C3571A6325B025DB0095AE53 /* SegmentEntity.m */; };
+		C3571A6925B025DB0095AE53 /* CellInfoEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C3571A6425B025DB0095AE53 /* CellInfoEntity.m */; };
 		C39396722536C88500409025 /* LrcDetailEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C39396712536C88500409025 /* LrcDetailEntity.m */; };
 		C39396F52536D3F400409025 /* LrcViewPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C39396EC2536D3F300409025 /* LrcViewPresenter.m */; };
 		C39396F62536D3F400409025 /* LrcView.m in Sources */ = {isa = PBXBuildFile; fileRef = C39396EF2536D3F300409025 /* LrcView.m */; };
@@ -166,6 +172,19 @@
 		C3560EC52537F4F00062EFA8 /* LrcKugouListEntity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LrcKugouListEntity.m; sourceTree = "<group>"; };
 		C3560EC82537F7C40062EFA8 /* LrcKugouDetailEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LrcKugouDetailEntity.h; sourceTree = "<group>"; };
 		C3560EC92537F7C40062EFA8 /* LrcKugouDetailEntity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LrcKugouDetailEntity.m; sourceTree = "<group>"; };
+		C3571A5325B024240095AE53 /* AppSetVCPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppSetVCPresenter.m; sourceTree = "<group>"; };
+		C3571A5425B024240095AE53 /* AppSetVCPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppSetVCPresenter.h; sourceTree = "<group>"; };
+		C3571A5625B024240095AE53 /* AppSetVCInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppSetVCInteractor.h; sourceTree = "<group>"; };
+		C3571A5725B024240095AE53 /* AppSetVCInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppSetVCInteractor.m; sourceTree = "<group>"; };
+		C3571A5925B024240095AE53 /* AppSetVCProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppSetVCProtocol.h; sourceTree = "<group>"; };
+		C3571A5A25B024240095AE53 /* AppSetVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppSetVC.m; sourceTree = "<group>"; };
+		C3571A5B25B024240095AE53 /* AppSetVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppSetVC.h; sourceTree = "<group>"; };
+		C3571A6125B025DB0095AE53 /* SwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwitchCell.m; sourceTree = "<group>"; };
+		C3571A6225B025DB0095AE53 /* CellInfoEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellInfoEntity.h; sourceTree = "<group>"; };
+		C3571A6325B025DB0095AE53 /* SegmentEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentEntity.m; sourceTree = "<group>"; };
+		C3571A6425B025DB0095AE53 /* CellInfoEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellInfoEntity.m; sourceTree = "<group>"; };
+		C3571A6525B025DB0095AE53 /* SwitchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchCell.h; sourceTree = "<group>"; };
+		C3571A6625B025DB0095AE53 /* SegmentEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentEntity.h; sourceTree = "<group>"; };
 		C39396702536C88500409025 /* LrcDetailEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LrcDetailEntity.h; sourceTree = "<group>"; };
 		C39396712536C88500409025 /* LrcDetailEntity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LrcDetailEntity.m; sourceTree = "<group>"; };
 		C39396EC2536D3F300409025 /* LrcViewPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LrcViewPresenter.m; sourceTree = "<group>"; };
@@ -315,6 +334,7 @@
 				183BF429224A24EF004DE115 /* App */,
 				184F3703224B25D000FEB57B /* Root */,
 				184F370E224B26A100FEB57B /* Fun */,
+				C3571A4925B023DD0095AE53 /* AppSetVC */,
 			);
 			path = LM;
 			sourceTree = "<group>";
@@ -396,6 +416,7 @@
 		183BF42B224A25B0004DE115 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				C3571A6025B025DB0095AE53 /* CellInfoEntity */,
 				C3F9E2A125A586F50030CE24 /* SingleBTBottomView */,
 				C3325B3925A41B07000A7F43 /* FeedbackGenerator */,
 				C3E1687225A2FFC1004104B4 /* AlertWindowImageView */,
@@ -601,6 +622,57 @@
 				C3560EC92537F7C40062EFA8 /* LrcKugouDetailEntity.m */,
 			);
 			path = LrcKugou;
+			sourceTree = "<group>";
+		};
+		C3571A4925B023DD0095AE53 /* AppSetVC */ = {
+			isa = PBXGroup;
+			children = (
+				C3571A5825B024240095AE53 /* View */,
+				C3571A5225B024240095AE53 /* Presenter */,
+				C3571A5525B024240095AE53 /* Interactor */,
+			);
+			path = AppSetVC;
+			sourceTree = "<group>";
+		};
+		C3571A5225B024240095AE53 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				C3571A5425B024240095AE53 /* AppSetVCPresenter.h */,
+				C3571A5325B024240095AE53 /* AppSetVCPresenter.m */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		C3571A5525B024240095AE53 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				C3571A5625B024240095AE53 /* AppSetVCInteractor.h */,
+				C3571A5725B024240095AE53 /* AppSetVCInteractor.m */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		C3571A5825B024240095AE53 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C3571A5B25B024240095AE53 /* AppSetVC.h */,
+				C3571A5A25B024240095AE53 /* AppSetVC.m */,
+				C3571A5925B024240095AE53 /* AppSetVCProtocol.h */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C3571A6025B025DB0095AE53 /* CellInfoEntity */ = {
+			isa = PBXGroup;
+			children = (
+				C3571A6225B025DB0095AE53 /* CellInfoEntity.h */,
+				C3571A6425B025DB0095AE53 /* CellInfoEntity.m */,
+				C3571A6625B025DB0095AE53 /* SegmentEntity.h */,
+				C3571A6325B025DB0095AE53 /* SegmentEntity.m */,
+				C3571A6525B025DB0095AE53 /* SwitchCell.h */,
+				C3571A6125B025DB0095AE53 /* SwitchCell.m */,
+			);
+			path = CellInfoEntity;
 			sourceTree = "<group>";
 		};
 		C39396EB2536D3F300409025 /* Presenter */ = {
@@ -910,8 +982,10 @@
 				1856158E224DBF0E004BE073 /* MusicPlayListEntity.m in Sources */,
 				183BF426224A22EC004DE115 /* RootVC.m in Sources */,
 				189A5DEE225C94A8001E8A9D /* AppNetRecordConfig.m in Sources */,
+				C3571A6825B025DB0095AE53 /* SegmentEntity.m in Sources */,
 				E431E50C25A19C3A0024C67B /* NetMusicVC.m in Sources */,
 				180E33BD224DE806008C176D /* LocalMusicVC.m in Sources */,
+				C3571A5E25B024240095AE53 /* AppSetVC.m in Sources */,
 				C3AD51342516FC6900746FA2 /* MRouterUrlPrefix.m in Sources */,
 				C39396F72536D3F400409025 /* LrcViewInteractor.m in Sources */,
 				E431E50D25A19C3A0024C67B /* NetMusicVCPresenter.m in Sources */,
@@ -932,10 +1006,13 @@
 				C3F9E2A625A586F50030CE24 /* SingleBTBottomView.m in Sources */,
 				C3560EC62537F4F00062EFA8 /* LrcKugouListEntity.m in Sources */,
 				180E33BB224DE806008C176D /* LocalMusicVCInteractor.m in Sources */,
+				C3571A5D25B024240095AE53 /* AppSetVCInteractor.m in Sources */,
 				185615AF224DC23A004BE073 /* WifiAddFileVC.m in Sources */,
 				180E33C1224E11AF008C176D /* FileTool.m in Sources */,
 				180E33C4224E11F7008C176D /* FileEntity.m in Sources */,
+				C3571A5C25B024240095AE53 /* AppSetVCPresenter.m in Sources */,
 				C3F9E2A725A586F50030CE24 /* DoubleBTBottomView.m in Sources */,
+				C3571A6725B025DB0095AE53 /* SwitchCell.m in Sources */,
 				C3325B3C25A41B07000A7F43 /* FeedbackGeneratorTool.m in Sources */,
 				C3AD513D2517161700746FA2 /* LocalMusicHeadView.m in Sources */,
 				183BF427224A22EC004DE115 /* RootVCInteractor.m in Sources */,
@@ -943,6 +1020,7 @@
 				C3F31AD825395D3F00621878 /* UINavigationController+pAutorotate.m in Sources */,
 				C3AD51332516FC6900746FA2 /* MRouterConfig.m in Sources */,
 				18DE13AF2251F78C009920D7 /* MusicInfoCell.m in Sources */,
+				C3571A6925B025DB0095AE53 /* CellInfoEntity.m in Sources */,
 				18561595224DC089004BE073 /* MusicConfig.m in Sources */,
 				C338BD1425AED0F60098BB82 /* FileSortEntity.m in Sources */,
 				18DE13922251BD5F009920D7 /* MusicFolderEntity.m in Sources */,
@@ -1096,7 +1174,7 @@
 				CODE_SIGN_ENTITLEMENTS = LM/LM.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 7DUQZP3WD7;
 				GCC_PREFIX_HEADER = LM/AppPrefix.h;
 				INFOPLIST_FILE = LM/Info.plist;
@@ -1105,7 +1183,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4;
+				MARKETING_VERSION = 2.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.xyeduzj.lm1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -1122,7 +1200,7 @@
 				CODE_SIGN_ENTITLEMENTS = LM/LM.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 7DUQZP3WD7;
 				GCC_PREFIX_HEADER = LM/AppPrefix.h;
 				INFOPLIST_FILE = LM/Info.plist;
@@ -1131,7 +1209,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4;
+				MARKETING_VERSION = 2.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.xyeduzj.lm1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;

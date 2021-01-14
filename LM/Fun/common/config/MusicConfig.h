@@ -23,6 +23,8 @@ typedef NS_ENUM(int, McPlayOrder) {
 // 播放顺序, 随机还是顺序
 @property (nonatomic        ) McPlayOrder playOrder;
 
+@property (nonatomic        ) BOOL autoPlay;
+
 // 用于恢复之前的播放记录
 @property (nonatomic, copy  ) NSString * playFileID;
 @property (nonatomic, copy  ) NSString * playSearchKey;

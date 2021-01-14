@@ -10,6 +10,8 @@
 #import "LocalMusicVCInteractor.h"
 
 #import <PoporUI/UIViewController+pTapEndEdit.h>
+#import "MusicConfig.h"
+
 @interface LocalMusicVC () <UISearchBarDelegate>
 
 @property (nonatomic, strong) LocalMusicVCPresenter * present;
@@ -168,7 +170,7 @@
             FileEntity * entity = songArray[index];
             if ([entity.filePath isEqualToString:self.autoPlayFilePath]) {
                 NSIndexPath * ip = [NSIndexPath indexPathForRow:index inSection:0];
-                [self.present selectDetailCellIP:ip autoPlay:NO];
+                [self.present selectDetailCellIP:ip autoPlay:[MusicConfigShare share].config.autoPlay];
                 break;
             }
         }

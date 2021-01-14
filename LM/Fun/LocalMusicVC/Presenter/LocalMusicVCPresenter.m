@@ -171,7 +171,7 @@ API_AVAILABLE(ios(12.0))
         if (index > -1) {
             [self.mpb playSongArray:fileEntity.itemArray
                                  at:index
-                           autoPlay:NO
+                           autoPlay:self.configShare.config.autoPlay
                          playFileID:fileEntity.fileID
                           searchKey:@""];
         }
@@ -274,6 +274,7 @@ API_AVAILABLE(ios(12.0))
                             
                             [head.addBT   addTarget:self action:@selector(addFavFolderAction) forControlEvents:UIControlEventTouchUpInside];
                             [head.sortBT  addTarget:self action:@selector(sortFavFolderAction) forControlEvents:UIControlEventTouchUpInside];
+                            [head.setBT   addTarget:self action:@selector(setAction) forControlEvents:UIControlEventTouchUpInside];
                             head;
                         });
                         self.infoTvHead = head;
@@ -1129,6 +1130,10 @@ API_AVAILABLE(ios(12.0))
         self.view.infoTV.editing = NO;
     }
     
+}
+
+- (void)setAction {
+    [MGJRouter openURL:MUrl_appSet];
 }
 
 #pragma mark - 长按事件

@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UIButton * addBT;
 @property (nonatomic, strong) UIButton * sortBT;
+@property (nonatomic, strong) UIButton * setBT;
 
 @property (nonatomic, strong) UIButton * openBT;
 @property (nonatomic, strong) UIButton * freshBT;

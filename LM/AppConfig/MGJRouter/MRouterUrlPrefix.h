@@ -26,6 +26,8 @@ UIKIT_EXTERN NSString * const MUrl_playAtTime;
 
 UIKIT_EXTERN NSString * const MUrl_wifiAddFileVC;
 
+UIKIT_EXTERN NSString * const MUrl_appSet;
+
 @end
 
 NS_ASSUME_NONNULL_END
