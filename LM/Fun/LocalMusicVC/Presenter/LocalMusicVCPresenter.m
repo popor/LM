@@ -42,6 +42,8 @@ API_AVAILABLE(ios(12.0))
 
 @property (nonatomic, copy  ) NSString * lastSearchText;
 
+@property (nonatomic        ) BOOL dragInfoTV;
+
 // rootImage
 @property (nonatomic, strong) UIImage * cellLeftImage_downloadN;
 @property (nonatomic, strong) UIImage * cellLeftImage_downloadS;
@@ -180,14 +182,6 @@ API_AVAILABLE(ios(12.0))
 }
 
 #pragma mark - VC_DataSource
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    if (scrollView == self.view.infoTV) {
-        if (self.view.longPressMenu) {
-            self.view.longPressMenu = nil;
-        }
-    }
-}
-
 #pragma mark - TV_Delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (tableView == self.view.infoTV) {
@@ -940,6 +934,38 @@ API_AVAILABLE(ios(12.0))
                 [self attLable:self.lastPlayCell.titelL searchText:self.view.searchBar.text];
                 [self attLable:self.lastPlayCell.subtitleL searchText:self.view.searchBar.text];
             }
+        }
+        
+    }
+}
+
+#pragma mark - SV 拖拽事件
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if (scrollView == self.view.infoTV) {
+        if (self.view.longPressMenu) {
+            self.view.longPressMenu = nil;
+        }
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (scrollView == self.view.infoTV && self.view.isRoot) {
+        if (scrollView.contentOffset.y <= -60) {
+            FeedbackShakePhone
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [MGJRouter openURL:MUrl_appSet];
+            });
+        }
+    }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView == self.view.infoTV && self.view.isRoot) {
+        if (scrollView.contentOffset.y < -60) {
+            self.view.setL.text = @"打开设置";
+        } else if (scrollView.contentOffset.y < -20) {
+            self.view.setL.text = @"设置";
         }
         
     }

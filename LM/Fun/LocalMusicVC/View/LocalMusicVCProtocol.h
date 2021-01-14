@@ -49,6 +49,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic        ) FileSortType sortTypeSearch;//搜索模式下的排序方式
 
+@property (nonatomic, strong) UILabel * setL;
+
 // MARK: 外部注入的
 @property (nonatomic, copy  ) NSString * playFileID;
 @property (nonatomic, copy  ) NSString * playSearchKey;

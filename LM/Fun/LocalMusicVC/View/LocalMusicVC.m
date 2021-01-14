@@ -46,6 +46,7 @@
 
 @synthesize sortType;
 @synthesize sortTypeSearch;
+@synthesize setL;
 
 - (void)dealloc {
     [MGJRouter openURL:MUrl_freshRootTV];
@@ -114,6 +115,24 @@
     }
     self.playbar     = MpbShare;
     self.infoTV      = [self addTVs];
+    
+    if (self.isRoot) {
+        self.setL = ({
+            UILabel * oneL = [UILabel new];
+            oneL.frame               = CGRectMake(0, -40, self.view.width, 30);
+            oneL.backgroundColor     = [UIColor clearColor]; // ios8 之前
+            oneL.font                = [UIFont systemFontOfSize:15];
+            oneL.textColor           = App_colorTextN2;
+            oneL.layer.masksToBounds = YES; // ios8 之后 lableLayer 问题
+            oneL.numberOfLines       = 1;
+            oneL.textAlignment       = NSTextAlignmentCenter;
+            
+            oneL.text = @"打开设置";
+            oneL;
+        });
+        
+        [self.infoTV addSubview:self.setL];
+    }
     
     if (self.isRoot) {
         self.musicListTV  = [self addMusicListTVs];
