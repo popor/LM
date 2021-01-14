@@ -59,15 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // 用于记录上次播放的列表地址
 @property (nonatomic, weak  ) NSMutableArray<FileEntity> * _Nullable weakLastPlayArray;
-//明天处理逻辑.
-//退出该页面或者点击了完成,就退出搜索结果?
-//当在播放搜索音乐的时候,每次播放下一首,就刷新当前页面歌单config?
 
-// 是否在播放搜索或本地音乐.
-@property (nonatomic, getter=isPlaySearchLocalItem) BOOL playSearchLocalItem;
-
-// 播放临时数组
-//- (void)playSongArray:(NSMutableArray<FileEntity> *)itemArray folder:(NSString * _Nullable)folderName at:(NSInteger)index autoPlay:(BOOL)autoPlay;
 
 - (void)playSongArray:(NSMutableArray<FileEntity> *)itemArray
                    at:(NSInteger)index

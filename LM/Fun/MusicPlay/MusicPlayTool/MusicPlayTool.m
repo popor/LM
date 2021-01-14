@@ -31,6 +31,8 @@
 @property (nonatomic, copy  ) NSString * lastImageUrl;
 //@property (nonatomic, copy  ) UIImage  * lastImage;
 
+@property (nonatomic, strong) NSMutableDictionary * songInfoDic;
+
 @end
 
 @implementation MusicPlayTool
@@ -161,8 +163,7 @@
 }
 
 - (void)updateIosLockInfo {
-    AVAudioPlayer * ap            = self.audioPlayer;
-    
+    AVAudioPlayer * ap = self.audioPlayer;
     
     if (ap.duration > 0) {
         if (![self.audioPlayer.url.absoluteString isEqualToString:self.lastImageUrl]) {
@@ -183,6 +184,9 @@
             
             // 系统控制器
             [self addIosPlayContoller];
+        } else {
+            // 如果相同, 则需要更新 系统进度条
+            [self updateIosPlayController];
         }
         
         self.mpb.slider.value       = self.audioPlayer.currentTime/self.audioPlayer.duration;
@@ -226,10 +230,25 @@
         [songInfo setObject:self.musicItem.authorName forKey:MPMediaItemPropertyArtist];
         //[songInfo setObject:author forKey:MPMediaItemPropertyAlbumTitle];
         [mpic setNowPlayingInfo:songInfo];
+        
+        self.songInfoDic = songInfo;
 #endif
         
     });
 }
+
+// 暂停或者拖拽进度条时, 更新系统进度条.
+- (void)updateIosPlayController {
+    if (self.songInfoDic) {
+        
+        [self.songInfoDic setObject:[NSNumber numberWithFloat:self.audioPlayer.duration] forKey:MPMediaItemPropertyPlaybackDuration];
+        [self.songInfoDic setObject:[NSNumber numberWithFloat:self.audioPlayer.currentTime] forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
+        
+        MPNowPlayingInfoCenter * mpic = [MPNowPlayingInfoCenter defaultCenter];
+        [mpic setNowPlayingInfo:self.songInfoDic];
+    }
+}
+
 
 - (NSString *)stringFromTime5:(CGFloat)time {
     return [NSDate clockText:time];
@@ -412,6 +431,8 @@
     [self updateIosLockInfo];
     [self.audioPlayer pause];
     self.racSlideOB = nil;
+    
+    [self updateIosPlayController];
 }
 
 - (void)rewindEvent:(int)second {
