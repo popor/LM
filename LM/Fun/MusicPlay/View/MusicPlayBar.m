@@ -178,6 +178,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
                 break;
         }
     }
+    
     self.orderImageArray = @[@"loop_random", @"loop_order", @"loop_single"];
     NSArray * imageN = @[@"big_play_button",  @"prev_song", @"next_song", @"rewind", @"forward", @"loop_random"];//@"searchMode"
     NSArray * imageS = @[@"big_pause_button", @"prev_song", @"next_song", @"rewind", @"forward", @"loop_random"];//@"searchMode"
@@ -202,22 +203,34 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         });
         switch (i) {
             case 0:{
+                self.playBT = oneBT;
+                
                 [oneBT setImage:nil forState:UIControlStateHighlighted];
                 [oneBT setImage:LmImageThemeBlue1(imageS[i]) forState:UIControlStateSelected];
-                self.playBT = oneBT;
+                
+                oneBT.showsTouchWhenHighlighted = YES;
+                
+                oneBT.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+                //oneBT.imageView.backgroundColor = UIColor.redColor;
+                
+                oneBT.frame = CGRectMake(0, 0, 60, 60);
+                //UIImage * image = [UIImage imageFromColor:PRGBF(255, 255, 255, 0.8) size:oneBT.size corner:oneBT.width/2];
+                UIImage * image = [UIImage imageFromColor:[ColorThemeBlue1 colorWithAlphaComponent:0.15] size:oneBT.size corner:oneBT.width/2];
+                
+                [oneBT setBackgroundImage:image forState:UIControlStateNormal];
                 
                 [oneBT addTarget:self action:@selector(playBTEvent) forControlEvents:UIControlEventTouchUpInside];
                 break;
             }
             case 1:{
                 self.previousBT = oneBT;
-                
+                oneBT.frame = CGRectMake(0, 0, 50, 50);
                 [oneBT addTarget:self action:@selector(previousBTEvent) forControlEvents:UIControlEventTouchUpInside];
                 break;
             }
             case 2:{
                 self.nextBT = oneBT;
-                
+                oneBT.frame = CGRectMake(0, 0, 50, 50);
                 [oneBT addTarget:self action:@selector(nextBTEvent) forControlEvents:UIControlEventTouchUpInside];
                 break;
             }
@@ -286,9 +299,6 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         self.timeCurrentL.tag = MPBTimeLabelWidth0;
     }
     
-    float width = 40;
-    float height = 40;
-    
     self.rewindBT.hidden = YES;
     self.forwardBT.hidden = YES;
     [self.songInfoL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -298,27 +308,6 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         make.right.mas_equalTo(-15);
     }];
     
-    //    [self.nameL mas_makeConstraints:^(MASConstraintMaker *make) {
-    //        make.top.mas_equalTo(self.slider.mas_bottom).mas_offset(10);
-    //        make.left.mas_equalTo(15);
-    //        make.height.mas_equalTo(20);
-    //        make.right.mas_equalTo(self.rewindBT.mas_left).mas_offset(-5);
-    //    }];
-    //    [self.rewindBT mas_makeConstraints:^(MASConstraintMaker *make) {
-    //        make.width.mas_equalTo(width);
-    //        make.height.mas_equalTo(height);
-    //
-    //        make.right.mas_equalTo(self.forwardBT.mas_left).mas_offset(-10);
-    //        make.centerY.mas_equalTo(self.nameL.mas_centerY);
-    //    }];
-    //    [self.forwardBT mas_makeConstraints:^(MASConstraintMaker *make) {
-    //        make.width.mas_equalTo(width);
-    //        make.height.mas_equalTo(height);
-    //
-    //        make.right.mas_equalTo(-15);
-    //        make.centerY.mas_equalTo(self.nameL.mas_centerY);
-    //    }];
-    
     [self.coverBT mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(15);
         make.top.mas_equalTo(self.songInfoL.mas_bottom).mas_offset(7);
@@ -326,27 +315,24 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     }];
     
     [self.playBT mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(width);
-        make.height.mas_equalTo(height);
+        make.size.mas_equalTo(self.playBT.size);
         
         make.centerX.mas_equalTo(0);
         make.centerY.mas_equalTo(self.coverBT.mas_centerY);
     }];
     
     [self.previousBT mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(width);
-        make.height.mas_equalTo(height);
+        make.size.mas_equalTo(self.previousBT.size);
         
-        make.right.mas_equalTo(self.playBT.mas_left).mas_offset(-30);
+        make.right.mas_equalTo(self.playBT.mas_left).mas_offset(-20);
         //make.top.mas_equalTo(self.playBT.mas_top);
         make.centerY.mas_equalTo(self.coverBT.mas_centerY);
     }];
     
     [self.nextBT mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(width);
-        make.height.mas_equalTo(height);
+        make.size.mas_equalTo(self.nextBT.size);
         
-        make.left.mas_equalTo(self.playBT.mas_right).mas_offset(30);
+        make.left.mas_equalTo(self.playBT.mas_right).mas_offset(20);
         //make.top.mas_equalTo(self.playBT.mas_top);
         make.centerY.mas_equalTo(self.coverBT.mas_centerY);
     }];

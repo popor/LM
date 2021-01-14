@@ -32,14 +32,6 @@
 }
 
 - (void)addViews {
-    //    self.playBt = ({
-    //        UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-    //        button.frame =  CGRectMake(0, 0, 30, 30);
-    //        [button setImage:[UIImage imageNamed:@"play_gray"] forState:UIControlStateNormal];
-    //        [self.contentView addSubview:button];
-    //        
-    //        button;
-    //    });
     for (int i = 0; i<1; i++) {
         UILabel * oneL = ({
             UILabel * l = [UILabel new];
@@ -63,13 +55,6 @@
                 break;
         }
     }
-    
-    //    [self.playBt mas_makeConstraints:^(MASConstraintMaker *make) {
-    //        make.centerY.mas_equalTo(0);
-    //        make.width.mas_equalTo(40);
-    //        make.height.mas_equalTo(30);
-    //        make.left.mas_equalTo(15);
-    //    }];
     
     self.rightIV = ({
         UIImageView * iv = [UIImageView new];
