@@ -370,6 +370,12 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             self.searchCoverView.y = CGRectGetMaxY(self.searchBar.frame);
             [self.infoTV addSubview:self.searchCoverView];
+            [self.searchCoverView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.mas_equalTo(0);
+                make.left.mas_equalTo(0);
+                make.bottom.mas_equalTo(-0);
+                make.right.mas_equalTo(-0);
+            }];
             
             [UIView animateWithDuration:duration animations:^{
                 self.searchCoverView.backgroundColor = PRGBF(0, 0, 0, 0.25);
