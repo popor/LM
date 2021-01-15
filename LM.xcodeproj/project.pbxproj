@@ -59,7 +59,6 @@
 		C3AD513D2517161700746FA2 /* LocalMusicHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD513C2517161700746FA2 /* LocalMusicHeadView.m */; };
 		C3AD516C2517310900746FA2 /* ThemeColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD516B2517310900746FA2 /* ThemeColor.m */; };
 		C3E1687525A2FFC1004104B4 /* AlertWindowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E1687425A2FFC1004104B4 /* AlertWindowImageView.m */; };
-		C3F31AD825395D3F00621878 /* UINavigationController+pAutorotate.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F31AD625395D3F00621878 /* UINavigationController+pAutorotate.m */; };
 		C3F31AE02539709100621878 /* 全屏@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F31ADC2539709100621878 /* 全屏@3x.png */; };
 		C3F31AE12539709100621878 /* 全屏@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F31ADD2539709100621878 /* 全屏@2x.png */; };
 		C3F31AE22539709100621878 /* 半屏@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F31ADE2539709100621878 /* 半屏@2x.png */; };
@@ -204,8 +203,6 @@
 		C3AD516B2517310900746FA2 /* ThemeColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThemeColor.m; sourceTree = "<group>"; };
 		C3E1687325A2FFC1004104B4 /* AlertWindowImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertWindowImageView.h; sourceTree = "<group>"; };
 		C3E1687425A2FFC1004104B4 /* AlertWindowImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertWindowImageView.m; sourceTree = "<group>"; };
-		C3F31AD625395D3F00621878 /* UINavigationController+pAutorotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+pAutorotate.m"; sourceTree = "<group>"; };
-		C3F31AD725395D3F00621878 /* UINavigationController+pAutorotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+pAutorotate.h"; sourceTree = "<group>"; };
 		C3F31ADC2539709100621878 /* 全屏@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "全屏@3x.png"; sourceTree = "<group>"; };
 		C3F31ADD2539709100621878 /* 全屏@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "全屏@2x.png"; sourceTree = "<group>"; };
 		C3F31ADE2539709100621878 /* 半屏@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "半屏@2x.png"; sourceTree = "<group>"; };
@@ -421,7 +418,6 @@
 				C3325B3925A41B07000A7F43 /* FeedbackGenerator */,
 				C3E1687225A2FFC1004104B4 /* AlertWindowImageView */,
 				E431E51025A1A16C0024C67B /* FD_download */,
-				C3F31AD525395D3F00621878 /* NC */,
 				C3AD51692517307F00746FA2 /* Color */,
 			);
 			path = Public;
@@ -760,15 +756,6 @@
 			path = AlertWindowImageView;
 			sourceTree = "<group>";
 		};
-		C3F31AD525395D3F00621878 /* NC */ = {
-			isa = PBXGroup;
-			children = (
-				C3F31AD725395D3F00621878 /* UINavigationController+pAutorotate.h */,
-				C3F31AD625395D3F00621878 /* UINavigationController+pAutorotate.m */,
-			);
-			path = NC;
-			sourceTree = "<group>";
-		};
 		C3F31ADB2539709100621878 /* image */ = {
 			isa = PBXGroup;
 			children = (
@@ -1017,7 +1004,6 @@
 				C3AD513D2517161700746FA2 /* LocalMusicHeadView.m in Sources */,
 				183BF427224A22EC004DE115 /* RootVCInteractor.m in Sources */,
 				C3560ECA2537F7C40062EFA8 /* LrcKugouDetailEntity.m in Sources */,
-				C3F31AD825395D3F00621878 /* UINavigationController+pAutorotate.m in Sources */,
 				C3AD51332516FC6900746FA2 /* MRouterConfig.m in Sources */,
 				18DE13AF2251F78C009920D7 /* MusicInfoCell.m in Sources */,
 				C3571A6925B025DB0095AE53 /* CellInfoEntity.m in Sources */,

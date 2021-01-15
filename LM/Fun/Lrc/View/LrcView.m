@@ -328,7 +328,7 @@
     #if TARGET_OS_MACCATALYST
                 gap = 200;
     #else
-                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
                     gap = 400;
                 }
     #endif

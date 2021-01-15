@@ -155,10 +155,11 @@
 #if TARGET_OS_MACCATALYST
     needMonitorFrame = YES;
 #else
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         needMonitorFrame = YES;
     }
 #endif
+    
     if (needMonitorFrame) {
         // 模式下需要监听用户缩放frame
         [RACObserve(self.navigationController.view, frame) subscribeNext:^(id  _Nullable x) {
