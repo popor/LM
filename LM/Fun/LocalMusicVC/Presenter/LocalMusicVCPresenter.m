@@ -1149,6 +1149,10 @@ API_AVAILABLE(ios(12.0))
 }
 
 - (void)aimAtCurrentItem:(UIButton * _Nullable)bt {
+    [self aimAtCurrentItem:bt animation:YES];
+}
+
+- (void)aimAtCurrentItem:(UIButton * _Nullable)bt animation:(BOOL)animation {
     if (self.view.isRoot) {
         return;
     }
@@ -1176,7 +1180,7 @@ API_AVAILABLE(ios(12.0))
     }
     
     if (row > -1) {
-        [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+        [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:animation];
     } else {
         // 假如有bt, 则是用户点击的, 给提示, 否则不给提示.
         if (bt) {

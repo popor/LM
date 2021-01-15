@@ -74,7 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)reloadImageColor;
 - (void)freshTVVisiableCellEvent;
 
-- (void)aimAtCurrentItem:(UIButton * _Nullable)bt;
+- (void)aimAtCurrentItem:(UIButton * _Nullable)bt animation:(BOOL)animation;
 
 // 播放歌单
 - (void)selectDetailCellIP:(NSIndexPath *)indexPath autoPlay:(BOOL)autoPlay;
