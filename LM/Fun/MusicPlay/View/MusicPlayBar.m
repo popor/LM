@@ -59,14 +59,15 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 
 - (void)addViews {
 #if TARGET_OS_MACCATALYST
-    CGFloat bottomMargin    = 10;
+    CGFloat height          = 140;
     CGFloat CoverOrderWidth = 60;
 #else
     CGFloat bottomMargin    = [UIDevice safeBottomMargin];
+    CGFloat height          = 130 + ((bottomMargin >0) ? bottomMargin:10);
     CGFloat CoverOrderWidth = PSCREEN_SIZE.width == 320 ? 50:60;
 #endif
     
-    self.frame = CGRectMake(0, 0, PSCREEN_SIZE.width, 140 + bottomMargin);
+    self.frame = CGRectMake(0, 0, PSCREEN_SIZE.width, height);
     
     {
         self.sliderTimeL = ({
@@ -336,24 +337,6 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         make.centerY.mas_equalTo(self.coverBT.mas_centerY);
     }];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        CGFloat x = (self.playBT.left -self.coverBT.right +self.playBT.width)/2;
-        
-        [self.previousBT mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(self.previousBT.size);
-            
-            make.centerX.mas_offset(-x);
-            make.centerY.mas_equalTo(self.coverBT.mas_centerY);
-        }];
-        
-        [self.nextBT mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(self.nextBT.size);
-            
-            make.centerX.mas_offset(x);
-            make.centerY.mas_equalTo(self.coverBT.mas_centerY);
-        }];
-    });
-    
     // 顺序
     [self.orderBT mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(self.orderBT.size);
@@ -361,6 +344,61 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         make.right.mas_equalTo(-15);
         make.centerY.mas_equalTo(self.coverBT.mas_centerY);
     }];
+    
+#if TARGET_OS_MACCATALYST
+    [self.previousBT mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(self.previousBT.size);
+        
+        make.left.mas_greaterThanOrEqualTo(self.coverBT.mas_right);
+        make.right.mas_lessThanOrEqualTo(self.playBT.mas_left).mas_offset(-20);
+        make.centerY.mas_equalTo(self.coverBT.mas_centerY);
+    }];
+    
+    [self.nextBT mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(self.nextBT.size);
+        
+        make.left.mas_equalTo(self.playBT.mas_right).mas_offset(20);
+        make.right.mas_lessThanOrEqualTo(self.orderBT.mas_left);
+        make.centerY.mas_equalTo(self.coverBT.mas_centerY);
+    }];
+#else
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        [self.previousBT mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(self.previousBT.size);
+            
+            make.right.mas_equalTo(self.playBT.mas_left).mas_offset(-40);
+            make.centerY.mas_equalTo(self.coverBT.mas_centerY);
+        }];
+        
+        [self.nextBT mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(self.nextBT.size);
+            
+            make.left.mas_equalTo(self.playBT.mas_right).mas_offset(40);
+            make.centerY.mas_equalTo(self.coverBT.mas_centerY);
+        }];
+    } else {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            CGFloat x = (self.playBT.left -self.coverBT.right +self.playBT.width)/2;
+            
+            [self.previousBT mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(self.previousBT.size);
+                
+                make.centerX.mas_offset(-x);
+                make.centerY.mas_equalTo(self.coverBT.mas_centerY);
+            }];
+            
+            [self.nextBT mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(self.nextBT.size);
+                
+                make.centerX.mas_offset(x);
+                make.centerY.mas_equalTo(self.coverBT.mas_centerY);
+            }];
+        });
+    }
+#endif
+    
+    
+    
 }
 
 - (void)updateTimeCurrentFrameTime:(CGFloat)time {

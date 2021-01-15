@@ -347,7 +347,7 @@
         searchBar.barTintColor = App_colorBg2;
         searchBar.tintColor = [UIColor blackColor];
         searchBar.searchTextField.backgroundColor = [UIColor tertiarySystemBackgroundColor];
-        searchBar.searchTextField.textColor       = App_colorTextN;
+        searchBar.searchTextField.textColor       = App_colorTextN1;
         
 #else
         [searchBar setBackgroundImage:[UIImage imageFromColor:[UIColor clearColor] size:CGSizeMake(1, 1)] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault]; //此处使底部线条颜色为红色

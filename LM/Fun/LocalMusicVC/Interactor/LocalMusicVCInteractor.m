@@ -28,7 +28,7 @@
 - (void)initData {
     
 #if TARGET_OS_MACCATALYST
-    self.mplShare.diskFolderArray = [FileTool getArrayAtPath:MusicFolderName type:FileType_folder];
+    self.mplShare.songFolderArray = [FileTool getArrayAtPath:MusicFolderName type:FileType_folder];
 #else
     self.mplShare.songFolderArray = [FileTool getArrayAtPath:nil type:FileType_folder];
 #endif
