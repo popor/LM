@@ -1203,12 +1203,12 @@ API_AVAILABLE(ios(12.0))
     //    }
     
     
-    NSInteger    row = -1;
-    FileEntity * cFE = [MusicPlayTool share].musicItem;
+    NSInteger row = -1;
+    NSString * fileNameDeleteExtension = self.configShare.config.playFileNameDeleteExtension;
     NSMutableArray * array = [self currentSongArray];
     for (NSInteger index = 0; index<array.count; index++) {
         FileEntity * fe = array[index];
-        if (cFE == fe) {
+        if ([fileNameDeleteExtension isEqualToString:fe.fileNameDeleteExtension]) {
             row = index;
             break;
         }
