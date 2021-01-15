@@ -770,34 +770,39 @@ API_AVAILABLE(ios(12.0))
     }
     FileSortEntity * fse = entityArray[index];
     
-    NSIndexPath * toIP = [NSIndexPath indexPathForRow:fse.row inSection:0];
-    [tableView scrollToRowAtIndexPath:toIP atScrollPosition:UITableViewScrollPositionTop animated:NO];
-    
-    MusicInfoCell * cell = [tableView cellForRowAtIndexPath:toIP];
-    
-    [cell.addBt setTitle:fse.pinYin forState:UIControlStateNormal];
-    [cell.addBt setImage:nil        forState:UIControlStateNormal];
-    
-    if ([self isSearchArray]) {
-        if (self.view.sortTypeSearch == FileSortType_author) {
-            cell.subtitleL.textColor = UIColor.redColor;
+    if (fse.row < [self tableView:tableView numberOfRowsInSection:0]) {
+        NSIndexPath * toIP = [NSIndexPath indexPathForRow:fse.row inSection:0];
+        [tableView scrollToRowAtIndexPath:toIP atScrollPosition:UITableViewScrollPositionTop animated:NO];
+        
+        MusicInfoCell * cell = [tableView cellForRowAtIndexPath:toIP];
+        
+        [cell.addBt setTitle:fse.pinYin forState:UIControlStateNormal];
+        [cell.addBt setImage:nil        forState:UIControlStateNormal];
+        
+        if ([self isSearchArray]) {
+            if (self.view.sortTypeSearch == FileSortType_author) {
+                cell.subtitleL.textColor = UIColor.redColor;
+            } else {
+                cell.titelL.textColor = UIColor.redColor;
+            }
         } else {
-            cell.titelL.textColor = UIColor.redColor;
+            if (self.view.sortType == FileSortType_author) {
+                cell.subtitleL.textColor = UIColor.redColor;
+            } else {
+                cell.titelL.textColor = UIColor.redColor;
+            }
         }
+        
+        if (self.lastPinYinScrolledCell != cell) {
+            [self resumeLastPinYinScrolledCellStatus];
+            self.lastPinYinScrolledCell = cell;
+        }
+        
+        return 0;// 因为只有一个section,所以下面的无效
+        //return fse.row;
     } else {
-        if (self.view.sortType == FileSortType_author) {
-            cell.subtitleL.textColor = UIColor.redColor;
-        } else {
-            cell.titelL.textColor = UIColor.redColor;
-        }
+        return 0;
     }
-    
-    if (self.lastPinYinScrolledCell != cell) {
-        [self resumeLastPinYinScrolledCellStatus];
-        self.lastPinYinScrolledCell = cell;
-    }
-    
-    return fse.row;
 }
 
 - (void)resumeLastPinYinScrolledCellStatus {
@@ -1201,8 +1206,9 @@ API_AVAILABLE(ios(12.0))
     
     NSInteger    row = -1;
     FileEntity * cFE = [MusicPlayTool share].musicItem;
-    for (NSInteger index = 0; index<self.interactor.localArray.count; index++) {
-        FileEntity * fe = self.interactor.localArray[index];
+    NSMutableArray * array = [self currentSongArray];
+    for (NSInteger index = 0; index<array.count; index++) {
+        FileEntity * fe = array[index];
         if (cFE == fe) {
             row = index;
             break;
@@ -1210,7 +1216,9 @@ API_AVAILABLE(ios(12.0))
     }
     
     if (row > -1) {
-        [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:animation];
+        if (row < [self tableView:self.view.infoTV numberOfRowsInSection:0]) {
+            [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:animation];
+        }
     } else {
         // 假如有bt, 则是用户点击的, 给提示, 否则不给提示.
         if (bt) {
