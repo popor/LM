@@ -59,12 +59,14 @@ static CGFloat MPBTimeLabelWidth1 = 57;
 
 - (void)addViews {
 #if TARGET_OS_MACCATALYST
-    int bottomMargin = 10;
+    CGFloat bottomMargin    = 10;
+    CGFloat CoverOrderWidth = 60;
 #else
-    int bottomMargin = [UIDevice safeBottomMargin];
+    CGFloat bottomMargin    = [UIDevice safeBottomMargin];
+    CGFloat CoverOrderWidth = PSCREEN_SIZE.width == 320 ? 50:60;
 #endif
     
-    self.frame = CGRectMake(0, 0, PSCREEN_SIZE.width, 130 + bottomMargin);
+    self.frame = CGRectMake(0, 0, PSCREEN_SIZE.width, 140 + bottomMargin);
     
     {
         self.sliderTimeL = ({
@@ -255,6 +257,11 @@ static CGFloat MPBTimeLabelWidth1 = 57;
             }
             case 5:{
                 self.orderBT = oneBT;
+                oneBT.frame = CGRectMake(0, 0, CoverOrderWidth, CoverOrderWidth);
+                oneBT.imageView.contentMode = UIViewContentModeLeft;
+                oneBT.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+                //oneBT.backgroundColor = UIColor.redColor;
+                
                 [oneBT setImage:nil forState:UIControlStateHighlighted];
                 
                 [oneBT addTarget:self action:@selector(orderAction) forControlEvents:UIControlEventTouchUpInside];
@@ -270,6 +277,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     self.coverBT = ({
         UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.contentMode = UIViewContentModeScaleAspectFill;
+        button.frame = CGRectMake(0, 0, CoverOrderWidth, CoverOrderWidth);
         
         button.layer.cornerRadius = 6;
         button.layer.borderColor = PRGBF(0, 0, 0, 0.08).CGColor;
@@ -318,7 +326,7 @@ static CGFloat MPBTimeLabelWidth1 = 57;
     [self.coverBT mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(15);
         make.top.mas_equalTo(self.songInfoL.mas_bottom).mas_offset(7);
-        make.width.height.mas_equalTo(60);
+        make.size.mas_equalTo(self.coverBT.size);
     }];
     
     [self.playBT mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -328,26 +336,27 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         make.centerY.mas_equalTo(self.coverBT.mas_centerY);
     }];
     
-    [self.previousBT mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(self.previousBT.size);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        CGFloat x = (self.playBT.left -self.coverBT.right +self.playBT.width)/2;
         
-        make.right.mas_equalTo(self.playBT.mas_left).mas_offset(-20);
-        //make.top.mas_equalTo(self.playBT.mas_top);
-        make.centerY.mas_equalTo(self.coverBT.mas_centerY);
-    }];
-    
-    [self.nextBT mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(self.nextBT.size);
+        [self.previousBT mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(self.previousBT.size);
+            
+            make.centerX.mas_offset(-x);
+            make.centerY.mas_equalTo(self.coverBT.mas_centerY);
+        }];
         
-        make.left.mas_equalTo(self.playBT.mas_right).mas_offset(20);
-        //make.top.mas_equalTo(self.playBT.mas_top);
-        make.centerY.mas_equalTo(self.coverBT.mas_centerY);
-    }];
+        [self.nextBT mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(self.nextBT.size);
+            
+            make.centerX.mas_offset(x);
+            make.centerY.mas_equalTo(self.coverBT.mas_centerY);
+        }];
+    });
     
     // 顺序
     [self.orderBT mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(30);
-        make.height.mas_equalTo(30);
+        make.size.mas_equalTo(self.orderBT.size);
         
         make.right.mas_equalTo(-15);
         make.centerY.mas_equalTo(self.coverBT.mas_centerY);
