@@ -23,7 +23,6 @@ API_AVAILABLE(ios(12.0))
 
 @property (nonatomic, weak  ) FileEntity * selectFileEntity;
 @property (nonatomic, weak  ) MusicPlayBar * mpb;
-@property (nonatomic, weak  ) MusicFolderEntity * mplt;
 @property (nonatomic, weak  ) MusicConfigShare  * configShare;
 @property (nonatomic, weak  ) MusicInfoCell * lastPlayCell;
 @property (nonatomic, weak  ) MusicInfoCell * lastPinYinScrolledCell; // 最后依据拼音顺序滑动的cell
@@ -1150,6 +1149,9 @@ API_AVAILABLE(ios(12.0))
 }
 
 - (void)aimAtCurrentItem:(UIButton * _Nullable)bt {
+    if (self.view.isRoot) {
+        return;
+    }
     if (bt) {
         FeedbackShakePhone
     }
@@ -1162,15 +1164,17 @@ API_AVAILABLE(ios(12.0))
     //    } else {
     //    }
     
-    NSString * fileNameDeleteExtension = self.configShare.config.playFileNameDeleteExtension;
-    NSInteger row = -1;
+    
+    NSInteger    row = -1;
+    FileEntity * cFE = [MusicPlayTool share].musicItem;
     for (NSInteger index = 0; index<self.interactor.localArray.count; index++) {
         FileEntity * fe = self.interactor.localArray[index];
-        if ([fe.fileNameDeleteExtension isEqualToString:fileNameDeleteExtension]) {
+        if (cFE == fe) {
             row = index;
             break;
         }
     }
+    
     if (row > -1) {
         [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
     } else {

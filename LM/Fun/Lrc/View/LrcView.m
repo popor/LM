@@ -10,14 +10,12 @@
 #import "LrcViewInteractor.h"
 #import "MusicFolderEntity.h"
 #import "MusicPlayBar.h"
-#import "MusicFolderEntity.h"
 #import "MusicPlayTool.h"
 
 @interface LrcView () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) LrcViewPresenter * present;
 @property (nonatomic, weak  ) MusicPlayBar * mpb;
-@property (nonatomic, weak  ) MusicFolderEntity * mplt;
 @property (nonatomic, weak  ) MusicPlayTool * mpt;
 @property (nonatomic        ) BOOL showBlurImage_lrc;
 @property (nonatomic, copy  ) NSString * lastImageUrl;
