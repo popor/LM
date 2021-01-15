@@ -197,7 +197,7 @@ API_AVAILABLE(ios(12.0))
             return 1;
         }
     }
-    else if (tableView == self.view.songFolderTV) {
+    else if (tableView == self.view.moveFolderTV) {
         return 1;
     }
     else {
@@ -226,7 +226,7 @@ API_AVAILABLE(ios(12.0))
             }
         }
     }
-    else if (tableView == self.view.songFolderTV) {
+    else if (tableView == self.view.moveFolderTV) {
         return self.interactor.mplShare.songFolderArray.count;
     }
     
@@ -251,7 +251,7 @@ API_AVAILABLE(ios(12.0))
             return self.view.searchBar.height;
         }
     }
-    else if (tableView == self.view.songFolderTV) {
+    else if (tableView == self.view.moveFolderTV) {
         return 0.1;
     }
     else{
@@ -291,7 +291,7 @@ API_AVAILABLE(ios(12.0))
             return self.view.searchBar;
         }
     }
-    else if (tableView == self.view.songFolderTV) {
+    else if (tableView == self.view.moveFolderTV) {
         return nil;
     }
     else{
@@ -311,7 +311,7 @@ API_AVAILABLE(ios(12.0))
             return 20;
         }
     }
-    else if (tableView == self.view.songFolderTV) {
+    else if (tableView == self.view.moveFolderTV) {
         return 0.1;
     }
     else{
@@ -324,7 +324,7 @@ API_AVAILABLE(ios(12.0))
     if (tableView == self.view.infoTV) {
         return MusicInfoCellH;
     }
-    else if (tableView == self.view.songFolderTV) {
+    else if (tableView == self.view.moveFolderTV) {
         return 50;
     }
     else{
@@ -370,8 +370,8 @@ API_AVAILABLE(ios(12.0))
         
         return cell;
     }
-    else if (tableView == self.view.songFolderTV) {
-        static NSString * CellID = @"CellMusicList";
+    else if (tableView == self.view.moveFolderTV) {
+        static NSString * CellID = @"CellMusicFolder";
         UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellID];
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
@@ -820,7 +820,7 @@ API_AVAILABLE(ios(12.0))
             [self selectDetailCellIP:indexPath autoPlay:YES];
         }
     }
-    else if (tableView == self.view.songFolderTV) {
+    else if (tableView == self.view.moveFolderTV) {
         FeedbackShakePhone
         [self.songFolderAbView closeEvent];
         
@@ -1478,9 +1478,9 @@ API_AVAILABLE(ios(12.0))
     
     AlertBubbleView * abView = [[AlertBubbleView alloc] initWithDic:dic];
     
-    self.view.songFolderTV.center = self.view.vc.navigationController.view.center;
+    self.view.moveFolderTV.center = self.view.vc.navigationController.view.center;
     
-    [abView showCustomView:self.view.songFolderTV close:^{
+    [abView showCustomView:self.view.moveFolderTV close:^{
         
     }];
     

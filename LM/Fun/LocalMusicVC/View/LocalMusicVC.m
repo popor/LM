@@ -21,7 +21,7 @@
 @implementation LocalMusicVC
 @synthesize infoTV;
 @synthesize musicListTV;
-@synthesize songFolderTV;
+@synthesize moveFolderTV;
 @synthesize playbar;
 @synthesize itemArray;
 
@@ -134,10 +134,9 @@
         [self.infoTV addSubview:self.setL];
     }
     
-    if (self.isRoot) {
-        self.musicListTV  = [self addMusicListTVs];
-    } else {
-        self.songFolderTV = [self addMusicListTVs];
+    self.musicListTV = [self addMusicListTVs];
+    if (!self.isRoot) {
+        self.moveFolderTV = [self addMusicListTVs];
     }
     
     if (!self.isRoot) {

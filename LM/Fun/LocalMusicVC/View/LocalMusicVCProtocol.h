@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak  ) MusicPlayBar    * playbar;
 @property (nonatomic, strong) UITableView     * infoTV;
 @property (nonatomic, strong) UITableView     * musicListTV;
-@property (nonatomic, strong) UITableView     * songFolderTV;
+@property (nonatomic, strong) UITableView     * moveFolderTV;
 
 @property (nonatomic, weak  ) NSMutableArray<FileEntity> * itemArray;
 
