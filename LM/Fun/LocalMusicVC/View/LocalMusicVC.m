@@ -48,9 +48,13 @@
 @synthesize sortTypeSearch;
 @synthesize setL;
 
+@synthesize abView;
+
 - (void)dealloc {
     [MGJRouter openURL:MUrl_freshRootTV];
     MptShare.nextMusicBlock_detailVC = nil;
+    
+    
 }
 
 - (instancetype)initWithDic:(NSDictionary *)dic {
@@ -69,6 +73,24 @@
         });
     }
 }
+
+////-------
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self startMonitorTapEdit];
+}
+
+- (void)viewDidDisappear:(BOOL)animated  {
+    [super viewDidDisappear:animated];
+    
+    [self stopMonitorTapEdit];
+    
+    if (self.abView) {
+        [self.abView closeEvent];
+    }
+}
+
 
 - (void)viewDidLoad {
     [self assembleViper];
@@ -251,20 +273,6 @@
     [self.present startEvent];
     
 }
-
-////-------
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    [self startMonitorTapEdit];
-}
-
-- (void)viewDidDisappear:(BOOL)animated  {
-    [super viewDidDisappear:animated];
-    
-    [self stopMonitorTapEdit];
-}
-
 
 #pragma mark - VCProtocol
 - (void)setMyPresent:(id)present {

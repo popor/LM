@@ -51,6 +51,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UILabel * setL;
 
+@property (nonatomic, strong) AlertBubbleView * abView;
+
 // MARK: 外部注入的
 @property (nonatomic, copy  ) NSString * playFileID;
 @property (nonatomic, copy  ) NSString * playSearchKey;

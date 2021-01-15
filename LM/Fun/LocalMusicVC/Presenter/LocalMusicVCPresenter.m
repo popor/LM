@@ -28,9 +28,6 @@ API_AVAILABLE(ios(12.0))
 @property (nonatomic, weak  ) MusicInfoCell * lastPlayCell;
 @property (nonatomic, weak  ) MusicInfoCell * lastPinYinScrolledCell; // 最后依据拼音顺序滑动的cell
 
-@property (nonatomic, strong) AlertBubbleView * songFolderAbView;
-
-
 @property (nonatomic        ) UIUserInterfaceStyle userInterfaceStyle;
 
 @property (nonatomic        ) BOOL firstAimAt;
@@ -822,7 +819,7 @@ API_AVAILABLE(ios(12.0))
     }
     else if (tableView == self.view.moveFolderTV) {
         FeedbackShakePhone
-        [self.songFolderAbView closeEvent];
+        [self.view.abView closeEvent];
         
         // 物理转移
         FileEntity * originFE;
@@ -1010,6 +1007,7 @@ API_AVAILABLE(ios(12.0))
         
     }];
     
+    self.view.abView = abView;
 }
 
 - (void)reloadImageColor {
@@ -1484,7 +1482,7 @@ API_AVAILABLE(ios(12.0))
         
     }];
     
-    self.songFolderAbView = abView;
+    self.view.abView = abView;
 }
 
 - (FileEntity *)longPressEntity {
