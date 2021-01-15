@@ -796,11 +796,10 @@ API_AVAILABLE(ios(12.0))
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (self.view.longPressMenu) {
-        [self.view.longPressMenu setMenuVisible:NO];
-        self.view.longPressMenu = nil;
+    if ([self closeLongPressMenu]) {
         return;
     }
+    
     if (tableView == self.view.infoTV) {
         if (self.view.isRoot) {
             if (self.view.infoTV.isEditing) {
@@ -817,7 +816,7 @@ API_AVAILABLE(ios(12.0))
             [self selectDetailCellIP:indexPath autoPlay:YES];
         }
     }
-    else if (tableView == self.view.moveFolderTV) {
+    else if (tableView == self.view.moveFolderTV) { // 转移文件夹操作
         FeedbackShakePhone
         [self.view.abView closeEvent];
         
@@ -856,7 +855,7 @@ API_AVAILABLE(ios(12.0))
         [MGJRouter openURL:MUrl_freshRootTV];
         
     }
-    else {
+    else { // 收藏操作
         FeedbackShakePhone
         
         FileEntity * list = self.interactor.mplShare.songFavListEntity.songListArray[indexPath.row];
@@ -865,9 +864,12 @@ API_AVAILABLE(ios(12.0))
                 list.itemArray = [NSMutableArray<FileEntity> new];
             }
             if (self.selectFileEntity.isFolder) {
-                [list.itemArray addObjectsFromArray:self.selectFileEntity.itemArray];
+                for (NSInteger i = 0; i < self.selectFileEntity.itemArray.count; i++) {
+                    FileEntity * fe = self.selectFileEntity.itemArray[i];
+                    [list.itemArray insertObject:fe atIndex:i];
+                }
             }else{
-                [list.itemArray addObject:self.selectFileEntity];
+                [list.itemArray insertObject:self.selectFileEntity atIndex:0];
             }
             [self.interactor updateSongList];
             
@@ -878,6 +880,16 @@ API_AVAILABLE(ios(12.0))
             AlertToastTitle(@"请在首页 新增歌单");
         }
         
+    }
+}
+
+- (BOOL)closeLongPressMenu {
+    if (self.view.longPressMenu) {
+        [self.view.longPressMenu setMenuVisible:NO];
+        self.view.longPressMenu = nil;
+        return YES;
+    } else {
+        return NO;
     }
 }
 
@@ -951,9 +963,7 @@ API_AVAILABLE(ios(12.0))
 #pragma mark - SV 拖拽事件
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     if (scrollView == self.view.infoTV) {
-        if (self.view.longPressMenu) {
-            self.view.longPressMenu = nil;
-        }
+        [self closeLongPressMenu];
     }
 }
 
@@ -1008,6 +1018,9 @@ API_AVAILABLE(ios(12.0))
     }];
     
     self.view.abView = abView;
+    
+    // 关闭之前的menu
+    [self closeLongPressMenu];
 }
 
 - (void)reloadImageColor {
@@ -1483,6 +1496,9 @@ API_AVAILABLE(ios(12.0))
     }];
     
     self.view.abView = abView;
+    
+    // 关闭之前的menu
+    [self closeLongPressMenu];
 }
 
 - (FileEntity *)longPressEntity {
