@@ -105,6 +105,43 @@
             cell.uis.on = self.configShare.config.rootVcShowSetBt;
             break;
         }
+        case AppSetCellType_自动关闭歌单列表窗口: {
+            if (!cell.switchBlock) {
+                cell.switchBlock = ^(UISwitch *uis) {
+                    @strongify(self);
+                    self.configShare.config.autoCloseFavTV = uis.on;
+                    
+                    [MGJRouter openURL:MUrl_savePlayConfig];
+                };
+            }
+            cell.uis.on = self.configShare.config.autoCloseFavTV;
+            break;
+        }
+        case AppSetCellType_删除歌单列表的文件: {
+            if (!cell.switchBlock) {
+                cell.switchBlock = ^(UISwitch *uis) {
+                    @strongify(self);
+                    self.configShare.config.alertDeleteFile_virtualFolder = uis.on;
+                    
+                    [MGJRouter openURL:MUrl_savePlayConfig];
+                };
+            }
+            cell.uis.on = self.configShare.config.alertDeleteFile_virtualFolder;
+            break;
+        }
+        case AppSetCellType_删除文件夹的文件: {
+            if (!cell.switchBlock) {
+                cell.switchBlock = ^(UISwitch *uis) {
+                    @strongify(self);
+                    self.configShare.config.alertDeleteFile_folder = uis.on;
+                    
+                    [MGJRouter openURL:MUrl_savePlayConfig];
+                };
+            }
+            cell.uis.on = self.configShare.config.alertDeleteFile_folder;
+            break;
+        }
+            
         default:
             break;
     }

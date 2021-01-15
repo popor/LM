@@ -48,9 +48,11 @@
         NSData * configData = [NSData dataWithContentsOfFile:self.configFilePath];
         if (configData) {
             //_config     = [[MusicConfig alloc] initWithString:[[NSString alloc] initWithData:configData encoding:NSUTF8StringEncoding] error:nil];
-            _config     = [[MusicConfig alloc] initWithData:configData error:nil];
+            _config = [[MusicConfig alloc] initWithData:configData error:nil];
         } else {
-            _config     = [MusicConfig new];
+            _config = [MusicConfig new];
+            
+            _config.alertDeleteFile_folder = YES;
         }
         
         

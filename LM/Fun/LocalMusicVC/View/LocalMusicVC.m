@@ -229,7 +229,6 @@
 
 // 排序
 - (void)sortPinYinArray {
-    return;
     self.sortEntityArray = [NSMutableArray<FileSortEntity *> new];
     NSString * lastText  = @"";
     //sortType = FileSortType_null;

@@ -883,6 +883,10 @@ API_AVAILABLE(ios(12.0))
     else { // 收藏操作
         FeedbackShakePhone
         
+        if (self.configShare.config.autoCloseFavTV) {
+            [self.view.abView closeEvent];
+        }
+        
         FileEntity * list = self.interactor.mplShare.songFavListEntity.songListArray[indexPath.row];
         if (list) {
             if (!list.itemArray) {
@@ -1429,6 +1433,28 @@ API_AVAILABLE(ios(12.0))
 }
 
 - (void)deleteFileAction {
+    
+    switch (self.view.folderType) {
+        case FileType_folder: {
+            if (!self.configShare.config.alertDeleteFile_folder) {
+                [self deleteFileEvent_folder];
+                return;
+            }
+            break;
+        }
+        case FileType_virtualFolder: {
+            if (!self.configShare.config.alertDeleteFile_virtualFolder) {
+                [self deleteFileEvent_virtualFolder];
+                return;
+            }
+            break;
+        }
+            
+        default:
+            break;
+    }
+    
+    
     FileEntity * entity = [self longPressEntity];
     
     NSString * message;
@@ -1446,18 +1472,9 @@ API_AVAILABLE(ios(12.0))
     UIAlertAction * okAction = [UIAlertAction actionWithTitle:okText style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
         if (self.view.folderType == FileType_folder) {
-            NSString * path = [NSString stringWithFormat:@"%@/%@", FT_docPath, entity.filePath];
-            [NSFileManager deleteFile:path];
-            
-            [self.interactor.localArray removeObject:entity];
-            [self.view.searchArray removeObject:entity];
-            [self.view.infoTV reloadData];
+            [self deleteFileEvent_folder];
         } else if (self.view.folderType == FileType_virtualFolder) {
-            // 仅仅是文件夹移除
-            [self.interactor.localArray removeObject:entity];
-            [self.view.searchArray removeObject:entity];
-            [self.view.infoTV reloadData];
-            [self.interactor updateSongList];
+            [self deleteFileEvent_virtualFolder];
         }
         AlertToastTitle(@"删除成功");
     }];
@@ -1466,6 +1483,33 @@ API_AVAILABLE(ios(12.0))
     [oneAC addAction:okAction];
     
     [self.view.vc presentViewController:oneAC animated:YES completion:nil];
+}
+
+// 删除歌单文件
+- (void)deleteFileEvent_virtualFolder { // 仅仅是文件夹移除
+    FileEntity * entity = [self longPressEntity];
+
+    // 虚拟歌单存在重复的, 所以不能依据内存
+    NSInteger index = [self.interactor.localArray indexOfObject:entity];
+    [self.interactor.localArray removeObjectAtIndex:index];
+    
+    index = [self.view.searchArray indexOfObject:entity];
+    [self.view.searchArray removeObjectAtIndex:index];
+    
+    [self.view.infoTV reloadData];
+    [self.interactor updateSongList];
+}
+
+// 删除物理文件
+- (void)deleteFileEvent_folder { // 物理删除
+    FileEntity * entity = [self longPressEntity];
+    
+    NSString * path = [NSString stringWithFormat:@"%@/%@", FT_docPath, entity.filePath];
+    [NSFileManager deleteFile:path];
+    
+    [self.interactor.localArray removeObject:entity];
+    [self.view.searchArray removeObject:entity];
+    [self.view.infoTV reloadData];
 }
 
 - (void)deleteFolderAction {

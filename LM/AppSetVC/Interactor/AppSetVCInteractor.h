@@ -14,6 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(NSInteger, AppSetCellType) {
     AppSetCellType_启动自动播放 = 1,
     AppSetCellType_首页显示设置,
+    AppSetCellType_自动关闭歌单列表窗口,
+    AppSetCellType_删除歌单列表的文件,
+    AppSetCellType_删除文件夹的文件,
 };
 
 
