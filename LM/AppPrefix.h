@@ -34,3 +34,6 @@ static NSString * LmConfigKey   = @"config";
 // 控制器1 https://www.iconfont.cn/collections/detail?spm=a313x.7781069.1998910419.dc64b3430&cid=10889
 // 控制器2 https://www.iconfont.cn/collections/detail?spm=a313x.7781069.1998910419.dc64b3430&cid=4606
 // 控制器3 最终 https://www.iconfont.cn/collections/detail?spm=a313x.7781069.1998910419.dc64b3430&cid=13385
+
+// 随机 单曲 顺序 https://www.iconfont.cn/collections/detail?spm=a313x.7781069.1998910419.dc64b3430&cid=5375
+
