@@ -268,7 +268,7 @@ API_AVAILABLE(ios(12.0))
                             [head.openBT  addTarget:self action:@selector(addFileEvent) forControlEvents:UIControlEventTouchUpInside];
                             [head.freshBT addTarget:self action:@selector(freshLocalDataAction) forControlEvents:UIControlEventTouchUpInside];
                             
-                            [head.addBT   addTarget:self action:@selector(addFavFolderAction) forControlEvents:UIControlEventTouchUpInside];
+                            [head.addBT   addTarget:self action:@selector(addFolderAction) forControlEvents:UIControlEventTouchUpInside];
                             [head.sortBT  addTarget:self action:@selector(sortFavFolderAction) forControlEvents:UIControlEventTouchUpInside];
                             [head.setBT   addTarget:self action:@selector(setAction) forControlEvents:UIControlEventTouchUpInside];
                             head;
@@ -1232,6 +1232,24 @@ API_AVAILABLE(ios(12.0))
     
 }
 #pragma mark - 新增Folder
+- (void)addFolderAction {
+    UIAlertController * oneAC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction * cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction * okAction1 = [UIAlertAction actionWithTitle:@"新增歌单" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self addFavFolderAction];
+    }];
+    UIAlertAction * okAction2 = [UIAlertAction actionWithTitle:@"新增文件夹" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self addDiskFolderAction:nil];
+    }];
+    
+    [oneAC addAction:cancleAction];
+    [oneAC addAction:okAction1];
+    [oneAC addAction:okAction2];
+    
+    [self.view.vc presentViewController:oneAC animated:YES completion:nil];
+}
+
 - (void)addFavFolderAction {
     UIAlertController * oneAC = [UIAlertController alertControllerWithTitle:@"创建新列表" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
@@ -1253,6 +1271,45 @@ API_AVAILABLE(ios(12.0))
             
             [self.interactor freshFavFolderEvent];
             [self.view.infoTV reloadData];
+        }
+    }];
+    
+    [oneAC addAction:cancleAction];
+    [oneAC addAction:changeAction];
+    
+    [self.view.vc presentViewController:oneAC animated:YES completion:nil];
+}
+
+- (void)addDiskFolderAction:(NSString *)title {
+    NSString * message;
+    if (title) {
+        message = [NSString stringWithFormat:@"《%@》已存在", title];
+    }
+    UIAlertController * oneAC = [UIAlertController alertControllerWithTitle:@"新增文件夹" message:message preferredStyle:UIAlertControllerStyleAlert];
+    
+    [oneAC addTextFieldWithConfigurationHandler:^(UITextField *textField){
+        
+        textField.placeholder = @"文件夹";
+        textField.text = title;
+    }];
+    
+    UIAlertAction * cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    
+    @weakify(oneAC);
+    UIAlertAction * changeAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        @strongify(oneAC);
+        
+        UITextField * nameTF = oneAC.textFields[0];
+        if (nameTF.text.length > 0) {
+            if ([NSFileManager isFileExist:[NSString stringWithFormat:@"%@/%@", FT_docPath, nameTF.text]]) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self addDiskFolderAction:nameTF.text];
+                });
+            } else {
+                [NSFileManager createWithBasePath:FT_docPath folder:nameTF.text];
+                [self freshLocalDataAction];
+                AlertToastTitle(([NSString stringWithFormat:@"《%@》创建成功", nameTF.text]));
+            }
         }
     }];
     
