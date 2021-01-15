@@ -1081,11 +1081,14 @@ API_AVAILABLE(ios(12.0))
     
 }
 
+#pragma mark - 刷新当前Cell, 并且滑动当前播放歌曲
 - (void)freshTVVisiableCellEvent {
     [self.view.infoTV reloadRowsAtIndexPaths:[self.view.infoTV indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
     
     if (!self.userSelectSongMoment) {
-        [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.configShare.config.currentPlayIndexRow inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+        [self aimAtCurrentItem:nil];
+        // 因为存才歌单和当前Cell不一致的情况, 所以不能使用self.configShare.config.currentPlayIndexRow了.
+        //[self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.configShare.config.currentPlayIndexRow inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
     }
 }
 
@@ -1151,10 +1154,25 @@ API_AVAILABLE(ios(12.0))
         FeedbackShakePhone
     }
     
-    if ([self.configShare.config.playFileID isEqualToString:self.view.playFileID]) {
-        if ([self.view.infoTV.dataSource tableView:self.view.infoTV numberOfRowsInSection:0] > self.configShare.config.currentPlayIndexRow) {
-            [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.configShare.config.currentPlayIndexRow inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    //    因为存才歌单和当前Cell不一致的情况, 所以不能使用self.configShare.config.currentPlayIndexRow了.
+    //    if ([self.configShare.config.playFileID isEqualToString:self.view.playFileID]) {
+    //        if ([self.view.infoTV.dataSource tableView:self.view.infoTV numberOfRowsInSection:0] > self.configShare.config.currentPlayIndexRow) {
+    //            [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.configShare.config.currentPlayIndexRow inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    //        }
+    //    } else {
+    //    }
+    
+    NSString * fileNameDeleteExtension = self.configShare.config.playFileNameDeleteExtension;
+    NSInteger row = -1;
+    for (NSInteger index = 0; index<self.interactor.localArray.count; index++) {
+        FileEntity * fe = self.interactor.localArray[index];
+        if ([fe.fileNameDeleteExtension isEqualToString:fileNameDeleteExtension]) {
+            row = index;
+            break;
         }
+    }
+    if (row > -1) {
+        [self.view.infoTV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
     } else {
         // 假如有bt, 则是用户点击的, 给提示, 否则不给提示.
         if (bt) {
@@ -1163,6 +1181,11 @@ API_AVAILABLE(ios(12.0))
     }
 }
 
+
+- (void)aimToCurrentMusicCell {
+    
+    
+}
 #pragma mark - 新增Folder
 - (void)addFavFolderAction {
     UIAlertController * oneAC = [UIAlertController alertControllerWithTitle:@"创建新列表" message:nil preferredStyle:UIAlertControllerStyleAlert];
