@@ -49,6 +49,7 @@
 @synthesize setL;
 
 @synthesize abView;
+@synthesize allowSwipeDelete;
 
 - (void)dealloc {
     [MGJRouter openURL:MUrl_freshRootTV];
@@ -132,6 +133,14 @@
 }
 
 - (void)addViews {
+    // 是否允许侧滑删除
+    if (!self.isRoot && ![self.playFileID isEqualToString:KFolderName_all]) {
+        self.allowSwipeDelete = YES;
+    } else {
+        self.allowSwipeDelete = NO;
+    }
+    
+    // 设置索引
     if (!self.isRoot) {
         [self sortPinYinArray];
     }
@@ -220,6 +229,7 @@
 
 // 排序
 - (void)sortPinYinArray {
+    return;
     self.sortEntityArray = [NSMutableArray<FileSortEntity *> new];
     NSString * lastText  = @"";
     //sortType = FileSortType_null;

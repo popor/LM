@@ -12,8 +12,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString * KRootCellFolderName_all = @".allFile.";
-
 // 处理Entity事件
 @interface LocalMusicVCInteractor : NSObject
 

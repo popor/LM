@@ -37,7 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIButton        * aimBT;
 
 @property (nonatomic, readonly, getter=isRoot) BOOL root;
-@property (nonatomic, readonly) FileType folderType;// 假如非Root, 则需要标注文件夹类型
+@property (nonatomic        ) FileType folderType;// 假如非Root, 则需要标注文件夹类型
+@property (nonatomic        ) BOOL             allowSwipeDelete;// 是否允许侧滑删除
 
 @property (nonatomic, strong) UIMenuController * _Nullable longPressMenu;
 

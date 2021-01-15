@@ -328,6 +328,7 @@ API_AVAILABLE(ios(12.0))
     }
 }
 
+#pragma mark - CELL
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.view.infoTV) {
         static NSString * CellID = @"CellFolder";
@@ -591,18 +592,22 @@ API_AVAILABLE(ios(12.0))
     }
 }
 
-#pragma mark - tv 移动
+#pragma mark - tv 移动 删除
 // 这个回调实现了以后，就会出现更换位置的按钮，回调本身用来处理更换位置后的数据交换。
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.view.infoTV) {
-        if (indexPath.section == 0) {
-            if (indexPath.row == 0) {
-                return NO;
-            } else {
-                return YES;
+        if (self.view.isRoot) {
+            if (indexPath.section == 0) {
+                if (indexPath.row == 0) {
+                    return NO;
+                } else {
+                    return YES;
+                }
             }
+            return NO;
+        } else {
+            return self.view.allowSwipeDelete;
         }
-        return NO;
     }else{
         return NO;
     }
@@ -632,16 +637,39 @@ API_AVAILABLE(ios(12.0))
 // 这个回调决定了在当前indexPath的Cell是否可以移动。
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.view.infoTV) {
-        if (indexPath.section == 0) {
-            if (indexPath.row == 0) {
-                return NO;
-            } else {
-                return YES;
+        if (self.view.isRoot) {
+            if (indexPath.section == 0) {
+                if (indexPath.row == 0) {
+                    return NO;
+                } else {
+                    return YES;
+                }
             }
+            return NO;
+        } else {
+            return NO;
         }
-        return NO;
     }else{
         return NO;
+    }
+}
+
+#pragma mark - TV 删除
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath  API_AVAILABLE(ios(11.0)){
+    if (tableView == self.view.infoTV && self.view.allowSwipeDelete) {
+        UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:@"删除" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+            
+            self.longPressIP = indexPath;
+            [self deleteFileAction];
+            
+            completionHandler(YES);
+        }];
+        deleteAction.backgroundColor = [UIColor redColor]; //也可以设置图片
+        
+        UISwipeActionsConfiguration *config = [UISwipeActionsConfiguration configurationWithActions:@[deleteAction]];
+        return config;
+    } else {
+        return nil;
     }
 }
 
@@ -788,8 +816,6 @@ API_AVAILABLE(ios(12.0))
         self.lastPinYinScrolledCell = nil;
     }
 }
-
-
 
 #pragma mark - TV select
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

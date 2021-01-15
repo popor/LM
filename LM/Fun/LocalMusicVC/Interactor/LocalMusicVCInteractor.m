@@ -107,7 +107,7 @@
     self.mplShare.allFileEntity = ({
         FileEntity * fileEntity = [FileEntity new];
         fileEntity.fileName  = @"全部";
-        fileEntity.fileID    = KRootCellFolderName_all;
+        fileEntity.fileID    = KFolderName_all;
         
         fileEntity.fileType  = FileType_virtualFolder;
         fileEntity.itemArray = [NSMutableArray<FileEntity, Ignore> new];

@@ -72,15 +72,6 @@
         }
     }
     
-    //    self.rightIV = ({
-    //        UIImageView * iv = [UIImageView new];
-    //        iv.image = LmImageThemeBlue1(@"paly_sound");
-    //        iv.hidden = YES;
-    //
-    //        [self.contentView addSubview:iv];
-    //        iv;
-    //    });
-    
     [self.addBt mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(0);
         switch (self.type) {
@@ -97,13 +88,6 @@
         
         make.left.mas_equalTo(15);
     }];
-    
-    //    [self.rightIV mas_makeConstraints:^(MASConstraintMaker *make) {
-    //        make.right.mas_equalTo(-15);
-    //        make.size.mas_equalTo(self.rightIV.image.size);
-    //        //make.size.mas_equalTo(CGSizeMake(30, 30));
-    //        make.centerY.mas_equalTo(0);
-    //    }];
     
     [self.titelL mas_makeConstraints:^(MASConstraintMaker *make) {
         

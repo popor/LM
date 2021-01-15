@@ -10,7 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString * WFIgnoreFile = @".DS_Store";
+static NSString * WFIgnoreFile    = @".DS_Store";
+static NSString * KFolderName_all = @".allFile.";
 
 typedef NS_ENUM(NSInteger, FileType) {
     FileType_folder,
