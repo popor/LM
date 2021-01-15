@@ -275,7 +275,7 @@
         segmentView.btTitleColorGradualChange = YES;
         
         segmentView.btTitleNFont  = [UIFont boldSystemFontOfSize:16];
-        segmentView.lineColor     = App_colorTheme;
+        segmentView.lineColor     = UIColor.clearColor;
         
         [segmentView setUI];
         
