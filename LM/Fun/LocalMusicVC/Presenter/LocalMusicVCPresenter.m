@@ -798,8 +798,7 @@ API_AVAILABLE(ios(12.0))
             self.lastPinYinScrolledCell = cell;
         }
         
-        return 0;// 因为只有一个section,所以下面的无效
-        //return fse.row;
+        return fse.row;
     } else {
         return 0;
     }
