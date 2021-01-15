@@ -1227,6 +1227,13 @@ API_AVAILABLE(ios(12.0))
 
 #pragma mark - 排序
 - (void)sortFavFolderAction {
+    // 假如未创建歌单则不触发.
+    if (self.interactor.mplShare.songFavListEntity.songListArray.count == 0) {
+        self.infoTvHead.sortBT.selected = NO;
+        AlertToastTitle(@"未创建自定义歌单");
+        return;
+    }
+    
     self.infoTvHead.sortBT.selected = !self.infoTvHead.sortBT.isSelected;
     if (self.infoTvHead.sortBT.isSelected) {
         self.view.infoTV.editing = YES;
