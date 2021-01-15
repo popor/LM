@@ -187,7 +187,14 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         UIButton * oneBT = ({
             UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
             if (i == 0) {
-                [button setImage:LmImageThemeBlue1(imageN[i]) forState:UIControlStateNormal];
+                {
+                    NSLog(@"播放按钮右移 x 个像素");
+                    UIImage * image = [UIImage imageNamed:imageN[i]];
+                    image = [UIImage imageFromImage:image size:image.size imageDrawRect:CGRectMake(3, 0, image.size.width, image.size.height) corner:0 borderWidth:0 borderColor:nil];
+                    image = [UIImage imageFromImage:image changecolor:App_colorTheme];
+                    [button setImage:image forState:UIControlStateNormal];
+                    //[button setImage:LmImageThemeBlue1(imageN[i]) forState:UIControlStateNormal];
+                }
                 [button setImage:LmImageThemeBlue1(imageS[i]) forState:UIControlStateHighlighted];
             }else if(i == 6){
                 [button setImage:LmImageRed(imageN[i]) forState:UIControlStateNormal];
