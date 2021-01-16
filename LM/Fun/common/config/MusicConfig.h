@@ -11,17 +11,17 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(int, McPlayOrder) {
-    McPlayOrderNormal, // 普通
     McPlayOrderRandom, // 随机
+    McPlayOrderNormal, // 普通
     McPlayOrderSingle, // 单曲循环
 };
 
-#define McPlayOrderImageArray @[@"loop_order", @"loop_random", @"loop_single"]
+#define McPlayOrderImageArray @[@"loop_random", @"loop_order", @"loop_single"]
 
 @interface MusicConfig : PoporJsonModel
 
 // 播放顺序, 随机还是顺序
-@property (nonatomic        ) McPlayOrder playOrder;
+@property (nonatomic        ) McPlayOrder playOrder; // 默认为 McPlayOrderRandom
 
 @property (nonatomic        ) BOOL autoPlay;
 @property (nonatomic        ) BOOL rootVcShowSetBt;
@@ -45,7 +45,7 @@ typedef NS_ENUM(int, McPlayOrder) {
 
 + (instancetype)share;
 
-@property (nonatomic, strong) MusicConfig   * config;
+@property (nonatomic, strong) MusicConfig * config;
 
 @end
 

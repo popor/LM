@@ -52,6 +52,8 @@
         } else {
             _config = [MusicConfig new];
             
+            _config.playOrder = McPlayOrderRandom;
+            
             _config.alertDeleteFile_folder = YES;
         }
         

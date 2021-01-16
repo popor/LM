@@ -275,6 +275,9 @@ static CGFloat MPBTimeLabelWidth1 = 57;
         
     }
     
+    // 设置 orderBT 图片
+    [self.orderBT setImage:LmImageThemeBlue1(McPlayOrderImageArray[self.configShare.config.playOrder]) forState:UIControlStateNormal];
+    
     self.coverBT = ({
         UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.contentMode = UIViewContentModeScaleAspectFill;
