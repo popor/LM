@@ -58,6 +58,21 @@
 		C3AD51342516FC6900746FA2 /* MRouterUrlPrefix.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD51322516FC6900746FA2 /* MRouterUrlPrefix.m */; };
 		C3AD513D2517161700746FA2 /* LocalMusicHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD513C2517161700746FA2 /* LocalMusicHeadView.m */; };
 		C3AD516C2517310900746FA2 /* ThemeColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD516B2517310900746FA2 /* ThemeColor.m */; };
+		C3DC4A9D25B95FA900C04F63 /* VideoConfigTvView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DC4A7725B95FA800C04F63 /* VideoConfigTvView.m */; };
+		C3DC4A9E25B95FA900C04F63 /* PoporAvPlayerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DC4A7825B95FA800C04F63 /* PoporAvPlayerConfig.m */; };
+		C3DC4A9F25B95FA900C04F63 /* PoporAvPlayerViewPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DC4A7C25B95FA800C04F63 /* PoporAvPlayerViewPresenter.m */; };
+		C3DC4AA025B95FA900C04F63 /* PoporAvPanGR.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DC4A8125B95FA800C04F63 /* PoporAvPanGR.m */; };
+		C3DC4AA125B95FA900C04F63 /* PoporAvPlayerBrightnessView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DC4A8425B95FA800C04F63 /* PoporAvPlayerBrightnessView.m */; };
+		C3DC4AA225B95FA900C04F63 /* PoporAVPlayerLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DC4A8625B95FA800C04F63 /* PoporAVPlayerLayer.m */; };
+		C3DC4AA425B95FA900C04F63 /* PoporAvPlayerBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DC4A8A25B95FA800C04F63 /* PoporAvPlayerBottomBar.m */; };
+		C3DC4AA725B95FA900C04F63 /* PoporAvPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DC4A9225B95FA800C04F63 /* PoporAvPlayerView.m */; };
+		C3DC4AA825B95FA900C04F63 /* PoporAvPlayer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C3DC4A9325B95FA800C04F63 /* PoporAvPlayer.bundle */; };
+		C3DC4AA925B95FA900C04F63 /* PoporAvPlayerViewInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DC4A9625B95FA800C04F63 /* PoporAvPlayerViewInteractor.m */; };
+		C3DC4AAA25B95FA900C04F63 /* PoporAvPlayerRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DC4A9825B95FA800C04F63 /* PoporAvPlayerRecord.m */; };
+		C3DC4AAB25B95FA900C04F63 /* PoporAvPlayerBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DC4A9A25B95FA800C04F63 /* PoporAvPlayerBundle.m */; };
+		C3DC4AB325B963F300C04F63 /* CellAnimationShake.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DC4AB125B963F300C04F63 /* CellAnimationShake.m */; };
+		C3DC4AB425B963F300C04F63 /* CcAnimationShake.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DC4AB225B963F300C04F63 /* CcAnimationShake.m */; };
+		C3DC4ABB25B9655700C04F63 /* PoporAvPlayerTopBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DC4AB925B9655700C04F63 /* PoporAvPlayerTopBar.m */; };
 		C3E1687525A2FFC1004104B4 /* AlertWindowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E1687425A2FFC1004104B4 /* AlertWindowImageView.m */; };
 		C3F31AE02539709100621878 /* 全屏@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F31ADC2539709100621878 /* 全屏@3x.png */; };
 		C3F31AE12539709100621878 /* 全屏@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F31ADD2539709100621878 /* 全屏@2x.png */; };
@@ -201,6 +216,37 @@
 		C3AD513C2517161700746FA2 /* LocalMusicHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocalMusicHeadView.m; sourceTree = "<group>"; };
 		C3AD516A2517310900746FA2 /* ThemeColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThemeColor.h; sourceTree = "<group>"; };
 		C3AD516B2517310900746FA2 /* ThemeColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThemeColor.m; sourceTree = "<group>"; };
+		C3DC4A7725B95FA800C04F63 /* VideoConfigTvView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoConfigTvView.m; sourceTree = "<group>"; };
+		C3DC4A7825B95FA800C04F63 /* PoporAvPlayerConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoporAvPlayerConfig.m; sourceTree = "<group>"; };
+		C3DC4A7925B95FA800C04F63 /* PoporAvPlayerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoporAvPlayerConfig.h; sourceTree = "<group>"; };
+		C3DC4A7A25B95FA800C04F63 /* VideoConfigTvView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoConfigTvView.h; sourceTree = "<group>"; };
+		C3DC4A7C25B95FA800C04F63 /* PoporAvPlayerViewPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoporAvPlayerViewPresenter.m; sourceTree = "<group>"; };
+		C3DC4A7D25B95FA800C04F63 /* PoporAvPlayerViewPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoporAvPlayerViewPresenter.h; sourceTree = "<group>"; };
+		C3DC4A8025B95FA800C04F63 /* PoporAvPanGR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoporAvPanGR.h; sourceTree = "<group>"; };
+		C3DC4A8125B95FA800C04F63 /* PoporAvPanGR.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoporAvPanGR.m; sourceTree = "<group>"; };
+		C3DC4A8325B95FA800C04F63 /* PoporAvPlayerBrightnessView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoporAvPlayerBrightnessView.h; sourceTree = "<group>"; };
+		C3DC4A8425B95FA800C04F63 /* PoporAvPlayerBrightnessView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoporAvPlayerBrightnessView.m; sourceTree = "<group>"; };
+		C3DC4A8625B95FA800C04F63 /* PoporAVPlayerLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoporAVPlayerLayer.m; sourceTree = "<group>"; };
+		C3DC4A8725B95FA800C04F63 /* PoporAVPlayerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoporAVPlayerLayer.h; sourceTree = "<group>"; };
+		C3DC4A8A25B95FA800C04F63 /* PoporAvPlayerBottomBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoporAvPlayerBottomBar.m; sourceTree = "<group>"; };
+		C3DC4A8D25B95FA800C04F63 /* PoporAvPlayerTopBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoporAvPlayerTopBar.h; sourceTree = "<group>"; };
+		C3DC4A8E25B95FA800C04F63 /* PoporAvPlayerBottomBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoporAvPlayerBottomBar.h; sourceTree = "<group>"; };
+		C3DC4A9025B95FA800C04F63 /* PoporAvPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoporAvPlayerView.h; sourceTree = "<group>"; };
+		C3DC4A9125B95FA800C04F63 /* PoporAvPlayerViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoporAvPlayerViewProtocol.h; sourceTree = "<group>"; };
+		C3DC4A9225B95FA800C04F63 /* PoporAvPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoporAvPlayerView.m; sourceTree = "<group>"; };
+		C3DC4A9325B95FA800C04F63 /* PoporAvPlayer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PoporAvPlayer.bundle; sourceTree = "<group>"; };
+		C3DC4A9525B95FA800C04F63 /* PoporAvPlayerViewInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoporAvPlayerViewInteractor.h; sourceTree = "<group>"; };
+		C3DC4A9625B95FA800C04F63 /* PoporAvPlayerViewInteractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoporAvPlayerViewInteractor.m; sourceTree = "<group>"; };
+		C3DC4A9825B95FA800C04F63 /* PoporAvPlayerRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoporAvPlayerRecord.m; sourceTree = "<group>"; };
+		C3DC4A9925B95FA800C04F63 /* PoporAvPlayerPrifix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoporAvPlayerPrifix.h; sourceTree = "<group>"; };
+		C3DC4A9A25B95FA800C04F63 /* PoporAvPlayerBundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoporAvPlayerBundle.m; sourceTree = "<group>"; };
+		C3DC4A9B25B95FA800C04F63 /* PoporAvPlayerBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoporAvPlayerBundle.h; sourceTree = "<group>"; };
+		C3DC4A9C25B95FA900C04F63 /* PoporAvPlayerRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoporAvPlayerRecord.h; sourceTree = "<group>"; };
+		C3DC4AAF25B963F300C04F63 /* CellAnimationShake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellAnimationShake.h; sourceTree = "<group>"; };
+		C3DC4AB025B963F300C04F63 /* CcAnimationShake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CcAnimationShake.h; sourceTree = "<group>"; };
+		C3DC4AB125B963F300C04F63 /* CellAnimationShake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellAnimationShake.m; sourceTree = "<group>"; };
+		C3DC4AB225B963F300C04F63 /* CcAnimationShake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CcAnimationShake.m; sourceTree = "<group>"; };
+		C3DC4AB925B9655700C04F63 /* PoporAvPlayerTopBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoporAvPlayerTopBar.m; sourceTree = "<group>"; };
 		C3E1687325A2FFC1004104B4 /* AlertWindowImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertWindowImageView.h; sourceTree = "<group>"; };
 		C3E1687425A2FFC1004104B4 /* AlertWindowImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertWindowImageView.m; sourceTree = "<group>"; };
 		C3F31ADC2539709100621878 /* 全屏@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "全屏@3x.png"; sourceTree = "<group>"; };
@@ -413,9 +459,10 @@
 		183BF42B224A25B0004DE115 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				C3325B3925A41B07000A7F43 /* FeedbackGenerator */,
+				C3DC4AAE25B963F300C04F63 /* AnimationShake */,
 				C3571A6025B025DB0095AE53 /* CellInfoEntity */,
 				C3F9E2A125A586F50030CE24 /* SingleBTBottomView */,
-				C3325B3925A41B07000A7F43 /* FeedbackGenerator */,
 				C3E1687225A2FFC1004104B4 /* AlertWindowImageView */,
 				E431E51025A1A16C0024C67B /* FD_download */,
 				C3AD51692517307F00746FA2 /* Color */,
@@ -452,6 +499,7 @@
 		184F370E224B26A100FEB57B /* Fun */ = {
 			isa = PBXGroup;
 			children = (
+				C3DC4A7525B95FA800C04F63 /* PoporAvPlayerView */,
 				C31C054F25ABEB53001C6E78 /* common */,
 				C30D896625354B6D009BFB45 /* Lrc */,
 				C3D58B6B2517470C00A40108 /* MusicPlay */,
@@ -747,6 +795,131 @@
 			path = entity;
 			sourceTree = "<group>";
 		};
+		C3DC4A7525B95FA800C04F63 /* PoporAvPlayerView */ = {
+			isa = PBXGroup;
+			children = (
+				C3DC4A9325B95FA800C04F63 /* PoporAvPlayer.bundle */,
+				C3DC4A9725B95FA800C04F63 /* Tool */,
+				C3DC4A7E25B95FA800C04F63 /* Cell */,
+				C3DC4A7625B95FA800C04F63 /* Config */,
+				C3DC4A8F25B95FA800C04F63 /* View */,
+				C3DC4A7B25B95FA800C04F63 /* Presenter */,
+				C3DC4A9425B95FA800C04F63 /* Interactor */,
+			);
+			path = PoporAvPlayerView;
+			sourceTree = "<group>";
+		};
+		C3DC4A7625B95FA800C04F63 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				C3DC4A7A25B95FA800C04F63 /* VideoConfigTvView.h */,
+				C3DC4A7725B95FA800C04F63 /* VideoConfigTvView.m */,
+				C3DC4A7825B95FA800C04F63 /* PoporAvPlayerConfig.m */,
+				C3DC4A7925B95FA800C04F63 /* PoporAvPlayerConfig.h */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		C3DC4A7B25B95FA800C04F63 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				C3DC4A7D25B95FA800C04F63 /* PoporAvPlayerViewPresenter.h */,
+				C3DC4A7C25B95FA800C04F63 /* PoporAvPlayerViewPresenter.m */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		C3DC4A7E25B95FA800C04F63 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				C3DC4A7F25B95FA800C04F63 /* PanGR */,
+				C3DC4A8225B95FA800C04F63 /* BrightnessView */,
+				C3DC4A8525B95FA800C04F63 /* layer */,
+				C3DC4A8825B95FA800C04F63 /* bar */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		C3DC4A7F25B95FA800C04F63 /* PanGR */ = {
+			isa = PBXGroup;
+			children = (
+				C3DC4A8025B95FA800C04F63 /* PoporAvPanGR.h */,
+				C3DC4A8125B95FA800C04F63 /* PoporAvPanGR.m */,
+			);
+			path = PanGR;
+			sourceTree = "<group>";
+		};
+		C3DC4A8225B95FA800C04F63 /* BrightnessView */ = {
+			isa = PBXGroup;
+			children = (
+				C3DC4A8325B95FA800C04F63 /* PoporAvPlayerBrightnessView.h */,
+				C3DC4A8425B95FA800C04F63 /* PoporAvPlayerBrightnessView.m */,
+			);
+			path = BrightnessView;
+			sourceTree = "<group>";
+		};
+		C3DC4A8525B95FA800C04F63 /* layer */ = {
+			isa = PBXGroup;
+			children = (
+				C3DC4A8725B95FA800C04F63 /* PoporAVPlayerLayer.h */,
+				C3DC4A8625B95FA800C04F63 /* PoporAVPlayerLayer.m */,
+			);
+			path = layer;
+			sourceTree = "<group>";
+		};
+		C3DC4A8825B95FA800C04F63 /* bar */ = {
+			isa = PBXGroup;
+			children = (
+				C3DC4A8D25B95FA800C04F63 /* PoporAvPlayerTopBar.h */,
+				C3DC4AB925B9655700C04F63 /* PoporAvPlayerTopBar.m */,
+				C3DC4A8E25B95FA800C04F63 /* PoporAvPlayerBottomBar.h */,
+				C3DC4A8A25B95FA800C04F63 /* PoporAvPlayerBottomBar.m */,
+			);
+			path = bar;
+			sourceTree = "<group>";
+		};
+		C3DC4A8F25B95FA800C04F63 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C3DC4A9025B95FA800C04F63 /* PoporAvPlayerView.h */,
+				C3DC4A9225B95FA800C04F63 /* PoporAvPlayerView.m */,
+				C3DC4A9125B95FA800C04F63 /* PoporAvPlayerViewProtocol.h */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C3DC4A9425B95FA800C04F63 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				C3DC4A9525B95FA800C04F63 /* PoporAvPlayerViewInteractor.h */,
+				C3DC4A9625B95FA800C04F63 /* PoporAvPlayerViewInteractor.m */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		C3DC4A9725B95FA800C04F63 /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				C3DC4A9925B95FA800C04F63 /* PoporAvPlayerPrifix.h */,
+				C3DC4A9C25B95FA900C04F63 /* PoporAvPlayerRecord.h */,
+				C3DC4A9825B95FA800C04F63 /* PoporAvPlayerRecord.m */,
+				C3DC4A9B25B95FA800C04F63 /* PoporAvPlayerBundle.h */,
+				C3DC4A9A25B95FA800C04F63 /* PoporAvPlayerBundle.m */,
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
+		C3DC4AAE25B963F300C04F63 /* AnimationShake */ = {
+			isa = PBXGroup;
+			children = (
+				C3DC4AB025B963F300C04F63 /* CcAnimationShake.h */,
+				C3DC4AB225B963F300C04F63 /* CcAnimationShake.m */,
+				C3DC4AAF25B963F300C04F63 /* CellAnimationShake.h */,
+				C3DC4AB125B963F300C04F63 /* CellAnimationShake.m */,
+			);
+			path = AnimationShake;
+			sourceTree = "<group>";
+		};
 		C3E1687225A2FFC1004104B4 /* AlertWindowImageView */ = {
 			isa = PBXGroup;
 			children = (
@@ -900,6 +1073,7 @@
 				C31C054925ABE0AE001C6E78 /* 封面N@2x.png in Resources */,
 				183BF3E6224A1DBD004DE115 /* LaunchScreen.storyboard in Resources */,
 				183BF3E3224A1DBD004DE115 /* Assets.xcassets in Resources */,
+				C3DC4AA825B95FA900C04F63 /* PoporAvPlayer.bundle in Resources */,
 				C3F31AE12539709100621878 /* 全屏@2x.png in Resources */,
 				C3F31AE02539709100621878 /* 全屏@3x.png in Resources */,
 				183BF3E1224A1DBB004DE115 /* Main.storyboard in Resources */,
@@ -962,16 +1136,20 @@
 				183BF3E9224A1DBD004DE115 /* main.m in Sources */,
 				C3AD516C2517310900746FA2 /* ThemeColor.m in Sources */,
 				183BF3DB224A1DBB004DE115 /* AppDelegate.m in Sources */,
+				C3DC4AAA25B95FA900C04F63 /* PoporAvPlayerRecord.m in Sources */,
+				C3DC4ABB25B9655700C04F63 /* PoporAvPlayerTopBar.m in Sources */,
 				C39396F52536D3F400409025 /* LrcViewPresenter.m in Sources */,
 				185615AE224DC23A004BE073 /* WifiAddFileVCInteractor.m in Sources */,
 				C39396F62536D3F400409025 /* LrcView.m in Sources */,
 				184CD1CB224CA66800241B9C /* MusicPlayBar.m in Sources */,
 				1856158E224DBF0E004BE073 /* MusicPlayListEntity.m in Sources */,
+				C3DC4AA125B95FA900C04F63 /* PoporAvPlayerBrightnessView.m in Sources */,
 				183BF426224A22EC004DE115 /* RootVC.m in Sources */,
 				189A5DEE225C94A8001E8A9D /* AppNetRecordConfig.m in Sources */,
 				C3571A6825B025DB0095AE53 /* SegmentEntity.m in Sources */,
 				E431E50C25A19C3A0024C67B /* NetMusicVC.m in Sources */,
 				180E33BD224DE806008C176D /* LocalMusicVC.m in Sources */,
+				C3DC4AB325B963F300C04F63 /* CellAnimationShake.m in Sources */,
 				C3571A5E25B024240095AE53 /* AppSetVC.m in Sources */,
 				C3AD51342516FC6900746FA2 /* MRouterUrlPrefix.m in Sources */,
 				C39396F72536D3F400409025 /* LrcViewInteractor.m in Sources */,
@@ -981,7 +1159,13 @@
 				E431E50B25A19C3A0024C67B /* NetMusicVCInteractor.m in Sources */,
 				C30D897F25354F6D009BFB45 /* NetService.m in Sources */,
 				183BF428224A22EC004DE115 /* RootVCPresenter.m in Sources */,
+				C3DC4AAB25B95FA900C04F63 /* PoporAvPlayerBundle.m in Sources */,
+				C3DC4AA425B95FA900C04F63 /* PoporAvPlayerBottomBar.m in Sources */,
+				C3DC4A9F25B95FA900C04F63 /* PoporAvPlayerViewPresenter.m in Sources */,
+				C3DC4AA725B95FA900C04F63 /* PoporAvPlayerView.m in Sources */,
 				C39396722536C88500409025 /* LrcDetailEntity.m in Sources */,
+				C3DC4AB425B963F300C04F63 /* CcAnimationShake.m in Sources */,
+				C3DC4A9E25B95FA900C04F63 /* PoporAvPlayerConfig.m in Sources */,
 				C32A17C925381E8000BD830B /* LrcTool.m in Sources */,
 				E431E51325A1A16C0024C67B /* FD_FileDownload.m in Sources */,
 				189A5DF1225C95E6001E8A9D /* AppVersionCheck.m in Sources */,
@@ -994,6 +1178,7 @@
 				C3560EC62537F4F00062EFA8 /* LrcKugouListEntity.m in Sources */,
 				180E33BB224DE806008C176D /* LocalMusicVCInteractor.m in Sources */,
 				C3571A5D25B024240095AE53 /* AppSetVCInteractor.m in Sources */,
+				C3DC4AA925B95FA900C04F63 /* PoporAvPlayerViewInteractor.m in Sources */,
 				185615AF224DC23A004BE073 /* WifiAddFileVC.m in Sources */,
 				180E33C1224E11AF008C176D /* FileTool.m in Sources */,
 				180E33C4224E11F7008C176D /* FileEntity.m in Sources */,
@@ -1006,7 +1191,10 @@
 				C3560ECA2537F7C40062EFA8 /* LrcKugouDetailEntity.m in Sources */,
 				C3AD51332516FC6900746FA2 /* MRouterConfig.m in Sources */,
 				18DE13AF2251F78C009920D7 /* MusicInfoCell.m in Sources */,
+				C3DC4AA225B95FA900C04F63 /* PoporAVPlayerLayer.m in Sources */,
 				C3571A6925B025DB0095AE53 /* CellInfoEntity.m in Sources */,
+				C3DC4AA025B95FA900C04F63 /* PoporAvPanGR.m in Sources */,
+				C3DC4A9D25B95FA900C04F63 /* VideoConfigTvView.m in Sources */,
 				18561595224DC089004BE073 /* MusicConfig.m in Sources */,
 				C338BD1425AED0F60098BB82 /* FileSortEntity.m in Sources */,
 				18DE13922251BD5F009920D7 /* MusicFolderEntity.m in Sources */,
