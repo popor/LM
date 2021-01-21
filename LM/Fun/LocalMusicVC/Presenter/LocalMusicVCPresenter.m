@@ -340,7 +340,7 @@ API_AVAILABLE(ios(12.0))
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             if (self.view.isRoot) {
-                
+                cell.addBt.userInteractionEnabled = NO;
             } else {
                 @weakify(self);
                 @weakify(cell);
