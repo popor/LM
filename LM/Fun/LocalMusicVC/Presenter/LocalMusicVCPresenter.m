@@ -39,6 +39,7 @@ API_AVAILABLE(ios(12.0))
 @property (nonatomic, copy  ) NSString * lastSearchText;
 
 @property (nonatomic        ) BOOL dragInfoTV;
+@property (nonatomic        ) BOOL dragShaked;
 
 // rootImage
 @property (nonatomic, strong) UIImage * cellLeftImage_downloadN;
@@ -997,14 +998,13 @@ API_AVAILABLE(ios(12.0))
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     if (scrollView == self.view.infoTV) {
         [self closeLongPressMenu];
+        self.dragShaked = NO;
     }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     if (scrollView == self.view.infoTV && self.view.isRoot) {
         if (scrollView.contentOffset.y <= -60) {
-            FeedbackShakePhone
-            
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [MGJRouter openURL:MUrl_appSet];
             });
@@ -1016,6 +1016,10 @@ API_AVAILABLE(ios(12.0))
     if (scrollView == self.view.infoTV && self.view.isRoot) {
         if (scrollView.contentOffset.y < -60) {
             self.view.setL.text = @"打开设置";
+            if (!self.dragShaked) {
+                self.dragShaked = YES;
+                FeedbackShakePhone;
+            }
         } else if (scrollView.contentOffset.y < -20) {
             self.view.setL.text = @"设置";
         }
