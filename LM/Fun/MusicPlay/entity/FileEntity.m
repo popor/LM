@@ -60,6 +60,7 @@
     } else {
         if (fileName.pathExtension.length > 0) {
             self.fileNameDeleteExtension = [fileName substringToIndex:fileName.length - fileName.pathExtension.length - 1];
+            self.extension = fileName.pathExtension;
         } else {
             self.fileNameDeleteExtension = fileName;
         }

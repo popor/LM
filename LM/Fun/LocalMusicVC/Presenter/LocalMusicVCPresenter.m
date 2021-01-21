@@ -14,6 +14,7 @@
 #import "MusicFolderEntity.h"
 #import "MusicPlayBar.h"
 #import "MusicConfig.h"
+#import "VideoPlayEntity.h"
 
 API_AVAILABLE(ios(12.0))
 @interface LocalMusicVCPresenter ()
@@ -958,7 +959,28 @@ API_AVAILABLE(ios(12.0))
         self.view.playSearchKey = @"";
     }
     
-    {
+    if ([fileEntity.extension.lowercaseString isEqualToString:@"mp4"]) {
+        NSMutableArray<VideoPlayEntity *> * videoInfoArray = [NSMutableArray<VideoPlayEntity *> new];
+        {
+            VideoPlayEntity * entity = [VideoPlayEntity new];
+            entity.videoUrl = [NSString stringWithFormat:@"%@/%@", FT_docPath, fileEntity.filePath];
+            
+            entity.videoDefinitionId   = @"";
+            entity.videoDefinitionText = @"清晰度";
+            
+            [videoInfoArray addObject:entity];
+        }
+        
+        NSDictionary * dic =
+        @{
+            @"videoInfoArray":videoInfoArray,
+        };
+        
+        [MGJRouter openURL:MUrl_playBarClose];
+        [MGJRouter openURL:MUrl_videoPlayOnly withUserInfo:dic completion:nil];
+    }
+    
+    else {
         [self.mpb playSongArray:itemArray
                              at:indexPath.row
                        autoPlay:autoPlay

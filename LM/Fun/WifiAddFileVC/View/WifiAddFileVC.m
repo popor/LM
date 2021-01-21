@@ -28,9 +28,7 @@
     [self.webUploader stop];
     self.webUploader = nil;
     
-    if (self.deallocBlock) {
-        self.deallocBlock();
-    }
+    [MGJRouter openURL:MUrl_playBarOpen];
 }
 
 - (instancetype)initWithDic:(NSDictionary *)dic {

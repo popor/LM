@@ -69,7 +69,30 @@
     //            [self.view.segmentView updateLineViewToBT:self.view.segmentView.btArray[self.recordDepartment]];
     //        }
     //    });
-    
+    {
+        
+        @weakify(self);
+        [MRouterC registerURL:MUrl_playBarOpen toHandel:^(NSDictionary *routerParameters){
+            @strongify(self);
+            
+            [UIView animateWithDuration:0.15 animations:^{
+                [self.view.playbar mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.bottom.mas_equalTo(0);
+                }];
+                [self.view.playbar.superview layoutIfNeeded];
+            }];
+        }];
+        [MRouterC registerURL:MUrl_playBarClose toHandel:^(NSDictionary *routerParameters){
+            @strongify(self);
+            
+            [UIView animateWithDuration:0.15 animations:^{
+                [self.view.playbar mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.bottom.mas_equalTo(self.view.playbar.height);
+                }];
+                [self.view.playbar.superview layoutIfNeeded];
+            }];
+        }];
+    }
 }
 
 #pragma mark - VC_DataSource
@@ -78,26 +101,8 @@
 
 - (void)showWifiVC {
     
-    [UIView animateWithDuration:0.15 animations:^{
-        [self.view.playbar mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.mas_equalTo(self.view.playbar.height);
-        }];
-        [self.view.playbar.superview layoutIfNeeded];
-    }];
-    
-    @weakify(self);
-    BlockPVoid deallocBlock = ^(void) {
-        @strongify(self);
-        [UIView animateWithDuration:0.15 animations:^{
-            [self.view.playbar mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.bottom.mas_equalTo(0);
-            }];
-            [self.view.playbar.superview layoutIfNeeded];
-        }];
-    };
-    NSDictionary * dic = @{@"deallocBlock":deallocBlock};
-    
-    [self.view.vc.navigationController pushViewController:[[WifiAddFileVC alloc] initWithDic:dic] animated:YES];
+    [MGJRouter openURL:MUrl_playBarClose];
+    [self.view.vc.navigationController pushViewController:[[WifiAddFileVC alloc] initWithDic:nil] animated:YES];
 }
 
 - (void)addListAction {}

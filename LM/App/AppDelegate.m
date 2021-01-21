@@ -56,49 +56,13 @@ void UncaughtExceptionHandler(NSException *exception) {
     [MGJRouter openURL:MUrl_savePlayConfig];
 }
 
-- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        return UIInterfaceOrientationMaskAllButUpsideDown;
-    } else {
-        return UIInterfaceOrientationMaskPortrait;
-        //instance.autorotate = YES;
-        //instance.supportedInterfaceOrientations = UIInterfaceOrientationMaskPortrait;
-    }
-    
-}
-
-// ios 9.1 以前的方案
-//    // 接受系统锁屏控制
-//    [self becomeFirstResponder];
-//    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
-//
-
-//- (BOOL)becomeFirstResponder{
-//    return YES;
-//}
-//
-//- (void)remoteControlReceivedWithEvent:(UIEvent *)event {
-//    switch (event.subtype) {
-//        case UIEventSubtypeRemoteControlPlay:
-//            [MpbShare playEvent];
-//            break;
-//        case UIEventSubtypeRemoteControlPause:
-//            [MpbShare pauseEvent];
-//            break;
-//        case UIEventSubtypeRemoteControlStop:
-//
-//            break;
-//
-//        case UIEventSubtypeRemoteControlNextTrack: {
-//            [MpbShare nextBTEvent];
-//            break;
-//        }
-//        case UIEventSubtypeRemoteControlPreviousTrack: {
-//            [MpbShare previousBTEvent];
-//            break;
-//        }
-//        default:
-//            break;
+//- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+//    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+//        return UIInterfaceOrientationMaskAllButUpsideDown;
+//    } else {
+//        return UIInterfaceOrientationMaskPortrait;
+//        //instance.autorotate = YES;
+//        //instance.supportedInterfaceOrientations = UIInterfaceOrientationMaskPortrait;
 //    }
 //}
 

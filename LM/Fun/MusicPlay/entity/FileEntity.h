@@ -35,6 +35,7 @@ typedef NS_ENUM(NSInteger, FileSortType) {
 @property (nonatomic, copy  ) NSString<Ignore> * folderName;
 @property (nonatomic, copy  ) NSString * fileName;
 @property (nonatomic, copy  ) NSString<Ignore> * fileNameDeleteExtension;
+@property (nonatomic, copy  ) NSString<Ignore> * extension; // 后缀
 @property (nonatomic, copy  ) NSString * filePath;
 @property (nonatomic, strong) NSMutableArray<FileEntity> * itemArray; //Ignore
 
@@ -44,7 +45,7 @@ typedef NS_ENUM(NSInteger, FileSortType) {
 @property (nonatomic, copy  ) UIImage <Ignore> * musicCover;
 @property (nonatomic        ) CGFloat musicDuration;
 
-// 额外参数
+// 额外参数 - 排序
 @property (nonatomic        ) FileSortType       sortType;     // 排序是歌手还是歌曲.
 @property (nonatomic, copy  ) NSString<Ignore> * pinYinAuthor;
 @property (nonatomic, copy  ) NSString<Ignore> * pinYinAuthorFirst;
@@ -54,8 +55,8 @@ typedef NS_ENUM(NSInteger, FileSortType) {
 
 @property (nonatomic, copy  ) NSString<Ignore> * pinYinAll;
 
-//@property (nonatomic, getter=isAvailable) BOOL available; // 是否还存在
-//@property (nonatomic        ) NSInteger index;
+// 额外参数 - 文件夹
+//@property (nonatomic, copy  ) NSString<Ignore> * iconName;
 
 - (BOOL)isFolder;
 

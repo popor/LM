@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MRouterUrlPrefix : NSObject
 
+// 打开关闭控制器
+UIKIT_EXTERN NSString * const MUrl_playBarOpen;
+UIKIT_EXTERN NSString * const MUrl_playBarClose;
+
 UIKIT_EXTERN NSString * const MUrl_savePlayDepartment;
 UIKIT_EXTERN NSString * const MUrl_savePlayConfig;
 UIKIT_EXTERN NSString * const MUrl_freshRootTV;
@@ -28,6 +32,8 @@ UIKIT_EXTERN NSString * const MUrl_playAtTime;
 UIKIT_EXTERN NSString * const MUrl_wifiAddFileVC;
 
 UIKIT_EXTERN NSString * const MUrl_appSet;
+
+UIKIT_EXTERN NSString * const MUrl_videoPlayOnly;
 
 @end
 
