@@ -9,6 +9,8 @@
 #import "RootVCPresenter.h"
 #import "RootVCInteractor.h"
 
+#import "PAutorotate.h"
+
 @interface RootVC ()
 
 @property (nonatomic, strong) RootVCPresenter * present;
@@ -182,6 +184,12 @@
         
         [self reloadPlayBarFrame];
     }];
+    
+    // 延迟设置系统启动
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        PAutorotate * pa = [PAutorotate share];
+        pa.appLoaded = YES;
+    });
 }
 
 - (void)viewWillLayoutSubviews {

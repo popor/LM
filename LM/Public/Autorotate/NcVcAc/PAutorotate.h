@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic        ) BOOL autorotate_moment;// 打开一段时间后关闭, 默认为0.35秒后关闭
 //@property (nonatomic        ) UIInterfaceOrientationMask supportedInterfaceOrientations; // 默认为UIInterfaceOrientationMaskPortrait
 
+@property (nonatomic        ) BOOL appLoaded;
+
 + (instancetype)share;
 
 @end

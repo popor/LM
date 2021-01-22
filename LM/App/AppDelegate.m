@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 
 #import "AppNetRecordConfig.h"
+#import "PAutorotate.h"
 
 void UncaughtExceptionHandler(NSException *exception) {
     
@@ -56,14 +57,21 @@ void UncaughtExceptionHandler(NSException *exception) {
     [MGJRouter openURL:MUrl_savePlayConfig];
 }
 
-//- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
-//    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-//        return UIInterfaceOrientationMaskAllButUpsideDown;
-//    } else {
-//        return UIInterfaceOrientationMaskPortrait;
-//        //instance.autorotate = YES;
-//        //instance.supportedInterfaceOrientations = UIInterfaceOrientationMaskPortrait;
-//    }
-//}
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+#if TARGET_OS_MACCATALYST
+    return UIInterfaceOrientationMaskPortrait;
+#else
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        return UIInterfaceOrientationMaskAllButUpsideDown;
+    } else {
+        PAutorotate * pa = [PAutorotate share];
+        if (pa.appLoaded) {
+            return UIInterfaceOrientationMaskAllButUpsideDown;
+        } else {
+            return UIInterfaceOrientationMaskPortrait;
+        }
+    }
+#endif
+}
 
 @end
