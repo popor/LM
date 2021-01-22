@@ -979,6 +979,7 @@ API_AVAILABLE(ios(12.0))
         {
             VideoPlayEntity * entity = [VideoPlayEntity new];
             entity.videoUrl = [NSString stringWithFormat:@"%@/%@", FT_docPath, fileEntity.filePath];
+            entity.videoName = fileEntity.fileNameDeleteExtension;
             
             entity.videoDefinitionId   = @"";
             entity.videoDefinitionText = @"清晰度";

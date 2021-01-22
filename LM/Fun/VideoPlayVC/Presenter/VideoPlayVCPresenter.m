@@ -84,6 +84,7 @@
     NSURL * url = [NSURL fileURLWithPath:entity.videoUrl];
     [self.view.videoPlayView playVideoUrl:url seekTime:0];
     [self.view.videoPlayView setRate:self.interactor.playVideoRate];
+    self.view.videoPlayView.topBar.titleL.text = entity.videoName;
 }
 
 - (void)poporAvPlayerView:(PoporAvPlayerView *)poporAvPlayerView previousBT:(UIButton *)button { }
