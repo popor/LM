@@ -536,6 +536,20 @@ API_AVAILABLE(ios(12.0))
             [self attLable:cell.titelL searchText:self.view.searchBar.text];
             [self attLable:cell.subtitleL searchText:self.view.searchBar.text];
         }
+        
+        if ([entity.extension isEqualToString:@"mp4"]) {
+            
+            UIImageView * oneIV = ({
+                UIImageView * oneIV = [UIImageView new];
+                oneIV.contentMode = UIViewContentModeScaleAspectFill;
+                oneIV.image = [UIImage imageNamed:@"songMtv"];
+                oneIV.frame = CGRectMake(0, 0, oneIV.image.size.width, oneIV.image.size.height);
+                oneIV;
+            });
+            cell.accessoryView = oneIV;
+        } else {
+            cell.accessoryView = nil;
+        }
     } else {
         if ([self isSearchArray]) {
             // 搜索的时候, 不会出现这种情况
@@ -959,6 +973,7 @@ API_AVAILABLE(ios(12.0))
         self.view.playSearchKey = @"";
     }
     
+    // 播放视频
     if ([fileEntity.extension.lowercaseString isEqualToString:@"mp4"]) {
         NSMutableArray<VideoPlayEntity *> * videoInfoArray = [NSMutableArray<VideoPlayEntity *> new];
         {
@@ -980,6 +995,7 @@ API_AVAILABLE(ios(12.0))
         [MGJRouter openURL:MUrl_videoPlayOnly withUserInfo:dic completion:nil];
     }
     
+    // 播放音频
     else {
         [self.mpb playSongArray:itemArray
                              at:indexPath.row
