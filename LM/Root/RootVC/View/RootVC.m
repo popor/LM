@@ -84,7 +84,8 @@
 - (void)viewDidLoad {
     [self assembleViper];
     [super viewDidLoad];
-    
+    PoporPopNormalNC * nc = (PoporPopNormalNC *)self.navigationController;
+    nc.navigationBar.translucent = YES;
     if (!self.title) {
         self.title = @"";
     }
