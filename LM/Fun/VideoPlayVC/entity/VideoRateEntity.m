@@ -10,4 +10,12 @@
 
 @implementation VideoRateEntity
 
+- (instancetype)initTitle:(NSString *)title value:(CGFloat)value {
+    if (self = [super init]) {
+        self.title = title;
+        self.value = value;
+    }
+    return self;
+}
+
 @end

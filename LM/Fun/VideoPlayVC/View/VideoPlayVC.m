@@ -265,7 +265,7 @@
     
     
     self.videoPlayView.bottomBar.videoNumBT.hidden   = YES;
-    self.videoPlayView.bottomBar.definitionBT.hidden = NO;
+    self.videoPlayView.bottomBar.definitionBT.hidden = YES;
     self.videoPlayView.topBar.rightBT.hidden         = YES;
     
     self.avShareBT.hidden = NO;
@@ -297,7 +297,7 @@
     
     
     self.videoPlayView.bottomBar.videoNumBT.hidden   = YES;
-    self.videoPlayView.bottomBar.definitionBT.hidden = NO;
+    self.videoPlayView.bottomBar.definitionBT.hidden = YES;
     self.videoPlayView.topBar.rightBT.hidden         = YES;
     
     self.avShareBT.hidden = YES;
