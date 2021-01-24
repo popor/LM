@@ -78,11 +78,6 @@
 		C3DC4AD825B977FB00C04F63 /* VideoPlayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DC4AD025B977FA00C04F63 /* VideoPlayVC.m */; };
 		C3DC4AD925B977FB00C04F63 /* VideoPlayVCInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DC4AD425B977FB00C04F63 /* VideoPlayVCInteractor.m */; };
 		C3DC4ADE25B9792C00C04F63 /* VideoRateEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DC4ADD25B9792C00C04F63 /* VideoRateEntity.m */; };
-		C3DC4AEE25B97A4500C04F63 /* UIAlertController+pAutorotate.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DC4AE225B97A4500C04F63 /* UIAlertController+pAutorotate.m */; };
-		C3DC4AEF25B97A4500C04F63 /* UINavigationController+pAutorotate.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DC4AE625B97A4500C04F63 /* UINavigationController+pAutorotate.m */; };
-		C3DC4AF025B97A4500C04F63 /* PAutorotate.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DC4AE825B97A4500C04F63 /* PAutorotate.m */; };
-		C3DC4AF125B97A4500C04F63 /* UIViewController+pAutorotate.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DC4AEA25B97A4500C04F63 /* UIViewController+pAutorotate.m */; };
-		C3DC4AF225B97A4500C04F63 /* UIDevice+pOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DC4AED25B97A4500C04F63 /* UIDevice+pOrientation.m */; };
 		C3E1687525A2FFC1004104B4 /* AlertWindowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E1687425A2FFC1004104B4 /* AlertWindowImageView.m */; };
 		C3F31AE02539709100621878 /* 全屏@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F31ADC2539709100621878 /* 全屏@3x.png */; };
 		C3F31AE12539709100621878 /* 全屏@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F31ADD2539709100621878 /* 全屏@2x.png */; };
@@ -268,16 +263,6 @@
 		C3DC4AD525B977FB00C04F63 /* VideoPlayVCInteractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayVCInteractor.h; sourceTree = "<group>"; };
 		C3DC4ADC25B9792C00C04F63 /* VideoRateEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoRateEntity.h; sourceTree = "<group>"; };
 		C3DC4ADD25B9792C00C04F63 /* VideoRateEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoRateEntity.m; sourceTree = "<group>"; };
-		C3DC4AE225B97A4500C04F63 /* UIAlertController+pAutorotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+pAutorotate.m"; sourceTree = "<group>"; };
-		C3DC4AE325B97A4500C04F63 /* UIAlertController+pAutorotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+pAutorotate.h"; sourceTree = "<group>"; };
-		C3DC4AE525B97A4500C04F63 /* PAutorotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAutorotate.h; sourceTree = "<group>"; };
-		C3DC4AE625B97A4500C04F63 /* UINavigationController+pAutorotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+pAutorotate.m"; sourceTree = "<group>"; };
-		C3DC4AE725B97A4500C04F63 /* UIViewController+pAutorotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+pAutorotate.h"; sourceTree = "<group>"; };
-		C3DC4AE825B97A4500C04F63 /* PAutorotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAutorotate.m; sourceTree = "<group>"; };
-		C3DC4AE925B97A4500C04F63 /* UINavigationController+pAutorotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+pAutorotate.h"; sourceTree = "<group>"; };
-		C3DC4AEA25B97A4500C04F63 /* UIViewController+pAutorotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+pAutorotate.m"; sourceTree = "<group>"; };
-		C3DC4AEC25B97A4500C04F63 /* UIDevice+pOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+pOrientation.h"; sourceTree = "<group>"; };
-		C3DC4AED25B97A4500C04F63 /* UIDevice+pOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+pOrientation.m"; sourceTree = "<group>"; };
 		C3E1687325A2FFC1004104B4 /* AlertWindowImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertWindowImageView.h; sourceTree = "<group>"; };
 		C3E1687425A2FFC1004104B4 /* AlertWindowImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertWindowImageView.m; sourceTree = "<group>"; };
 		C3F31ADC2539709100621878 /* 全屏@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "全屏@3x.png"; sourceTree = "<group>"; };
@@ -490,7 +475,6 @@
 		183BF42B224A25B0004DE115 /* Public */ = {
 			isa = PBXGroup;
 			children = (
-				C3DC4AE025B97A4500C04F63 /* Autorotate */,
 				C3325B3925A41B07000A7F43 /* FeedbackGenerator */,
 				C3DC4AAE25B963F300C04F63 /* AnimationShake */,
 				C3571A6025B025DB0095AE53 /* CellInfoEntity */,
@@ -1003,47 +987,6 @@
 			path = Interactor;
 			sourceTree = "<group>";
 		};
-		C3DC4AE025B97A4500C04F63 /* Autorotate */ = {
-			isa = PBXGroup;
-			children = (
-				C3DC4AE125B97A4500C04F63 /* UIAlertController */,
-				C3DC4AE425B97A4500C04F63 /* NcVcAc */,
-				C3DC4AEB25B97A4500C04F63 /* UIDevice */,
-			);
-			path = Autorotate;
-			sourceTree = "<group>";
-		};
-		C3DC4AE125B97A4500C04F63 /* UIAlertController */ = {
-			isa = PBXGroup;
-			children = (
-				C3DC4AE325B97A4500C04F63 /* UIAlertController+pAutorotate.h */,
-				C3DC4AE225B97A4500C04F63 /* UIAlertController+pAutorotate.m */,
-			);
-			path = UIAlertController;
-			sourceTree = "<group>";
-		};
-		C3DC4AE425B97A4500C04F63 /* NcVcAc */ = {
-			isa = PBXGroup;
-			children = (
-				C3DC4AE525B97A4500C04F63 /* PAutorotate.h */,
-				C3DC4AE825B97A4500C04F63 /* PAutorotate.m */,
-				C3DC4AE925B97A4500C04F63 /* UINavigationController+pAutorotate.h */,
-				C3DC4AE625B97A4500C04F63 /* UINavigationController+pAutorotate.m */,
-				C3DC4AE725B97A4500C04F63 /* UIViewController+pAutorotate.h */,
-				C3DC4AEA25B97A4500C04F63 /* UIViewController+pAutorotate.m */,
-			);
-			path = NcVcAc;
-			sourceTree = "<group>";
-		};
-		C3DC4AEB25B97A4500C04F63 /* UIDevice */ = {
-			isa = PBXGroup;
-			children = (
-				C3DC4AEC25B97A4500C04F63 /* UIDevice+pOrientation.h */,
-				C3DC4AED25B97A4500C04F63 /* UIDevice+pOrientation.m */,
-			);
-			path = UIDevice;
-			sourceTree = "<group>";
-		};
 		C3E1687225A2FFC1004104B4 /* AlertWindowImageView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1285,7 +1228,6 @@
 				E431E50B25A19C3A0024C67B /* NetMusicVCInteractor.m in Sources */,
 				C30D897F25354F6D009BFB45 /* NetService.m in Sources */,
 				183BF428224A22EC004DE115 /* RootVCPresenter.m in Sources */,
-				C3DC4AEF25B97A4500C04F63 /* UINavigationController+pAutorotate.m in Sources */,
 				C3DC4AAB25B95FA900C04F63 /* PoporAvPlayerBundle.m in Sources */,
 				C3DC4AA425B95FA900C04F63 /* PoporAvPlayerBottomBar.m in Sources */,
 				C3DC4A9F25B95FA900C04F63 /* PoporAvPlayerViewPresenter.m in Sources */,
@@ -1294,13 +1236,10 @@
 				C39396722536C88500409025 /* LrcDetailEntity.m in Sources */,
 				C3DC4AB425B963F300C04F63 /* CcAnimationShake.m in Sources */,
 				C3DC4A9E25B95FA900C04F63 /* PoporAvPlayerConfig.m in Sources */,
-				C3DC4AEE25B97A4500C04F63 /* UIAlertController+pAutorotate.m in Sources */,
 				C32A17C925381E8000BD830B /* LrcTool.m in Sources */,
 				E431E51325A1A16C0024C67B /* FD_FileDownload.m in Sources */,
 				189A5DF1225C95E6001E8A9D /* AppVersionCheck.m in Sources */,
 				C3560EC22537ED780062EFA8 /* LrcKuGou.m in Sources */,
-				C3DC4AF225B97A4500C04F63 /* UIDevice+pOrientation.m in Sources */,
-				C3DC4AF025B97A4500C04F63 /* PAutorotate.m in Sources */,
 				C31C055525ABEB53001C6E78 /* SongListHeadView.m in Sources */,
 				C3E1687525A2FFC1004104B4 /* AlertWindowImageView.m in Sources */,
 				C31C055625ABEB53001C6E78 /* MusicListCell.m in Sources */,
@@ -1311,7 +1250,6 @@
 				C3571A5D25B024240095AE53 /* AppSetVCInteractor.m in Sources */,
 				C3DC4AA925B95FA900C04F63 /* PoporAvPlayerViewInteractor.m in Sources */,
 				185615AF224DC23A004BE073 /* WifiAddFileVC.m in Sources */,
-				C3DC4AF125B97A4500C04F63 /* UIViewController+pAutorotate.m in Sources */,
 				180E33C1224E11AF008C176D /* FileTool.m in Sources */,
 				180E33C4224E11F7008C176D /* FileEntity.m in Sources */,
 				C3571A5C25B024240095AE53 /* AppSetVCPresenter.m in Sources */,

@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 
 #import "AppNetRecordConfig.h"
-#import "PAutorotate.h"
+#import <PoporRotate/PoporRotate.h>
 
 void UncaughtExceptionHandler(NSException *exception) {
     
@@ -62,11 +62,11 @@ void UncaughtExceptionHandler(NSException *exception) {
     return UIInterfaceOrientationMaskPortrait;
 #else
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        return UIInterfaceOrientationMaskAllButUpsideDown;
+        return UIInterfaceOrientationMaskAll;
     } else {
-        PAutorotate * pa = [PAutorotate share];
-        if (pa.appLoaded) {
-            return UIInterfaceOrientationMaskAllButUpsideDown;
+        PoporRotate * pr = [PoporRotate share];
+        if (pr.appLoaded) {
+            return pr.supportedInterfaceOrientations;
         } else {
             return UIInterfaceOrientationMaskPortrait;
         }

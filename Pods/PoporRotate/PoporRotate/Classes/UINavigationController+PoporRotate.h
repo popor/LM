@@ -1,14 +1,12 @@
 //
-//  UINavigationController+pAutorotate.h
-//  hywj
+//  UINavigationController+PoporRotate.h
+//  PoporRotate
 //
 //  Created by popor on 2020/7/25.
 //  Copyright © 2020 popor. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-
-#import "PAutorotate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -29,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
  return [self.selectedViewController preferredInterfaceOrientationForPresentation];
  }
  */
-@interface UINavigationController (pAutorotate)
+@interface UINavigationController (PoporRotate)
 
 @end
 

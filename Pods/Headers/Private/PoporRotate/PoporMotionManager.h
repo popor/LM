@@ -1,0 +1,1 @@
+../../../PoporRotate/PoporRotate/Classes/PoporMotionManager.h

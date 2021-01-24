@@ -8,12 +8,6 @@
 #import "VideoPlayVCPresenter.h"
 #import "VideoPlayVCInteractor.h"
 
-#import "UIViewController+pAutorotate.h"
-
-//#import <SDWebImage/SDWebImage.h>
-//#import <PoporSDWebImage/UIImageView+PoporSDWebImage.h>
-
-
 @interface VideoPlayVCPresenter ()
 
 @property (nonatomic, weak  ) id<VideoPlayVCProtocol> view;
@@ -248,7 +242,7 @@
 }
 
 - (void)poporAvPlayerView:(PoporAvPlayerView *)poporAvPlayerView backBT:(UIButton *)button {
-    if (PSCREEN_SIZE.width != PScreenWidth) {
+    if (PSCREEN_SIZE.width != [self portainWidth]) {
         [self.view videoPortraintOrientation];
     } else {
         [self.view.vc.navigationController popViewControllerAnimated:YES];
@@ -263,6 +257,15 @@
 - (void)playAtTime:(NSInteger)playTime {
     [self.view.videoPlayView setPlayTime:playTime];
     [self.view.videoPlayView setRate:self.interactor.playVideoRate];
+}
+
+- (CGFloat)portainWidth {
+    static CGFloat width;
+    if (width == 0) {
+        CGSize size = [[UIScreen mainScreen] bounds].size;
+        width = MIN(size.width, size.height);
+    }
+    return width;
 }
 
 #pragma mark - Interactor_EventHandler

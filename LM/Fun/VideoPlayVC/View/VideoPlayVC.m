@@ -9,14 +9,10 @@
 #import "VideoPlayVCPresenter.h"
 #import "VideoPlayVCInteractor.h"
 
-
 //#import "UIViewController+pRootVC.h"
 #import "PoporAvPlayerRecord.h"
 #import "PoporAvPlayerBundle.h"
-
-#import "UIDevice+pOrientation.h"
-#import "UIViewController+pAutorotate.h"
-#import "PAutorotate.h"
+#import <PoporRotate/PoporRotate.h>
 
 #define DeviceStatusBarHeight [UIDevice statusBarHeight]
 #define VideoScale            0.5625 // (9.0 / 16.0)
@@ -31,6 +27,7 @@
 
 @property (nonatomic        ) BOOL wwanPause;
 @property (nonatomic        ) BOOL needHiddenStatus;
+@property (nonatomic, weak  ) PoporRotate * pr;
 
 @end
 
@@ -75,6 +72,13 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        // iPad 可以任意方向
+        [self.pr orientationAll];
+    } else {
+        [self.pr orientationUp];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -88,7 +92,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [PAutorotate share].autorotate = YES;
+    [self.pr orientationAll_priority:UIInterfaceOrientationMaskPortrait high:UIInterfaceOrientationMaskPortrait];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -107,6 +111,7 @@
     if (self = [super init]) {
         [NSAssistant setVC:self dic:dic];
         self.hiddenNcBar = YES;
+        self.pr = [PoporRotate share];
     }
     return self;
 }
@@ -176,7 +181,6 @@
         PoporAvPlayerView * view = [PoporAvPlayerView new];
         //view.backgroundColor = [UIColor redColor];
         view.delegate = self.present;
-        view.frame = CGRectMake(0, DeviceStatusBarHeight, PScreenWidth, PScreenWidth * VideoScale);
         
         [self.view addSubview:view];
         
@@ -245,7 +249,6 @@
     self.videoPlayView.bottomBar.landscapeButton.selected = NO;
     [self setNeedsStatusBarAppearanceUpdate];
     
-    //self.videoPlayView.frame = CGRectMake(0, DeviceStatusBarHeight, PScreenWidth, PScreenWidth * VideoScale);
     [self.videoPlayView.topBar mas_updateConstraints:^(MASConstraintMaker *make) {
         CGFloat top = [UIDevice statusBarHeight];
         if (top == 0) {
@@ -282,7 +285,6 @@
     self.videoPlayView.bottomBar.landscapeButton.selected = YES;
     [self setNeedsStatusBarAppearanceUpdate];
     
-    //self.videoPlayView.frame = CGRectMake(0, 0, PScreenHeight, PScreenWidth);
     [self.videoPlayView.topBar mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(10);
         make.left.mas_equalTo([UIDevice safeAreaInsets].left);
@@ -312,15 +314,11 @@
 }
 
 - (void)videoPortraintOrientation {
-    [self setInterfaceOrientation:UIDeviceOrientationPortrait];
+    [self.pr orientationAll_priority:UIInterfaceOrientationMaskPortrait high:UIInterfaceOrientationMaskPortrait];
 }
 
 - (void)videoLandscapeOrientation {
-    [self setInterfaceOrientation:UIDeviceOrientationLandscapeLeft];
-}
-
-- (void)setInterfaceOrientation:(UIDeviceOrientation)orientation {
-    [UIDevice updateOrientation:orientation];
+    [self.pr orientationAll_priority:UIInterfaceOrientationMaskLandscapeLeft|UIInterfaceOrientationMaskLandscapeRight high:UIInterfaceOrientationMaskLandscapeLeft];
 }
 
 - (VideoConfigTvView *)videoConfigTvView {

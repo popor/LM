@@ -9,7 +9,7 @@
 #import "RootVCPresenter.h"
 #import "RootVCInteractor.h"
 
-#import "PAutorotate.h"
+#import <PoporRotate/PoporRotate.h>
 
 @interface RootVC ()
 
@@ -187,8 +187,8 @@
     
     // 延迟设置系统启动
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        PAutorotate * pa = [PAutorotate share];
-        pa.appLoaded = YES;
+        PoporRotate * pr = [PoporRotate share];
+        pr.appLoaded = YES;
     });
 }
 
