@@ -29,48 +29,50 @@ PODS:
   - PoporAFN (1.07):
     - AFNetworking
   - PoporAlertBubbleView (1.02)
-  - PoporFoundation (1.21):
-    - PoporFoundation/KVO (= 1.21)
-    - PoporFoundation/NSArray (= 1.21)
-    - PoporFoundation/NSAssistant (= 1.21)
-    - PoporFoundation/NSData (= 1.21)
-    - PoporFoundation/NSDate (= 1.21)
-    - PoporFoundation/NSDecimalNumber (= 1.21)
-    - PoporFoundation/NSDictionary (= 1.21)
-    - PoporFoundation/NSFileManager (= 1.21)
-    - PoporFoundation/NSObject (= 1.21)
-    - PoporFoundation/NSString (= 1.21)
-    - PoporFoundation/NSTimer (= 1.21)
-    - PoporFoundation/NSURL (= 1.21)
-    - PoporFoundation/Os (= 1.21)
-    - PoporFoundation/Prefix (= 1.21)
-  - PoporFoundation/KVO (1.21)
-  - PoporFoundation/NSArray (1.21):
+  - PoporFoundation (1.24):
+    - PoporFoundation/KVO (= 1.24)
+    - PoporFoundation/NSArray (= 1.24)
+    - PoporFoundation/NSAssistant (= 1.24)
+    - PoporFoundation/NSData (= 1.24)
+    - PoporFoundation/NSDate (= 1.24)
+    - PoporFoundation/NSDecimalNumber (= 1.24)
+    - PoporFoundation/NSDictionary (= 1.24)
+    - PoporFoundation/NSFileManager (= 1.24)
+    - PoporFoundation/NSObject (= 1.24)
+    - PoporFoundation/NSString (= 1.24)
+    - PoporFoundation/NSTimer (= 1.24)
+    - PoporFoundation/NSURL (= 1.24)
+    - PoporFoundation/Os (= 1.24)
+    - PoporFoundation/PFeedbackGenerator (= 1.24)
+    - PoporFoundation/Prefix (= 1.24)
+  - PoporFoundation/KVO (1.24)
+  - PoporFoundation/NSArray (1.24):
     - PoporFoundation/NSObject
     - PoporFoundation/Prefix
-  - PoporFoundation/NSAssistant (1.21):
+  - PoporFoundation/NSAssistant (1.24):
     - PoporFoundation/Os
     - PoporFoundation/Prefix
-  - PoporFoundation/NSData (1.21)
-  - PoporFoundation/NSDate (1.21):
+  - PoporFoundation/NSData (1.24)
+  - PoporFoundation/NSDate (1.24):
     - PoporFoundation/NSString
-  - PoporFoundation/NSDecimalNumber (1.21):
+  - PoporFoundation/NSDecimalNumber (1.24):
     - PoporFoundation/NSObject
-  - PoporFoundation/NSDictionary (1.21):
+  - PoporFoundation/NSDictionary (1.24):
     - PoporFoundation/NSObject
     - PoporFoundation/Prefix
-  - PoporFoundation/NSFileManager (1.21)
-  - PoporFoundation/NSObject (1.21)
-  - PoporFoundation/NSString (1.21):
+  - PoporFoundation/NSFileManager (1.24)
+  - PoporFoundation/NSObject (1.24)
+  - PoporFoundation/NSString (1.24):
     - PoporFoundation/NSObject
     - PoporFoundation/Os
     - PoporFoundation/Prefix
-  - PoporFoundation/NSTimer (1.21)
-  - PoporFoundation/NSURL (1.21):
+  - PoporFoundation/NSTimer (1.24)
+  - PoporFoundation/NSURL (1.24):
     - PoporFoundation/NSObject
     - PoporFoundation/NSString
-  - PoporFoundation/Os (1.21)
-  - PoporFoundation/Prefix (1.21):
+  - PoporFoundation/Os (1.24)
+  - PoporFoundation/PFeedbackGenerator (1.24)
+  - PoporFoundation/Prefix (1.24):
     - PoporFoundation/Os
   - PoporJsonModel (0.04):
     - JSONModel
@@ -194,7 +196,7 @@ SPEC CHECKSUMS:
   MGJRouter: 15d94541eb2cc81eff7d577337288feb7ae9575f
   PoporAFN: ddce973b567ff5b8a26de6517326d74d39c4c3b3
   PoporAlertBubbleView: 8a02b8b3331534eef503adaa83f77f8867fb74a4
-  PoporFoundation: dc0999db26642dd31bde8629dd641da498713d36
+  PoporFoundation: 0861e1064f0afb658c1254537e0447123f135ac3
   PoporJsonModel: e99396194a9b629907e14a134fe01677ed14b560
   PoporMasonry: 158a9af8b88b596707e6da0b1718a9dc20ddca36
   PoporPopNormalNC: bd272185aba7156e91dcd399a0a9c744a5a02e36
@@ -204,6 +206,6 @@ SPEC CHECKSUMS:
   ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
   StepSlider: e1c9b8f3363cf87224e19c000abe9f5146f80dd1
 
-PODFILE CHECKSUM: 924245548240926dba4752a9aadde0cd9857a9dd
+PODFILE CHECKSUM: fb2c171a6ee67c90ca44bcb5185258d57eae3afa
 
 COCOAPODS: 1.10.1

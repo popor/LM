@@ -78,6 +78,9 @@ FOUNDATION_EXPORT const unsigned char PoporFoundationExtensionVersionString[];
 #import "Size+pPrefix.h"
 #import "Fun+pPrefix.h"
 
+// - 触感反馈
+#import "PFeedbackGenerator.h"
+
 // -Os+pPrefix
 #import "Os+pPrefix.h"
 

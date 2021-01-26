@@ -20,7 +20,7 @@ target 'LM' do
   
   # Pods for LM
   pod 'PoporUI'#, '~>1.22'
-  pod 'PoporFoundation' #, '~>1.21'
+  pod 'PoporFoundation' #, '1.24'
   pod 'PoporPopNormalNC'
   pod 'PoporAlertBubbleView'
   #pod 'PoporImageBrower'

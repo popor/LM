@@ -118,6 +118,11 @@
 #pragma mark 空格URL
 - (NSString *)toUrlEncode {
     // https://www.jianshu.com/p/ffbb95e01489
+    
+    // 为了屏蔽pod警告, 单独处理了tvOS模式, 目前不太针对tvOS模式.
+#if TARGET_OS_TV
+    return [self stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]];
+#else
     return CFBridgingRelease
     (
      CFURLCreateStringByAddingPercentEscapes
@@ -129,8 +134,21 @@
       kCFStringEncodingUTF8
       )
      ) ;
-    // 下面的方法,多次转换后,会不一样.不够安全.
-    //return [self stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]];
+#endif
+    
+    //    return CFBridgingRelease
+    //    (
+    //     CFURLCreateStringByAddingPercentEscapes
+    //     (
+    //      kCFAllocatorDefault,
+    //      (CFStringRef)self,
+    //      (CFStringRef)@"!$&'()*+,-./:;=?@_~%#[]",
+    //      NULL,
+    //      kCFStringEncodingUTF8
+    //      )
+    //     ) ;
+    //    // 下面的方法,多次转换后,会不一样.不够安全.
+    //    //return [self stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]];
 }
 
 - (NSString *)toUtf8Encode {
@@ -182,6 +200,16 @@
         return [COLOR_CLASS colorWithRed:red/255.0f green:green/255.0f blue:blue/255.0f alpha:1];
     }else{
         return [COLOR_CLASS clearColor];
+    }
+}
+
+// 假如小数点个数为.00, 则不显示小数点后的数字
++ (NSString *)simplePrice:(CGFloat)price {
+    NSString * priceStr = [NSString stringWithFormat:@"%.02f", price];
+    if ([priceStr hasSuffix:@".00"]) {
+        return [NSString stringWithFormat:@"%li", (long)price];
+    } else {
+        return priceStr;
     }
 }
 
