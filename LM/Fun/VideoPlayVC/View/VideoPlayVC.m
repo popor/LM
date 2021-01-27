@@ -92,7 +92,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self.pr orientationAll_priority:UIInterfaceOrientationMaskPortrait high:UIInterfaceOrientationMaskPortrait];
+    [self.pr orientation_all:UIInterfaceOrientationMaskAll priority:UIInterfaceOrientationMaskAll high:UIInterfaceOrientationMaskPortrait];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -314,11 +314,11 @@
 }
 
 - (void)videoPortraintOrientation {
-    [self.pr orientationAll_priority:UIInterfaceOrientationMaskPortrait high:UIInterfaceOrientationMaskPortrait];
+    [self.pr orientationAll_high:UIDeviceOrientationPortrait];
 }
 
 - (void)videoLandscapeOrientation {
-    [self.pr orientationAll_priority:UIInterfaceOrientationMaskLandscapeLeft|UIInterfaceOrientationMaskLandscapeRight high:UIInterfaceOrientationMaskLandscapeLeft];
+    [self.pr orientation_all:UIInterfaceOrientationMaskAll priority:UIInterfaceOrientationMaskLandscape high:UIInterfaceOrientationMaskLandscapeRight];
 }
 
 - (VideoConfigTvView *)videoConfigTvView {
