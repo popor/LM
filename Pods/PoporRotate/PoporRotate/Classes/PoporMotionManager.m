@@ -26,26 +26,26 @@
         //NSLog(@"PoporMotionManager : Device Motion(陀螺仪) Available");
         __weak typeof(self) weakSelf = self;
         [self.motionManager startDeviceMotionUpdatesToQueue:[NSOperationQueue currentQueue]  withHandler: ^(CMDeviceMotion *motion, NSError*error){
-            dispatch_async(dispatch_get_main_queue(), ^{
+            if (weakSelf.motionManager.deviceMotion) {
                 if (weakSelf.finishBolck) {
                     weakSelf.finishBolck(weakSelf, YES);
                 }
-            });
+                
+                [weakSelf stopMonitor];
+            }
         }];
     } else {
         //NSLog(@"PoporMotionManager : No device motion(陀螺仪) on device.");
-        self.motionManager = nil;
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (self.finishBolck) {
-                self.finishBolck(self, NO);
-            }
-        });
+        if (self.finishBolck) {
+            self.finishBolck(self, NO);
+        }
+        [self stopMonitor];
     }
 }
 
 - (void)stopMonitor {
     [self.motionManager stopDeviceMotionUpdates];
+    self.motionManager = nil;
 }
 
 - (UIImageOrientation)imageOritation {
@@ -67,8 +67,11 @@
 - (UIDeviceOrientation)handleDeviceMotion:(CMDeviceMotion *)deviceMotion{
     double x = deviceMotion.gravity.x;
     double y = deviceMotion.gravity.y;
-    //NSLog(@"x:%f, y:%f", x, y);
+    //NSLog(@"deviceMotion:%@, x:%f, y:%f", deviceMotion, x, y);
     
+    if (x == 0 && y == 0) {
+        return UIDeviceOrientationPortrait;
+    }
     if (fabs(y) >= fabs(x)) {
         if (y >= 0){
             //NSLog(@"PoporOrientation PoporMotionManager: UIDeviceOrientationPortraitUpsideDown");

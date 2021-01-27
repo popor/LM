@@ -31,7 +31,7 @@ target 'LM' do
   
   #  pod 'PoporRotate', '1.2'
   #  pod 'PoporRotate', :path => '/Users/popor/Documents/wkq/GitHubSDK/PoporRotate'
-  pod 'PoporRotate', :git=>'https://github.com/popor/PoporRotate.git' , :branch => 'main', :tag => '1.3'
+  pod 'PoporRotate', :git=>'https://github.com/popor/PoporRotate.git' , :branch => 'main', :tag => '1.5'
   
   pod 'Masonry'
   #  pod 'YYModel'

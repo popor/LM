@@ -11,6 +11,9 @@
 #import "UIDevice+PoporRotate.h"
 
 NS_ASSUME_NONNULL_BEGIN
+/**
+ 用法可以参考 README.md
+ */
 
 @interface PoporRotate : NSObject
 
@@ -31,16 +34,18 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - VC 部分
 - (void)orientationAll;  // iPhone只有上左右, iPad有上下左右.
 
+- (void)orientationAll_high:(UIDeviceOrientation)orientation;
+
 /**
  *  @brief 允许屏幕全部方向, 但是优先选择某个方向组合(priorityIOMask), 假如没有匹配则使用highIOMask
- *
- *  @param priorityIOMask 可以为UIInterfaceOrientationMaskPortrait, 也可以是:UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskLandscapeRight. 注意不是UIDeviceOrientation类型;
+ *  @param allIOMask 允许旋转的全部方向.
+ *  @param priorityIOMask 优先旋转的方向, 包含于allIOMask. 可以为UIInterfaceOrientationMaskPortrait, 也可以是:UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskLandscapeRight. 注意不是UIDeviceOrientation类型;
  *  注意UIInterfaceOrientation 和 UIInterfaceOrientationMask 相对于UIDeviceOrientation的左右是相反的.
  *  
  *  @param highIOMask 包含于priorityOrientation
  *
  */
-- (void)orientationAll_priority:(UIInterfaceOrientationMask)priorityIOMask high:(UIInterfaceOrientationMask)highIOMask;
+- (void)orientation_all:(UIInterfaceOrientationMask)allIOMask priority:(UIInterfaceOrientationMask)priorityIOMask high:(UIInterfaceOrientationMask)highIOMask;
 
 - (void)orientationLeft; // 针对于iPhone或者iPad.
 - (void)orientationRitht;// 针对于iPhone或者iPad.

@@ -53,31 +53,18 @@
         } else {
             [UIDevice updateOrientation:UIDeviceOrientationPortrait];
         }
-        [poporMotionManager stopMonitor];
     }];
 }
 
-/**
- *  @brief 允许屏幕全部方向, 但是优先选择某个方向组合(priorityIOMask), 假如没有匹配则使用highIOMask
- *
- *  @param priorityIOMask 可以为UIInterfaceOrientationMaskPortrait, 也可以是:UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskLandscapeRight. 注意不是UIDeviceOrientation类型
- *  @param highIOMask 包含于priorityOrientation
- *
- */
-- (void)orientationAll_priority:(UIInterfaceOrientationMask)priorityIOMask high:(UIInterfaceOrientationMask)highIOMask {
+- (void)orientation_all:(UIInterfaceOrientationMask)allIOMask priority:(UIInterfaceOrientationMask)priorityIOMask high:(UIInterfaceOrientationMask)highIOMask {
     self.autorotate = YES;
-    
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        self.supportedInterfaceOrientations = UIInterfaceOrientationMaskAll;
-    } else {
-        self.supportedInterfaceOrientations = UIInterfaceOrientationMaskAllButUpsideDown;
-    }
+    self.supportedInterfaceOrientations = allIOMask;
     
     self.pMM = [PoporMotionManager new];
     [self.pMM startMonitor:^(PoporMotionManager *poporMotionManager, BOOL success) {
         if (success) {
             UIInterfaceOrientationMask pmmIOMask = poporMotionManager.interfaceOrientationMask;
-            //NSLog(@"%li - %li", pmmIOMask, pmmIOMask);
+            //NSLog(@"highIOMask: %li - , pmmIOMask: %li", highIOMask, pmmIOMask);
             if (priorityIOMask & pmmIOMask) {
                 [UIDevice updateOrientation:[UIDevice deviceOrientation_interfaceOrientationMask:pmmIOMask]];
             } else {
@@ -86,7 +73,6 @@
         } else {
             [UIDevice updateOrientation:[UIDevice deviceOrientation_interfaceOrientationMask:highIOMask]];
         }
-        [poporMotionManager stopMonitor];
     }];
 }
 
@@ -136,7 +122,6 @@
         } else {
             [UIDevice updateOrientation:priorityDeviceOrientation];
         }
-        [poporMotionManager stopMonitor];
     }];
 }
 
@@ -167,7 +152,6 @@
         } else {
             [UIDevice updateOrientation:priorityDeviceOrientation];
         }
-        [poporMotionManager stopMonitor];
     }];
     
 }
